@@ -1,8 +1,6 @@
 <?php
 ob_start();
 
-// cambio
-
 /**
  * REALHOST 2008
  * $LastChangedDate: 2008-09-19 10:50:29 -0500 (Fri, 19 Sep 2008) $
@@ -825,6 +823,21 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==0){
                                         </td>
                                     </tr>
                                     <!--Termina-->
+                                    <!-- COTIZADOR MAESTRO-->
+                                    <tr>
+                                        <td class="menu_group_item">
+                                            <label><a href="modulos/index.php?r=cotizador/index"><li>Cotizador Maestro</li></a></label>
+                                        </td>
+                                    </tr>
+                                    <!-- termina -->
+
+                                    <!-- SIMULACION AUMENTOS DE PRECIO -->
+                                    <tr>
+                                        <td class="menu_group_item">
+                                            <label><a href="modulos/index.php?r=Simulaciones/index"><li>Simulación Aumentos De Precio</li></a></label>
+                                        </td>
+                                    </tr>
+                                    <!-- termina -->
                                     <tr>
                                         <td class="menu_group_item">
                                             <label><a href="modulos/index.php?r=reportes/tarjetas"><li>Reporte Tarjetas de Debito</li></a></label>
