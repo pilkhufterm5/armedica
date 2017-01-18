@@ -3,13 +3,13 @@
         
 
         $("#datosHistorial").dataTable({
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
         	"sPaginationType": "bootstrap",
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
+
+
+
              dom: 'T<"clear">lfrtip',
             tableTools: {
                 aButtons: [{
@@ -117,8 +117,8 @@
 	                    </tr>
 	                </thead>
 	                <tbody id="Contenido">
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
         <?php
             foreach ($datosHistorial as $_datosHistorial){
             	if (empty($_datosHistorial['permanencia'])) {
@@ -165,9 +165,9 @@
 					}
 
         ?>
-=======
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
+
+
 	                    <?php
 	                        foreach ($datosHistorial as $_datosHistorial){
 	                        	if (empty($_datosHistorial['permanencia'])) {
@@ -214,10 +214,10 @@
 									}
 
 	                    ?>
-<<<<<<< HEAD
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
+
+
+
 	                        <tr>
 	                            <td><?= $_datosHistorial['folio'] ?></td>
 	                            <td><?= $_datosHistorial['nombre'] ?></td>
