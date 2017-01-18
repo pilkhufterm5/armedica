@@ -920,7 +920,15 @@ class FacturacionController extends Controller {
         foreach ($_ListaPlanes as $Planes) {
             $ListaPlanes[$Planes['stockid']] = $Planes['description'];
         }
+<<<<<<< HEAD
+<<<<<<< HEAD
+        $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(' paymentid NOT IN (3,4,6,7)'), 'paymentid', 'paymentname');
+=======
         $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(' paymentid NOT IN (3,6,7)'), 'paymentid', 'paymentname');
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+        $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(' paymentid NOT IN (3,6,7)'), 'paymentid', 'paymentname');
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
         $ListaFrecuenciaPago = CHtml::listData(FrecuenciaPago::model()->findAll(/*" sucursal = 'MTY' "*/), 'id', 'frecuencia');
 
 
@@ -4955,8 +4963,16 @@ array(
                     (rh_titular.movimientos_afiliacion) as AfilStatus,
                     (rh_cobranza.cobrador) as AfilCobrador,
                     (rh_titular.asesor) as AfilAsesor,
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
                     (rh_titular.fecha_ingreso) as fecha_ingreso,
                     (rh_titular.fecha_ultaum) as fecha_ultaum,
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+                    (rh_titular.fecha_ingreso) as fecha_ingreso,
+                    (rh_titular.fecha_ultaum) as fecha_ultaum,
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
                     (rh_cobranza.stockid) as AfilProduct,
                     (rh_cobranza.frecuencia_pago) as AfilFrecuenciaPago,
                     (rh_cobranza.paymentid) as AfilMetodoPago,
@@ -4988,17 +5004,44 @@ array(
                     LEFT JOIN rh_titular ON debtortrans.debtorno = rh_titular.debtorno
                     LEFT JOIN rh_cobranza ON rh_titular.folio = rh_cobranza.folio
                     LEFT JOIN rh_foliosasignados on rh_foliosasignados.folio = rh_titular.folio
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    # Agregamos un JOIN para obtener los motivos de las notas de credito - por Daniel Villarreal el 14 de Diciembre del 2015
+                    LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
+                    # Termina
+                WHERE 1=1 " . $Where . " AND debtortrans.type in(10) GROUP BY debtortrans.id ";
+=======
                     LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
                 WHERE 1=1 " . $Where . " AND debtortrans.type in(10) GROUP BY debtortrans.id";
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+                    LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
+                WHERE 1=1 " . $Where . " AND debtortrans.type in(10) GROUP BY debtortrans.id";
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
 /*  AND rh_titular.movimientos_afiliacion = 'Activo'  */
 
                 $_2GetInvoiceDataResult = DB_query($_2GetInvoiceData, $db);
                 $_InvoiceQTY = DB_num_rows($_2GetInvoiceDataResult);
         }
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+        $_InvoiceData = array();
+        while ( $_InvoiceData = DB_fetch_assoc($_2GetInvoiceDataResult)) {
+            $InvoiceData[] = $_InvoiceData;
+             $_2GetCreditNotes = "SELECT
+                   #(debtortrans.tipo_factura) AS TipoFactura,
+=======
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
         $i=0;
         while ( $_InvoiceData = DB_fetch_assoc($_2GetInvoiceDataResult)) {
             $InvoiceData[] = $_InvoiceData;
              $_2GetCreditNotes = "SELECT
+<<<<<<< HEAD
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
                     (debtortrans.rh_status) AS StatusFactura,
                     (debtortrans.alloc) AS LOPAGADO,
                     (debtortrans.ovamount + debtortrans.ovgst + debtortrans.ovfreight + debtortrans.ovdiscount- debtortrans.alloc) AS SALDO,
@@ -5014,11 +5057,31 @@ array(
                      FROM debtortrans
             JOIN custallocns ca1 on debtortrans.id = ca1.transid_allocfrom
             LEFT JOIN  rh_cfd__cfd ON rh_cfd__cfd.id_debtortrans = debtortrans.id
+<<<<<<< HEAD
+<<<<<<< HEAD
+            # Agregamos un JOIN para obtener los motivos de las notas de credito - por Daniel Villarreal el 14 de Diciembre del 2015
             LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
+            # Termina
+=======
+            LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+            LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
             WHERE type = 11 and ca1.transid_allocto = ".$_InvoiceData['id'];
 
             $_2GetInvoiceDataResultNC = DB_query($_2GetCreditNotes, $db);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+             while ( $_InvoiceDataNC = DB_fetch_assoc($_2GetInvoiceDataResultNC)) {
+                $InvoiceData[] = array_merge($_InvoiceData,$_InvoiceDataNC);
+            }
+        }
+
+=======
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
             $query = "SELECT 
                     fecha_reactivacion from rh_movimientos_afiliacion where folio=".$_InvoiceData["AfilNo"]." order by id desc limit 1";
             $res = DB_query($query, $db);
@@ -5032,6 +5095,10 @@ array(
             }
         }
         //exit();
+<<<<<<< HEAD
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
         //Cobrador  Asesor  Producto    Frec.Pago   Form.Pago
         $ListaCobradores = CHtml::listData(Cobradores::model()->findAll(), 'id', 'nombre');
         $ListaAsesores = CHtml::listData(Comisionista::model()->findAll('activo=1'), 'id', 'comisionista');
@@ -5042,7 +5109,15 @@ array(
         $ListaTipoFacturas = CHtml::listData(Tipofacturas::model()->findAll(), 'id', 'tipo');
 
         //FB::INFO($_2GetInvoiceData,'____________________________2GetInvoiceData');
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
 //print_r($InvoiceData);
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+//print_r($InvoiceData);
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
 
         $this->render("relacionfacturas",array(
             "InvoiceData" => $InvoiceData,
@@ -6331,6 +6406,143 @@ public function CreaPedidoEmisionMasiva1Concepto($DebtorNo,$EmpresaPadre,$Cambia
                 $Fecha_Corte =  date ( 'Y-m-d' , $Fecha_Corte);       
         }       
     } //   public function actionRegularpagosadelantados()
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+
+/*******************************************************************************************
+FUNCION PARA GENERAR LA CONCILIACION DE LAS FACTURAS DEL MES SELECCIONADO
+
+      Autor:    Eliobeth Ruiz
+      Fecha:    martes 10 de enero del 2017
+Propietario:    ARMedica      
+*******************************************************************************************/
+public function actionConciliacionFactura(){
+
+if (!empty($_POST['Fecha_Inicial'])) {
+    
+/*** OBTENER TODAS LAS FACTURAS DE LOS FOLIOS CON PAGOS EN EFECTIVO ***/
+
+    $sql_conciliacion = "
+        SELECT titular.folio, titular.debtorno, titular.fecha_ingreso, 
+        CONCAT(titular.name, ' ', titular.apellidos) as NombreTitular,
+        titular.movimientos_afiliacion as estatus,
+        (stkm.description) as plan_producto,
+        (payfrec.frecuencia) as frecuencia_pago,
+        (payments.paymentname) as forma_pago,
+        titular.costo_total as tarifa,
+        cfd.folio as num_factura,
+        cfd.fecha as fecha_factura,
+        (debtor.ovamount + debtor.ovgst) as monto_factura,
+        debtor.alloc as total_pagado
+FROM rh_titular titular
+JOIN rh_cobranza cobranza ON titular.folio = cobranza.folio
+JOIN rh_foliosasignados fasignados ON titular.folio = fasignados.folio
+JOIN rh_cobradores cobradores ON cobranza.cobrador = cobradores.id
+JOIN stockmaster stkm ON cobranza.stockid = stkm.stockid
+JOIN rh_frecuenciapago payfrec ON cobranza.frecuencia_pago = payfrec.id
+JOIN paymentmethods payments ON cobranza.paymentid = payments.paymentid
+RIGHT JOIN debtortrans debtor ON titular.debtorno = debtor.debtorno
+RIGHT JOIN rh_cfd__cfd cfd ON cfd.id_debtortrans =  debtor.id
+WHERE stkm.is_cortesia = 0
+    AND titular.movimientos_afiliacion = 'Activo'
+    AND fasignados.tipo_membresia = 'Socio'
+    AND date_format(date(titular.fecha_ingreso),'%Y%m') != date_format(now(),'%Y%m')
+    AND titular.costo_total > 0
+    AND (payments.paymentname != 'TARJETA DE CREDITO' and payments.paymentname != 'TARJETA DE DEBITO')
+    AND cfd.serie != 'L'
+    AND debtor.ovamount > 0
+    AND debtor.trandate LIKE '".$_POST['Fecha_Inicial']."%'";
+        $datos_conciliacion = Yii::app()->db->createCommand($sql_conciliacion)->queryAll();
+
+/*** OBTENER TODAS LAS FACTURAS DE LOS FOLIOS CON PAGOS CON TARJETA (CREDITO O DEBITO) ***/
+$sql_conciliacion_tarjetas = "
+        SELECT titular.folio, titular.debtorno, titular.fecha_ingreso, 
+        CONCAT(titular.name, ' ', titular.apellidos) as NombreTitular,
+        titular.movimientos_afiliacion as estatus,
+        (stkm.description) as plan_producto,
+        (payfrec.frecuencia) as frecuencia_pago,
+        (payments.paymentname) as forma_pago,
+        titular.costo_total as tarifa,
+        cfd.folio as num_factura,
+        cfd.fecha as fecha_factura,
+        (debtor.ovamount + debtor.ovgst) as monto_factura,
+        debtor.alloc as total_pagado
+FROM rh_titular titular
+JOIN rh_cobranza cobranza ON titular.folio = cobranza.folio
+JOIN rh_foliosasignados fasignados ON titular.folio = fasignados.folio
+JOIN rh_cobradores cobradores ON cobranza.cobrador = cobradores.id
+JOIN stockmaster stkm ON cobranza.stockid = stkm.stockid
+JOIN rh_frecuenciapago payfrec ON cobranza.frecuencia_pago = payfrec.id
+JOIN paymentmethods payments ON cobranza.paymentid = payments.paymentid
+RIGHT JOIN debtortrans debtor ON titular.debtorno = debtor.debtorno
+RIGHT JOIN rh_cfd__cfd cfd ON cfd.id_debtortrans =  debtor.id
+WHERE stkm.is_cortesia = 0
+    AND titular.movimientos_afiliacion = 'Activo'
+    AND fasignados.tipo_membresia = 'Socio'
+    AND date_format(date(titular.fecha_ingreso),'%Y%m') != date_format(now(),'%Y%m')
+    AND titular.costo_total > 0
+    AND (payments.paymentname = 'TARJETA DE CREDITO' || payments.paymentname = 'TARJETA DE DEBITO')
+    AND cfd.serie != 'L'
+    AND debtor.ovamount > 0
+    AND debtor.trandate LIKE '".$_POST['Fecha_Final']."%'";
+        $datos_conciliacion_tarjetas = Yii::app()->db->createCommand($sql_conciliacion_tarjetas)->queryAll();
+
+/*** UNIR LAS DOS CONSULTAS PARA OBTENER TODOS LOS REGISTROS CON TODOS LOS METODOS DE PAGO ***/
+$union_datos = array_merge($datos_conciliacion, $datos_conciliacion_tarjetas);
+
+//pr($union_datos);
+$socio_por_folio=array();
+foreach ($union_datos as $k1 => $v1) {
+        $socio_por_folio[]=$v1['folio'];
+}
+
+$folio = implode(",", $socio_por_folio);
+$_folio = str_replace(",", "','", $folio);
+//IN ('".$_folio."')
+
+/*** OBTENER TODAS LAS FACTURAS DE LOS FOLIOS CON PAGOS CON TARJETA (CREDITO O DEBITO) ***/
+$_sql_conciliacion_tarjetas = "
+        SELECT titular.folio, titular.debtorno, titular.fecha_ingreso, 
+        CONCAT(titular.name, ' ', titular.apellidos) as NombreTitular,
+        titular.movimientos_afiliacion as estatus, titular.costo_total,
+        (stkm.description) as plan_producto,
+        (payfrec.frecuencia) as frecuencia_pago,
+        (payments.paymentname) as forma_pago
+FROM rh_titular titular
+JOIN rh_cobranza cobranza ON titular.folio = cobranza.folio
+JOIN stockmaster stkm ON cobranza.stockid = stkm.stockid
+JOIN rh_frecuenciapago payfrec ON cobranza.frecuencia_pago = payfrec.id
+JOIN paymentmethods payments ON cobranza.paymentid = payments.paymentid
+where titular.folio NOT IN ('".$_folio."')
+AND (payments.paymentname != 'TARJETA DE CREDITO' and payments.paymentname != 'TARJETA DE DEBITO')
+AND stkm.is_cortesia = 0 
+AND titular.movimientos_afiliacion = 'Activo'";
+        $_datos_conciliacion_tarjetas = Yii::app()->db->createCommand($_sql_conciliacion_tarjetas)->queryAll();
+
+
+//$todos_datos = array_merge($union_datos,$_datos_conciliacion_tarjetas);
+
+
+
+//pr($_todos_datos);
+/* 
+$consulta_todos_folios = "
+    SELECT distinct(folio) 
+    FROM rh_titular as tt 
+    WHERE tt.folio NOT IN ('".$_folio."') AND tt.movimientos_afiliacion = 'Activo'";
+ $datos_por_folio = Yii::app()->db->createCommand($consulta_todos_folios)->queryAll();
+
+pr($datos_por_folio);   */
+
+    }
+
+//$union_datos = array_merge($datos_conciliacion, $datos_conciliacion_tarjetas);
+//echo "<pre>";print_r($data);exit();
+// " . $_POST['Fecha_Inicial'] . "
+=======
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
     
     /*FUNCION PARA GENERAR LA CONCILIACION DE LAS FACTURAS DEL MES SELECCIONADO*/
     public function actionConciliacionFactura(){
@@ -6435,11 +6647,24 @@ public function CreaPedidoEmisionMasiva1Concepto($DebtorNo,$EmpresaPadre,$Cambia
             AND titular.movimientos_afiliacion = 'Activo'";
             $_datos_conciliacion_tarjetas = Yii::app()->db->createCommand($_sql_conciliacion_tarjetas)->queryAll();
         }
+<<<<<<< HEAD
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
         $this->render('Conciliacion', array(
                     'datosConciliacion' => $union_datos,    
                     'datosConciliacionSinFactura' => $_datos_conciliacion_tarjetas,    
                     //'datosConciliacionTarjetas' => $datos_conciliacion_tarjetas,
 
             )); 
+<<<<<<< HEAD
+<<<<<<< HEAD
+} // fin de function actionConciliacionFactura
+
+=======
     } // fin de function actionConciliacionFactura
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+    } // fin de function actionConciliacionFactura
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
 }//End Class

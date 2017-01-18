@@ -679,6 +679,286 @@ order by cast(titular.folio as integer)")->queryAll();
             ));
     } 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+/*** INICIA MODULO ACTIVOS FIJOS
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+***/
+
+public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
+    global $db, $AddCC, $BCC;
+    FB::INFO($Folio,'____________________-FOLIO');
+    //FB::INFO($_POST,'::::::::::::____POST');
+    if (!empty($_POST['SendMail']['Folio']) && $_POST['SendMail']['Tipo']) {
+        $Folio = $_POST['SendMail']['Folio'];
+        $Tipo = $_POST['SendMail']['Tipo'];
+        parse_str($_POST['SendMail']['Folio'], $datos);
+    }
+    FB::INFO($Folio,'_________________SENDTO');
+    foreach ($datos['EnviarCarta'] as $key => $folio) {
+        $GetEmail = Yii::app()->db->createCommand()->select(' email ')->from('rh_cobranza')->where('folio = "'
+        . $folio . '"')->queryAll();
+        $EmailTo = explode(",", str_replace(array(';',' '), ',', $GetEmail[0]['email']));
+        $Para = "";
+        $Para= str_replace(",,",",",implode(",",array_map(function($arreglo){
+            return trim($arreglo);
+        }, $EmailTo)));
+
+        $EmailTo[0] = $Para;
+        if(!isset($BCC))
+        $BCC ="mary.angeles.perez@hotmail.com"; // Aquí podría ir algún correo que quisieran ponerle copia oculta para que reciba todos los correos que se envían con la carta de Aviso de Aumento, ojo no olvidar que estos programas son generales para todas las plazas, a lo que quiero entender es que el correo que   pongan ahí recibirá correos de todas las plazas.
+
+        FB::INFO($EmailTo,'_______________________EMAIL');
+
+        Yii::app()->user->setFlash("success", "El Envio de Correos se ha realizado Correctamente...");
+        $ActualizarStatusCarta = "update wrk_simulacion_aumentosprecio set enviar_carta = :enviar_carta where
+        folio = :folio";
+        $Parametros_status_carta = array(
+        ':enviar_carta'=>'1',
+        ':folio'=>$folio
+        );
+
+        Yii::app()->db->createCommand($ActualizarStatusCarta)->execute($Parametros_status_carta);switch ($Tipo) {
+                case 'CartaAumentoPrecio':
+                    $from = 'AR MEDICA';
+                    $To = $EmailTo[0];
+                    $Subject = 'AVISO IMPORTANTE PARA EL No. FOLIO : ' . $folio;
+                    $Mensaje = 'CARTA AVISO DE AUMENTO DE PRECIO';
+                    $PDF = $this->actionAumentopreciopdf('',$Ret = 'S');
+                    $attachment =array( array('nombre'=>'carta_aumento_precio.pdf','archivo'=>$PDF));
+                    $Response = $this->EnviarMail($from, $To, $Subject, $Mensaje, $attachment , $BCC, $repplyTo = '',
+                    $AddCC);
+                    if ($Response == "success") {
+                        echo CJSON::encode(array(
+                        'requestresult' => 'ok',
+                        'message' => "Se ha enviado un Email ala direccion: ". $To
+                        ));
+                    }else{
+                        echo CJSON::encode(array(
+                        'requestresult' => 'fail',
+                        'message' => "Ocurrio un error inesperado"
+                        ));
+                    }
+                break;
+                default:
+                break;
+        }
+    }
+}
+
+public function actionAumentopreciopdf($name= '', $Ret = ''){
+    chdir(dirname(__FILE__));
+    include_once ($_SERVER['LocalERP_path'] . '/PHPJasperXML/class/fpdf/fpdf.php');
+    $pdf = new FPDF('P','mm','A4');
+    $pdf->AliasNbPages();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial', '', 7);
+    $pdf->Image($_SERVER['LocalERP_path'] . "/companies/" . $_SESSION['DatabaseName'] .
+    "/carta_aumento_precio.jpg", 0, 0, 210, 'L');
+    $pdfcode = $pdf->output($name, $Ret);
+        return $pdfcode;
+}
+
+
+public function actionSimulacionprecios(){
+    FB::INFO($_POST,'_____________________-POST');
+
+    $GetData = array();
+    $WhereString = " 1 = 1 ";
+    $WhereParams=array();
+
+    if(isset($_POST['BUSCAR'])){
+        if (!empty($_POST['FORMA_PAGO'])) {
+            $WhereString .= " AND cobranza.paymentid = :paymentid";
+            $WhereParams[':paymentid'] = $_POST['FORMA_PAGO'];
+        }
+
+        if (!empty($_POST['Folio'])) {
+            $WhereString .= " AND titular.folio = :folio";
+            $WhereParams[':folio'] = $_POST['Folio'];
+        }
+
+        if (!empty($_POST['FRECUENCIA_PAGO'])) {
+            $WhereString .= " AND cobranza.frecuencia_pago = :frecuencia_pago";
+            $WhereParams[':frecuencia_pago'] = $_POST['FRECUENCIA_PAGO'];
+        }
+
+        if (!empty($_POST['PLAN'])) {
+            $WhereString .= " AND cobranza.stockid = :stockid";
+            $WhereParams[':stockid'] = $_POST['PLAN'];
+        }
+
+        if (!empty($_POST['STATUS'])) {
+            $WhereString .= " AND titular.movimientos_afiliacion = :status ";
+            $WhereParams[':status'] = $_POST['STATUS'];
+        }
+
+        if (!empty($_POST['INICIO']) && !empty($_POST['FIN'])) {
+            $WhereString .= " AND (date(titular.fecha_ingreso) >= date(:inicio) AND
+            date(titular.fecha_ingreso) <= date(:fin)) ";
+            $WhereParams[':inicio'] = $_POST['INICIO'];
+            $WhereParams[':fin'] = $_POST['FIN'];
+        }
+    }
+
+
+    FB::INFO($WhereString,'____________WHERE');
+    FB::INFO($WhereParams,'____________WHEREPARAMS');
+
+    $GetData = Yii::app()->db->createCommand()->select("
+        (titular.folio) AS Folio,
+        (titular.debtorno) AS DebtorNo,
+        CONCAT(titular.name,' ',titular.apellidos) AS NOMBRE,
+        (emp.empresa) AS Empresa,
+        (titular.movimientos_afiliacion) AS ESTATUS_TITULAR,
+        count(custbranch.branchcode) AS NumSocios,
+        (titular.fecha_ingreso) AS FECHA_INSCIPCION,
+        (stkm.description) AS PLAN,
+        (pm.paymentname) AS FORMA_PAGO,
+        (fp.frecuencia) AS FRECUENCIA_PAGO,
+        (titular.servicios_mes) AS ServiciosMes,
+        (titular.servicios_acumulados) AS ServiciosAcum,
+        (titular.fecha_ultaum) AS FECHA_ULTIMO_AUMENTO,
+        (titular.costo_total) AS CostoAfiliacion ")->from ('rh_titular titular')
+        ->leftjoin('rh_cobranza cobranza','cobranza.folio = titular.folio')
+        ->leftjoin('custbranch','custbranch.folio = titular.folio
+        AND custbranch.movimientos_socios <> "Titular" AND movimientos_socios= "Activo" ')
+        ->leftjoin('stockmaster stkm','stkm.stockid = cobranza.stockid')
+        ->leftjoin('paymentmethods pm','cobranza.paymentid = pm.paymentid')
+        ->leftjoin('rh_frecuenciapago fp','cobranza.frecuencia_pago = fp.id')
+        ->leftjoin('rh_empresas emp','cobranza.empresa=emp.id')
+        ->where($WhereString ." AND titular.movimientos_afiliacion='Activo'
+        AND titular.costo_total <>0
+        AND titular.folio<>' '
+        AND titular.folio<>0
+        AND stkm.is_cortesia = 0 
+        AND titular.fecha_ultaum<=CURDATE()
+        AND titular.fecha_ultaum <= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)", $WhereParams)
+        ->group('titular.folio')
+        ->queryAll();
+
+    $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(), 'paymentid', 'paymentname');
+    $ListaFrecuenciaPago = CHtml::listData(FrecuenciaPago::model()->findAll(), 'id', 'frecuencia');
+    $_ListaPlanes = Yii::app()->db->createCommand()
+        ->select(' stockid, description ')
+        ->from('stockmaster')
+        ->where('categoryid = "AFIL" ORDER BY stockid ASC')->queryAll();
+
+    $ListaPlanes = array();
+
+    foreach ($_ListaPlanes as $Planes) {
+        $ListaPlanes[$Planes['stockid']] = $Planes['description'];
+    }
+
+
+    $this->render("simulacionprecios", array(
+        "Simulacionprecios" => $GetData,
+        "ListaFormasPago" => $ListaFormasPago,
+        "ListaFrecuenciaPago" => $ListaFrecuenciaPago,
+        "ListaPlanes" => $ListaPlanes
+    ));
+}
+
+
+public function actionSimulacionpreciosaplicada(){
+    FB::INFO($_POST,'_____________________-POST');
+
+    $GetData = array();
+    $WhereString = " 1 = 1 ";
+    $WhereParams=array();
+
+    if(isset($_POST['BUSCAR'])){
+        if (!empty($_POST['FORMA_PAGO'])) { 
+            $WhereString .= " AND wrk.paymentid = :paymentid";
+            $WhereParams[':paymentid'] = $_POST['FORMA_PAGO'];
+        }
+
+        if (!empty($_POST['Folio'])) {
+            $WhereString .= " AND wrk.folio = :folio";
+            $WhereParams[':folio'] = $_POST['Folio'];
+        }
+
+        if (!empty($_POST['FRECUENCIA_PAGO'])) {
+            $WhereString .= " AND wrk.frecuencia_pago = :frecuencia_pago";
+            $WhereParams[':frecuencia_pago'] = $_POST['FRECUENCIA_PAGO'];
+        }
+
+        if (!empty($_POST['PLAN'])) {
+            $WhereString .= " AND wrk.stockid = :stockid";
+            $WhereParams[':stockid'] = $_POST['PLAN'];
+        }
+
+        if (!empty($_POST['STATUS'])) {
+            $WhereString .= " AND wrk.movimientos_afiliacion = :status ";
+            $WhereParams[':status'] = $_POST['STATUS'];
+        }
+
+        if (!empty($_POST['INICIO']) && !empty($_POST['FIN'])) {
+            $WhereString .= " AND (date(wrk.fecha_aumento_tarifa) >= date(:inicio) AND
+            date(wrk.fecha_aumento_tarifa) <= date(:fin)) ";
+            $WhereParams[':inicio'] = $_POST['INICIO'];
+            $WhereParams[':fin'] = $_POST['FIN'];
+        }
+    }
+
+
+    FB::INFO($WhereString,'____________WHERE');
+    FB::INFO($WhereParams,'____________WHEREPARAMS');
+
+    $GetData = Yii::app()->db->createCommand()
+        ->select("wrk.id,
+        wrk.folio as Folio,
+        CONCAT(wrk.nombre,'',wrk.apellidos) as Nombre,
+        wrk.fecha_ingreso,
+        wrk.movimientos_afiliacion,
+        wrk.fecha_ultimo_aumento,
+        wrk.costo_actual,
+        stkm.description as stockid,
+        pm.paymentname as paymentid,
+        fp.frecuencia as frecuencia_pago,
+        wrk.prc_aumento_tarifa,
+        wrk.fecha_aumento_tarifa,
+        wrk.nueva_tarifa,
+        wrk.usuario,
+        wrk.enviar_carta ")
+        ->from ("wrk_simulacion_aumentosprecio wrk")
+        ->leftjoin('stockmaster stkm','stkm.stockid = wrk.stockid')
+        ->leftjoin('paymentmethods pm','wrk.paymentid = pm.paymentid')
+        ->leftjoin('rh_frecuenciapago fp','wrk.frecuencia_pago = fp.id')
+        ->where($WhereString ." AND status='1'", $WhereParams)
+        ->queryAll();
+    $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(), 'paymentid', 'paymentname');
+    $ListaFrecuenciaPago = CHtml::listData(FrecuenciaPago::model()->findAll(), 'id', 'frecuencia');
+    $_ListaPlanes = Yii::app()->db->createCommand()
+        ->select(' stockid, description ')
+        ->from('stockmaster')
+        ->where('categoryid = "AFIL" ORDER BY stockid ASC')->queryAll();
+
+    $ListaPlanes = array();
+
+    foreach ($_ListaPlanes as $Planes) {
+        $ListaPlanes[$Planes['stockid']] = $Planes['description'];
+    }
+
+    $this->render("simulacionpreciosaplicada", array(
+        "Simulacionpreciosaplicada" => $GetData,
+        "ListaFormasPago" => $ListaFormasPago,
+        "ListaFrecuenciaPago" => $ListaFrecuenciaPago,
+        "ListaPlanes" => $ListaPlanes
+    ));
+}
+
+
+/***
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+        TERMINA MODULO ACTIVOS FIJOS***/
+
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
     //Termina
 
 /*

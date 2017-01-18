@@ -3,6 +3,13 @@
         
 
         $("#datosHistorial").dataTable({
+<<<<<<< HEAD
+<<<<<<< HEAD
+        	"sPaginationType": "bootstrap",
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
              dom: 'T<"clear">lfrtip',
             tableTools: {
                 aButtons: [{
@@ -110,6 +117,57 @@
 	                    </tr>
 	                </thead>
 	                <tbody id="Contenido">
+<<<<<<< HEAD
+<<<<<<< HEAD
+        <?php
+            foreach ($datosHistorial as $_datosHistorial){
+            	if (empty($_datosHistorial['permanencia'])) {
+						$_datosHistorial['permanencia'] = "Sin Fecha Capturada";
+					}else{
+				// Dar formato a la cantidad de dias en año mes dias.
+						$_datosHistorial['permanencia'] = $_datosHistorial['permanencia']/365;
+				//obtener los años
+						$num_year = $_datosHistorial['permanencia'];
+						$anios = substr($num_year, 0,2);
+						$_años = str_replace(".", "", $anios);
+						if ($_años == 0) {
+							$__años = "";
+							$leyendaAños = "";
+						}elseif ($_años == 1) {
+							$__años = $_años;
+							$leyendaAños = " Año ";
+						}else{
+							$__años = $_años;
+							$leyendaAños = " Años ";
+						}
+				//obtener los meses
+						$meses = substr($num_year, 2, 3);
+						$meses_comparar = substr($num_year, 2,1);
+						if ($meses_comparar == ".") {
+							$_meses = str_replace(".", "0.", $meses);
+						}else{
+							$_meses = "0.".$meses;
+						}
+						$datmes = $_meses * 12 / 1;
+				//obtener los dias
+						$___meses = substr($datmes, 0,2);
+						$eliminar_dias = substr($datmes, 1,1);
+						if ($eliminar_dias == ".") {
+							$__meses = str_replace(".", "", $___meses);
+						}else{
+							$__meses = substr($___meses, 0,2);
+						}
+						if ($__meses == 1) {
+							$_______meses = $__meses." mes";
+						}else{
+							$_______meses = $__meses." meses";
+						}								
+					}
+
+        ?>
+=======
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
 	                    <?php
 	                        foreach ($datosHistorial as $_datosHistorial){
 	                        	if (empty($_datosHistorial['permanencia'])) {
@@ -156,6 +214,10 @@
 									}
 
 	                    ?>
+<<<<<<< HEAD
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+=======
+>>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
 	                        <tr>
 	                            <td><?= $_datosHistorial['folio'] ?></td>
 	                            <td><?= $_datosHistorial['nombre'] ?></td>
