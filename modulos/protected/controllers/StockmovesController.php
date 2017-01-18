@@ -9,6 +9,7 @@ include_once ($_SERVER['LocalERP_path'] . '/includes/DefineSerialItems.php');
  * @package ARMedica
  * @author  erasto@realhost.com.mx
  */
+
 class StockmovesController extends Controller
 {
 
