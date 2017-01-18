@@ -1,0 +1,201 @@
+<?php
+
+
+/**
+* Metodos necesarios para la migracion de Datos
+*/
+class MigrationController extends Controller {
+
+    public function actionIndex()
+    {
+        # code...
+        $this->render("index");
+    }
+
+
+    public function actionProcess($action=null, $run=null){
+
+        if($run == true){
+            switch ($action) {
+                case 'encrypt':
+                    $this->EncryptData();
+                    break;
+                case 'antecedentesjson':
+                    $this->_GeneraJsonAntecedentes();
+                    break;
+                default:
+                    Yii::app()->user->setFlash("danger", "Error: No se Eligio ninguna Accion");
+                    $this->redirect($this->createUrl("index"));
+                    break;
+            }
+        }
+        Yii::app()->user->setFlash("danger", "Error: No se Ejecuto ninguna Accion");
+        $this->redirect($this->createUrl("index"));
+
+    }
+
+    /**
+    * @todo
+    * Encripta los Datos de las Tarjetas Credito/Debito
+    * @author erasto@realhost.com.mx
+    */
+    protected function EncryptData(){
+
+
+        $_GetData = Yii::app()->db->createCommand()
+        ->select("folio, cuenta, vencimiento, cuenta_sat, num_plastico")
+        ->from("rh_cobranza")
+        ->where("paymentid IN(9,10)")
+        ->queryAll();
+        try {
+
+            $Transaccion = Yii::app()->db->beginTransaction();
+
+            $count = 0;
+            foreach ($_GetData as $Data) {
+
+                if(!empty($Data['folio']))
+                {
+
+                    $Encryptdata = "UPDATE rh_cobranza SET
+                        cuenta = :cuenta,
+                        vencimiento = :vencimiento,
+                        cuenta_sat = :cuenta_sat,
+                        num_plastico = :num_plastico
+                    WHERE folio = :folio
+                    ";
+
+                    $EncyptParameters = array(
+                        ":cuenta" => $this->OpenSSLEncrypt($Data['cuenta']),
+                        ":vencimiento" => $this->OpenSSLEncrypt($Data['vencimiento']),
+                        ":cuenta_sat" => $this->OpenSSLEncrypt($Data['cuenta_sat']),
+                        ":num_plastico" => $this->OpenSSLEncrypt($Data['num_plastico']),
+                        ":folio" => $Data['folio']
+                    );
+                    Yii::app()->db->createCommand($Encryptdata)->execute($EncyptParameters);
+                }
+                $count++;
+            }
+
+            $Transaccion->commit();
+            Yii::app()->user->setFlash("success", "Los datos se actualizaron Correctamente. ");
+        } catch (Exception $e) {
+            $Transaccion->rollBack();
+            Yii::app()->user->setFlash("danger", "Error: " . $e->getMessage());
+        }
+
+        $this->redirect($this->createUrl("afiliaciones/index"));
+
+    }
+
+
+
+    /**
+    * @todo
+    * Genera Documento Json para los Antecedentes Clinicos
+    * @author erasto@realhost.com.mx
+    */
+    protected function _GeneraJsonAntecedentes(){
+
+
+        $_GetData = Yii::app()->db->createCommand()
+        ->select("branchcode,folio, antecedentes_clinicos")
+        ->from("custbranch")
+        //->where("folio = 17919 AND branchcode = 1 ")
+        //->limit(1)
+        ->queryAll();
+        //FB::INFO($_GetData,'_____________data');
+
+        $LIstAntecedentesClinicos = array(
+            1 => 'ALCOHOLISMO',
+            2 => 'ALERGIA A ANALGESICO',
+            3 => 'ALERGIA A ANTIBIOTICO',
+            4 => 'ALERGIA RESPIRATORIA',
+            5 => 'ANGINA DE PECHO',
+            6 => 'ASMA',
+            7 => 'CANCER',
+            8 => 'CIRUGIAS PREVIAS',
+            9 => 'CRISIS CONVULSIVA',
+            10 => 'DIABETES',
+            11 => 'EMBOLIA CEREBRAL',
+            12 => 'ENF. INFECCIOSA',
+            13 => 'ENF. PULMONARES',
+            14 => 'FUMADOR',
+            15 => 'HIPERTENCION ARTERIAL',
+            16 => 'INFARTO PREVIO',
+            17 => 'MEDICAMENTOS HAB.',
+            18 => 'NINGUNO',
+            19 => 'OTROS',
+            20 => 'PROBLEMA AUDITIVO',
+            21 => 'PROBLEMA OCULAR',
+            22 => 'PROBLEMAS CARDIACOS',
+            23 => 'PROBLEMAS CONGENITOS',
+            24 => 'PROBLEMAS PSIQUIATRICOS',
+            25 => 'PROBLEMAS PSIQUIATRICOS',
+            26 => 'PROBLEMAS RENALES',
+            27 => 'SANGRADOS FRECUENTES',
+            28 => 'SIDA'
+        );
+        // 1-4-7-
+        // update custbranch set antecedentes_clinicos = '1-4-7-' where branchcode = 1 AND folio = 17919
+
+
+        try {
+
+            $Transaccion = Yii::app()->db->beginTransaction();
+
+            $count = 0;
+            foreach ($_GetData as $Data) {
+
+                if(!empty($Data['folio']) && !empty($Data['antecedentes_clinicos']))
+                {
+                    $AntecedentesID = explode("-", $Data['antecedentes_clinicos']);
+                    $AntecedentesJson = array();
+                    foreach ($AntecedentesID as $ARID) {
+                        if(is_numeric($ARID)) {
+                            $AntecedentesJson[] = $LIstAntecedentesClinicos[$ARID];
+                        }
+                    }
+
+                    $ActualizaAntecedentes = "UPDATE custbranch SET
+                        antecedentes_clinicos = :antecedentes_clinicos
+                    WHERE folio = :folio
+                    AND branchcode = :branchcode
+                    ";
+
+                    $ActualizaAntecedentesParameters = array(
+                        ":antecedentes_clinicos" => json_encode($AntecedentesJson,1),
+                        ":folio" => $Data['folio'],
+                        ":branchcode" => $Data['branchcode']
+                    );
+                    Yii::app()->db->createCommand($ActualizaAntecedentes)->execute($ActualizaAntecedentesParameters);
+                }
+                $count++;
+            }
+
+            $Transaccion->commit();
+            Yii::app()->user->setFlash("success", "Los datos se actualizaron Correctamente. ");
+        } catch (Exception $e) {
+            $Transaccion->rollBack();
+            Yii::app()->user->setFlash("danger", "Error: " . $e->getMessage());
+        }
+
+        $this->redirect($this->createUrl("afiliaciones/index"));
+
+    }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+

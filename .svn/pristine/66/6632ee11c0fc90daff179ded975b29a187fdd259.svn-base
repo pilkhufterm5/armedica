@@ -1,0 +1,164 @@
+<?php
+
+/**
+*
+*/
+class ReportesController extends Controller {
+
+    public function actionRelacionvmaestros(){
+
+
+        FB::INFO($_POST,'____________________POST');
+        $MaestrosData = array();
+        if(!empty($_POST)){
+
+            if(isset($_POST['IMPRIMIR'])){
+                global $db, $db_, $host, $dbuser, $dbpassword;;
+                $db_ = $db;
+                FB::INFO($db_,'________CONECTION');
+                include_once ($_SERVER['LocalERP_path'] . '/PHPJasperXML/formasmaestros.php');
+                exit;
+            }
+
+            $WhereString = " 1 = 1 ";
+
+            if (!empty($_POST['EMPRESA'])) {
+                $WhereString .= " AND cobranza.empresa = :empresa";
+                $WhereParams[':empresa'] = $_POST['EMPRESA'];
+            }
+
+            if (!empty($_POST['STATUS'])) {
+                //$Status = implode(",", $_POST['STATUS']);
+                $WhereString .= " AND titular.movimientos_afiliacion = :status ";
+                $WhereParams[':status'] = $_POST['STATUS'];
+            }
+
+            if (!empty($_POST['JUBILADOS'])) {
+                $WhereString .= " AND cobranza.sm_clavefiliacion LIKE 'E%'";
+                //$WhereParams[':status'] = $_POST['JUBILADOS'];
+                $Complemento = " , (sm_clavefiliacion) as num_empleado ";
+            }
+
+            if (!empty($_POST['QUINCENA']) && !empty($_POST['ANIO'])) {
+                //$Status = implode(",", $_POST['STATUS']);
+                $WhereString .= " AND cobranza.sm_vigencia = :vigencia ";
+                $WhereParams[':vigencia'] = $_POST['QUINCENA'] . '-' . $_POST['ANIO'];
+            }
+
+            // FB::INFO($WhereString, '_____________WHERE');
+            // FB::INFO($WhereParams, '_____________PARAMS');
+            $MaestrosData = Yii::app()->db->createCommand()->select("
+                cobranza.num_empleado,
+                cobranza.sm_depto,
+                cobranza.sm_vigencia,
+                cobranza.sm_vigencia_final,
+                (cobranza.sm_clavefiliacion) AS CLAVEFILIACION,
+                titular.costo_total,
+                CONCAT(titular.name,' ',titular.apellidos) as NombreTitular,
+                (titular.folio) FolioTitular,
+                cobranza.empresa,
+                titular.address1,
+                titular.address2,
+                titular.address4,
+                titular.address7,
+                titular.rh_tel" . $Complemento)
+            ->from("rh_titular titular")
+            ->leftjoin("rh_cobranza cobranza", "cobranza.folio = titular.folio")
+            ->where($WhereString, $WhereParams)
+            ->queryAll();
+
+        }
+
+        $this->render("relacionvmaestros", array("MaestrosData" => $MaestrosData));
+    }
+
+
+    public function actionRelacionvmaestros21(){
+
+
+        FB::INFO($_POST,'____________________POST');
+        $MaestrosData = array();
+        if(!empty($_POST)){
+
+            if(isset($_POST['IMPRIMIR'])){
+                global $db, $db_, $host, $dbuser, $dbpassword;;
+                $db_ = $db;
+                FB::INFO($db_,'________CONECTION');
+                include_once ($_SERVER['LocalERP_path'] . '/PHPJasperXML/formasmaestros.php');
+                exit;
+            }
+
+            $WhereString = " 1 = 1 ";
+
+            if (!empty($_POST['EMPRESA'])) {
+                $WhereString .= " AND cobranza.empresa = :empresa";
+                $WhereParams[':empresa'] = $_POST['EMPRESA'];
+            }
+
+            if (!empty($_POST['STATUS'])) {
+                //$Status = implode(",", $_POST['STATUS']);
+                $WhereString .= " AND titular.movimientos_afiliacion = :status ";
+                $WhereParams[':status'] = $_POST['STATUS'];
+            }
+
+            if (!empty($_POST['QUINCENA']) && !empty($_POST['ANIO'])) {
+                //$Status = implode(",", $_POST['STATUS']);
+                $WhereString .= " AND cobranza.sm_vigencia = :vigencia ";
+                $WhereParams[':vigencia'] = $_POST['QUINCENA'] . '-' . $_POST['ANIO'];
+
+            }
+
+            // FB::INFO($WhereString, '_____________WHERE');
+            // FB::INFO($WhereParams, '_____________PARAMS');
+            $MaestrosData = Yii::app()->db->createCommand()->select("
+                cobranza.num_empleado,
+                cobranza.sm_clavefiliacion,
+                cobranza.sm_depto,
+                cobranza.sm_cpresupuestal,
+                cobranza.sm_vigencia,
+                cobranza.sm_vigencia_final,
+                titular.costo_total,
+                CONCAT(titular.name,' ',titular.apellidos) as NombreTitular,
+                (titular.folio) FolioTitular,
+                cobranza.empresa,
+                titular.address1,
+                titular.address2,
+                titular.address4,
+                titular.address7,
+                titular.rh_tel")
+            ->from("rh_titular titular")
+            ->leftjoin("rh_cobranza cobranza", "cobranza.folio = titular.folio")
+            ->where($WhereString, $WhereParams)
+            ->queryAll();
+
+        }
+
+        $this->render("relacionvmaestros21", array("MaestrosData" => $MaestrosData));
+    }
+
+    public function actionEstadoscuenta(){
+
+        if(empty($_POST['FINICIO'])){
+            $_POST['FINICIO'] = date('Y-m-d', mktime(0, 0, 0, date("m") - 1, date("d"), date("Y")));
+            $_POST['FFIN'] = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")));
+        }
+
+        FB::INFO($_POST,'_______________________POST');
+
+        if(isset($_POST['IMPRIMIR'])){
+            if(isset($_POST['FOLIO'])){
+                $_POST['DebtorNo'] = $this->GetDebtorNo($_POST['FOLIO']);
+            }
+            global $db, $db_, $host, $dbuser, $dbpassword;;
+            $db_ = $db;
+            FB::INFO($db_,'________CONECTION');
+            include_once ($_SERVER['LocalERP_path'] . '/PHPJasperXML/estadoscuenta.php');
+            exit;
+        }
+
+        $this->render("estadoscuenta");
+    }
+
+
+}
+

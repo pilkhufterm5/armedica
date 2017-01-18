@@ -1,0 +1,72 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+set_time_limit(0);
+error_reporting(E_ALL);
+
+include_once('class/fpdf/fpdf.php');
+include_once("class/PHPJasperXML.inc");
+include('setting.php');
+//$db_=$db;
+
+
+
+if($_POST['EMPRESA'] == 25){
+    //SECCION 50
+    $xml =  simplexml_load_file("formasmaestros50.jrxml");
+    if($_POST['JUBILADOS'] == 1){
+        //JUBILADOS
+        $xml =  simplexml_load_file("formasmaestros_jubilados50.jrxml");
+    }
+
+    $Empresa = 25;
+}
+
+
+
+
+if($_POST['EMPRESA'] == 38){
+    //SECCION 21
+    $xml =  simplexml_load_file("formasmaestros21.jrxml");
+    $Empresa = 38;
+}
+
+if(!empty($_POST['STATUS'])){
+    $STATUS = " AND titular.movimientos_afiliacion = '{$_POST['STATUS']}' ";
+}
+
+
+
+//$xml =  simplexml_load_file("formasmaestros.jrxml");
+$rootpath=$filePath=realpath(dirname(__FILE__).'/../').'/';
+$filePath = substr($filePath, 0, strrpos( $filePath, "/")) . "/companies/$db";
+$LogoPath = $rootpath."PHPJasperXML";
+
+$PHPJasperXML = new PHPJasperXML();
+$PHPJasperXML->debugsql=false;
+$PHPJasperXML->arrayParameter=array(
+        "rootpath"=>$rootpath,
+        'filePath'=>$filePath,
+        "LogoPath" => $LogoPath,
+        "EmpresaID" => $Empresa,
+        "STATUS" => $STATUS
+        );
+$PHPJasperXML->xml_dismantle($xml);
+
+// FB::INFO($PHPJasperXML,'__________JASPER');
+// exit;
+$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+//Jaime (agregado) si es CFD guardalo en un archivo temporal para luego enviarlo por email
+if (isSet($isCfd)){
+    $filePath = $fileBasePath . '/' . $cfdName;
+    $PHPJasperXML->arrayPageSetting['name'] = $filePath;
+    $PHPJasperXML->outpage("F", $filePath);
+}else
+//Termina Jaime (agregado) si es CFD guardalo en un archivo temporal para luego enviarlo por email
+$PHPJasperXML->outpage("I");    //page output method I:standard output  D:Download file
+
+$db=$db_;

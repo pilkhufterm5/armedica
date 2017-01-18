@@ -1,0 +1,276 @@
+<?php
+
+/* $Revision: 14 $ */
+
+/* Script to delete a credit note - it expects and credit note number to delete
+not included on any menu for obvious reasons
+
+must be called directly with path/DeleteCreditnote.php?CreditNoteNo=???????
+
+!! */
+
+$PageSecurity=3;
+
+include ('includes/session.inc');
+$title = _('Delete Credit Note');
+include('includes/header.inc');
+
+$UsSQLVerify='select or_cancelar_factura from www_users where
+userid="'.$_SESSION['UserID'].'"';
+$UsResult=DB_query($UsSQLVerify,$db);
+$Usrow = DB_fetch_row($UsResult);
+
+//Jaime
+if($_SESSION['CFDIVersion']==22){
+    require_once('CFD22Manager.php');
+}
+//\Jaime
+//iJPe
+/*
+ * realhost
+ * 2010-02-11
+ * Modificacion solicitada para establecer que usuarios pueden cancelar facturas
+ * Aqui se realiza la verificacion si el usuario tiene permitido, lo verifica con un array que se encuentra en le archivo de configuracion
+ */
+//$rh_AllowCancelInvoice = array('realhost','facturasoft');
+//if (!in_array($_SESSION['UserID'],$rh_AllowCancelInvoice)){
+if ($Usrow['0']!=1){  
+    prnMsg('Usted no tiene permitido cancelar notas de credito','error');
+    include("includes/footer.inc");
+    exit;
+}
+
+
+if (isset($_POST['delete']))
+{
+    $cnRO = "readonly";
+}
+
+
+if (isset($_GET['CustInq']))
+{
+    echo "<h3>Para confirmar la cancelacion de la Nota de Credito #".$_GET['CreditNoteNo']." dar clic en Cancelar Nota</h3>";
+    $cnRO = "readonly";
+}
+
+
+if (!isset($_GET['CreditNoteNo'])){
+    $_GET['CreditNoteNo'] = $_POST['CreditNoteNo'];
+}
+
+echo "<br><br>";
+echo "<center>";
+echo "<FORM METHOD='post' action=" . $_SERVER['PHP_SELF'] . "?" . SID . ">";
+echo "# Nota de Credito a cancelar <input type='text' name='CreditNoteNo' ".$cnRO." value='".$_GET['CreditNoteNo']."'>";
+echo "<br>";
+echo "<input type='submit' name='delete' value='Cancelar Nota'>";
+echo "</form>";
+echo "</center>";
+
+if (strlen($_GET['CreditNoteNo'])<=0)
+{
+    prnMsg("Favor de especificar el numero de Nota de Credito a cancelar", "info");
+    include("includes/footer.inc");
+    exit;
+}
+
+$SQL = 'SELECT transno FROM debtortrans WHERE transno=' . $_GET['CreditNoteNo'] . ' AND type=11';
+$Result = DB_query($SQL, $db);
+
+if (DB_num_rows($Result)<=0)
+{
+    prnMsg("El numero de Nota de Credito que se desea eliminar no existe o ya ha sido eliminado anteriormente", "info");
+    include("includes/footer.inc");
+    exit;
+}
+
+/*
+ * iJPe
+ * Verificacion si ya ha sido asignada la Nota de Credito
+ */
+$SQL = 'SELECT alloc FROM debtortrans WHERE transno=' . $_GET['CreditNoteNo'] . ' AND type=11';
+$Result = DB_query($SQL, $db);
+$rowANC = DB_fetch_array($Result);
+
+if ($rowANC['alloc']!=0)
+{
+    prnMsg("La Nota de Credito no se ha podido eliminar porque se encuentra asignada, favor de desasignar para poder eliminar", "error");
+    include("includes/footer.inc");
+    exit;
+}
+
+if (isset($_POST['delete']))
+{
+
+    //if (!isset($_GET['CreditNoteNo'])){
+    //        prnMsg(_('This page must be called with the credit note number') . ' - ' . _('it is not intended for use by non-system administrators'),'info');
+    //}
+    /*get the order number that was credited */
+
+    $SQL = 'SELECT order_, id FROM debtortrans WHERE transno=' . $_GET['CreditNoteNo'] . ' AND type=11';
+    $Result = DB_query($SQL, $db);
+
+    $myrow = DB_fetch_row($Result);
+    $OrderNo = $myrow[0];
+    $idDebTrans = $myrow[1];
+
+    /*Now get the stock movements that were credited into an array */
+
+    $SQL = 'SELECT stockmoves.stockid,
+                   stockmoves.loccode,
+                   stockmoves.debtorno,
+                   stockmoves.branchcode,
+                   stockmoves.prd,
+                   stockmoves.qty,
+                 stockmoves.show_on_inv_crds,
+                 stockmoves.hidemovt,
+                   stockmaster.mbflag
+            FROM stockmoves INNER JOIN stockmaster ON stockmoves.stockid = stockmaster.stockid
+            WHERE transno =' .$_GET['CreditNoteNo'] . ' AND type=11';
+    $Result = DB_query($SQL,$db);
+
+    $i=0;
+
+    $notUpdateLocStock = 0;
+
+    While ($myrow = DB_fetch_array($Result)){
+            $StockMovement[$i] = $myrow;
+            $i++;
+
+            if (($myrow['show_on_inv_crds'] == 0 || $myrow['hidemovt'] == 1) && $notUpdateLocStock==0)
+            {
+                $notUpdateLocStock = 1;
+            }
+    }
+
+    prnMsg(_('The number of stock movements to be deleted is') . ': ' . DB_num_rows($Result),'info');
+
+
+    $Result = DB_query('BEGIN',$db); /* commence a database transaction */
+    /*Now delete the DebtorTrans */
+
+    /*
+     * iJPe
+     * realhost
+     * 2009-12-15
+     * Modificacion realizada para la correcta eliminacion de las notas de credito
+     */
+    $SQL = 'DELETE FROM custallocns WHERE transid_allocfrom = "'.$idDebTrans.'" OR transid_allocto="'.$idDebTrans.'"';
+    $DbgMsg = _('The SQL that failed was');
+    $ErrMsg = _('A problem was encountered trying to delete the Debtor transaction record');
+    $Result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+
+    $SQL = 'DELETE FROM debtortranstaxes WHERE debtortransid = "'.$idDebTrans.'"';
+    //echo $SQL;
+    $DbgMsg = _('The SQL that failed was');
+    $ErrMsg = _('A problem was encountered trying to delete the Debtor transaction record');
+    $Result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+    //
+
+    //$SQL = 'DELETE FROM debtortrans
+    //               WHERE TransNo =' . $_GET['CreditNoteNo'] . ' AND Type=11';
+    //$DbgMsg = _('The SQL that failed was');
+    //$ErrMsg = _('A problem was encountered trying to delete the Debtor transaction record');
+    //$Result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+
+    $SQL = 'UPDATE debtortrans SET ovamount = 0, ovgst = 0,rh_status = "C"
+                   WHERE TransNo =' . $_GET['CreditNoteNo'] . ' AND Type=11';
+    $DbgMsg = _('The SQL that failed was');
+    $ErrMsg = _('A problem was encountered trying to delete the Debtor transaction record');
+    $Result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+
+    /*Now reverse updated SalesOrderDetails for the quantities credited */
+
+    foreach ($StockMovement as $CreditLine) {
+
+            $SQL = 'UPDATE salesorderdetails SET qtyinvoiced = qtyinvoiced + ' . $CreditLine['qty'] . '
+                           WHERE orderno = ' . $OrderNo . "
+                           AND stkcode = '" . $CreditLine['stockid'] . "'";
+
+            $ErrMsg =_('A problem was encountered attempting to reverse the update the sales order detail record') . ' - ' . _('the SQL server returned the following error message');
+            $Result = DB_query($SQL,$db,$ErrMsg,$DbgMsg, true);
+
+    /*reverse the update to LocStock */
+
+            /*
+             * iJPe
+             * No actualizar en caso de que sea servicio
+             */
+
+            if ($notUpdateLocStock == 0)
+            {
+                if ($CreditLine['mbflag']=='B' || $CreditLine['mbflag']=='M') {
+
+                    $SQL = 'UPDATE locstock SET locstock.quantity = locstock.quantity - ' . $CreditLine['qty'] . "
+                         WHERE  locstock.stockid = '" . $CreditLine['stockid'] . "'
+                         AND loccode = '" . $CreditLine['loccode'] . "'";
+
+                    $ErrMsg = _('SQL to reverse update to the location stock records failed with the error');
+
+                    $Result = DB_query($SQL, $db,$ErrMsg,$DbgMsg, true);
+                }
+            }
+
+    /*Delete Sales Analysis records */
+            $SQL = 'DELETE FROM salesanalysis
+                           WHERE periodno = ' . $CreditLine['prd'] . "
+                           AND cust='" . $CreditLine['debtorno'] . "'
+                           AND custbranch = '" . $CreditLine['branchcode'] . "'
+                           AND qty = " . $CreditLine['qty'] . "
+                           AND stockid = '" . $CreditLine['stockid'] . "'";
+
+            $ErrMsg = _('The SQL to delete the sales analysis records with the message');
+
+            $Result = DB_query($SQL, $db,$ErrMsg,$DbgMsg,true);
+    }
+
+    /*
+     * iJPe
+     * realhost
+     * 2010-02-24
+     *
+     * Modificacion para eliminacion de stockmovestaxes
+     */
+
+    $SQL = 'DELETE stkmt FROM stockmovestaxes stkmt INNER JOIN stockmoves ON stkmt.stkmoveno = stockmoves.stkmoveno
+                   WHERE stockmoves.type=11 AND stockmoves.transno = ' . $_GET['CreditNoteNo'];
+
+    $ErrMsg = _('SQL to delete the stock movement record failed with the message');
+    $Result = DB_query($SQL, $db,$ErrMsg,$DbgMsg,true);
+
+    //iJPe - Eliminacion de gltrans de la nota de credito
+    $SQL = 'DELETE FROM gltrans WHERE type=11 AND typeno = ' . $_GET['CreditNoteNo'];
+
+    $ErrMsg = _('SQL to delete the stock movement record failed with the message');
+    $Result = DB_query($SQL, $db,$ErrMsg,$DbgMsg,true);
+
+
+    /* Delete the stock movements  */
+
+    $SQL = 'DELETE FROM stockmoves
+                   WHERE type=11 AND transno = ' . $_GET['CreditNoteNo'];
+
+    $ErrMsg = _('SQL to delete the stock movement record failed with the message');
+    $Result = DB_query($SQL, $db,$ErrMsg,$DbgMsg,true);
+    prnMsg(_('Deleted the credit note stock movements').'info');
+    echo '<BR><BR>';
+
+   if($_SESSION['CFDIVersion']==22){
+            $sqlQuery = "select serie,folio from rh_cfd__cfd where id_debtortrans = " . $idDebTrans;
+            $result = DB_query($sqlQuery,$db,'','',false,false);
+            if(DB_num_rows($result) == 1){
+                $row = DB_fetch_row($result);
+                $CFDManager = CFD22Manager::getInstance();
+                $CFDManager->cancelCFD($row[0],$row[1]);
+            }
+   }elseif($_SESSION['CFDIVersion']==32){
+
+   }
+
+    $result = DB_query('COMMIT',$db);
+    //Para pruebas iJPe  $result = DB_query('ROLLBACK',$db);
+    prnMsg(_('Credit note number') . ' ' . $_GET['CreditNoteNo'] . ' ' . _('has been completely deleted') . '. ' . _('To ensure the integrity of the general ledger transactions must be reposted from the period the credit note was created'),'info');
+}
+
+include('includes/footer.inc');
+?>

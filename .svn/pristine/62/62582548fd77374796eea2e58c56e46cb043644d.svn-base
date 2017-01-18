@@ -1,0 +1,850 @@
+<?php
+
+/**
+ * Controller is the customized base controller class.
+ * All controller classes for this application should extend from this base class.
+ */
+class Controller extends CController
+{
+
+    public $layout = '//layouts/column1';
+
+    public $menu = array();
+
+    public $breadcrumbs = array();
+
+    /* Para Facturacion*/
+    public $OrderNo = 0;
+    public $idDebtortrans = 0;
+
+    /**
+     *
+     mysql> select md5('arproject');
+     +----------------------------------+
+     | md5('arproject')                 |
+     +----------------------------------+
+     | 9e801cd696a3d6cf77d4736b8f09785e |
+     +----------------------------------+
+     *
+     */
+    public $OpenSSLInitKey = "LlaveInicial";
+
+    //public $OpenSSLKey = "9e801cd696a3d6cf77d4736b8f09785e";
+    public $OpenSSLKey = "12345";
+
+    public function init() {
+        Yii::import("application.components.fb");
+        $FB = new fb;
+        FB::INFO('FB::INFO Start...');
+
+
+        // global $ServidoresdeCorreos;
+        // FB::INFO($ServidoresdeCorreos,'____________$ServidoresdeCorreos');
+
+    }
+
+    /**
+     * @Todo
+     * Encripta Cadena usando openssl_encript
+     *
+     * @return  string aes128
+     * @author  erasto@realhost.com.mx
+     * @param 1 string
+     */
+    public function OpenSSLEncrypt($toencrypt) {
+        FB::INFO($toencrypt,'____DATO');
+        if (!empty($toencrypt)) {
+            $Encrypted = @openssl_encrypt($toencrypt, 'aes128', $this->OpenSSLKey);
+            return $Encrypted;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @Todo
+     * Desencripta Cadena usando openssl_decrypt
+     *
+     * @return string
+     * @author  erasto@realhost.com.mx
+     * @param 1 string aes128
+     */
+    public function OpenSSLDecrypt($todecrypt) {
+        if (!empty($todecrypt)) {
+            $Decrypted = @openssl_decrypt($todecrypt, 'aes128', $this->OpenSSLKey);
+            return $Decrypted;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @Todo GetStockCatList function
+     *
+     * @return Lista de Categorias
+     * @author  erasto@realhost.com.mx
+     */
+    public function GetStockCatList() {
+        global $db;
+        $sql = "SELECT categoryid,
+                categorydescription
+            FROM stockcategory
+            WHERE stocktype<>'L'
+            AND stocktype<>'D'
+            ORDER BY categorydescription";
+        $ErrMsg = _('The supplier category details could not be retrieved because');
+        $DbgMsg = _('The SQL used to retrieve the category details but failed was');
+        $result = DB_query($sql, $db, $ErrMsg, $DbgMsg);
+        while ($_StockCatData = DB_fetch_assoc($result)) {
+            $StockCatData[$_StockCatData['categoryid']] = $_StockCatData['categorydescription'];
+        }
+        return $StockCatData;
+    }
+
+    public function KillerDataProvider($QueryResult) {
+        foreach ($QueryResult as $rows) {
+            $ReturnData[] = $rows->attributes;
+        }
+        return $ReturnData;
+    }
+
+    /**
+     * @Todo
+     * Devuelve PERIODO fecha en q le toca pagas segun el PLAN SEMESTRAL Y ANUAL
+     * @param $Date = Fecha de Ingreso
+     * @param $Frecuencia = Frecuencia de Pago
+     * @param $Tipo = Emision Tarjetas o Efectivo
+     * @return
+     * @author erasto@realhost.com.mx
+     */
+    public function GetPeriods($Date = null, $Frecuencia, $Tipo) {
+        if (empty($Date)) {
+            $Date = date('Y-m-d');
+        }
+
+        switch ($Frecuencia) {
+            case 2:
+                # SEMESTRAL
+                $ThisYear = explode("-", date("Y-m-d"));
+
+                /*AJUSTE EMISION TARJETAS*/
+                if($Tipo == "Tarjetas"){
+                    $ExpInscDate = explode("-", $Date);
+                    $Date = date("Y-m-d", mktime(0, 0, 0, $ExpInscDate[1] - 1, $ExpInscDate[2], $ExpInscDate[0]));
+                }
+                /*END AJUSTE EMISION TARJETAS*/
+
+                $Mes1 = date ('m', strtotime ($Date));
+                $ThisYear[1] = $Mes1;
+
+                $NIngreso = $ThisYear[0] . '-' . $ThisYear[1] . '-' . $ThisYear[2];
+                $FechaEsperada  = strtotime ("+6 Months", strtotime ($NIngreso));
+                $Mes2 = date ( 'm' , $FechaEsperada);
+                $ProximaFactura = date ( 'Y-m-d' , $FechaEsperada);
+
+                $ProximaFacturaParts = explode("-", $ProximaFactura);
+                if($Tipo == "Tarjetas"){
+                    $ProximaFacturaParts[2] = 25;
+                }else{
+                    $ProximaFacturaParts[2] = 01;
+                }
+                $ProximaFactura = $ProximaFacturaParts[0] . '-' . $ProximaFacturaParts[1] . '-' . $ProximaFacturaParts[2];
+
+                return array($Mes1, $Mes2, 'ProximaFactura' => $ProximaFactura);
+                break;
+            case 3:
+                # ANUAL
+                $ThisYear = explode("-", date("Y-m-d"));
+
+                /*AJUSTE EMISION TARJETAS*/
+                if($Tipo == "Tarjetas"){
+                    $ExpInscDate = explode("-", $Date);
+                    $Date = date("Y-m-d", mktime(0, 0, 0, $ExpInscDate[1] - 1, $ExpInscDate[2], $ExpInscDate[0]));
+                }
+                /*END AJUSTE EMISION TARJETAS*/
+
+                $Mes1 = date ('m', strtotime ($Date));
+                $ThisYear[1] = $Mes1;
+
+                $NIngreso = $ThisYear[0] . '-' . $ThisYear[1] . '-' . $ThisYear[2];
+                $FechaEsperada  = strtotime ("+1 Years", strtotime ($NIngreso));
+                $ProximaFactura = date ( 'Y-m-d' , $FechaEsperada);
+
+                $ProximaFacturaParts = explode("-", $ProximaFactura);
+                if($Tipo == "Tarjetas"){
+                    $ProximaFacturaParts[2] = 25;
+                }else{
+                    $ProximaFacturaParts[2] = 01;
+                }
+                $ProximaFactura = $ProximaFacturaParts[0] . '-' . $ProximaFacturaParts[1] . '-' . $ProximaFacturaParts[2];
+
+                return array($Mes1, 'ProximaFactura' => $ProximaFactura);
+                break;
+            default:
+                # code...
+                break;
+        }
+
+    }
+
+
+    /**
+     * @Todo
+     * Devuelve Fecha y Año ej: MAYO 2014
+     *
+     * @return String, Example: MAYO 2014
+     * @author erasto@realhost.com.mx
+     */
+    public function GetMonth($Date = null, $Frecuencia, $MensualTarjetas = 0) {
+        if (empty($Date)) {
+            $Date = date('Y-m-d');
+        }
+
+        $Months = array(
+            '01' => 'ENERO',
+            '02' => 'FEBRERO',
+            '03' => 'MARZO',
+            '04' => 'ABRIL',
+            '05' => 'MAYO',
+            '06' => 'JUNIO',
+            '07' => 'JULIO',
+            '08' => 'AGOSTO',
+            '09' => 'SEPTIEMBRE',
+            '10' => 'OCTUBRE',
+            '11' => 'NOVIEMBRE',
+            '12' => 'DICIEMBRE',
+        );
+        //SERVICIO MEDICO-OCTUBRE-2014-A-MARZO-2015-FAMILIA-SEMESTRAL-EFECTIVO
+        switch ($Frecuencia) {
+            case 1:
+                if($MensualTarjetas == 1){
+                    $Date  = strtotime ("+1 Months", strtotime ($Date));
+                    $Date = date ( 'Y-m-d' , $Date);
+                }
+                $Date = explode('-', $Date);
+                $Month = $Months[$Date[1]] . ' ' . $Date[0];
+            break;
+            case 2:
+                $Date2  = strtotime ("+6 Months", strtotime ($Date));
+                $Date2 = date ( 'Y-m-d' , $Date2);
+                $Date = explode('-', $Date);
+                $Date2 = explode('-', $Date2);
+                $Month = $Months[$Date[1]] . ' ' . $Date[0] . ' - A - ' . $Months[$Date2[1]] . ' ' . $Date2[0];
+            break;
+            case 3:
+                $Date2  = strtotime ("+1 Years", strtotime ($Date));
+                $Date2 = date ( 'Y-m-d' , $Date2);
+                $Date = explode('-', $Date);
+                $Date2 = explode('-', $Date2);
+                $Month = $Months[$Date[1]] . ' ' . $Date[0] . ' - A - ' . $Months[$Date2[1]] . ' ' . $Date2[0];
+            break;
+            case 4:
+                $Date2  = strtotime ("+1 Years", strtotime ($Date));
+                $Date2 = date ( 'Y-m-d' , $Date2);
+                $Date = explode('-', $Date);
+                $Date2 = explode('-', $Date2);
+                $Month = $Months[$Date[1]] . ' ' . $Date[0] . ' - A - ' . $Months[$Date2[1]] . ' ' . $Date2[0];
+            break;
+            default:
+                # code...
+                break;
+        }
+
+        return $Month;
+    }
+
+    /**
+     *@Todo
+     * Obtiene la Fecha de la Proxima Factura y la que sigue
+     * @author erasto@realhost.com.mx
+     */
+    public function FechaProximaFactura($UltimoPago, $MetodoPago, $FrecuenciaPago) {
+
+        if (empty($UltimoPago)) {
+            $UltimoPago = date("Y-m-d");
+        }
+
+        /*Dia en que se Realiza la Emision | Tarjetas el 25 el resto el 01 de cada mes*/
+        if ($MetodoPago == 9 || $MetodoPago == 10) {
+            $Dia = 25;
+        } else {
+            $Dia = 01;
+        }
+
+        /*Año = 0, Mes = 1, Dia = 2*/
+        $GetUltimoPago = explode('-', $UltimoPago);
+
+        switch ($FrecuenciaPago) {
+            case 1:
+                $Date = date('Y-m-d', mktime(0, 0, 0, $GetUltimoPago[1] + 1, $Dia, $GetUltimoPago[0]));
+                $GetDate = explode('-', $Date);
+                $NextDate = date('Y-m-d', mktime(0, 0, 0, $GetDate[1] + 1, $Dia, $GetDate[0]));
+                break;
+
+            case 2:
+                $Date = date('Y-m-d', mktime(0, 0, 0, $GetUltimoPago[1] + 6, $Dia, $GetUltimoPago[0]));
+                $GetDate = explode('-', $Date);
+                $NextDate = date('Y-m-d', mktime(0, 0, 0, $GetDate[1] + 6, $Dia, $GetDate[0]));
+                break;
+
+            case 3:
+                $Date = date('Y-m-d', mktime(0, 0, 0, $GetUltimoPago[1], $Dia, $GetUltimoPago[0] + 1));
+                $GetDate = explode('-', $Date);
+                $NextDate = date('Y-m-d', mktime(0, 0, 0, $GetDate[1], $Dia, $GetDate[0] + 1));
+                break;
+
+            case 4:
+                $Date = date('Y-m-d', mktime(0, 0, 0, $GetUltimoPago[1], $Dia, $GetUltimoPago[0] + 1));
+                $GetDate = explode('-', $Date);
+                $NextDate = date('Y-m-d', mktime(0, 0, 0, $GetDate[1], $Dia, $GetDate[0] + 1));
+                break;
+
+            default:
+                break;
+        }
+        return array(
+            "Proxima" => $Date,
+            "Proxima2" => $NextDate
+        );
+    }
+
+    /**
+     * @Todo
+     * Obtiene el DebtorNo de un Folio de la Tabla de rh_titular
+     * @author erasto@realhost.com.mx
+     */
+    public function GetDebtorNo($Folio) {
+        $DebtorNo = Yii::app()->db->createCommand()
+        ->select(' debtorno ')->from('rh_titular')
+        ->where('folio = :folio', array(':folio' => $Folio))->queryAll();
+        return $DebtorNo[0]['debtorno'];
+    }
+
+    /**
+     * @Todo
+     * Obtiene el DebtorNo de un Folio de la Tabla de rh_cobranza
+     * @author erasto@realhost.com.mx
+     */
+    public function GetDebtorNo2($Folio) {
+        $DebtorNo = Yii::app()->db->createCommand()
+        ->select(' debtorno ')->from('rh_cobranza')
+        ->where('folio = :folio', array(':folio' => $Folio))->queryAll();
+        return $DebtorNo[0]['debtorno'];
+    }
+
+    /**
+     * @Todo
+     * Obtiene el Tipo de Folio ('Cliente', 'Socio')
+     * @author erasto@realhost.com.mx
+     */
+    public function GetTipoFolio($Folio) {
+
+        $Tipo = Yii::app()->db->createCommand()
+        ->select(' tipo_membresia ')->from('rh_foliosasignados')
+        ->where('folio = :folio', array(':folio' => $Folio))->queryAll();
+        return $Tipo[0]['tipo_membresia'];
+    }
+
+
+    /**
+     * @Todo
+     * Obtiene el Folio de un DebtorNo
+     * @author erasto@realhost.com.mx
+     */
+    public function GetFolio($DebtorNo) {
+
+        $Folio = Yii::app()->db->createCommand()
+        ->select(' folio ')->from('rh_titular')
+        ->where('debtorno = :debtorno', array(':debtorno' => $DebtorNo))->queryAll();
+        return $Folio[0]['folio'];
+    }
+
+    /**
+     * @Todo
+     * Obtiene el DebtorNo apartir de un TransNo
+     * @author erasto@realhost.com.mx
+     */
+    public function GetDebtorNoByTransNo($TransNo) {
+        $DebtorNo = Yii::app()->db->createCommand()
+        ->select(' debtorno ')->from('debtortrans')
+        ->where('transno = :transno', array(':transno' => $TransNo))->queryAll();
+        return $DebtorNo[0]['debtorno'];
+    }
+
+    /**
+     * @Todo Crea Pedido
+     * Al crear el Pedido Setear los campos:
+     * salesorders.quotation = 3
+     * salesorderdetails.completed = 1
+     * salesorderdetails.qtyinvoiced = quantity
+     *
+     * @param  $DebtorData, Datos del Debtorno.
+     * @param  $SO_Details, Lineas de detalle del pedido.
+     * @return $OrderNo
+     * @author erasto@realhost.com.mx
+     */
+    public function CreaPedido($DebtorData = null, $SO_Details, $DebtorNo = null) {
+        set_time_limit(0);
+        global $db;
+
+        if (empty($DebtorNo)) {
+            $DebtorNo = $DebtorData[0]['debtorno'];
+        }
+
+        if (empty($DebtorData)) {
+            $DebtorData = Yii::app()->db->createCommand()->select(' debtorsmaster.*,cobranza.folio,cobranza.stockid,cobranza.fecha_corte,fp.frecuencia ')->from('debtorsmaster')->leftJoin('rh_cobranza cobranza', 'cobranza.debtorno = debtorsmaster.debtorno')->leftJoin('rh_frecuenciapago fp', 'fp.id = cobranza.frecuencia_pago')->where('debtorsmaster.debtorno = "' . $DebtorNo . '"')->queryAll();
+        }
+
+        /*Branch con el que se Factura*/
+        $Branch = "T-" . $DebtorNo;
+        $SalesMan = '2RC';
+
+        // if (!empty($DebtorData)) {
+        //     $SQLGetDebtorData = "SELECT debtorsmaster.*,cobranza.stockid
+        //     FROM debtorsmaster
+        //     LEFT JOIN rh_cobranza cobranza on cobranza.debtorno = debtorsmaster.debtorno
+        //     WHERE debtorsmaster.debtorno = '" . $DebtorNo . "'";
+        //     $_2GetDebtorData = DB_query($SQLGetDebtorData, $db);
+        //     $DebtorData[0] = DB_fetch_assoc($_2GetDebtorData);
+        // }
+
+        if (!empty($DebtorData) && !empty($SO_Details)) {
+
+            DB_query("BEGIN", $db);
+            $OrderNo = GetNextTransNo(30, $db);
+            $HeaderSQL = "INSERT INTO salesorders (
+                    orderno,
+                    debtorno,
+                    branchcode,
+                    customerref,
+                    comments,
+                    orddate,
+                    ordertype,
+                    shipvia,
+                    deliverto,
+                    deladd1,
+                    deladd2,
+                    deladd3,
+                    deladd4,
+                    deladd5,
+                    deladd6,
+                    deladd7,
+                    deladd8,
+                    deladd9,
+                    deladd10,
+                    contactphone,
+                    contactemail,
+                    freightcost,
+                    fromstkloc_virtual,
+                    deliverydate,
+                    quotation,
+                    deliverblind,
+                    fromstkloc,
+                    salesman)
+                VALUES (
+                    '" . $OrderNo . "',
+                    '" . $DebtorNo . "',
+                    '" . $Branch . "',
+                    '" . DB_escape_string($_SESSION['Items']->CustRef) . "',
+                    '',
+                    '" . Date("Y-m-d H:i") . "',
+                    '" . $DebtorData[0]['salestype'] . "',
+                    '" . 1 . "',
+                    '" . DB_escape_string($DebtorData[0]['name']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address1']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address2']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address3']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address4']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address5']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address6']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address7']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address8']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address9']) . "',
+                    '" . DB_escape_string($DebtorData[0]['address10']) . "',
+                    '" . DB_escape_string($DebtorData[0]['rh_tel']) . "',
+                    '" . DB_escape_string('') . "',
+                    '" . $FreightCost . "',
+                    'AFIL',
+                    '" . Date("Y-m-d H:i") . "',
+                    '3',
+                    '" . $DeliverBlind . "',
+                    'AFIL',
+                    '" . $SalesMan . "')";
+
+            $ErrMsg = _('The order cannot be added because');
+            FB::INFO($HeaderSQL, '_______________________________HEADER');
+            $InsertQryResult = DB_query($HeaderSQL, $db, $ErrMsg, '', true);
+
+            //Insert rh_translogs
+            $sql1 = "INSERT INTO rh_translogs(type, typeno, date, user, realizo) VALUES (30, " . $OrderNo . ", NOW(), '" . $_SESSION['UserID'] . "','CP')";
+            $res1 = DB_query($sql1, $db, 'Imposible insertar el usuario', '', true);
+
+            $sql2 = "INSERT INTO rh_usertrans(type, user_, order_, date_) VALUES (30, '" . $_SESSION['UserID'] . "', " . $OrderNo . ", now())";
+            $res2 = DB_query($sql2, $db, 'Imposible insertar el usuario', '', true);
+
+            //Insert Details
+            foreach ($SO_Details as $Item) {
+                $LineItemsSQL = "INSERT INTO salesorderdetails (
+                                    orderlineno,
+                                    orderno,
+                                    stkcode,
+                                    qtyinvoiced,
+                                    unitprice,
+                                    quantity,
+                                    discountpercent,
+                                    completed,
+                                    narrative,
+                                    description,
+                                    poline,
+                                    rh_cost,
+                                    itemdue)
+                                VALUES (
+                                " . $Item['orderlineno'] . ",
+                                " . $OrderNo . ",
+                                '" . $Item['stkcode'] . "',
+                                " . $Item['quantity'] . ",
+                                '" . $Item['unitprice'] . "',
+                                " . $Item['quantity'] . ",
+                                " . $Item['discountpercent'] . ",
+                                " . 0 . ",
+                                '" . $Item['narrative'] . "',
+                                '" . $Item['description'] . "',
+                                '" . $Item['poline'] . "',
+                                " . $Item['rh_cost'] . ",
+                                '" . $Item['itemdue'] . "'
+                                )";
+                                FB::INFO($LineItemsSQL, '_______________________________ITEMSSSSSSS');
+                $Ins_LineItemResult = DB_query($LineItemsSQL, $db, 'Imposible insertar articulo, SQL que Fallo  ' . $LineItemsSQL, '', true);
+
+                //* inserted line items into sales order details
+            }
+            DB_query("COMMIT", $db);
+            FB::INFO($OrderNo, '__________________________________ORDERNO OK');
+            $this->$OrderNo =  $OrderNo;
+        }
+    }
+
+    /**
+     * @Todo Factura un Pedido
+     * Antes de crear la factura setear los campos:
+     * salesorders.quotation = 0
+     * salesorderdetails.completed = 0
+     * salesorderdetails.qtyinvoiced = 0
+     * @param $OrderNo, $Folio
+     * @return true
+     * @author erasto@realhost.com.mx
+     */
+    public function FacturaPedido($OrderNo, $Folio = null, $TipoFactura = 0) {
+        global $db;
+
+        if (!empty($OrderNo)) {
+            if (!empty($Folio)) {
+                $CobranzaData = "SELECT pm.paymentid,pm.paymentname FROM rh_cobranza
+                LEFT JOIN paymentmethods pm on pm.paymentid = rh_cobranza.paymentid
+                WHERE folio = '" . $Folio . "'
+              ";
+                $_CobranzaData = DB_query($CobranzaData, $db);
+                $_2CobranzaData = DB_fetch_assoc($_CobranzaData);
+                if (!empty($_2CobranzaData)) {
+                    $MetodoPago = $_2CobranzaData['paymentname'];
+                }
+            }
+
+            if (empty($MetodoPago)) {
+                $MetodoPago = "No Identificado";
+            }
+            unset($_SESSION['Items']->LineItems);
+            $_POST = array();
+
+            /* <(°-°<) Convertir Cotizacion tipo 1 a Pedido, ponemos completed a 0 y qtyinvoiced a 0 (>°-°)> */
+            $Cotizacion = "UPDATE salesorders, salesorderdetails SET salesorders.quotation = 0,
+                                    salesorderdetails.completed = 0,
+                                    salesorderdetails.qtyinvoiced = 0
+                                    WHERE salesorderdetails.orderno = salesorders.orderno AND salesorders.orderno = {$OrderNo}";
+            DB_query($Cotizacion, $db);
+
+            /* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+            /*ProcessInvoice*/
+            /*$MASIVA. evita las impresiones de ConfirmDispatch_Invoice.php */
+            $MASIVA = true;
+            ob_start();
+
+            /****** LLeno el Carrtito con el $OrderNo ********/
+            $_GET['OrderNumber'] = $OrderNo;
+
+
+            include ($_SERVER['LocalERP_path'] . "/ConfirmDispatch_Invoice.php");
+            unset($_GET['OrderNumber']);
+            $_SESSION['metodoPago'] = $_POST['metodoPago'] = $MetodoPago;
+            $_SESSION['cuentaPago'] = $_POST['cuentaPago'] = "No Identificado";
+
+            /*******************************************************************************/
+            FB::INFO('_____________4');
+            /* <(°-°<) Factura Pedido (>°-°)> */
+            //$idLocation = $_SESSION['Items']->Location;
+            $idLocation = "AFIL";
+            $sql_location = "select id_ws_csd, serie from rh_cfd__locations__systypes__ws_csd where id_locations = '$idLocation' and !isnull(id_ws_csd) and id_systypes = 10";
+            $resultLocation = DB_query($sql_location, $db, '', '', false, false);
+            $LocationRow = DB_fetch_array($resultLocation);
+
+            $_POST['selectIdFolio'] = $LocationRow[0];
+
+            //$_POST['0_QtyDispatched'] = 1;
+            //$_POST['00_TaxRate'] = 16;
+            $_POST['ChargeFreightCost'] = 0;
+            $_POST['FreightTaxRate0'] = 0;
+            $_POST['DispatchDate'] = date('d-m-Y');
+            $_POST['descnarr'] = 0;
+            $_POST['Consignment'] = 0;
+            $_POST['BOPolicy'] = "BO";
+            $_POST['InvoiceText'] = "";
+            $_POST['ShipVia'] = 1;
+            $_POST['tipo_factura'] = $TipoFactura;
+
+            //$_POST['Update'] = "Actualizar";
+            //include ($_SERVER['LocalERP_path'] . "/ConfirmDispatch_Invoice.php");
+            $_POST['ProcessInvoice'] = "Process Invoice from MTY";
+            try {
+            include($_SERVER['LocalERP_path'] . "/ConfirmDispatch_Invoice.php");
+            FB::INFO('_____________POST INCLUDE');
+            } catch (Exception $e) {
+            FB::INFO($e,'_____________GET LOCATION2');
+            }
+            $IdDebtor = $DebtorTransID;
+            FB::INFO('_____________5');
+            ob_clean();
+            FB::INFO($IdDebtor, '_____________________________ID DebtorTrans');
+            // echo CJSON::encode(array(
+            //     'requestresult' => 'ok',
+            //     'message' => "La Factura para el folio: " . $Folio . " se ha Generado y Timbrado correctamente..."
+            // ));
+
+            $this->idDebtortrans = $IdDebtor;
+            // FB::INFO($this->idDebtortrans ,'___________________$this->idDebtortrans');
+            // exit;
+        }
+    }
+
+    /**
+     * @Todo Timbra una Factura
+     * @param $idDebtortrans
+     * @return true
+     * @author erasto@realhost.com.mx
+     */
+    public function Timbrar($idDebtortrans, $Folio) {
+        global $db;
+        if (!empty($idDebtortrans)) {
+            ob_start();
+            include_once ($_SERVER['LocalERP_path'] . "/rh_cfdiFunctions32.php");
+            include_once ($_SERVER['LocalERP_path'] . "/Numbers/Words.php");
+            include_once ($_SERVER['LocalERP_path'] . "/CFDI32.php");
+            include_once ($_SERVER['LocalERP_path'] . "/rh_cfdiFunctions32.php");
+
+            if (!empty($Folio)) {
+                $CobranzaData = "SELECT pm.paymentid,pm.paymentname,rh_cobranza.cuenta FROM rh_cobranza
+                LEFT JOIN paymentmethods pm on pm.paymentid = rh_cobranza.paymentid
+                WHERE folio = '" . $Folio . "'
+              ";
+                $_CobranzaData = DB_query($CobranzaData, $db);
+                $_2CobranzaData = DB_fetch_assoc($_CobranzaData);
+                if (!empty($_2CobranzaData)) {
+                    $MetodoPago = $_2CobranzaData['paymentname'];
+                    $ctaPago = $this->OpenSSLDecrypt($_2CobranzaData['cuenta']);
+                }
+            }
+
+            if (empty($ctaPago)) {
+                $ctaPago = "No Identificado";
+            }
+            if (empty($MetodoPago)) {
+                $MetodoPago = "No Identificado";
+            }
+            FB::INFO('_________________OK');
+            $sql = " select * from debtortrans where id=" . $idDebtortrans;
+            $rs = DB_query($sql, $db);
+            $rw = DB_fetch_assoc($rs);
+
+            $transno = $rw['transno'];
+            $type = $rw['type'];
+
+            $sql = "select * from stockmoves where type='" . $type . "' and transno='" . $transno . "' limit 1";
+            $rss = DB_query($sql, $db);
+            $rsm = DB_fetch_assoc($rss);
+            $Location = $rsm['loccode'];
+            $sql = 'select id_ws_csd, serie from rh_cfd__locations__systypes__ws_csd where id_locations = "' . $rsm['loccode'] . '"  and id_systypes = ' . $type;
+            $rscsd = DB_query($sql, $db);
+            $idCsdYSerie = DB_fetch_array($rscsd);
+
+            $idCsd = $idCsdYSerie[0];
+            $serie = $idCsdYSerie[1];
+            $serie = getSerieByBranch($Location, $type, $db);
+            $idXsd = '';
+            $xmlXsd = '';
+            $sql = "select not isnull(v.id_salesorders) is_transportista from debtortrans d join rh_vps__transportista v on d.order_ = v.id_salesorders and d.id = $idDebtortrans";
+            $result = DB_query($sql, $db);
+            $is_transportista = DB_num_rows($result);
+
+            global $BlockFolio;
+            $BlockFolio = false;
+            global $MensajesGlobales;
+            $MensajesGlobales = array();
+            ob_start();
+            FB::INFO($datosSat2, '________________________PRETIMBRADO');
+            $datosSat2 = cfd($db, $idDebtortrans, $transno, $type, $serie, $idCsd, $idXsd, $xmlXsd, $MetodoPago, $ctaPago, 1);
+            FB::INFO($datosSat2, '________________________TIMBRADO');
+            ob_clean();
+            ob_clean();
+            return true;
+        }
+    }
+
+    /*Envia Email*/
+    public function EnviarMail($from = 'envio@realhost.com.mx', $To = '', $Subject = '', $Mensaje = '', $adjuntos = array() , $BCC = '', $repplyTo = '', $AddCC = '') {
+
+        global $db, $ServidoresdeCorreos;
+    	if(!isset($ServidoresdeCorreos)){
+            $ServidoresdeCorreos = array();
+
+            $ServidoresdeCorreos[] = array(
+                'Host' => 'smtp.armedica.com.mx',
+                'SMTPSecure' => "tls",
+                'Port' => 587,
+                'SMTPAuth' => true,
+                'Username' => "atencionclientes@armedica.com.mx",
+                'Password' => "Ar2014",
+            );
+    	}
+
+        /*
+        $ServidoresdeCorreos[] = array('Host' => 'ssl://smtp.gmail.com', 'Port' => 465, 'SMTPAuth' => true, 'Username' => "envio@realhost.com.mx", 'Password' => "47V94669",);
+        $ServidoresdeCorreos[] = array('Host' => 'ssl://smtp.gmail.com', 'Port' => 465, 'SMTPAuth' => true, 'Username' => "envio2@realhost.com.mx", 'Password' => "47V94669",);
+        $ServidoresdeCorreos[] = array('Host' => 'ssl://smtp.gmail.com', 'Port' => 465, 'SMTPAuth' => true, 'Username' => "envio3@realhost.com.mx", 'Password' => "47V94669",);
+        $ServidoresdeCorreos[] = array('Host' => 'ssl://smtp.gmail.com', 'Port' => 465, 'SMTPAuth' => true, 'Username' => "envio4@realhost.com.mx", 'Password' => "47V94669",);
+        $ServidoresdeCorreos[] = array('Host' => 'ssl://ssr6.supercp.com', 'Port' => 465, 'SMTPAuth' => true, 'Username' => "envio@realhost.mx", 'Password' => "GTrfg54ref",);
+        $ServidoresdeCorreos[] = array('Host' => 'ssl://mail.realhost.mx', 'Port' => 465, 'SMTPAuth' => true, 'Username' => "envio@realhost.mx", 'Password' => "RRFt543erdw",);
+        */
+
+        $mail_error = '';
+        require_once (dirname(__FILE__) . "/../components/PHPMailer_v5.1/class.phpmailer.php");
+        $Correos = $ServidoresdeCorreos[0];
+        foreach ($ServidoresdeCorreos as $Correos) {
+
+            //echo $Correos['Host'].'<br >';
+            $mail = new PHPMailer();
+            $mail->IsSMTP();
+
+            // send via SMTP
+            $mail->Host = $Correos['Host'];
+            $mail->Port = $Correos['Port'];
+            $mail->SMTPAuth = isset($Correos['SMTPAuth']);
+
+            // turn on SMTP authentication
+            $mail->Username = $Correos['Username'];
+
+            // SMTP username
+            $mail->Password = $Correos['Password'];
+
+            // SMTP password
+            $mail->Subject = ($Subject);
+            $mail->IsHTML(strpos(' ' . $Mensaje, '<') && strpos(' ' . $Mensaje, '>'));
+            $mail->Body = $Mensaje;
+
+            $from = explode('<', trim($from, '>'));
+            if (count($from) > 1) $mail->AddReplyTo($from[1]);
+            $from = $from[0];
+
+            $mail->SetFrom($Correos['Username'], ($from));
+            if (!is_array($To)) $To = explode(';', str_replace(array(
+                ',',
+                '|'
+            ) , ';', $To));
+            foreach ($To as $value) {
+                $mail->AddAddress($value);
+            }
+
+            if (!is_array($repplyTo)) {
+                $repplyTo = explode(';', str_replace(array(
+                    ',',
+                    '|'
+                ) , ';', $repplyTo));
+            }
+            if (count($repplyTo) > 0) {
+                foreach ($repplyTo as $value) {
+                    $mail->AddReplyTo($value);
+                }
+            }
+
+            /*Agrega Copia*/
+            if (!is_array($AddCC)) {
+                $AddCC = explode(';', str_replace(array(
+                    ',',
+                    '|'
+                ) , ';', $AddCC));
+            }
+            if (count($AddCC) > 0) {
+                foreach ($AddCC as $value) {
+                    $mail->AddCC($value);
+                }
+            }
+
+            if (!is_array($BCC)) $BCC = explode(';', str_replace(array(
+                ',',
+                '|'
+            ) , ';', $BCC));
+            if (count($BCC) > 0) foreach ($BCC as $value) {
+                $mail->AddBCC($value);
+            }
+
+            if (count($adjuntos) > 0) foreach ($adjuntos as $Archivos) {
+                if (isset($Archivos['ruta']) && is_file($Archivos['ruta'])) {
+                    if (!isset($Archivos['nombre'])) $Archivos['nombre'] = array_pop(explode('/', $Archivos['ruta']));
+                    $mail->AddAttachment($Archivos['ruta'], $Archivos['nombre']);
+                    // attachment
+                }
+                if (isset($Archivos['archivo']) && isset($Archivos['nombre'])) $mail->AddStringAttachment($Archivos['archivo'], $Archivos['nombre']);
+            }
+            $mail_success = $mail->Send();
+            if (!$mail_success) {
+                echo $mail_error = $mail->ErrorInfo;
+            } else {
+                $mail = null;
+                break;
+            }
+            $mail = null;
+            echo '<br>';
+        }
+        if ($mail_success) return 'success';
+        return $mail_error;
+    }
+
+    public function getTaxesForItem($Branch, $Debtorno, $Stockid, $PrecioU = 1, $quantity = 1) {
+        global $db;
+        $Impuestos = array();
+
+        $SQL = "select " . "0 orderlineno, " . "stockmaster.stockid stkcode, " . "'$PrecioU' unitprice, " . "'$quantity' quantity, " . "'$PrecioU'*'$quantity' Total, " . "taxgrouptaxes.calculationorder, " . "taxauthorities.description, " . "taxgrouptaxes.taxauthid, " . "taxauthorities.taxglcode, " . "taxgrouptaxes.taxontax, " . "taxauthrates.taxrate " . "from " . "custbranch, " . "stockmaster,  " . "locations, " . " taxauthrates, " . "taxgrouptaxes, " . "taxauthorities " . "where " . "taxauthrates.taxauthority=taxauthorities.taxid and " . "taxauthrates.dispatchtaxprovince=locations.taxprovinceid AND taxauthrates.taxcatid = stockmaster.taxcatid and " . "taxauthrates.taxauthority=taxgrouptaxes.taxauthid and taxgrouptaxes.taxgroupid=4 and " .
+
+        //taxgrouptaxes.taxgroupid=custbranch.taxgroupid
+        //"custbranch.defaultlocation=locations.loccode and " .
+        "locations.loccode='MTY' and " . "custbranch.branchcode='" . $Branch . "' and " . "custbranch.debtorno='" . $Debtorno . "' and " . "stockmaster.stockid='" . $Stockid . "'  " . " ORDER BY taxgrouptaxes.calculationorder ";
+        $query = DB_query($SQL, $db, '', '', 0, 0);
+        while ($f = DB_fetch_assoc($query)) {
+            $Impuestos[] = $f;
+        }
+        return $Impuestos;
+    }
+
+    public function getTaxTotalLinesForItem($Branch, $Debtorno, $Stockid, $PrecioU = 1, $quantity = 1) {
+        $impuestos = $this->getTaxesForItem($Branch, $Debtorno, $Stockid, $PrecioU, $quantity);
+        $TaxTotal = array();
+        foreach ($impuestos as $impuesto) {
+            if (!isset($TaxTotal[$impuesto['orderlineno']])) $TaxTotal[$impuesto['orderlineno']] = 0;
+            $TaxTotal[$impuesto['orderlineno']]+= $impuesto['taxrate'] * ($impuesto['Total'] + $TaxTotal[$impuesto['orderlineno']] * $impuesto['taxontax']);
+        }
+        return $TaxTotal;
+    }
+
+    public function getTaxTotalForItem($Branch, $Debtorno, $Stockid, $PrecioU = 1, $quantity = 1) {
+        return array_sum($this->getTaxTotalLinesForItem($Branch, $Debtorno, $Stockid, $PrecioU, $quantity));
+    }
+}

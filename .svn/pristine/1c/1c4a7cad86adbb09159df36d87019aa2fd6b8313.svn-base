@@ -1,0 +1,453 @@
+-- MySQL dump 10.13  Distrib 5.1.58, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: tractoref_erp_001
+-- ------------------------------------------------------
+-- Server version	5.1.58-1-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Dumping routines for database 'tractoref_erp_001'
+--
+/*!50003 DROP FUNCTION IF EXISTS `rh_get_countmoves` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 FUNCTION `rh_get_countmoves`(rh_stockid varchar(20), rh_loccode varchar(5)) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+  DECLARE rh_count INT;
+     SELECT count(stkmoveno) INTO rh_count
+     FROM stockmoves
+     WHERE loccode= rh_loccode
+    AND stockid = rh_stockid;
+  RETURN IFNULL(rh_count, 0);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `rh_get_external` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 FUNCTION `rh_get_external`(rh_type INT, rh_transno INT, rh_loccode varchar(5)) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+  DECLARE rh_external INT;
+if (rh_type = 10) THEN
+SELECT rh_invoicesreference.extinvoice INTO rh_external FROM rh_invoicesreference WHERE rh_invoicesreference.intinvoice = rh_transno AND 
+rh_invoicesreference.loccode = rh_loccode;
+END IF;
+RETURN IFNULL(rh_external, 0);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `rh_get_newqoh` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 FUNCTION `rh_get_newqoh`(location varchar(50),stockid_param varchar(50)) RETURNS double
+    DETERMINISTIC
+BEGIN
+  DECLARE rh_newqoh DOUBLE;
+  SELECT newqoh INTO rh_newqoh from stockmoves where loccode=location and stockid= stockid_param order by stkmoveno desc limit 1;
+  RETURN IFNULL(rh_newqoh, 0);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `rh_get_ponumber` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 FUNCTION `rh_get_ponumber`(rh_transno INT) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+  DECLARE rh_orderno INT;
+     SELECT purchorderdetails.orderno INTO rh_orderno
+     FROM grns
+     INNER JOIN purchorderdetails ON purchorderdetails.podetailitem = grns.podetailitem
+     WHERE grns.grnbatch= rh_transno limit 1;
+  RETURN IFNULL(rh_orderno, 0);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `rh_get_SumOfmaterialcost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 FUNCTION `rh_get_SumOfmaterialcost`(rh_stockid varchar(20)) RETURNS decimal(20,4)
+    DETERMINISTIC
+BEGIN
+  DECLARE rh_materialcost decimal(20,4);
+  SELECT Sum(stockmaster.materialcost*bom.quantity) INTO rh_materialcost 
+  FROM bom LEFT JOIN stockmaster ON bom.component = stockmaster.stockid 
+  WHERE bom.parent= rh_stockid;
+  RETURN IFNULL(rh_materialcost, 0);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `check_allstockmoves` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 PROCEDURE `check_allstockmoves`(desde INT(11), hasta INT(11))
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE rh_stkmoveno INT(11);
+  DECLARE rh_loccode varchar(5);
+  DECLARE rh_stockid varchar(20);
+  DECLARE rh_newqoh double;
+  DECLARE cur1 CURSOR FOR SELECT stkmoveno, loccode, stockid, newqoh FROM stockmoves WHERE type<> -10 and stkmoveno>=desde AND stkmoveno <= hasta 
+ORDER by stkmoveno desc;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur1;
+
+  REPEAT
+    FETCH cur1 INTO rh_stkmoveno, rh_loccode, rh_stockid, rh_newqoh;
+    insert into temp_rh_check_stock SELECT rh_stkmoveno, stockmoves.loccode, stockmoves.stockid,  rh_newqoh, sum(stockmoves.qty) as suma, 
+rh_newqoh- sum(stockmoves.qty) as dif_stockmoveqty_newqoh
+FROM stockmoves, stockmaster 
+WHERE loccode=rh_loccode and stockmoves.stockid=rh_stockid and stockmoves.stockid = stockmaster.stockid and stkmoveno <= rh_stkmoveno and 
+stockmoves.hidemovt in (0,2) and stockmaster.mbflag in ('M','B') GROUP BY stockmoves.loccode, stockmoves.stockid
+HAVING dif_stockmoveqty_newqoh>0.01 or dif_stockmoveqty_newqoh <-0.01 ;
+
+  UNTIL done END REPEAT;
+
+  CLOSE cur1;
+select * from temp_rh_check_stock order by rh_stkmoveno;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_alllocstock` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 PROCEDURE `update_alllocstock`(location varchar(50))
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE rh_loccode varchar(5);
+  DECLARE rh_stockid varchar(20);
+  DECLARE rh_sum2 double;
+  DECLARE rh_cuantos int;
+
+  DECLARE cur1 CURSOR FOR SELECT loccode, stockid, rh_get_countmoves(stockid,loccode) as cuantos FROM locstock where loccode = location  ORDER by 
+loccode, stockid;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur1;
+
+  REPEAT
+    FETCH cur1 INTO rh_loccode, rh_stockid, rh_cuantos ;
+    IF NOT done THEN
+IF (rh_cuantos > 0) THEN
+
+SELECT CASE WHEN stockmaster.mbflag in ('M','B') THEN sum(stockmoves.qty)  ELSE 0 END INTO rh_sum2 from stockmoves, stockmaster where 
+stockmoves.stockid = rh_stockid and loccode = rh_loccode and stockmaster.stockid=stockmoves.stockid and stockmoves.hidemovt in (0,2);
+
+    UPDATE locstock set quantity = rh_sum2 where loccode = rh_loccode and stockid = rh_stockid;
+
+SELECT rh_loccode, rh_stockid, rh_sum2;
+       
+ELSE
+    UPDATE locstock set quantity = 0 where loccode = rh_loccode and stockid = rh_stockid;
+SELECT rh_loccode, rh_stockid, 0;
+END IF;
+
+END IF;
+  UNTIL done END REPEAT;
+
+  CLOSE cur1;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_allstockmoves` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 PROCEDURE `update_allstockmoves`(desde INT(11), hasta INT(11))
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE rh_stkmoveno INT(11);
+  DECLARE cur1 CURSOR FOR SELECT stkmoveno FROM stockmoves WHERE stkmoveno>=desde AND stkmoveno <= hasta ORDER by stkmoveno desc;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur1;
+
+  REPEAT
+    FETCH cur1 INTO rh_stkmoveno;
+    IF NOT done THEN
+       call update_newqoh(rh_stkmoveno);
+END IF;
+    IF mod(rh_stkmoveno,50) = 0 THEN
+  SELECT rh_stkmoveno;
+    END IF;
+  UNTIL done END REPEAT;
+
+  CLOSE cur1;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_allstockmovesnewqoh` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 PROCEDURE `update_allstockmovesnewqoh`(desde INT(11), hasta INT(11))
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE rh_stkmoveno INT(11);
+  DECLARE cur1 CURSOR FOR SELECT stkmoveno FROM stockmoves WHERE stkmoveno>=desde AND stkmoveno <= hasta ORDER by stkmoveno desc;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur1;
+
+  REPEAT
+    FETCH cur1 INTO rh_stkmoveno;
+    IF NOT done THEN
+       call update_newqoh(rh_stkmoveno);
+END IF;
+  UNTIL done END REPEAT;
+
+  CLOSE cur1;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_locstock` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 PROCEDURE `update_locstock`(location varchar(50),stockid_param varchar(50))
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE rh_loccode varchar(5);
+  DECLARE rh_stockid varchar(20);
+  DECLARE rh_sum2 double;
+  DECLARE rh_cuantos int;
+
+  DECLARE cur1 CURSOR FOR SELECT loccode, stockid, rh_get_countmoves(stockid,loccode) as cuantos FROM locstock where loccode = location and 
+stockid= stockid_param ORDER by loccode, stockid;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur1;
+
+  REPEAT
+    FETCH cur1 INTO rh_loccode, rh_stockid, rh_cuantos ;
+    IF NOT done THEN
+IF (rh_cuantos > 0) THEN
+
+SELECT CASE WHEN stockmaster.mbflag in ('M','B') THEN sum(stockmoves.qty)  ELSE 0 END INTO rh_sum2 from stockmoves, stockmaster where 
+stockmoves.stockid = rh_stockid and loccode = rh_loccode and stockmaster.stockid=stockmoves.stockid and stockmoves.hidemovt in (0,2);
+
+    UPDATE locstock set quantity = rh_sum2 where loccode = rh_loccode and stockid = rh_stockid;
+       
+ELSE
+    UPDATE locstock set quantity = 0 where loccode = rh_loccode and stockid = rh_stockid;
+END IF;
+
+END IF;
+  UNTIL done END REPEAT;
+
+  CLOSE cur1;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_locstock_newqoh` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 PROCEDURE `update_locstock_newqoh`(rh_type smallint(6), rh_transno INT(11))
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE rh_stkmovenomin, rh_stkmovenomax INT(11);
+  DECLARE rh_stockid varchar(20);
+  DECLARE rh_loccode varchar(5);
+
+
+  DECLARE cur1 CURSOR FOR SELECT loccode, stockid FROM stockmoves WHERE type = rh_type AND transno = rh_transno;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur1;
+
+  REPEAT
+    FETCH cur1 INTO rh_loccode, rh_stockid;
+    IF NOT done THEN
+       call update_locstock(rh_loccode, rh_stockid);
+END IF;
+  UNTIL done END REPEAT;
+
+  CLOSE cur1;
+
+SELECT min(stkmoveno),max(stkmoveno) INTO rh_stkmovenomin,  rh_stkmovenomax FROM stockmoves WHERE type = rh_type AND transno = rh_transno;
+
+call update_allstockmovesnewqoh(rh_stkmovenomin, rh_stkmovenomax);
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_newqoh` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`admin`@`localhost`*/ /*!50003 PROCEDURE `update_newqoh`(rh_stkmoveno INT)
+BEGIN
+  DECLARE rh_stockid varchar(20);
+  DECLARE rh_loccode varchar(5);
+  DECLARE rh_sum double;
+  DECLARE rh_sum2 double;
+  DECLARE rh_mbflag CHAR(1);
+
+SELECT stockid INTO rh_stockid from stockmoves where stkmoveno = rh_stkmoveno;
+SELECT loccode INTO rh_loccode from stockmoves where stkmoveno = rh_stkmoveno;
+SELECT mbflag INTO rh_mbflag from stockmaster where stockid = rh_stockid;
+
+IF (rh_mbflag = 'B' OR rh_mbflag = 'M') THEN
+
+SELECT sum(qty) INTO rh_sum from stockmoves where stockid = rh_stockid and loccode = rh_loccode and stkmoveno <= rh_stkmoveno and hidemovt in 
+(0,2);
+
+    UPDATE stockmoves set newqoh = rh_sum where stkmoveno = rh_stkmoveno;
+
+
+
+
+ELSE
+UPDATE stockmoves set newqoh = 0 where stkmoveno = rh_stkmoveno;
+UPDATE locstock set quantity = 0 where loccode = rh_loccode and stockid = rh_stockid;
+END IF;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-02-28 16:19:23

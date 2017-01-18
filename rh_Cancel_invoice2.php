@@ -1,0 +1,64 @@
+<?php
+$PageSecurity =15;
+global $db;
+include('includes/session.inc');
+$title = _('Cancelar una Factura');
+include('includes/header.inc');
+echo '<pre>';
+include_once('CFDI32.php');
+ini_set('memory_limit','256M');
+set_time_limit(0);
+ini_set('display_errors', 1);error_reporting (1);
+
+		$TablaDebtortrans='tmp_debtortrans_errorEmision3';
+		$sql = "SELECT gstno FROM companies LIMIT 1";
+        $rs = DB_query($sql,$db);
+        if($rw = DB_fetch_array($rs)){
+          $RFC=$rw['gstno'];
+        }
+        $sqlQuery = "SELECT rh_cfd__cfd.uuid,pfx,pfxpass FROM ".
+         $TablaDebtortrans." debtortrans ".
+        " join rh_cfd__cfd on debtortrans.id= rh_cfd__cfd.id_debtortrans ".
+        " JOIN rh_cfd__locations__systypes__ws_csd ON rh_cfd__locations__systypes__ws_csd.serie = rh_cfd__cfd.serie ".
+        " AND rh_cfd__locations__systypes__ws_csd.`id_systypes`=rh_cfd__cfd.`id_systypes` ".
+        " JOIN rh_csd ON rh_csd.noserie  = rh_cfd__locations__systypes__ws_csd.id_ws_csd ".
+        " WHERE rh_cfd__cfd.xml<>'' and rh_cfd__cfd.xml is not null and rh_cfd__cfd.id_systypes = 10 and debtortrans.rh_status = 'E' and debtortrans.alloc=0 ";
+        $result = DB_query($sqlQuery,$db,'','',false,false);
+        $pfx ="";
+        $ErrorConteo=
+        $C=0;
+        while($row = DB_fetch_array($result)){
+	        $UUID='';
+	        $C++;
+	        $UUID = $row['uuid'];
+	        if($pfx == ''){
+	            $pfxPassword = $row['pfxpass'];
+	            $pfx = base64_encode(file_get_contents ('XMLFacturacionElectronica/csdandkey/'.$row['pfx']));
+	        }
+	        try {
+				$uuid = CFDI::cancelCFDI($RFC,$UUID,$pfx,$pfxPassword);
+				if(trim($uuid)!=''){
+					$sql="update rh_cfd__cfd, debtortrans ".
+					" set debtortrans.rh_status='C' where debtortrans.id=rh_cfd__cfd.id_debtortrans and rh_cfd__cfd.uuid='".$uuid."' ";
+					DB_query($sql,$db);
+					$sql="update rh_cfd__cfd, ".$TablaDebtortrans." debtortrans ".
+					" set debtortrans.rh_status='X' where debtortrans.id=rh_cfd__cfd.id_debtortrans and rh_cfd__cfd.uuid='".$uuid."' ";
+					DB_query($sql,$db);
+					
+					echo 'Completa: '.$UUID."<br >\n";
+				}
+	        }catch (Exception $e){
+	        	var_dump($e);
+	        	echo 'Error: '.$UUID."<br >\n";
+	        	$ErrorConteo++;
+	        }
+        }
+echo '</pre>';
+echo "<br>\n";
+echo 'Canceladas: ';
+echo $C;
+echo "<br>\n";
+echo 'Error: ';
+echo $ErrorConteo;
+echo "<br>\n";
+include("includes/footer.inc");

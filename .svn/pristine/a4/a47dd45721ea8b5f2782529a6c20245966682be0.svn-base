@@ -1,0 +1,152 @@
+<?php
+/* $Revision: 141 $ */
+
+$PageSecurity = 2;
+
+include ('includes/session.inc');
+
+if ($_GET['InvOrCredit']=='Invoice'){
+	$TransactionType = _('Invoice');
+	$TypeCode = 10;
+} else {
+	$TransactionType = _('Credit Note');
+	$TypeCode =11;
+}
+$title=_('Email') . ' ' . $TransactionType . ' ' . _('Number') . ' ' . $_GET['FromTransNo'];
+
+if (isset($_POST['DoIt']) AND strlen($_POST['EmailAddr'])>3){
+    //Jaime (agregado) si la factura es un CFD se envia por Email el archivo .xml
+    if (isSet($_POST['isCfd'])){$isCfd = true;
+        $_GET['transno']=$transno=(int)$_POST['TransNo'];
+        $row = DB_fetch_assoc(DB_query("select c.uuid, c.serie, c.folio, c.xml from rh_cfd__cfd c where c.fk_transno = " . $_POST['TransNo'], $db, _("Error retrieving invoice data")));
+        $cfdName = $row['uuid'];
+        $xmlFile = $row['xml'];
+        $folio=$row['serie'].''.$row['folio'];
+        $Fila = DB_fetch_assoc(DB_query("select * from debtortrans where type=".
+        		($_POST['InvOrCredit']=='Credit'?11:10)
+        		." and transno = " . $_POST['TransNo'], $db, _("Error retrieving invoice data")));
+        if($Fila['rh_status']=='C')
+        	$_GET['isCfdCancelado']=1;
+        if($_POST['InvOrCredit']=='Credit')
+        	$_GET['isNotaDeCredito']=1;
+        if(isSet($_POST['isCartaPorte']))
+        	$_GET['isCartaPorte']=1;
+        $fileBasePath = dirname(__FILE__).'/XMLFacturacionElectronica/xmlbycfdi';
+        if(!is_file($fileBasePath . '/' . $cfdName . '.pdf'))
+        	include dirname(__FILE__).'/PHPJasperXML/sample1.php';
+        {
+        	chdir(dirname(__FILE__));
+        	$fileBasePath = dirname(__FILE__).'/XMLFacturacionElectronica/xmlbycfdi';
+			//Jaime, se cambio el envio de email por smtp, con autentificacion y ssl
+			include_once(dirname(__FILE__)."/PHPMailer_v5.1/class.phpmailer.php");
+			$mail = new PHPMailer();
+			$mail->IsSMTP(); // send via SMTP
+			$mail->Host = 'ssl://smtp.gmail.com';
+			$mail->Port = 465;//587
+			$mail->SMTPAuth = true; // turn on SMTP authentication
+			$mail->Username = "envio@realhost.com.mx"; // SMTP username
+			$mail->Password = "47V94669"; // SMTP password
+			$mail->SetFrom('envio@realhost.com.mx', 'Servicio de Facturación');
+			//$from_email = "jaime.hinojosa@realhost.com.mx"; //Reply to this email ID
+			//$from_name = "Roberto Jaime Hinojosa";
+			//$name="Roberto Jaime Hinojosa"; // Recipient's name
+			//$mail->From = $from_email;
+			//$mail->FromName = $from_name;
+			$mails=explode(";",$_POST['EmailAddr']);
+			foreach($mails as $value){
+			    if(strlen($value)>3){
+			        $mail->AddAddress($value);
+			    }
+			}
+			//$mail->AddReplyTo($webmaster_email,$webmaster_name);
+			//$mail->WordWrap = 50; // set word wrap
+			if($_SESSION['DatabaseName']=='tractocli_cfdi_001'){
+				$mail->AddAttachment($fileBasePath . '/' . $cfdName . '.xml', $folio.'('.$cfdName .')'. '.xml'); // attachment
+				$mail->AddAttachment($fileBasePath . '/' . $cfdName . '.pdf', $folio.'('.$cfdName .')'. '.pdf'); // attachment
+			}else{
+				$mail->AddStringAttachment($xmlFile,$cfdName . '.xml'); // attachment
+				$mail->AddAttachment($fileBasePath . '/' . $cfdName . '.pdf', $cfdName . '.pdf'); // attachment
+			}
+			//$mail->IsHTML(true); // send as HTML
+			$mail->Subject = 'CFDI: ' . $cfdName;
+			$mail->Body = "Anexo se encuentra el CFDI en formato XML y PDF."; //HTML Body
+			//$mail->AltBody = "This is the body when user views in plain text format"; //Text Body
+			$mail_success = $mail->Send();
+			if(!$mail_success)
+			    $mail_error = $mail->ErrorInfo;
+			$mail = null;
+			//\Jaime, se cambio el envio de email por smtp, con autentificacion y ssl
+        }
+        $title = _('Emailing') . ' CFDI ' . _('Number') . ' ' . $_POST['TransNo'];
+        include(dirname(__FILE__).'/includes/header.inc');
+        if($mail_success)
+            echo "<P>CFDI " . _('number') . ' ' . $_POST['TransNo'] . ' ' . _('has been emailed to') . ' ' . $_POST['EmailAddr'];
+        else
+            echo "<P>Mailer Error: " . $mail_error;
+        include(dirname(__FILE__).'/includes/footer.inc');
+        exit;
+    }
+    //Termina Jaime (agregado) si la factura es un CFD se envia por Email el archivo .xml
+	if ($_SESSION['InvoicePortraitFormat']==0){
+		echo "<META HTTP-EQUIV='Refresh' CONTENT='0; URL=" . $rootpath . '/rh_PrintCustTrans.php?' . SID . '&FromTransNo=' . $_POST['TransNo'] . '&PrintPDF=Yes&InvOrCredit=' . $_POST['InvOrCredit'] .'&Email=' . $_POST['EmailAddr'] . "'>";
+
+		prnMsg(_('The transaction should have been emailed off') . '. ' . _('If this does not happen') . ' (' . _('if the browser does not support META Refresh') . ')' . "<a href='" . $rootpath . '/rh_PrintCustTrans.php?' . SID . '&FromTransNo=' . $_POST['FromTransNo'] . '&PrintPDF=Yes&InvOrCredit=' . $_POST['InvOrCredit'] .'&Email=' . $_POST['EmailAddr'] . "'>" . _('click here') . '</a> ' . _('to email the customer transaction'),'success');
+	} else {
+		echo "<META HTTP-EQUIV='Refresh' CONTENT='0; URL=" . $rootpath . '/PrintCustTransPortrait.php?' . SID . '&FromTransNo=' . $_POST['TransNo'] . '&PrintPDF=Yes&InvOrCredit=' . $_POST['InvOrCredit'] .'&Email=' . $_POST['EmailAddr'] . "'>";
+
+		prnMsg(_('The transaction should have been emailed off') . '. ' . _('If this does not happen') . ' (' . _('if the browser does not support META Refresh') . ')' . "<a href='" . $rootpath . '/PrintCustTransPortrait.php?' . SID . '&FromTransNo=' . $_POST['FromTransNo'] . '&PrintPDF=Yes&InvOrCredit=' . $_POST['InvOrCredit'] .'&Email=' . $_POST['EmailAddr'] . "'>" . _('click here') . '</a> ' . _('to email the customer transaction'),'success');
+	}
+	exit;
+} elseif (isset($_POST['DoIt'])) {
+	$_GET['InvOrCredit'] = $_POST['InvOrCredit'];
+	$_GET['FromTransNo'] = $_POST['FromTransNo'];
+	prnMsg(_('The email address entered is too short to be a valid email address') . '. ' . _('The transaction was not emailed'),'warn');
+}
+
+include ('includes/header.inc');
+
+
+
+
+echo "<FORM ACTION='" . $_SERVER['PHP_SELF'] . '?' . SID . "' METHOD=POST>";
+
+echo "<INPUT TYPE=HIDDEN NAME='TransNo' VALUE=" . $_GET['FromTransNo'] . ">";
+echo "<INPUT TYPE=HIDDEN NAME='InvOrCredit' VALUE=" . $_GET['InvOrCredit'] . '>';
+//Jaime (agregado) se agrega el atributo isCfd para saber si la factura es un CFD
+if (isSet($_GET['isCfd']) && $_GET['isCfd'])
+    echo '<input type="hidden" name="isCfd" value="1">';
+if (isSet($_GET['isCartaPorte']) && $_GET['isCartaPorte'])
+    echo '<input type="hidden" name="isCartaPorte" value="1">';
+//Termina Jaime (agregado) se agrega el atributo isCfd para saber si la factura es un CFD
+
+echo '<CENTER><P><TABLE>';
+$SQL="select * from debtortrans where rh_status='C' and type=10 and transno='".$_GET['FromTransNo']."' limit 1";
+if(DB_num_rows(DB_query($SQL,$db,'','',0,0))>0){
+	echo '<input type="hidden" name="isCfdCancelado" value="true">';
+}
+
+$SQL = "SELECT email
+		FROM custbranch INNER JOIN debtortrans
+			ON custbranch.debtorno= debtortrans.debtorno
+			AND custbranch.branchcode=debtortrans.branchcode
+	WHERE debtortrans.type=$TypeCode
+	AND debtortrans.transno=" .$_GET['FromTransNo'];
+
+$ErrMsg = _('There was a problem retrieving the contact details for the customer');
+$ContactResult=DB_query($SQL,$db,$ErrMsg);
+
+if (DB_num_rows($ContactResult)>0){
+	$EmailAddrRow = DB_fetch_row($ContactResult);
+	$EmailAddress = $EmailAddrRow[0];
+} else {
+	$EmailAddress ='';
+}
+
+echo '<TR><TD>' . _('Email') . ' ' . $_GET['InvOrCredit'] . ' ' . _('number') . ' ' . $_GET['FromTransNo'] . ' ' . _('to') . ":</TD>
+	<TD><TEXTAREA COLS=25 ROWS=12 NAME='EmailAddr'>".$EmailAddress."</TEXTAREA></TD>
+	</TABLE>";
+
+echo "<BR><INPUT TYPE=SUBMIT NAME='DoIt' VALUE='" . _('OK') . "'>";
+echo '</CENTER></FORM>';
+include ('includes/footer.inc');
+?>

@@ -1,0 +1,260 @@
+<?php
+$PageSecurity = 2;
+include('includes/session.inc');
+$title=_('List of Pages');
+if(!isset($_REQUEST['userid'])){
+	header("location: WWW_Users.php");
+	exit;
+}
+/************
+ * Buscamos todos los archivos que no esten dados de alta en la tabla script
+*
+* */
+$FilesWeb=glob("*.php");
+natsort($FilesWeb);
+$SQL="select * from scripts order by filename desc";
+$Resultado=DB_query($SQL,$db);
+while ($myrow=DB_fetch_assoc($Resultado)) {
+	$id=array_search($myrow['filename'],$FilesWeb);
+	if($id!==false){
+		unset($FilesWeb[$id]);
+	}
+}
+
+/*
+ * Por cada archivo que no este dado de alta, buscamos su nivel de permiso y texto de encabezado
+* */
+if(count($FilesWeb)>0){
+	$Restringidos=$Permitidos=array();
+	foreach($FilesWeb as $page){
+		if(
+				strpos($page,'rh_storagebins')&&
+				isset($_SESSION['StorageBins'])&&$_SESSION['StorageBins']==1){
+			
+			continue;
+		}
+		
+		$$_Titulo=$pageName=$page;
+		$to=0;
+		$$_PageSecurity=-1;
+		if(isset($UsuarioRegistro["PageSecurityArray"][$page]))
+			$$_PageSecurity=$UsuarioRegistro["PageSecurityArray"][$page];
+		$handle = @fopen($page, "r");
+		if ($handle) {
+			while (($buffer = fgets($handle)) !== false) {
+				if(strpos($buffer,'$title')!==false){
+					$from=strpos($buffer,'$title');
+					$to=strpos($buffer,';')+1;
+					$buffer=//substr($buffer,0,$from).
+					substr($buffer,$from,$to-$from)//Elemento que nos interesa quitar
+					//.substr($buffer,$to)
+					;if(trim($buffer)!=''){
+						eval($buffer);
+						$pageName=$$_Titulo;
+					}
+					break;
+				}
+				if((strpos($buffer,'$PageSecurity')!==false&&strpos($buffer,'=')!==false)){
+					$from=strpos($buffer,'$PageSecurity');
+					$to=strpos($buffer,';')+1;
+					$buffer=//substr($buffer,0,$from).
+					substr($buffer,$from,$to-$from)//Elemento que nos interesa quitar
+					//.substr($buffer,$to)
+					;eval($buffer);
+				}
+			}
+			fclose($handle);
+		}
+		echo "\n";
+		if($$_PageSecurity>=0){
+			echo $SQL="insert into scripts set filename='{$page}', pagesecurity='{$$_PageSecurity}', title='{$$_Titulo}', active=1";
+		}else
+			/*
+			 * Si no tiene page security lo ponemos a 150 por default,
+		* */
+			echo $SQL="insert into scripts set filename='{$page}', pagesecurity='150', title='{$$_Titulo}', active=0 ";
+		$Resultado=DB_query($SQL,$db);
+	}
+}
+
+function GetUserInfo($Name){
+	global $db;
+	$UsuarioRegistro=array();
+	$sql = "SELECT * FROM www_users WHERE www_users.userid='" . DB_escape_string($Name) . "'";
+	$Auth_Result = DB_query($sql, $db,$ErrMsg);
+	if (DB_num_rows($Auth_Result) > 0) {
+		$myrow = DB_fetch_array($Auth_Result);
+		$UsuarioRegistro['BlockingPages'] = explode(',',$myrow['rh_pagelock']);
+		$UsuarioRegistro['AccessLevel'] = $myrow['fullaccess'];
+		$UsuarioRegistro['modulesallowed'] = explode(",",$myrow['modulesallowed']);
+		
+	}
+
+	$sql = "SELECT tokenid FROM securitygroups ".
+			"WHERE secroleid =  '" . DB_escape_string($UsuarioRegistro['AccessLevel']) . "'";
+	$Sec_Result = DB_query($sql, $db);
+	$UsuarioRegistro['AllowedPageSecurityTokens'] = array();
+
+	while ($myrow = DB_fetch_row($Sec_Result)){
+		$UsuarioRegistro['AllowedPageSecurityTokens'][] = $myrow[0];
+	}
+	//foreach($UsuarioRegistro["BlockingPages"] as $pages){if($pages!='')	$UsuarioRegistro['PageSecurityArray'][$pages]=$UsuarioRegistro['AccessLevel'];}
+	$sql="SELECT filename, pagesecurity FROM scripts";
+	$result=DB_query($sql, $db,'','',false,false);
+	while ($myrow=DB_fetch_array($result)) {
+		if(!isset($UsuarioRegistro['PageSecurityArray'][$myrow['filename']])
+				&&@in_array($myrow['filename'],$UsuarioRegistro["BlockingPages"]))
+			$myrow['pagesecurity']=151;
+		$UsuarioRegistro['PageSecurityArray'][$myrow['filename']]=$myrow['pagesecurity'];
+	}
+	return $UsuarioRegistro;
+}
+if(isset($_POST['page'])&&isset($_REQUEST['userid'])){
+	//$NoPermitidosNuevos =array_diff($_POST['Permitidos'],$_POST['page']);	
+	$scripts=array();
+	$PermitidosNuevos =$_POST['page'];
+	$sql="SELECT filename FROM scripts where pagesecurity<>150 and filename not in ('".
+		implode("','",$PermitidosNuevos)."')";
+	$result=DB_query($sql, $db);
+	while ($myrow=DB_fetch_assoc($result)) {
+		$scripts[]=$myrow['filename'];
+	}
+
+	$scripts=implode(",",$scripts);
+
+	$SQL="UPDATE www_users set rh_pagelock= '".DB_escape_string($scripts)."' WHERE www_users.userid='" . DB_escape_string($_REQUEST['userid']) . "'";
+	$Resultado=DB_query($SQL,$db);
+	if($PermisosIndividualesseccion){
+		$sql="SELECT * FROM rh_usuario_permiso where id in (".trim($_REQUEST['Permisos_id'],"\t\r\0\n\x0b ,'\"").")";
+		$result=DB_query($sql, $db);
+		while ($myrow=DB_fetch_assoc($result)){
+			$prohibit=unserialize($myrow['prohibit']);
+			if(isset($_REQUEST['Permisos'][$myrow['id']])){
+				foreach($prohibit as $Permiso=>$Medio){
+					if(isset($_REQUEST['Permisos'][$myrow['id']][$Permiso])){
+						$prohibit[$Permiso]['Visible']=1;
+					}else
+						$prohibit[$Permiso]['Visible']=0;
+				}
+			}else
+				foreach($prohibit as $Permiso=>$Medio)
+				$prohibit[$Permiso]['Visible']=0;
+			setPermisosPagina($prohibit,$_REQUEST['userid'],$myrow['filename']);
+		}
+	}
+	
+	unset($PermitidosNuevos);
+	unset($_POST['page']);
+	unset($_POST['Permitidos']);
+}
+if($PermisosIndividualesseccion){
+	$SQL="select * from rh_usuario_permiso group by filename";
+	$result=DB_query($SQL, $db);
+	while ($myrow=DB_fetch_assoc($result)){
+		$Permiso=getPermisosPagina($_REQUEST['userid'],$myrow['filename']);
+		if(count($Permiso)==0){
+			$Permiso=unserialize($myrow['prohibit']);
+			foreach($Permiso as $Id=>$data)
+				$Permiso[$Id]['Visible']=1;
+			setPermisosPagina($Permiso,$_REQUEST['userid'],$myrow['filename']);
+		}
+	}
+}
+$UsuarioRegistro=GetUserInfo($_REQUEST['userid']);
+
+
+include_once("includes/header.inc");
+
+$SQL="select * from scripts order by filename desc";
+$Resultado=DB_query($SQL,$db);
+while ($myrow=DB_fetch_assoc($Resultado)) {
+	$FilesWeb[$myrow['filename']]=$myrow;
+}
+if(!(isset($_SESSION['StorageBins'])&&$_SESSION['StorageBins']==1)){
+	foreach($FilesWeb as $id=>$tex){
+		if(strpos($id,'rh_storagebins')!==false)
+			unset($FilesWeb[$id]);
+	}
+}
+	
+$Restringidos=array();
+$Permitidos=array();
+foreach($FilesWeb as $page=>$data){
+	$$_Titulo=$pageName=$page;
+	$to=0;
+	$$_PageSecurity=-1;
+	if(isset($UsuarioRegistro["PageSecurityArray"][$page]))
+		$$_PageSecurity=$UsuarioRegistro["PageSecurityArray"][$page];
+	if($data['pagesecurity']!=150)
+		$$_PageSecurity=$data['pagesecurity'];
+	if($$_PageSecurity>=0&&$$_PageSecurity!=150){
+		if(!in_array($page,$UsuarioRegistro['BlockingPages'])&&
+				in_array($$_PageSecurity, $UsuarioRegistro['AllowedPageSecurityTokens'])){
+			$Permitidos[]=array($page,$data['title']);
+		}else
+			$Restringidos[]=array($page,$data['title']);
+	}
+}
+echo '<a href="WWW_Users.php?SelectedUser='.urlencode($_REQUEST['userid']).'">'._('Back to user').'</a>';
+echo "<form name='' method='POST'> \n";
+echo '<input type="hidden" value="'.$_SESSION['FormID'].'" name="FormID" />';
+echo '<input type="hidden" value="'.$_REQUEST['userid'].'" name="userid" />';
+echo '<table>';
+$Header= '<tr>'.'<th><a name="%s"></a>'._('Allowed').'</th>'.'<th>'._('No Permitidos').'</th>'.'</tr>';
+$length=max(count($Permitidos),count($Restringidos));
+$MaxRow=1000;
+for($id=0;$id<$length;$id++){
+	$MaxRow++;
+	if($MaxRow>25){
+		$MaxRow=0;
+		echo sprintf($Header,$id);
+		echo "<tr><td colspan=2 ><input type='submit' value='"._('Save')."' name='SaveN".$id."' /></td></tr>";
+	}
+	echo '<tr>';
+	if(isset($Permitidos[$id])){
+		list($page,$pageName)=$Permitidos[$id];
+		/*if($page==' * '){
+			echo '<td>';
+				echo "\t<p class='page_title_text'>"._('Others')."</p>\n";
+			echo '</td>';
+		}else/**/{
+			echo '<td>';
+				//echo "\t".'<input type="hidden" name="Permitidos[]" value="'.$page.'"'." /><br />\n";
+				echo "\t".'<input type="checkbox" checked=checked name="page[]" value="'.$page.'" /> <a href="'.$page.'" target="_blank">'.$pageName." ({$page})"."</a><br />\n";
+				if($PermisosIndividualesseccion){
+					$Permisos=getPermisosPagina($_REQUEST['userid'], $page);
+					$idPermisos=$Permisos['id'];
+					$ListadoPermisos[$idPermisos]=$idPermisos;
+					unset($Permisos['id']);
+					foreach($Permisos as $perm=>$Permiso){
+						echo '&nbsp;&nbsp;';echo '&nbsp;&nbsp;';
+						echo '&nbsp;&nbsp;';
+						echo '<input type="checkbox" ';
+						if($Permiso['Visible']==1)
+							echo ' checked=checked ';
+						echo 'name="Permisos['.$idPermisos.']['.$perm.']" value="'.$page.'" />';
+						echo _('Mostrar').' ';
+						echo _($Permiso['Nombre']).' ';
+						echo "<br />\n";
+					}
+				}
+			echo '</td>';
+		}
+	}else
+		echo '<td></td>';
+	if(isset($Restringidos[$id])){
+		echo '<td>';
+		//$page=$Restringidos[$id]['page'];
+		list($page,$pageName)=$Restringidos[$id];
+		//echo "\t".'<input type="hidden" name="NoPermitidos[]" value="'.$page.'"'." /><br />\n";
+		echo "\t".'<input type="checkbox" name="page[]" value="'.$page.'" /> <a href="'.$page.'" target="_blank">'.$pageName." ({$page})"."</a><br />\n";
+		echo '</td>';
+	}else
+		echo '<td></td>';
+	echo "\n";
+	echo '</tr>';
+}
+echo '</table>';
+echo '<input type="hidden" value="'.implode(',',$ListadoPermisos).'" name="Permisos_id">';
+echo "</form> \n";
+include_once('includes/footer.inc');

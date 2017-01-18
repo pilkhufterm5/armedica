@@ -1,0 +1,19 @@
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(1, 'Banorte', 15, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(2, 'Bancomer', 16, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(6, 'Bancrecer', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(7, 'Serfin', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(8, 'Hsbc', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(9, 'City Bank', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(10, 'Afirme', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(11, 'Santander', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(12, 'Inverlat', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(13, 'Banamex', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(14, 'Suma Banorte', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(15, 'Banregio', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(16, 'IXE', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(17, 'Inbursa', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(18, 'Banco del Bajio', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(19, 'Invex', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(20, 'Scotia Bank', 1, 'MTY');
+INSERT INTO tmp_convenios (ar_id, nombre, bancotransferencia_id, sucursal)VALUES(21, 'BANCOPPEL', 1, 'CHIHUAHUA');
+

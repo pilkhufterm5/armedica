@@ -1,0 +1,260 @@
+<?php
+
+/* $Revision: 266 $ */
+
+$PageSecurity = 3;
+
+include ('includes/session.inc');
+include ('includes/SQL_CommonFunctions.inc');
+
+// bowikaxu realhost March 2008 - print amount in letters
+require_once ('Numbers/Words.php');
+include ('includes/class.pdf.php');
+
+if (isset($_GET['BatchNo'])) {
+    $_POST['BatchNo'] = $_GET['BatchNo'];
+}
+
+if (!isset($_POST['BatchNo'])) {
+    $title = _('Create PDF Print Out For A Batch Of Receipts');
+    include ('includes/header.inc');
+    echo "<FORM METHOD='post' action=" . $_SERVER['PHP_SELF'] . '>';
+    echo '<P>' . _('Enter the batch number of receipts to be printed') . ': <INPUT TYPE=text NAME=BatchNo MAXLENGTH=6 SIZE=6>';
+    echo "<CENTER><INPUT TYPE=SUBMIT NAME='EnterBatchNo' VALUE='" . _('Create PDF') . "'></CENTER>";
+    exit;
+}
+
+$SQL = 'SELECT bankaccountname,
+        bankaccountnumber,
+        ref,
+        transdate,
+        banktranstype,
+        bankact,
+        banktrans.exrate,
+        banktrans.currcode
+    FROM bankaccounts,
+        banktrans
+    WHERE bankaccounts.accountcode=banktrans.bankact
+    AND banktrans.transno=' . $_POST['BatchNo'] . '
+    AND banktrans.type=12';
+
+$ErrMsg = _('An error occurred getting the header information about the receipt batch number') . ' ' . $_POST['BatchNo'];
+$DbgMsg = _('The SQL used to get the receipt header information that failed was');
+$Result = DB_query($SQL, $db, $ErrMsg, $DbgMsg);
+
+if (DB_num_rows($Result) == 0) {
+    $title = _('Create PDF Print-out For A Batch Of Receipts');
+    include ('includes/header.inc');
+    prnMsg(_('The receipt batch number') . ' ' . $_POST['BatchNo'] . ' ' . _('was not found in the database') . '. ' . _('Please try again selecting a different batch number'), 'error');
+    include ('includes/footer.inc');
+    exit;
+}
+
+/* OK get the row of receipt batch header info from the BankTrans table */
+$myrow = DB_fetch_array($Result);
+$ExRate = $myrow['exrate'];
+$Currency = $myrow['currcode'];
+$BankTransType = $myrow['banktranstype'];
+$BankedDate = $myrow['transdate'];
+$BankActName = $myrow['bankaccountname'];
+$BankActNumber = $myrow['bankaccountnumber'];
+$BankingReference = $myrow['ref'];
+
+$SQL = "SELECT (rh_titular.folio) as FolioAfil,
+        CONCAT(rh_cfd__cfd.serie,rh_cfd__cfd.folio) as FolioFactura,
+        rh_cobranza.cobrador,
+        rh_cobradores.nombre as cobrador,
+        debtorsmaster.name,
+        debtortrans.id,
+        debtortrans.ovamount totalDeposito,
+        custallocns.amt total,
+        dt2.ovamount,
+        dt2.ovgst,
+        debtortrans.invtext,
+        debtortrans.reference,
+        rh_cfd__cfd.fecha
+    FROM debtortrans
+        LEFT JOIN rh_cobranza ON debtortrans.debtorno = rh_cobranza.debtorno
+        LEFT JOIN rh_cobradores ON rh_cobranza.cobrador = rh_cobradores.id
+        LEFT JOIN debtorsmaster ON debtorsmaster.debtorno = debtortrans.debtorno AND debtortrans.type = 12
+        LEFT JOIN rh_titular ON debtorsmaster.debtorno = rh_titular.debtorno
+        LEFT JOIN custallocns ON debtortrans.id = custallocns.transid_allocfrom
+        LEFT JOIN debtortrans dt2 ON custallocns.transid_allocto = dt2.id
+        LEFT JOIN rh_cfd__cfd ON dt2.id = rh_cfd__cfd.id_debtortrans
+    WHERE debtorsmaster.debtorno=debtortrans.debtorno
+    AND debtortrans.transno=" . $_POST['BatchNo'];
+
+$CustRecs = DB_query($SQL, $db, '', '', false, false);
+if (DB_error_no($db) != 0) {
+    $title = _('Create PDF Print-out For A Batch Of Receipts');
+    include ('includes/header.inc');
+    prnMsg(_('An error occurred getting the customer receipts for batch number') . ' ' . $_POST['BatchNo'], 'error');
+    if ($debug == 1) {
+        prnMsg(_('The SQL used to get the customer receipt information that failed was') . '<BR>' . $SQL, 'error');
+    }
+    include ('includes/footer.inc');
+    exit;
+}
+
+// bowikaxu realhost - 27 may 2008 - do not search gl postings neither on adv. debtors act.
+$SQL = "SELECT narrative,
+        amount
+    FROM gltrans
+    WHERE gltrans.typeno=" . $_POST['BatchNo'] . "
+    AND gltrans.type=12 and gltrans.amount <0
+    AND gltrans.account !=" . $myrow['bankact'] . '
+    AND gltrans.account !=' . $_SESSION['CompanyRecord']['rh_advdebtorsact'] . '
+    AND gltrans.account !=' . $_SESSION['CompanyRecord']['debtorsact'];
+
+$GLRecs = DB_query($SQL, $db, '', '', false, false);
+if (DB_error_no($db) != 0) {
+    $title = _('Create PDF Print-out For A Batch Of Receipts');
+    include ('includes/header.inc');
+    prnMsg(_('An error occurred getting the GL receipts for batch number') . ' ' . $_POST['BatchNo'], 'error');
+    if ($debug == 1) {
+        prnMsg(_('The SQL used to get the GL receipt information that failed was') . ':<BR>' . $SQL, 'error');
+    }
+    include ('includes/footer.inc');
+    exit;
+}
+
+//include('includes/PDFStarter.php');
+
+$Page_Width = 612;
+$Page_Height = 792;
+$Top_Margin = 30;
+$Bottom_Margin = 30;
+$Left_Margin = 30;
+$Right_Margin = 25;
+$PageSize = array(0, 0, $Page_Width, $Page_Height);
+//$PageSize = array(0, 0, $Page_Height, $Page_Width);
+$pdf = & new Cpdf($PageSize);
+
+//Inicialización posición
+// var_dump($PageSize);exit;
+$pdf->DefOrientation = 'l';
+$pdf->CurOrientation = 'l';
+$pdf->OrientationChanges = 'l';
+
+$pdf->addinfo('Author', 'webERP ' . $Version);
+$pdf->addinfo('Creator', 'webERP http://www.weberp.org');
+
+$pdf->selectFont('');
+
+/*PDFStarter.php has all the variables for page size and width set up depending on the users default preferences for paper size */
+
+$pdf->addinfo('Title', _('Receipt') . ' ' . _('of') . ' ' . _('Payment'));
+$pdf->addinfo('Subject', _('Receipt') . ' ' . _('of') . ' ' . _('Payment') . ' ' . $_POST['BatchNo']);
+
+$line_height = 12;
+$PageNumber = 0;
+
+$TotalBanked = array();
+
+include ('includes/PDFBankingSummaryPageHeader.inc');
+$Subtotal = 0;
+$Impuesto_total = 0;
+while ($myrow = DB_fetch_array($CustRecs)) {
+     //FolioFactura
+    $TotalBanked[$myrow['id']] = $myrow['totalDeposito'];
+    $y2 = 0;
+    $LeftOvers = $pdf->addTextWrap(30, $YPos, 30, $FontSize, $myrow['FolioAfil'], 'center');
+    $LeftOvers = $pdf->addTextWrap(60, $YPos, 60, $FontSize, $myrow['FolioFactura'], 'center');
+    $LeftOvers = $pdf->addTextWrap(120, $YPos, 45, $FontSize, ConvertSQLDate($myrow['fecha']), 'left');
+    if ($LeftOvers != '') {
+        $LeftOvers = $pdf->addTextWrap(120, $YPos - $FontSize, 45, $FontSize, $LeftOvers, 'center');
+        $y2 = 1;
+    }
+    $LeftOvers = $pdf->addTextWrap(165, $YPos, 60, $FontSize, $myrow['cobrador'], 'center');
+    $LeftOvers = $pdf->addTextWrap(240, $YPos, 150, $FontSize, $myrow['name'], 'left');
+    if ($LeftOvers != '') {
+        $y2 = 1;
+        $LeftOvers = $pdf->addTextWrap(240, $YPos - $FontSize, 150, $FontSize, $LeftOvers, 'left');
+    }
+
+    // $LeftOvers = $pdf->addTextWrap(250,$YPos,100,$FontSize,$myrow['invtext'], 'left');
+    $LeftOvers = $pdf->addTextWrap(540, $YPos, 110, $FontSize, $myrow['reference'], 'left');
+    if ($LeftOvers != '') {
+        $y2 = 1;
+        $LeftOvers = $pdf->addTextWrap(540, $YPos - $FontSize, 110, $FontSize, $LeftOvers, 'left');
+    }
+    $Impuesto = $myrow['total'] - $myrow['total'] / ($myrow['ovgst'] / ($myrow['ovamount']) + 1);
+    /*Subtotal*/
+    $LeftOvers = $pdf->addTextWrap(600, $YPos, 50, $FontSize, number_format($myrow['total'] - $Impuesto, 2), 'right');
+    /*Impuestos Partida*/
+    $LeftOvers = $pdf->addTextWrap(650, $YPos, 50, $FontSize, number_format($Impuesto, 2), 'right');
+    /*Total Partida*/
+    $LeftOvers = $pdf->addTextWrap(710, $YPos, 50, $FontSize, number_format($myrow['total'], 2), 'right');
+
+    $YPos-= ($line_height + $y2 * $line_height);
+    $Subtotal = $Subtotal + $myrow['total'] - $Impuesto;
+    $Impuesto_total = $Impuesto_total + $Impuesto;
+
+    if ($YPos - (2 * $line_height) < $Bottom_Margin) {
+        /*Then set up a new page */
+        include ('includes/PDFBankingSummaryPageHeader.inc');
+    }
+    /*end of new page header  */
+}
+ /* end of while there are customer receipts in the batch to print */
+$TotalBanked = array_sum($TotalBanked);
+$Total = $Subtotal + $Impuesto_total;
+
+/* Right now print out the GL receipt entries in the batch */
+while ($myrow = DB_fetch_array($GLRecs)) {
+
+    $LeftOvers = $pdf->addTextWrap($Left_Margin, $YPos, 60, $FontSize, number_format(-$myrow['amount'] * $ExRate, 2), 'right');
+    $LeftOvers = $pdf->addTextWrap($Left_Margin + 65, $YPos, 300, $FontSize, $myrow['narrative'], 'left');
+    $YPos-= ($line_height);
+    $TotalBanked = $TotalBanked + (-$myrow['amount'] * $ExRate);
+
+    if ($YPos - (2 * $line_height) < $Bottom_Margin) {
+
+        /*Then set up a new page */
+        include ('includes/PDFBankingSummaryPageHeader.inc');
+    }
+     /*end of new page header  */
+}
+ /* end of while there are GL receipts in the batch to print */
+
+$YPos = $YPosTotales;
+$LeftOvers = $pdf->addTextWrap(700, $YPos, 50, 12, number_format($Subtotal,2), 'right');
+$YPos-= $line_height;
+$LeftOvers = $pdf->addTextWrap(700, $YPos, 50, 12, number_format($Impuesto_total,2), 'right');
+$YPos-= $line_height;
+$LeftOvers = $pdf->addTextWrap(700, $YPos, 50, 12, number_format($Total,2), 'right');
+
+$YPos = $YPosTotales;
+$YPos-= $line_height;
+
+// $LeftOvers = $pdf->addTextWrap(300,$YPos,40,$FontSize,number_format(-$TotalBanked,2), 'right');
+// $LeftOvers = $pdf->addTextWrap(350,$YPos,65,$FontSize, $Currency . ' ' . _('TOTAL') . ' ' . _('DEPOSITADO'), 'left');
+// $LeftOvers = $pdf->addTextWrap(350,$YPos-$FontSize,65,$FontSize,$LeftOvers, 'left');
+
+$YPos-= $line_height;
+
+// bowikaxu realhost March 2008 -  print amount in letters
+// $tot = explode(".",($TotalBanked));
+// $Letra = Numbers_Words::toWords($tot[0],"es");
+// if($tot[1]==0){
+//  $ConLetra = $Letra." pesos 00/100 M.N.";
+// }else if(strlen($tot[1])>=2){
+//  $ConLetra = $Letra.' pesos '.$tot[1]."/100 M.N.";
+// }else {
+//  $ConLetra = $Letra.' pesos '.$tot[1]."0/100 M.N.";
+// }
+// $pdf->addText(250, $YPos,$FontSize, '('.$ConLetra.')');
+// $YPos -= $line_height;
+// con letra
+
+$buf = $pdf->output();
+$len = strlen($buf);
+header('Content-type: application/pdf');
+header('Content-Length: ' . $len);
+header('Content-Disposition: inline; filename=BankingSummary.pdf');
+header('Expires: 0');
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+header('Pragma: public');
+
+$pdf->stream();
+

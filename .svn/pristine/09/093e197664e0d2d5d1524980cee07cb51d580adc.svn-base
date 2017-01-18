@@ -1,0 +1,231 @@
+<script type="text/javascript">
+    $(document).on('ready', function() {
+        <?php
+        if($_POST['empresa']==25 || $_POST['empresa'] == 38){ ?>
+            $('#InfoSMaestros').show();
+        <?php }else{ ?>
+            $('#InfoSMaestros').hide();
+        <?php } ?>
+
+        $("#Producto").select2();
+        $("#empresa").select2();
+        $("#frecuencia_pago").select2();
+        $("#convenio").select2();
+        $("#forma_pago").select2();
+
+        //$("#loccode").select2();
+        <?php
+            if($_POST['Action'] =="UPDATE" || !empty($_POST['loccode'])){
+                echo "$('#loccode').select2().enable(false);";
+            }else{
+                echo "$('#loccode').select2();";
+            }
+        ?>
+
+        $('#empresa').change(function(){
+            if(($('#empresa').val() == 25) || ($('#empresa').val() == 38)){
+                $('#InfoSMaestros').show();
+            }else{
+                $('#InfoSMaestros').hide();
+            }
+        });
+
+        $('#Info_Empresa').click(function(){
+            $('#Modal_Info_Empresa').modal('show');
+        });
+
+    });
+</script>
+
+    <?php include("modals/Info_Empresa.modal.php"); ?>
+    <div class="container-fluid bootspin">
+        <!--Spinners begin-->
+        <div class="control-group row-fluid">
+            <div class="span4">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Producto'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Producto"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <select id="Producto" name="stockid" class="required" >
+                        <option value="">SELECCIONE</option>
+                        <?php foreach($ListaPlanes as $id => $Name){ ?>
+                            <option value="<?=$id?>"><?=$Name?></option>
+                        <?php } ?>
+                    </select>
+                    <script type="text/javascript">
+                        $("#Producto option[value='<?=$_POST['stockid']?>']").attr("selected",true);
+                    </script>
+                </div>
+            </div>
+            <div class="span4">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Empresa'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Empresa"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <select id="empresa" name="empresa">
+                        <option value="">SELECCIONE</option>
+                        <?php foreach($ListaEmpresas as $id => $Name){ ?>
+                            <option value="<?=$id?>"><?=$Name?></option>
+                        <?php } ?>
+                    </select>
+                    <script type="text/javascript">
+                        $("#empresa option[value='<?=$_POST['empresa']?>']").attr("selected",true);
+                    </script>
+                </div>
+            </div>
+            <div class="span4">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Información Empresa'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Información de Empresa"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                <input type="button" id="Info_Empresa" class="btn btn-success" name="Info_Empresa[info]" value="Ver" style="margin-bottom: -30px;" />
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group row-fluid">
+            <div class="span4">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Frecuencia de Pago'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Frecuencia de Pago"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <select id="frecuencia_pago" name="frecuencia_pago" class="required" style="width: 50px;" >
+                    <option value="">SELECCIONE</option>
+                    <?php foreach($ListaFrecuenciaPago as $id => $Name){ ?>
+                        <option value="<?=$id?>"><?=$Name?></option>
+                    <?php } ?>
+                </select>
+                <script type="text/javascript">
+                    $("#frecuencia_pago option[value='<?=$_POST['frecuencia_pago']?>']").attr("selected",true);
+                </script>
+            </div>
+            <div class="span4">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Convenio'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Convenio"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <select id="convenio" name="convenio" >
+                        <option value="">SELECCIONE</option>
+                        <?php foreach($ListaConvenios as $id => $Name){ ?>
+                            <option value="<?=$id?>"><?=$Name?></option>
+                        <?php } ?>
+                    </select>
+                    <script type="text/javascript">
+                        $("#convenio option[value='<?=$_POST['convenio']?>']").attr("selected",true);
+                    </script>
+                </div>
+            </div>
+            <div class="span4" style="display:none;" >
+                <label class="control-label" for="spin1">
+                    <?php echo _('Sucursal'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Sucursal"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls" >
+                    <select id="loccode" name="loccode" class="required" >
+                        <option value="">SELECCIONE</option>
+                        <?php foreach($_SESSION['rh_permitionlocation'] as $id => $Name){
+                            if(empty($_POST['loccode'])){
+                                $_POST['loccode'] = $_SESSION['UserStockLocation'];
+                            }
+                            ?>
+                            <option value="<?=$id?>"><?=$Name?></option>
+                        <?php } ?>
+                    </select>
+                    <script type="text/javascript">
+                        $("#loccode option[value='<?=$_POST['loccode']?>']").attr("selected",true);
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group row-fluid">
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Forma de Pago'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Formas de Pago"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <select id="forma_pago" name="paymentid" class="required" >
+                        <option value="">SELECCIONE</option>
+                        <?php foreach($ListaFormasPago as $id => $Name){ ?>
+                            <option value="<?=$id?>"><?=$Name?></option>
+                        <?php } ?>
+                    </select>
+                    <script type="text/javascript">
+                        $("#forma_pago option[value='<?=$_POST['paymentid']?>']").attr("selected",true);
+                    </script>
+                </div>
+            </div>
+
+            <div class="span4"><!--
+                <label class="control-label" for="spin2">
+                    <?php echo _('Zona'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Zona"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <input type="text" id="zona" name="zona" value="<?=$_POST['zona']?>" style="width: 150px;" /> -->
+            </div>
+        </div>
+
+        <div class="control-group row-fluid" id="InfoSMaestros">
+            <div class="span12"><span class="badge badge-info">Información Sección Maestros</span></div>
+            <div class="span12">
+                <div class="span6">
+                    <label class="control-label" for="spin1">
+                        <?php echo _('Clave de Filiación'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Ingrese la Clave de Filiación"><i class="icon-photon info-circle"></i></a>
+                    </label>
+                    <div class="controls">
+                        <input type="text" name="sm_clavefiliacion" value="<?=$_POST['sm_clavefiliacion']?>" style="width: 150px;" />
+                    </div>
+                </div>
+                <div class="span6">
+                    <label class="control-label" for="spin1">
+                        <?php echo _('Departamento'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Ingrese Departamento"><i class="icon-photon info-circle"></i></a>
+                    </label>
+                    <div class="controls">
+                        <input type="text" name="sm_depto" value="<?=$_POST['sm_depto']?>" />
+                    </div>
+                </div>
+            </div>
+            <div class=" row span12">
+                <div class="span6">
+                    <label class="control-label" for="spin1">
+                        <?php echo _('Clave Presupuestal'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Clave Presupuestal"><i class="icon-photon info-circle"></i></a>
+                    </label>
+                    <div class="controls">
+                        <input type="text" name="sm_cpresupuestal" value="<?=$_POST['sm_cpresupuestal']?>" style="width: 150px;" />
+                    </div>
+                </div>
+                <div class="span6">
+                    <label class="control-label" for="spin1">
+                        <?php echo _('Vigencia Inicial'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Vigencia Inicial"><i class="icon-photon info-circle"></i></a>
+                    </label>
+                    <div class="controls">
+                        <?php
+                        for ($W=1; $W < 52; $W++) {
+                            $Weeks[] = $W;
+                        }
+                        if(empty($_POST['SMVInicialWeeks'])){
+                            $_POST['SMVInicialWeeks'] = date('W');
+                        }
+                        if(empty($_POST['SMVInicialYears'])){
+                            $_POST['SMVInicialYears'] = date('Y');
+                        }
+                        ?>
+                        <!--
+                        <select id="SMVInicialWeeks" name="SMVInicialWeeks" >
+                            <?php foreach($Weeks as $Week){
+                                echo "<option>$Week</option>";
+                            } ?>
+                        </select>
+                        <select id="SMVInicialYears" name="SMVInicialYears" style="width:80px;">
+                            <?php for($year=(date("Y")+10); 1980<=$year; $year--) {
+                                echo "<option value =" . $year . ">" . $year . "</option>";
+                            } ?>
+                        </select>
+                        -->
+
+                        <input id="SMVInicialWeeks" name="SMVInicialWeeks" type="number" value="<?=$_POST['SMVInicialWeeks']?>" max="52" style="width: 60px;" />
+                        <input id="SMVInicialYears" name="SMVInicialYears" type="number" value="<?=$_POST['SMVInicialYears']?>"  style="width: 80px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>

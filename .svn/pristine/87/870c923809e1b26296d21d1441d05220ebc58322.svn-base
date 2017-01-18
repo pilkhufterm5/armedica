@@ -1,0 +1,111 @@
+<?php
+$PageSecurity = 1;
+
+/* Session started in header.inc for password checking and authorisation level check */
+include('includes/session.inc');
+
+include('includes/tablas.php');
+
+$title = _('Impresion de codigos');
+include('includes/header.inc');
+if(isset($_REQUEST['completed'])){
+	foreach($_REQUEST['porimprimir'] as $barras=>$barra)
+		if(isset($_REQUEST['impresion'][$barras])){
+			$cantidad=(int)$_REQUEST['impresion'][$barras];
+			DB_query(
+			'update rh_etiquetas set impresiones=impresiones+"'.$cantidad.'" where barcode="'.DB_escape_string($barras).'"'
+			,$db);
+	}
+}
+$desde=date('Y-m-d');
+$hasta=date('Y-m-d');
+if(isset($_REQUEST['recepcion']))
+	$recepcion=DB_escape_string($_REQUEST['recepcion']);
+$sql="select '' checkbox,grns.grnbatch, sma.description, rh_etiquetas.barcode, sum(ssm.moveqty)-rh_etiquetas.impresiones cantidad from grns ".
+" join stockmoves sm on sm.type=25 and sm.transno=grns.grnbatch ".
+" join stockmaster sma on sm.stockid=sma.stockid ".
+" join stockserialmoves ssm on ssm.stockmoveno=sm.stkmoveno ".
+" join rh_etiquetas on rh_etiquetas.stockid=ssm.stockid and rh_etiquetas.serialno=ssm.serialno ".
+" where  ";
+$where="rh_etiquetas.serialno is not null and rh_etiquetas.serialno!='' and sm.type=25 ";
+// if(isset($desde)&&$desde!='')
+// 	$where.=" and sm.trandate between '".$desde."' and '".$hasta."'";
+if(isset($recepcion)&&$recepcion!='')
+	$where.=" and grns.grnbatch='".$recepcion."'";
+
+
+
+$grupo=" group by ssm.serialno, ssm.stockid having cantidad >0";
+$tabla=new tablas($sql.$where.$grupo,"stockmoves",$db);
+?>
+
+<script type="text/javascript">
+function CrearApplet(){
+	$('#print').parent().find('applet').remove();
+	applet="<applet  code=\"appletr.AppletR.class\" archive=\"barcode2/AppletR.jar?param=4\" width=\"70\" height=\"25\">"+
+		"<PARAM name=\"Message\" value='[{codigo:\"NO DATA\",cantidad:3},{codigo:\"NO DATA\",cantidad:3}]'>"+
+	"</applet>";
+	parametros=[];
+	$('#CodigosBarras').find("input[name^=porimprimir]:checked").map(function(){
+		info={codigo:"NO DATA",cantidad:3};
+		info.codigo=$(this).val();
+		info.cantidad=$(this).closest('tr').find('input[type=text]').val();
+		if(info.cantidad>0)
+			parametros.push(info);
+	});
+	$(applet).find('PARAM[name=Message]').attr('value',JSON.stringify(parametros)).parent().appendTo($('#print').parent());
+	
+}
+$(function(){
+		$('#CodigosBarras').find("input").change(CrearApplet);
+		$('#print').click(function(){
+			CrearApplet();
+			setTimeout(function(){
+				$(this).closest('form').find('[name=completed]').click();
+			},60000);
+		});
+		
+});
+
+</script>
+
+<center>
+	<form method="post">
+	<table>
+		<tr>
+			<td>Recepcion</td>
+			<td><input type="text" name="recepcion" value="<?=$_REQUEST['recepcion']?>"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="Filtrar" name="filtro"></td>
+		</tr>
+	</table>
+		<table id="CodigosBarras">
+		<tr>
+			<th></th>
+			<th>Recepción</th>
+			<th>Articulo</th>
+			<th>Codigo de barras</th>
+			<th>Numero de etiquetas</th>
+		</tr>
+		<?php
+		$columnas=5;
+		foreach($tabla as $imprimir){
+			$imprimir['checkbox']='<input type="checkbox" class="porimprimir" name="porimprimir['.$imprimir['barcode'].']" checked="checked" value="'.$imprimir['barcode'].'">';
+			$imprimir['cantidad']='<input type="text" name="impresion['.$imprimir['barcode'].']" value="'.$imprimir['cantidad'].'">';
+			echo '<tr><td>'.implode('</td><td>',$imprimir).'</td></tr>';
+			$columnas=max($columnas,count($imprimir));
+		} 
+		?>
+		<tr><td colspan="<?=$columnas?>">
+		<center>
+			<input type="submit" name="completed" value="Marcar Completo sin Imprimir">
+			<input type="button" name="print" id="print" value="Imprimir"><br />
+		</center>
+		</td></tr>
+		</table>
+	</form>
+</center>
+<?php 
+include('includes/footer.inc');

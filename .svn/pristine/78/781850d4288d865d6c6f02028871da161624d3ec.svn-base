@@ -1,0 +1,21 @@
+<style type="text/css">
+.menuli{
+	background-color:#777;
+	color: #FFFFFF;
+}
+
+</style>
+
+<div style="height:50px;"></div>
+
+<input type="checkbox" id="menures" />
+<div >
+    <label for="menures" class="menures" data-open="Main Menu" data-close="Close Menu" onclick></label>
+    <ul class="menu" >
+      <li class="menuli"><a href="#">Google</a></li>
+      <li class="menuli"><a href="#">Facebook</a></li>
+      <li class="menuli"><a href="#">Youtube</a></li>
+      <li class="menuli"><a href="#">Twitter</a></li>
+    </ul>
+</div>
+

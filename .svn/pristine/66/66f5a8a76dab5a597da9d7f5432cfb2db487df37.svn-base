@@ -1,0 +1,98 @@
+<script type="text/javascript">
+    $(document).on('ready',function() {
+
+    });
+</script>
+
+<?php
+    if ($_POST['servicios_seleccionados']['Emergencia']==1) {
+        $SSEM = "checked='checked' ";
+    } else {
+        $SSEM = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['Urgencia']==2) {
+        $SSUR = "checked='checked' ";
+    } else {
+        $SSUR = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['CTraumatismo']==3) {
+        $SSTRA = "checked='checked' ";
+    } else {
+        $SSTRA = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['CPatologia']==4) {
+        $SSPAT = "checked='checked' ";
+    } else {
+        $SSPAT = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['TProgramado']==5) {
+        $SSTPRO = "checked='checked' ";
+    } else {
+        $SSTPRO = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['LMedica']==6) {
+        $SSLMED = "checked='checked' ";
+    } else {
+        $SSLMED = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['CExterna']==7) {
+        $SSCEXT = "checked='checked' ";
+    } else {
+        $SSCEXT = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['CBase']==8) {
+        $SSCBAS = "checked='checked' ";
+    } else {
+        $SSCBAS = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['Evento']==9) {
+        $SSEVE = "checked='checked' ";
+    } else {
+        $SSEVE = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['SEspeciales']==10) {
+        $SSESP = "checked='checked' ";
+    } else {
+        $SSESP = "";
+    }
+
+    if ($_POST['servicios_seleccionados']['CEmpleados']==11) {
+        $SSEMPL = "checked='checked' ";
+    } else {
+        $SSEMPL = "";
+    }
+
+?>
+<style type="text/css">
+    .CheckSelect {
+        margin-bottom: 22px !important;
+        font-size: 12px;
+    }
+</style>
+
+    <div class="container-fluid bootspin">
+        <div class="control-group row-fluid">
+            <div class="span12">
+                <input type="checkbox" id="Emergencia"    name="servicios_seleccionados[Emergencia]"    value="1"   <?=$SSEM?>      class="SS CheckSelect" /> 1- Emergencia &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="Urgencia"      name="servicios_seleccionados[Urgencia]"      value="2"   <?=$SSUR?>      class="SS CheckSelect" /> 2- Urgencia &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="CTraumatismo"  name="servicios_seleccionados[CTraumatismo]"  value="3"   <?=$SSTRA?>     class="SS CheckSelect" /> 3- Consulta de Traumatismo &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="CPatologia"    name="servicios_seleccionados[CPatologia]"    value="4"   <?=$SSPAT?>     class="SS CheckSelect" /> 4- Consulta de Patologia &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="TProgramado"   name="servicios_seleccionados[TProgramado]"   value="5"   <?=$SSTPRO?>    class="SS CheckSelect" /> 5- Traslado Programado &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="LMedica"       name="servicios_seleccionados[LMedica]"       value="6"   <?=$SSLMED?>    class="SS CheckSelect" /> 6- Linea Medica <br />
+                <input type="checkbox" id="CExterna"      name="servicios_seleccionados[CExterna]"      value="7"   <?=$SSCEXT?>    class="SS CheckSelect" /> 7- Consulta Externa &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="CBase"         name="servicios_seleccionados[CBase]"         value="8"   <?=$SSCBAS?>    class="SS CheckSelect" /> 8- Consulta en Base &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="Evento"        name="servicios_seleccionados[Evento]"        value="9"   <?=$SSEVE?>     class="SS CheckSelect" /> 9- Evento &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="SEspeciales"   name="servicios_seleccionados[SEspeciales]"   value="10"  <?=$SSESP?>     class="SS CheckSelect" /> 10- Servicios Especiales &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="CEmpleados"    name="servicios_seleccionados[CEmpleados]"    value="11"  <?=$SSEMPL?>    class="SS CheckSelect" /> 11- Consulta S/Empleados &nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,62 @@
+-- MySQL dump 10.13  Distrib 5.1.62, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: armedica_erp_001
+-- ------------------------------------------------------
+-- Server version	5.1.62-0ubuntu0.10.04.1-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `rh_llamada_emergencia`
+--
+
+DROP TABLE IF EXISTS `rh_llamada_emergencia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rh_llamada_emergencia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `folio` varchar(10) NOT NULL DEFAULT '',
+  `nombre_familiar` varchar(100) NOT NULL DEFAULT '',
+  `parentesco_id` int(11) NOT NULL DEFAULT '0',
+  `parentesco_otro` varchar(100) NOT NULL DEFAULT '',
+  `telefono_familiar` varchar(20) NOT NULL DEFAULT '',
+  `telefono_celular` varchar(20) NOT NULL DEFAULT '',
+  `medico_cabecera` varchar(100) NOT NULL DEFAULT '',
+  `medico_celular` varchar(20) NOT NULL DEFAULT '',
+  `especialidad_id` int(11) NOT NULL DEFAULT '0',
+  `especialidad_otro` varchar(100) NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `folio` (`folio`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rh_llamada_emergencia`
+--
+
+LOCK TABLES `rh_llamada_emergencia` WRITE;
+/*!40000 ALTER TABLE `rh_llamada_emergencia` DISABLE KEYS */;
+INSERT INTO `rh_llamada_emergencia` VALUES (1,'21771','MARIA DEL SOCORRO OROZCO VARGAS',0,'','','8110819191','','',0,'','2014-07-03 13:31:03'),(2,'21754','HERMELIA GARZA GONZALEZ',0,'','83300507','','','',0,'','2014-07-03 16:05:28'),(3,'21708','YULIANA IDOLINA GARZA LOPEZ ',0,'','83344888','8112394921','','',0,'','2014-07-03 17:56:59'),(4,'273','PRUEBA',0,'SAFASF','234234234','234234','ASDFASDFASFD','ASDFASDF',0,'','2014-07-11 09:57:19'),(5,'99000','23141234',1241234,'1241234','1241234','12341234','1241234','214123423',2,'','2014-07-11 10:35:03'),(6,'21784','CLAUDIA ELIZABETH VILLAFUERTE RODIRGUEZ',0,'','83196500 EXT.4314','8182809990','','',0,'','2014-07-15 17:22:25'),(7,'21976','GERARDO RODRIGUEZ RODRIGUEZ',3,'','10862921','8114704094','','',0,'','2014-07-16 11:01:27'),(8,'21333','ROSA LINDA AGUILAR',3,'','14250245','','','',0,'','2014-07-17 15:07:37'),(9,'21979','LAURA MIREYA LOZANO ACOSTA',3,'','11335873','8112756921','','',0,'','2014-07-17 16:56:46'),(10,'2304','asdfsdf',4,'','saf','234234','234234','234234',1,'','2014-07-17 17:56:41'),(11,'2304','asdfsdf',4,'fasdfasdf','saf','234234','234234','234234',1,'safasdfsaf','2014-07-17 17:57:00'),(12,'500000','asdfasdf',3,'sadfasfd','sfasf','asfaf','asdfasfd','asfaf',1,'asdfasfd','2014-07-18 10:31:30'),(13,'21789','ALEC MONTELONGO HERNANDEZ ',0,'','8115428989','83600638','','',0,'','2014-07-18 18:45:02'),(14,'21797','OLIVIA MARTINEZ SALAZAR',5,'','83670041 / 83804500','8112125163','','',0,'','2014-07-22 10:56:05'),(15,'21961','ADRIANA A. GOMEZ SALAZAR',3,'','8110415313','18726180','','',0,'','2014-07-22 12:04:08'),(16,'21791','GUSTAVO CANTU LOZANO/EDUARDO CANTU LOZANO ',3,'HIJOS','19683807','8112081171','','',0,'','2014-07-22 16:37:17'),(17,'21798','MARCO ANTONIO VILLEGAS FERNANDEZ',3,'','83391538','8116617126','','',0,'','2014-07-22 17:05:31'),(18,'21357','ROSARIO ZUÑIGA',3,'','8110751531','','','',0,'','2014-07-22 18:12:55'),(19,'21800','MERLINA HERNANDEZ HERRERA',0,'DUEÑA','19318119','8184669087','','',0,'','2014-07-23 10:16:48'),(20,'500002','234234',3,'234234','FASFASDF','324234','SAFDASFD','32423432',2,'454','2014-07-24 17:00:18');
+/*!40000 ALTER TABLE `rh_llamada_emergencia` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-08-18 11:31:18

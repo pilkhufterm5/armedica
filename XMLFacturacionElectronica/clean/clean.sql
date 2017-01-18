@@ -1,0 +1,8 @@
+truncate rh_factura_electronica_reporte_mensual_sat;
+truncate rh_factura_electronica_folio__locations;
+truncate rh_factura_electronica_folio;
+truncate rh_factura_electronica_comprobante_conceptos_concepto;
+truncate rh_factura_electronica_certificado;
+truncate rh_factura_electronica_catalogo_tipo_de_cfd;
+
+insert into rh_factura_electronica_catalogo_tipo_de_cfd(nombre) values('Factura');

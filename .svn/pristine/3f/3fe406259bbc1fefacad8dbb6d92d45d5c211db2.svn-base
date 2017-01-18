@@ -1,0 +1,327 @@
+<?php
+
+$PageSecurity = 2;
+
+include('includes/session.inc');
+include('includes/SQL_CommonFunctions.inc');
+
+{//Datos fijos
+	$taxauth_iva15 = 14;
+	$taxauth_iva10 = 0;
+	$taxauth_retencion = 18;
+	
+	$meses = array(
+		'01' => 'Enero',
+		'02' => 'Febrero',
+		'03' => 'Marzo',
+		'04' => 'Abril',
+		'05' => 'Mayo',
+		'06' => 'Junio',
+		'07' => 'Julio',
+		'08' => 'Agosto',
+		'09' => 'Septiembre',
+		'10' => 'Octubre',
+		'11' => 'Noviembre',
+		'12' => 'Diciembre'
+	);
+}
+
+
+
+
+
+if( !isset($_POST['PrintCSV'])){
+	$title=_('DIOT');
+	include('includes/header.inc');
+	
+
+	{
+
+	/*if $FromCriteria is not set then show a form to allow input	*/
+
+		echo "<FORM ACTION='" . $_SERVER['PHP_SELF'] . '?' . SID . "' METHOD='POST'><CENTER><TABLE>";
+
+		echo '<TR><TD>' . _('Seleccione A&ntilde;o') . ':</FONT></TD><TD><SELECT name="Anio">';
+
+		$sql='SELECT year(trandate) FROM supptrans group by year(trandate) ORDER BY year(trandate) desc';
+		$CatResult= DB_query($sql,$db);
+		While ($myrow = DB_fetch_row($CatResult)){
+			echo "<OPTION VALUE='" . $myrow[0] . "'>".$myrow[0]."</OPTION>";
+		}
+		echo "</SELECT></TD></TR>";
+		/*Set the index for the categories result set back to 0 */
+		DB_data_seek($CatResult,0);
+		
+		echo '<TR><TD>' . _('Selecciones Mes') . ':</TD><TD><SELECT name="Mes">';
+		foreach($meses as $index=>$mes){
+			echo "<OPTION VALUE='" . $index . "'>".$mes."</OPTION>";
+		}
+		
+		echo '</SELECT></TD></TR>';
+		
+		echo "</TABLE><!--<INPUT TYPE=Submit Name='PrintCSV Value='" . _('Generar') . "'>&nbsp;&nbsp;-->
+		<INPUT TYPE=Submit Name='PrintCSV' Value='" . _('Generar') . "'>";
+		echo "<br></CENTER>";
+	}
+	include('includes/footer.inc');
+}
+
+
+
+
+
+
+
+
+
+
+
+if(isset($_POST['PrintCSV'])){
+	
+	$anio = $_POST['Anio'];
+	$mes  = $_POST['Mes'];
+		
+   $sql_lineas = 'select suppliers.* from suppliers inner join supptrans on suppliers.supplierid=supptrans.supplierno 
+   where type in(20,21) and year(trandate)="'.$anio.'" and month(trandate)="'.$mes.'" group by suppliers.supplierid order by suppname asc';
+   
+   $result=DB_query($sql_lineas,$db);
+	
+   if (DB_num_rows($result)>0){
+	   /*Yes there are line items to start the ball rolling with a page header */
+		
+		$lineas = array();
+		$cont = 1;
+		$csv = '';
+		while($row = mysql_fetch_assoc($result)){
+			
+			$linea = array();
+			
+			//Tipo tercero
+			if($row['taxref']=='XEXX010101000'){//Es extranjero
+				$tipo_tercero = '05';
+			}else{
+				$tipo_tercero = '04';
+			}
+			
+			//4 General
+			//6 Honorarios
+			//11 Arrendamiento
+			if($row['taxgroupid']==11)
+				$tipo_operacion = '06';
+			else if($row['taxgroupid']==6)
+				$tipo_operacion = '03';
+			else
+				$tipo_operacion = '85';
+			
+			$rfc = $row['rh_taxref'];
+			
+			$id_fiscal = $row['rh_id_fiscal'];
+			
+			if($tipo_tercero=='05')
+				$nombre_proveedor = $row['suppname'];
+			
+			{//Datos de extranjeros no aplican de momento
+				$pais = '';
+				$nacionalidad = '';
+			}
+			
+			//Montos
+			{
+				$arr_valor_iva_15 = array();
+				$arr_valor_iva_15_2010 = array();
+				$arr_monto_iva_noAcred_15 = array();
+				$arr_valor_iva_10 = array();
+				$arr_valor_iva_10_2010 = array();
+				$arr_monto_iva_noAcred_10 = array();
+				$arr_valor_importacion_iva_15 = array();
+				$arr_monto_iva_noAcred_importacion_iva_15 = array();
+				$arr_valor_importacion_iva_10 = array();
+				$arr_monto_iva_noAcred_importacion_iva_10 = array();
+				$arr_valor_importacion_exento = array();
+				$arr_valor_iva_0 = array();
+				$arr_valor_exento = array();
+				$arr_iva_retenido = array();
+				$arr_iva_devolucion = array();
+				
+				$sql_detalle = 'select * from supptrans 
+				where type in(20,21) and year(trandate)="'.$anio.'" and month(trandate)="'.$mes.'" and supplierno="'.$row['supplierid'].'"';
+				$rs_detalle = DB_query($sql_detalle,$db);
+				while($row_detalle = DB_fetch_assoc($rs_detalle)){
+					
+					//Iva 15%
+					$sql_15 = 'select count(*) from supptranstaxes where taxauthid='.$taxauth_iva15.' and supptransid='.$row_detalle['id'];
+					$rs_15  = DB_query($sql_15,$db);
+					if(DB_num_rows($rs_15)){
+						$arr_valor_iva_15[] = $row_detalle['ovamount'];
+					}
+					
+					//Iva 15% Enero 2010 se omite
+					
+					//Iva 15% no acreditable es cero*
+					
+					//Iva 10%
+					$sql_15 = 'select * from supptranstaxes where taxauthid='.$taxauth_iva10.' and supptransid='.$row_detalle['id'];
+					$rs_15  = DB_query($sql_15,$db);
+					if(DB_num_rows($rs_15)){
+						$arr_valor_iva_10[] = $row_detalle['ovamount'];
+					}
+					
+					//Iva 10% Enero 2010 se omite
+					
+					//Iva 10% no acreditable es cero*
+					
+					//Valor Importacion bienes tasa 15% es cero*
+					
+					//Iva 15% no acreditable importacion bienes tasa 15% es cero*
+					
+					//Valor Importacion bienes tasa 10% es cero*
+					
+					//Iva 15% no acreditable importacion bienes tasa 10% es cero*
+					
+					//Valor Exento Importación de bienes es cero*
+					
+					//Iva 0%
+					$sql_15 = 'select * from supptranstaxes where taxamount=0 and supptransid='.$row_detalle['id'];
+					$rs_15  = DB_query($sql_15,$db);
+					if(DB_num_rows($rs_15)){
+						$arr_valor_iva_0[] = $row_detalle['ovamount'];
+					}
+					
+					//Exento
+					$sql_15 = 'select * from supptranstaxes where supptransid='.$row_detalle['id'];
+					$rs_15  = DB_query($sql_15,$db);
+					if(!DB_num_rows($rs_15)){
+						$arr_valor_exento[] = $row_detalle['ovamount'];
+					}
+					
+					//IVA Retenido
+					$sql_ret = 'select * from supptranstaxes where taxauthid='.$taxauth_retencion.' and supptransid='.$row_detalle['id'];
+					$rs_ret  = DB_query($sql_ret,$db);
+					if(DB_num_rows($rs_ret)){
+						$rw_ret = DB_fetch_assoc($rs_ret);
+						$arr_iva_retenido[] = $rw_ret['taxamount'];
+					}
+					
+					//IVA Devoluciones es cero.
+					
+				}
+			}
+			
+			$iva_15_16 = array_sum($arr_valor_iva_15);
+			$iva_enero_2010 = array_sum($arr_valor_iva_15_2010);
+			$iva_no_acreditable = array_sum($arr_monto_iva_noAcred_15);
+			$iva_10_11 = array_sum($arr_valor_iva_10);
+			$iva_enero_2010_tasa_10 = array_sum($arr_valor_iva_10_2010);
+			$iva_10_11_no_acreditable = array_sum($arr_monto_iva_noAcred_10);
+			$iva_15_16_importacion_bienes_servicios = array_sum($arr_valor_importacion_iva_15);
+			$iva_no_acreditable_15_16_importacion_bienes_servicios = array_sum($arr_monto_iva_noAcred_importacion_iva_15);
+			$iva_10_11_importacion_bienes_servicios = array_sum($arr_valor_importacion_iva_10);
+			$iva_no_acreditable_10_11_importacion_bienes_servicios = array_sum($arr_monto_iva_noAcred_importacion_iva_10);
+			$monto_exento_importacion_bienes_servicios = array_sum($arr_valor_importacion_exento);
+			$monto_iva_0 = array_sum($arr_valor_iva_0);
+			$monto_exento = array_sum($arr_valor_exento);
+			$iva_retenido = array_sum($arr_iva_retenido);
+			$iva_devoluciones_descuentos_bonif = array_sum($arr_iva_devolucion);
+			
+			$linea[] = $tipo_tercero;
+			
+			if($tipo_tercero=='05'){
+				//Solo pueden ser estos 2 valores para extranjeros
+				$tipo_operacion = '03';
+				$tipo_operacion = '85';
+			}
+			$linea[] = $tipo_operacion;
+			
+			$linea[] = $rfc;
+			
+			if($tipo_tercero=='05'){
+				$linea[] = $id_fiscal;
+				$linea[] = $nombre_proveedor;
+				$linea[] = $pais;
+				$linea[] = $nacionalidad;
+			}else{ 
+				/*
+				 * Estos valores no aplican para proveedor nacional
+				 * - ID Fiscal
+				 * - Nombre proveedor (Extranjero)
+				 * - Pais
+				 * - Nacionalidad
+				 */
+				$linea[] = '';
+				$linea[] = '';
+				$linea[] = '';
+				$linea[] = '';
+			}
+			
+			
+			$linea[] = $iva_15_16;
+			
+			/*if($iva_enero_2010){
+				$linea[] = $iva_15;
+			}else{
+				$linea[] = '';
+			}*/
+			
+			$linea[] = $iva_enero_2010;
+			
+			//iva_no_deducible
+			$linea[] = $iva_no_acreditable;
+			
+			$linea[] = $iva_10_11;
+			
+			/*if($iva_enero_2010){
+				$linea[] = $iva_10;
+			}else{
+				$linea[] = '';
+			}*/
+			
+			$linea[] = $iva_enero_2010_tasa_10;
+			
+			$linea[] = $iva_10_11_no_acreditable;
+			
+			$linea[] = $iva_15_16_importacion_bienes_servicios;
+			
+			$linea[] = $iva_no_acreditable_15_16_importacion_bienes_servicios;
+			
+			$linea[] = $iva_10_11_importacion_bienes_servicios;
+			
+			$linea[] = $iva_no_acreditable_10_11_importacion_bienes_servicios;
+			
+			$linea[] = $monto_exento_importacion_bienes_servicios;
+			
+			$linea[] = $monto_iva_0;
+			
+			$linea[] = $monto_exento;
+			
+			$linea[] = $iva_retenido;
+			
+			$linea[] = $iva_devoluciones_descuentos_bonif;
+			//print_r($linea);
+			//echo "<br><br><br>";
+			$csv .= implode('|',$linea);
+			//echo "<br>Line@ : ".implode('|',$linea)."<br>";
+			$csv .= "\n";
+			
+			//echo "\n Contador {$cont}\n";
+			$cont++;
+		}
+
+	}
+	
+	//echo "<br>AC14 Rules!!!<br>";
+	//echo "\nLineas: ".count($lineas)."\n";
+	//$csv = implode("\n",$lineas);
+	//echo $csv;
+
+	$len = strlen($csv);
+	header('Content-type: application/xls');
+	header('Content-Length: ' . $len);
+	header('Content-Disposition: inline; filename=DIOT.csv');
+	header('Expires: 0');
+	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+	header('Pragma: public');
+
+	echo $csv;
+}
+
+?>

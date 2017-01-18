@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{rootpath}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="transno" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT l.deladd7 municipio_domicilio_expedido_en, l.deladd8 estado_domicilio_expedido_en, cp.coyname, cp.telephone, cp.gstno, cp.regoffice1, cp.regoffice2, cp.regoffice7, cp.regoffice8, cp.regoffice9, concat(custbranch.branchcode,' ',custbranch.brname) sucursal, debtortrans.trandate, SUBSTRING(DATE_FORMAT(debtortrans.trandate, '%M'),1,3) as mm, DATE_FORMAT(debtortrans.trandate, '%d') as dd, DATE_FORMAT(debtortrans.trandate, '%Y') as yy, debtortrans.ovamount, debtortrans.id as ID, debtortrans.ovdiscount, debtortrans.ovfreight, debtortrans.ovgst, debtortrans.rate, debtortrans.invtext, debtortrans.consignment, debtorsmaster.name AS name_old, debtorsmaster.name2 AS name2_old, debtorsmaster.address1 AS address1_old, debtorsmaster.address2 AS address2_old, debtorsmaster.address3 AS address3_old, debtorsmaster.address4 AS address4_old, debtorsmaster.address5 AS address5_old, debtorsmaster.address6 AS address6_old, rh_transaddress.name, rh_transaddress.name2, rh_transaddress.address1, rh_transaddress.address2, rh_transaddress.address3, rh_transaddress.address4, rh_transaddress.address5, rh_transaddress.address6, rh_transaddress.taxref, debtorsmaster.currcode, debtorsmaster.invaddrbranch, debtorsmaster.taxref AS taxref_old, salesorders.deliverto, salesorders.deladd1, salesorders.deladd2, salesorders.deladd3, salesorders.deladd4, salesorders.customerref, salesorders.orderno, salesorders.orddate, shippers.shippername, custbranch.brname, custbranch.braddress1, custbranch.braddress2, custbranch.braddress3, custbranch.braddress4, custbranch.braddress5, custbranch.braddress6, salesman.salesmanname, debtortrans.debtorno ,stockmoves.stockid, stockmaster.description, -stockmoves.qty as quantity, stockmoves.discountpercent, ((1 - stockmoves.discountpercent) * stockmoves.price * 1* -stockmoves.qty)*debtortrans.rate AS fxnet, (stockmoves.price * 1)*debtortrans.rate AS fxprice, stockmoves.narrative, stockmaster.units, c.folio extinvoice , concat(rh_transaddress.address1,' ', rh_transaddress.address2, ' ',rh_transaddress.address3) as direccion1, concat(rh_transaddress.address4,' ', rh_transaddress.address5) as direccion2, rh_transaddress.address6 as direccion3, concat(rh_transaddress.address7,', ', rh_transaddress.address8) as direccion4, concat(rh_transaddress.address9,' ',rh_transaddress.address10) as direccion5,  concat(stockmaster.description,'\n',stockmoves.narrative) as descripcion, debtortrans.ovamount+debtortrans.ovgst+ debtortrans.ovfreight- debtortrans.ovdiscount as gtotal, paymentterms.terms, c.no_certificado comprobante_no_certificado, c.ano_aprobacion as yy_aprovacion, c.no_aprobacion as numero_apr, c.total_en_letra extra_importe_con_letra, c.cadena_original comprobante_cadena_original, c.sello comprobante_sello, c.fecha fecha_y_hora_de_expedicion, debtorsmaster.rh_tel, c.serie, c.total_en_letra extra_importe_con_letra_emdc FROM debtortrans, debtorsmaster, custbranch,
+                salesorders join locations l on salesorders.fromstkloc = l.loccode,
+                shippers, salesman, rh_transaddress , stockmoves, stockmaster, paymentterms, rh_cfd__cfd c, companies cp
+WHERE debtortrans.order_ = salesorders.orderno AND debtortrans.type=10 AND rh_transaddress.type = 10 AND rh_transaddress.transno = debtortrans.transno AND debtortrans.transno=$P{transno} AND debtortrans.shipvia=shippers.shipper_id AND debtortrans.debtorno=debtorsmaster.debtorno AND debtortrans.debtorno=custbranch.debtorno AND debtortrans.branchcode=custbranch.branchcode AND custbranch.salesman=salesman.salesmancode AND stockmoves.stockid = stockmaster.stockid AND stockmoves.type=10 AND stockmoves.transno= rh_transaddress.transno AND stockmoves.show_on_inv_crds=1 AND debtortrans.transno=rh_transaddress.transno AND debtorsmaster.paymentterms=paymentterms.termsindicator AND c.fk_transno = debtortrans.transno AND c.id_systypes = 10]]>
+	</queryString>
+	<field name="municipio_domicilio_expedido_en" class="java.lang.String"/>
+	<field name="estado_domicilio_expedido_en" class="java.lang.String"/>
+	<field name="coyname" class="java.lang.String"/>
+	<field name="telephone" class="java.lang.String"/>
+	<field name="gstno" class="java.lang.String"/>
+	<field name="regoffice1" class="java.lang.String"/>
+	<field name="regoffice2" class="java.lang.String"/>
+	<field name="regoffice7" class="java.lang.String"/>
+	<field name="regoffice8" class="java.lang.String"/>
+	<field name="regoffice9" class="java.lang.String"/>
+	<field name="sucursal" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="trandate" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dd" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="yy" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ovamount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ovdiscount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ovfreight" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ovgst" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rate" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invtext" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="consignment" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name_old" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name2_old" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address1_old" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address2_old" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address3_old" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address4_old" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address5_old" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address6_old" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="taxref" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="currcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invaddrbranch" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="taxref_old" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deliverto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customerref" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="orderno" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="orddate" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="shippername" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="salesmanname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="debtorno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stockid" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantity" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="discountpercent" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fxnet" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fxprice" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="narrative" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="units" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="extinvoice" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gtotal" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="terms" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="comprobante_no_certificado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="yy_aprovacion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_apr" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="extra_importe_con_letra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="comprobante_cadena_original" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="comprobante_sello" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_y_hora_de_expedicion" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rh_tel" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="serie" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="extra_importe_con_letra_emdc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="suma" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[$F{ovgst}+$F{ovamount}-$F{ovfreight}-$F{ovdiscount}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="10" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="190" splitType="Stretch">
+			<textField>
+				<reportElement x="59" y="95" width="136" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{taxref}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="5" width="151" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{coyname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="19" width="151" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{gstno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="33" width="151" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{regoffice1}+", "+$F{regoffice2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="47" width="151" height="14"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{regoffice7}+", "+$F{regoffice8}+", "+$F{regoffice9}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="328" y="0" width="221" height="75"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="336" y="2" width="213" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPROBANTE FISCAL DIGITAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="83" width="57" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="95" width="57" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R.F.C.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="107" width="57" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="59" y="83" width="297" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="107" width="297" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{direccion1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="119" width="297" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{direccion2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="155" width="297" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{direccion3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="59" y="131" width="297" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{direccion4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="143" width="297" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{direccion5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="19" width="70" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{extinvoice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="19" width="30" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serie}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="174" width="47" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANT.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="174" width="41" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="174" width="296" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="174" width="71" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="174" width="100" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="188" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="363" y="84" width="52" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="107" width="52" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENDEDOR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="415" y="107" width="125" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{salesmanname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="363" y="119" width="52" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="415" y="119" width="100" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sucursal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="61" width="150" height="14"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{telephone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="455" y="155" width="84" height="14"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[www.realhost.com.mx]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="131" width="52" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TERMINOS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="415" y="131" width="125" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{terms}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="373" y="19" width="63" height="14"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="426" y="34" width="121" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{comprobante_no_certificado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="334" y="34" width="83" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[No. CERTIFICADO: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="436" y="47" width="111" height="11"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[""+$F{numero_apr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="58" width="111" height="10"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[""+$F{yy_aprovacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="84" width="125" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fecha_y_hora_de_expedicion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="363" y="143" width="52" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="415" y="143" width="100" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_tel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="336" y="58" width="100" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[AÑO DE APROBACION: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="47" width="100" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[No APROBACION: ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="4" y="8" width="153" height="53"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{rootpath}+"/logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="363" y="95" width="52" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LUGAR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="415" y="95" width="125" height="12"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{municipio_domicilio_expedido_en}+" "+$F{estado_domicilio_expedido_en}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="2" width="47" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="88" y="2" width="296" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="2" width="41" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{units}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="384" y="2" width="71" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{fxprice}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="455" y="2" width="100" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{fxnet}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="133" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement x="455" y="4" width="100" height="19"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{ovamount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="455" y="23" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{ovgst}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="336" y="4" width="100" height="19"/>
+				<textElement>
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="23" width="100" height="20"/>
+				<textElement>
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[Iva 16%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="43" width="100" height="20"/>
+				<textElement>
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="43" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{gtotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="53" width="312" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[ESTE DOCUMENTO ES UNA IMPRESION DE UN COMPROBANTE FISCAL DIGITAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="68" width="104" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SELLO DIGITAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="90" width="104" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CADENA ORIGINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="40" width="312" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[PAGO EN UNA SOLA EXHIBICION]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="21" y="9" width="295" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{extra_importe_con_letra_emdc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="99" width="555" height="7" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{comprobante_cadena_original}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="78" width="555" height="10" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial" size="5" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[""+$F{comprobante_sello}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,440 @@
+<?php
+/**
+ * @todo
+ * CRUD de Precios tabla variaprecio de AR
+ * @author erasto@realhost.com.mx
+ * @version $Id$
+ * @copyright
+ * @package default
+ */
+class PreciosController extends Controller {
+
+    public function actionIndex() {
+        $PreciosData = Yii::app()->db->createCommand()->select('
+            matriz.*,
+            pm.paymentname,
+            fp.frecuencia ')
+        ->from('rh_matrizprecios as matriz')
+        ->leftJoin('paymentmethods pm', 'pm.paymentid = matriz.paymentid')
+        ->leftJoin('rh_frecuenciapago fp', 'fp.id = matriz.frecpagoid')
+        ->where('matriz.activo <> 0 ')
+        ->queryAll();
+
+        // select * from stockmaster where categoryid = 'AFIL';
+        $_ListaPlanes = Yii::app()->db->createCommand()->select(' stockid, description ')
+        ->from('stockmaster')
+        ->where('categoryid = "AFIL" ORDER BY stockid ASC')
+        ->queryAll();
+
+
+        $ListaPlanes = array();
+        foreach ($_ListaPlanes as $Planes) {
+            $ListaPlanes[$Planes['stockid']] = $Planes['description'];
+        }
+        $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(), 'paymentid', 'paymentname');
+        $ListaFrecuenciaPago = CHtml::listData(FrecuenciaPago::model()->findAll(), 'id', 'frecuencia');
+
+        //$ListaFrecuenciaPago = array();
+        FB::INFO($ListaFrecuenciaPago,'OK_3');
+
+        FB::INFO('OK_4');
+
+        $this->render('index', array(
+            'PreciosData' => $PreciosData,
+            'ListaFormasPago' => $ListaFormasPago,
+            'ListaFrecuenciaPago' => $ListaFrecuenciaPago,
+            'ListaPlanes' => $ListaPlanes
+        ));
+    }
+
+    /**
+     * @Todo Lista combinaciones de precios PrecioComis
+     *
+     * @return void
+     * @author  erasto@realhost.com.mx
+     * dformap = Metodo de Pago
+     * dtipopago = Frecuencia de Pago
+     */
+    public function actionPreciocomis() {
+        $PreciosData = Yii::app()->db->createCommand()->select('
+            PComis.*,
+            pm.paymentname,
+            (fp.frecuencia) as FPago ')
+        ->from('rh_preciocomisionista as PComis')
+        //->leftJoin('paymentmethods pm', 'pm.paymentid = PComis.dformap')
+        ->leftJoin('paymentmethods pm', 'pm.paymentid = PComis.dformap')
+        //->leftJoin('rh_frecuenciapago fp', 'fp.id = PComis.dtipopago')
+        ->leftJoin('rh_frecuenciapago fp', 'fp.id = PComis.dtipopago')
+        ->where("PComis.activo = 1")
+        ->queryAll();
+
+        // select * from stockmaster where categoryid = 'AFIL';
+        $_ListaPlanes = Yii::app()->db->createCommand()->select(' stockid, description ')
+        ->from('stockmaster')
+        ->where('categoryid = "AFIL" ORDER BY stockid ASC')
+        ->queryAll();
+        $ListaPlanes = array();
+        foreach ($_ListaPlanes as $Planes) {
+            $ListaPlanes[$Planes['stockid']] = $Planes['description'];
+        }
+        $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(), 'paymentid', 'paymentname');
+        $ListaFrecuenciaPago = CHtml::listData(FrecuenciaPago::model()->findAll(), 'id', 'frecuencia');
+        $ListaEmpresas = CHtml::listData(Empresa::model()->findAll(), 'id', 'empresa');
+
+        $this->render('preciocomis', array(
+            'PreciosData' => $PreciosData,
+            'ListaFormasPago' => $ListaFormasPago,
+            'ListaFrecuenciaPago' => $ListaFrecuenciaPago,
+            'ListaPlanes' => $ListaPlanes,
+            'ListaEmpresas' => $ListaEmpresas
+        ));
+    }
+
+    /**
+     * @Todo Crea Nueva combinacion de precios Matriz de Precios
+     *
+     * @return void
+     * @author  erasto@realhost.com.mx
+     */
+    public function actionCreate() {
+
+        if(!empty($_POST['nafiliados'])){
+
+            $SQLInsert = "INSERT INTO rh_matrizprecios (nafiliados,
+                                                   stockid,
+                                                   paymentid,
+                                                   frecpagoid,
+                                                   porcdesc,
+                                                   aplicadesc,
+                                                   costouno,
+                                                   costodos)
+                                               VALUES(:nafiliados,
+                                                   :stockid,
+                                                   :paymentid,
+                                                   :frecpagoid,
+                                                   :porcdesc,
+                                                   :aplicadesc,
+                                                   :costouno,
+                                                   :costodos)";
+            $parameters = array(
+                ':nafiliados' => $_POST['nafiliados'],
+                ':stockid' => $_POST['stockid'],
+                ':paymentid' => $_POST['paymentid'],
+                ':frecpagoid' => $_POST['frecpagoid'],
+                ':porcdesc' => $_POST['porcdesc'],
+                ':aplicadesc' => $_POST['aplicadesc'],
+                ':costouno' => $_POST['costouno'],
+                ':costodos' => $_POST['costodos'],
+            );
+            if (Yii::app()->db->createCommand($SQLInsert)->execute($parameters)) {
+                Yii::app()->user->setFlash("success", "La nueva combinación se inserto correctamente.");
+                $this->redirect($this->createUrl("precios/index"));
+            }else{
+                Yii::app()->user->setFlash("error", "La nueva combinación No se pudo insertar correctamente, intente de nuevo.");
+                $this->redirect($this->createUrl("precios/index"));
+            }
+        }
+    }
+
+    /**
+     * @Todo Crea Nueva combinacion de precios PrecioComis
+     *
+     * @return void
+     * @author  erasto@realhost.com.mx
+     * dformap = Metodo de Pago
+     * dtipopago = Frecuencia de Pago
+     */
+    public function actionCreatepcomis() {
+
+        if(!empty($_POST['afiliados'])){
+
+            $SQLInsert = "INSERT INTO rh_preciocomisionista (afiliados,
+                                                   dproducto,
+                                                   dformap,
+                                                   dtipopago,
+                                                   tarifains,
+                                                   tarifa,
+                                                   empresa,
+                                                   comision1,
+                                                   comision2,
+                                                   comision3)
+                                               VALUES(:afiliados,
+                                                   :dproducto,
+                                                   :dformap,
+                                                   :dtipopago,
+                                                   :tarifains,
+                                                   :tarifa,
+                                                   :empresa,
+                                                   :comision1,
+                                                   :comision2,
+                                                   :comision3)";
+            $parameters = array(
+                ':afiliados' => $_POST['afiliados'],
+                ':dproducto' => $_POST['dproducto'],
+                ':dformap' => $_POST['dformap'],
+                ':dtipopago' => $_POST['frecuencia'],
+                ':tarifains' => $_POST['tarifains'],
+                ':tarifa' => $_POST['tarifa'],
+                ':empresa' => $_POST['empresa'],
+                ':comision1' => $_POST['comision1'],
+                ':comision2' => $_POST['comision2'],
+                ':comision3' => $_POST['comision3'],
+            );
+
+            if (Yii::app()->db->createCommand($SQLInsert)->execute($parameters)) {
+                Yii::app()->user->setFlash("success", "La nueva combinación se inserto correctamente.");
+                $this->redirect($this->createUrl("precios/preciocomis"));
+            }else{
+                Yii::app()->user->setFlash("error", "La nueva combinación No se pudo insertar correctamente, intente de nuevo.");
+                $this->redirect($this->createUrl("precios/preciocomis"));
+            }
+        }
+    }
+
+    /**
+     * @Todo Carga Formulario para editar Combinacion Matriz por ajax
+     *
+     * @return void
+     * @author  erasto@realhost.com.mx
+     */
+    public function actionLoadform() {
+        global $db;
+        if (!empty($_POST['GetData'])) {
+            $_GetData = array();
+            $GetData = "SELECT * FROM rh_matrizprecios WHERE activo<>0 and id = '" . $_POST['GetData']['id'] . "'";
+            $_2GetData = DB_query($GetData, $db);
+            $_GetData = DB_fetch_assoc($_2GetData, $db);
+            if (!empty($_GetData)) {
+                echo CJSON::encode(array(
+                    'requestresult' => 'ok',
+                    'message' => "Seleccionando " . $_GetData['id'] . "...",
+                    'GetData' => $_GetData
+                ));
+            } else {
+                echo CJSON::encode(array(
+                    'requestresult' => 'fail',
+                    'message' => "No se en contro la Combinación, intente de nuevo..."
+                ));
+            }
+        }
+        return;
+    }
+
+    /**
+     * @Todo Carga Formulario para editar Combinacion PrecioComis por ajax
+     *
+     * @return void
+     * @author  erasto@realhost.com.mx
+     */
+    public function actionLoadformpcomis() {
+        global $db;
+        if (!empty($_POST['GetData'])) {
+            $_GetData = array();
+            $GetData = "SELECT * FROM rh_preciocomisionista WHERE num = '" . $_POST['GetData']['num'] . "'";
+            $_2GetData = DB_query($GetData, $db);
+            $_GetData = DB_fetch_assoc($_2GetData, $db);
+            if (!empty($_GetData)) {
+                echo CJSON::encode(array(
+                    'requestresult' => 'ok',
+                    'message' => "Seleccionando " . $_GetData['num'] . "...",
+                    'GetData' => $_GetData
+                ));
+            } else {
+                echo CJSON::encode(array(
+                    'requestresult' => 'fail',
+                    'message' => "No se en contro la Combinación, intente de nuevo..."
+                ));
+            }
+        }
+        return;
+    }
+
+    /**
+     * @Todo Actualiza Registro Matriz de Precios por ajax
+     *
+     * @return void
+     * @author  erasto@realhost.com.mx
+     */
+    public function actionUpdate(){
+
+        if(!empty($_POST['Update']['nafiliados'])){
+            $SQLUpdate = "UPDATE rh_matrizprecios SET nafiliados = :nafiliados,
+                                                   stockid = :stockid,
+                                                   paymentid = :paymentid,
+                                                   frecpagoid = :frecpagoid,
+                                                   porcdesc = :porcdesc,
+                                                   aplicadesc = :aplicadesc,
+                                                   costouno = :costouno,
+                                                   costodos = :costodos
+                                                   WHERE id = :id ";
+            $parameters = array(
+                ':nafiliados' => $_POST['Update']['nafiliados'],
+                ':stockid' => $_POST['Update']['stockid'],
+                ':paymentid' => $_POST['Update']['paymentid'],
+                ':frecpagoid' => $_POST['Update']['frecpagoid'],
+                ':porcdesc' => $_POST['Update']['porcdesc'],
+                ':aplicadesc' => $_POST['Update']['aplicadesc'],
+                ':costouno' => $_POST['Update']['costouno'],
+                ':costodos' => $_POST['Update']['costodos'],
+                ':id' => $_POST['Update']['id']
+            );
+            if (Yii::app()->db->createCommand($SQLUpdate)->execute($parameters)) {
+                $_ListaPlanes = Yii::app()->db->createCommand()->select(' stockid, description ')->from('stockmaster')->where('categoryid = "AFIL" ORDER BY stockid ASC')->queryAll();
+                $ListaPlanes = array();
+                foreach ($_ListaPlanes as $Planes) {
+                    $ListaPlanes[$Planes['stockid']] = $Planes['description'];
+                }
+                $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(), 'paymentid', 'paymentname');
+                $ListaFrecuenciaPago = CHtml::listData(FrecuenciaPago::model()->findAll(), 'id', 'frecuencia');
+
+                $NewRow = "";
+                $NewRow .= "
+                            <td>{$_POST['Update']['nafiliados']}</td>
+                            <td>{$ListaPlanes[$_POST['Update']['stockid']]}</td>
+                            <td>{$ListaFormasPago[$_POST['Update']['paymentid']]}</td>
+                            <td>{$ListaFrecuenciaPago[$_POST['Update']['frecpagoid']]}</td>
+                            <td>{$_POST['Update']['porcdesc']}</td>
+                            <td>{$_POST['Update']['aplicadesc']}</td>
+                            <td>{$_POST['Update']['costouno']}</td>
+                            <td>{$_POST['Update']['costodos']}</td>
+                            <td>{$_POST['Update']['fecaumact']}</td>
+                            <td>{$_POST['Update']['fecaumant']}</td>
+                            <td>{$_POST['Update']['costounoan']}</td>
+                            <td>{$_POST['Update']['costodosan']}</td>
+                            <td >
+                                <a title='Editar Combinacion' onclick=\"EditarCombinacion({$_POST['Update']['id']});\"><i class='icon-edit'></i></a>
+                                <a href='" . $this->createUrl("precios/delete&id=" . $_POST['Update']['id']) . "' title='Eliminar Combinacion' onclick=\"javascript:if(confirm('¿Esta seguro de Eliminar esta Combinación?')) { return; }else{return false;};\"><i class=\"icon-trash\"></i></a>
+                            </td>";
+                echo CJSON::encode(array(
+                    'requestresult' => 'ok',
+                    'message' => "La Combinación se actualizo correctamente...",
+                    'NewRow' => $NewRow,
+                    'Rowid' => $_POST['Update']['id']
+                ));
+            }else{
+                echo CJSON::encode(array(
+                    'requestresult' => 'fail',
+                    'message' => "No se actualizo la Combinación, intente de nuevo..."
+                ));
+            }
+        }
+
+    }
+
+    /**
+     * @Todo Actualiza PrecioCOmis por ajax
+     *
+     * @return void
+     * @author  erasto@realhost.com.mx
+     */
+    public function actionUpdatepcomis(){
+        FB::INFO($_POST,'_______________POST');
+        if(!empty($_POST['Update']['num'])){
+            $SQLUpdate = "UPDATE rh_preciocomisionista SET afiliados = :afiliados,
+                                                   dproducto = :dproducto,
+                                                   dformap = :dformap,
+                                                   dtipopago = :dtipopago,
+                                                   tarifains = :tarifains,
+                                                   tarifa = :tarifa,
+                                                   empresa = :empresa,
+                                                   comision1 = :comision1,
+                                                   comision2 = :comision2,
+                                                   comision3 = :comision3
+                                                   WHERE num = :num ";
+            $parameters = array(
+                ':afiliados' => $_POST['Update']['afiliados'],
+                ':dproducto' => $_POST['Update']['dproducto'],
+                ':dformap' => $_POST['Update']['dformap'],
+                ':dtipopago' => $_POST['Update']['dtipopago'],
+                ':tarifains' => $_POST['Update']['tarifains'],
+                ':tarifa' => $_POST['Update']['tarifa'],
+                ':empresa' => $_POST['Update']['empresa'],
+                ':comision1' => $_POST['Update']['comision1'],
+                ':comision2' => $_POST['Update']['comision2'],
+                ':comision3' => $_POST['Update']['comision3'],
+                ':num' => $_POST['Update']['num']
+            );
+            if (Yii::app()->db->createCommand($SQLUpdate)->execute($parameters)) {
+                $_ListaPlanes = Yii::app()->db->createCommand()->select(' stockid, description ')->from('stockmaster')->where('categoryid = "AFIL" ORDER BY stockid ASC')->queryAll();
+                $ListaPlanes = array();
+                foreach ($_ListaPlanes as $Planes) {
+                    $ListaPlanes[$Planes['stockid']] = $Planes['description'];
+                }
+                $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(), 'paymentid', 'paymentname');
+                $ListaFrecuenciaPago = CHtml::listData(FrecuenciaPago::model()->findAll(), 'id', 'frecuencia');
+
+                $NewRow = "";
+                $NewRow .= "
+                            <td>{$_POST['Update']['num']}</td>
+                            <td>{$_POST['Update']['afiliados']}</td>
+                            <td>{$ListaPlanes[$_POST['Update']['dproducto']]}</td>
+                            <td>{$ListaFormasPago[$_POST['Update']['dformap']]}</td>
+                            <td>{$ListaFrecuenciaPago[$_POST['Update']['dtipopago']]}</td>
+                            <td>{$_POST['Update']['tarifains']}</td>
+                            <td>{$_POST['Update']['tarifa']}</td>
+                            <td>{$_POST['Update']['empresa']}</td>
+                            <td>{$_POST['Update']['comision1']}</td>
+                            <td>{$_POST['Update']['comision2']}</td>
+                            <td>{$_POST['Update']['comision3']}</td>
+                            <td >
+                                <a title='Editar Combinacion' onclick=\"EditarPrecioComis({$_POST['Update']['num']});\"><i class='icon-edit'></i></a>
+                                <a href='" . $this->createUrl("precios/deletepcomis&id=" . $_POST['Update']['num']) . "' title='Eliminar Combinacion' onclick=\"javascript:if(confirm('¿Esta seguro de Eliminar esta Combinacion?')) { return; }else{return false;};\"><i class=\"icon-trash\"></i></a>
+                            </td>";
+                echo CJSON::encode(array(
+                    'requestresult' => 'ok',
+                    'message' => "La Combinación se actualizo correctamente...",
+                    'NewRow' => $NewRow,
+                    'Rowid' => $_POST['Update']['num']
+                ));
+            }else{
+                echo CJSON::encode(array(
+                    'requestresult' => 'fail',
+                    'message' => "No se actualizo la Combinación, intente de nuevo..."
+                ));
+            }
+        }
+        return;
+    }
+
+    public function actionDelete($id) {
+        if (!empty($id)) {
+            //Ponemos la Combinacion en Activo = 0
+             $SQLDelete = "UPDATE rh_matrizprecios SET activo = :activo WHERE id = :id";
+             $parameters = array(
+                ':activo' => 0 ,
+                ':id' => $id
+            );
+            if (Yii::app()->db->createCommand($SQLDelete)->execute($parameters)) {
+                Yii::app()->user->setFlash("success", "La informacion dela Combinación se ha eliminado.");
+            }else{
+                Yii::app()->user->setFlash("Fail", "No se eliminó la Combinación, intente de nuevo.");
+            }
+            $this->redirect($this->createUrl("precios/index"));
+        } else {
+            Yii::app()->user->setFlash("error", "Debe Seleccionar una Combinación.");
+            $this->redirect($this->createUrl("precios/index"));
+        }
+    }
+
+    public function actionDeletepcomis($id) {
+        if (!empty($id)) {
+            //Ponemos la Combinacion en Activo = 0
+             $SQLDelete = "UPDATE rh_preciocomisionista SET activo = :activo WHERE num = :id";
+             $parameters = array(
+                ':activo' => 0,
+                ':id' => $id
+            );
+            if (Yii::app()->db->createCommand($SQLDelete)->execute($parameters)) {
+                Yii::app()->user->setFlash("success", "La informacion dela Combinación se ha eliminado.");
+            }else{
+                Yii::app()->user->setFlash("success", "No se eliminó la Combinación, intente de nuevo.");
+            }
+            $this->redirect($this->createUrl("precios/preciocomis"));
+        } else {
+            Yii::app()->user->setFlash("error", "Debe Seleccionar una Combinación.");
+            $this->redirect($this->createUrl("precios/preciocomis"));
+        }
+    }
+
+}
+?>

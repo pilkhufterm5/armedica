@@ -1,0 +1,1347 @@
+<?php
+
+/**
+ * @Todo
+ * http://104.130.129.147/wsceom2/WebService.asmx?wsdl
+ * $url_TEST = "http://zona07.com/myapp/WebService.asmx?wsdl";
+ * $SelectAction = "http://tempuri.org/select";
+ * $InsertAction = "http://tempuri.org/insert";
+ * $UpdateAction = "http://tempuri.org/update";
+ * $CountAction = "http://tempuri.org/selectcont";
+ * $SELECT = $this->GetFromWS($XmlSelect, $url, array('SOAPAction: ' . $SelectAction))->saveXML();
+ * $COUNT = $this->GetCountWS($XmlSelectCountNoFecha, $url, array('SOAPAction: ' . $CountAction))->saveXML();
+ * $TESTINSERT = $this->InsertInToWS($XmlInsert, $url, array('SOAPAction: ' . $InsertAction))->saveXML();
+ * $TESTUPDATE = $this->UpdateWS($XMLUpdate, $url, array('SOAPAction: ' . $UpdateAction))->saveXML();
+ */
+class SQLServerWS {
+
+
+    public $ServiceURL ="http://104.130.129.147/wsceom2/WebService.asmx?wsdl";
+
+    public $_ServiceURL ="http://zona07.com/myapp/WebService.asmx?wsdl";
+
+
+    public function GetURL(){
+        //return $ServiceURL ="http://104.130.129.147/wsceom2/WebService.asmx?wsdl";
+        return $_ServiceURL ="http://zona07.com/myapp/WebService.asmx?wsdl";
+    }
+
+    public function MSDBConect() {
+
+        //Conexion ala BD de MS SQL
+        $MSCon = mssql_connect("s05.winhost.com", "DB_72419_armedica_user", "EEdfgr21fgres");
+        if (!$MSCon) {
+            die('Something went wrong while connecting to MSSQL');
+        }
+        $BDAR = mssql_select_db('DB_72419_armedica', $MSCon);
+        return $MSCon;
+    }
+
+
+
+    /**
+    * Envia Peticion
+    *
+    **/
+    public function SendToWS($mySOAP, $url, $Actions = array()) {
+        $headers = array(
+            'Content-Type: text/xml; charset=utf-8',
+            'Content-Length: ' . strlen($mySOAP)
+        );
+        $headers = array_merge($headers, $Actions);
+        // Build the cURL session
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, count($Actions));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $mySOAP);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        // Send the request and check the response
+        if (($result = curl_exec($ch))===false) {
+            return null;
+        }
+        curl_close($ch);
+        $xmlobj = simplexml_load_string($result);
+
+        return $xmlobj;
+    }
+
+    /*Crea Log de la peticion*/
+    public function CreaTransLog($tipo = null, $xmlsend = null){
+
+        if(!empty($xmlsend)){
+            $InsertLog = "INSERT INTO rh_ws__cecom_log (
+                tipo,
+                userid,
+                status,
+                xmlsend,
+                xmlresponse,
+                created
+            )VALUES(
+                :tipo,
+                :userid,
+                :status,
+                :xmlsend,
+                :xmlresponse,
+                :created
+            )";
+            $InsertLogParameters = array(
+                ':tipo' => $tipo,
+                ':userid' => $_SESSION['UserID'],
+                ':status' => '',
+                ':xmlsend' => $xmlsend,
+                ':xmlresponse' => '',
+                ':created' => date("Y-m-d H:i:s")
+            );
+            try {
+                Yii::app()->db->createCommand($InsertLog)->execute($InsertLogParameters);
+                $LogID = Yii::app()->db->getLastInsertID();
+                return $LogID;
+            } catch (Exception $e) {
+                FB::INFO($e,'___ERROR INSERTAR LOG: ');
+            }
+        }
+    }
+
+    /* Update Log de la peticion*/
+    public function UpdateTransLog($id = null, $xmlresponse = null){
+
+        if(!empty($id) && !empty($xmlresponse)){
+            $UpdateLog = "UPDATE rh_ws__cecom_log SET
+                userid = :userid,
+                status = :status,
+                xmlresponse = :xmlresponse,
+                updated = :updated
+            WHERE id = :id";
+            $UpdateLogParameters = array(
+                ':userid' => $_SESSION['UserID'],
+                ':status' => '',
+                ':xmlresponse' => $xmlresponse,
+                ':updated' => date("Y-m-d H:i:s"),
+                ':id' => $id
+            );
+            try {
+                Yii::app()->db->createCommand($UpdateLog)->execute($UpdateLogParameters);
+            } catch (Exception $e) {
+                FB::INFO($e,'___ERROR ACTUALIZAR LOG: ');
+            }
+        }
+    }
+
+
+
+    /**
+     * @Todo Ejecuta SELECT * dela Tabla Especificada en $xml
+     * @return XML
+     * @author erasto@realhost.com.mx
+     */
+    public function GetFromWS($xml, $url, $Actions = array()) {
+
+        $mySOAP = '
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                <soap:Body>
+                    <select xmlns="http://tempuri.org/">
+                        <Sxml>
+                            <![CDATA[' . base64_encode($xml) . ']]>
+                        </Sxml>
+                    </select>
+                </soap:Body>
+            </soap:Envelope>';
+        return SQLServerWS::SendToWS($mySOAP, $url, $Actions);
+    }
+
+    public function GetCountWS($xml, $url, $Actions = array()) {
+        $mySOAP = '
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                <soap:Body>
+                    <selectcont xmlns="http://tempuri.org/">
+                        <Sxml>
+                            <![CDATA[' . base64_encode($xml) . ']]>
+                        </Sxml>
+                    </selectcont>
+                </soap:Body>
+            </soap:Envelope>';
+        return SQLServerWS::SendToWS($mySOAP, $url, $Actions);
+    }
+
+
+    public function InsertInToWS($xml, $url, $Actions = array()) {
+        $LogID = SQLServerWS::CreaTransLog('INSERT', $xml);
+        $mySOAP = '
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                <soap:Body>
+                    <insert xmlns="http://tempuri.org/">
+                        <Sxml>
+                            <![CDATA[' . base64_encode($xml) . ']]>
+                        </Sxml>
+                    </insert>
+                </soap:Body>
+            </soap:Envelope>';
+        $WSResponse = SQLServerWS::SendToWS($mySOAP, $url, $Actions);
+        FB::INFO($WSResponse, '______________________________________________INSERT RESPONSE');
+        SQLServerWS::UpdateTransLog($LogID, $WSResponse);
+        return $WSResponse;
+    }
+
+    public function UpdateWS($xml, $url, $Actions = array()) {
+        $LogID = SQLServerWS::CreaTransLog('UPDATE', $xml);
+        $mySOAP = '
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                <soap:Body>
+                    <update xmlns="http://tempuri.org/">
+                        <Sxml>
+                            <![CDATA[' . base64_encode($xml) . ']]>
+                        </Sxml>
+                    </update>
+                </soap:Body>
+            </soap:Envelope>';
+        $WSResponse = SQLServerWS::SendToWS($mySOAP, $url, $Actions);
+        FB::INFO($WSResponse, '______________________________________________UPDATE RESPONSE');
+        SQLServerWS::UpdateTransLog($LogID, $WSResponse);
+        return $WSResponse;
+    }
+
+    /*Actualiza Datos de la Tabla de Titular mediante el XML de $this->XMLUpdateTitular($Data);*/
+    public function UpdateTitular($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLUpdateTitular($Data);
+        FB::INFO($XMLUpdate, '______________________________XML SEND LUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________RESPONSE UPDATE TITULAR');
+    }
+
+    /*Actualiza Datos Faltantes de la Tabla de Titular mediante el XML de $this->XMLUpdateTitularComplemento($Data);*/
+    public function UpdateTitularComplemento($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLUpdateTitularComplemento($Data);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________UPDATE TITULARComplemento');
+    }
+
+    public function CancelarAfiliados($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLCancelarAfiliados($Data);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________UPDATE TITULAR');
+    }
+
+    public function SuspenderAfiliados($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLSuspenderAfiliados($Data);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________UPDATE TITULAR');
+    }
+
+    public function ReactivarAfiliado($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLReactivarAfiliado($Data);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________UPDATE TITULAR');
+    }
+
+
+    public function ReactivarSocios($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLReactivarSocios($Data);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________UPDATE TITULAR');
+    }
+
+    public function CancelarSocios($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLCancelarSocios($Data);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________UPDATE TITULAR');
+    }
+
+    public function CancelarSocio($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLCancelarSocio($Data);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________UPDATE TITULAR');
+    }
+
+    public function SuspenderSocios($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLSuspenderSocios($Data);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________UPDATE TITULAR');
+    }
+
+    public function SuspenderSocio($Data, $Folio) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLSuspenderSocio($Data, $Folio);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________UPDATE TITULAR');
+    }
+
+    /*Actualiza Datos de la Tabla de Cobranza mediante el XML de $this->XMLUpdateCobranza*/
+    public function UpdateCobranza($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLUpdateCobranza($Data);
+        FB::INFO($XMLUpdate, '______________________________$XMLUpdate');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________XML SEND UpdateCOBRANZA');
+        //Actualiza Complementos dela Tabla Titular
+        $XMLUpdateTitular = SQLServerWS::XMLUpdateTitularComplemento($Data);
+        $UPDATETitular = SQLServerWS::UpdateWS($XMLUpdateTitular, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATETitular, '_______________________________________XML RESPONSE');
+    }
+
+
+    /*Inserta Datos de la Tabla de Titular mediante el XML de $this->XMLInsertTitular*/
+    public function InsertTitular($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA');
+        $WSURL = SQLServerWS::GetURL();
+        $InsertAction = "http://tempuri.org/insert";
+        $XMLINSERT = SQLServerWS::XMLInsertTitular($Data);
+        FB::INFO($XMLINSERT, '______________________________$XML SEND INSERT');
+        $INSERT = SQLServerWS::InsertInToWS($XMLINSERT, $WSURL, array('SOAPAction: ' . $InsertAction))->saveXML();
+        FB::INFO($INSERT, '____________________________________________INSERT TITULAR RESPONSE');
+    }
+
+    public function InsertCobranza($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA INSERT COBRANZA');
+        $WSURL = SQLServerWS::GetURL();
+        $InsertAction = "http://tempuri.org/insert";
+        $XMLInsertCobranza = SQLServerWS::XMLInsertCobranza($Data);
+        FB::INFO($XMLInsertCobranza, '______________________________$XML SEND InsertCobranza');
+        $InsertCobranza = SQLServerWS::InsertInToWS($XMLInsertCobranza, $WSURL, array('SOAPAction: ' . $InsertAction))->saveXML();
+        FB::INFO($InsertCobranza, '____________________________________________XML RESPONSE');
+
+        /*Actualiza Complementos dela Tabla Titular*/
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdateTitular = SQLServerWS::XMLUpdateTitularComplemento($Data);
+        $UPDATETitular = SQLServerWS::UpdateWS($XMLUpdateTitular, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATETitular, '_______________________________________XML RESPONSE COMPLEMENTO');
+    }
+
+
+    public function InsertSocios($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA INSERT COBRANZA');
+        $WSURL = SQLServerWS::GetURL();
+        $InsertAction = "http://tempuri.org/insert";
+        $XMLInsertSocios = SQLServerWS::XMLInsertSocios($Data);
+        FB::INFO($XMLInsertSocios, '______________________________$XML SEND InsertSocios');
+        $InsertSocios = SQLServerWS::InsertInToWS($XMLInsertSocios, $WSURL, array('SOAPAction: ' . $InsertAction))->saveXML();
+        FB::INFO($InsertSocios, '____________________________________________XML RESPONSE');
+    }
+
+    public function UpdateSocios($Data) {
+        FB::INFO($Data, '________________________ARRAY DATA SOCIOS');
+        $WSURL = SQLServerWS::GetURL();
+        $UpdateAction = "http://tempuri.org/update";
+        $XMLUpdate = SQLServerWS::XMLUpdateSocios($Data);
+        FB::INFO($XMLUpdate, '______________________________$XML SEND Update Socios');
+        $UPDATE = SQLServerWS::UpdateWS($XMLUpdate, $WSURL, array('SOAPAction: ' . $UpdateAction))->saveXML();
+        FB::INFO($UPDATE, '____________________________________________XML RESPONSE');
+    }
+
+    /*Inseta Registro en la Tabla del Titular*/
+    public function XMLInsertTitular($Data){
+
+        global $db;
+
+        FB::INFO('INSERT TITULAR');
+
+        if($Data['sexo'] == 'MASCULINO'){
+            $Data['sexo'] = "M";
+        }else{
+            $Data['sexo'] = "F";
+        }
+
+        switch ($Data['movimientos_afiliacion']) {
+            case "Activo" :
+                $Status = 1;
+                break;
+            case "Cancelado" :
+                $Status = 2;
+                break;
+            case "Suspendido" :
+                $Status = 3;
+                break;
+            default :
+                $Status = 1;
+                break;
+        }
+
+        if (!empty($Data['email'])) {
+            $Email = explode(",", $Data['email']);
+        }
+
+        if(!empty($Data['tipopersona'])){
+            if($Data['tipopersona']=='FISICA'){
+                $Data['tipopersona']=2;
+            }else{
+                $Data['tipopersona']=1;
+            }
+        }
+
+        $_2GetMun = "SELECT rh_municipios.id, rh_municipios.municipio, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_municipios
+        LEFT JOIN ar_match arm on rh_municipios.id = arm.rh_id
+        WHERE rh_municipios.municipio = '" . $Data['address7'] . "'
+        AND arm.nombre_catalogo = 'MUNICIPIOS' AND arm.sucursal = 'MTY' ";
+        $_GetMunID = DB_query($_2GetMun, $db);
+        $GetMunID = DB_fetch_assoc($_GetMunID);
+        $Data['address7'] = $GetMunID['ar_id'];
+
+        /* Traduccion de Catalogo ESTADOS*/
+        $_2GetEstado = "SELECT rh_estados.id, rh_estados.estado, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_estados
+        LEFT JOIN ar_match arm on rh_estados.id = arm.rh_id
+        WHERE rh_estados.estado = '" . $Data['address8'] . "'
+        AND arm.nombre_catalogo = 'ESTADOS' AND arm.sucursal = 'MTY' ";
+        $_GetEstadoID = DB_query($_2GetEstado, $db);
+        $GetEstadoID = DB_fetch_assoc($_GetEstadoID);
+        $Data['address8'] = $GetEstadoID['ar_id'];
+
+        $XmlInsert = ('
+        <row>
+            <CCM_Foltitular weberp="rh_titular">
+                <folio weberp="folio" prime="1" >' . $Data['Folio'] . '</folio>
+                <fecha weberp="fecha_ingreso" >' . $Data['fecha_ingreso'] . '</fecha>
+                <IdProducto weberp="null">1</IdProducto>
+                <IdAsesor weberp="t.asesor">' . $Data['asesor'] . '</IdAsesor>
+                <IdCoordinador weberp="null">1</IdCoordinador>
+                <IdAsesorLaboratorio weberp=" ">1</IdAsesorLaboratorio>
+                <APELLIDOS weberp="t.apellidos">' . $Data['apellidos'] . '</APELLIDOS>
+                <NOMBRES weberp="t.name">' . $Data['name'] . '</NOMBRES>
+                <SEXO weberp="t.sexo">' . $Data['sexo'] . '</SEXO>
+                <RFC weberp="t.taxref">' . $Data['taxref'] . '</RFC>
+                <CORREO weberp="t.email">' . $Email[0] . '</CORREO>
+                <TELEFONO1 weberp="t.rh_tel">' . $Data['rh_tel'] . '</TELEFONO1>
+                <TELEFONO2 weberp="t.rh_tel2">' . $Data['rh_tel2'] . '</TELEFONO2>
+                <CALLE weberp="t.address1">' . $Data['address1'] . '</CALLE>
+                <NUMERO weberp="t.address2">' . $Data['address3'] . '</NUMERO>
+                <COLONIA weberp="t.address4">' . $Data['address4'] . '</COLONIA>
+                <SECTOR weberp="t.address5">' . $Data['address5'] . '</SECTOR>
+                <ENTRECALLE weberp="t.address6">' . $Data['address6'] . '</ENTRECALLE>
+                <IdMunicipio weberp="t.address7">' . $Data['address7'] . '</IdMunicipio>
+                <IdEstado weberp="t.address8">' . $Data['address8'] . '</IdEstado>
+                <CUADRANTE1 weberp="t.cuadrante1 ">' . $Data['cuadrante1'] . '</CUADRANTE1>
+                <CUADRANTE2 weberp="t.cuadrante2">' . $Data['cuadrante2'] . '</CUADRANTE2>
+                <CUADRANTE3 weberp="t.cuadrante3">' . $Data['cuadrante3'] . '</CUADRANTE3>
+                <IdMotivoCancelacion weberp="t.motivo_cancelacion">7</IdMotivoCancelacion>
+                <COSTO weberp="t.costo">' . $Data['costo_total'] . '</COSTO>
+                <IdIdentificacion weberp="c.identificacion">1</IdIdentificacion>
+                <TIPOPERSON weberp="t.tipopersona">' .$Data['tipopersona']. '</TIPOPERSON>
+                <FECHASUSP1 weberp="">1900-01-01 </FECHASUSP1>
+                <FECHASUSP2 weberp="">1900-01-01 </FECHASUSP2>
+                <NOMFAM weberp=""></NOMFAM>
+                <PARENTESCO weberp="">0</PARENTESCO>
+                <TELFAM weberp="">0</TELFAM>
+                <ESP weberp="">0</ESP>
+                <TARIFA weberp="">0</TARIFA>
+                <TARIFAINS weberp="">0.00</TARIFAINS>
+                <FECHAULTAU weberp="t.fecha_ultaum">' . $Data['fecha_ultaum'] . '</FECHAULTAU>
+                <TIPTARIFA weberp="">0</TIPTARIFA>
+                <AUMENTO weberp="">0</AUMENTO>
+                <CP weberp="t.address10">' . $Data['address10'] . '</CP>
+                <STATUS weberp="">' . $Status . '</STATUS>
+                <MONTORECIB weberp="">0</MONTORECIB>
+                <PROMOCION weberp="">0</PROMOCION>
+                <SINCLUIDOS weberp="t.servicios_seleccionados">' . $Data['servicios_seleccionados3'] . '</SINCLUIDOS>
+                <ACT weberp="">0</ACT>
+                <CONTACTO weberp="">' . $Data['contacto'] . '</CONTACTO>
+                <FECHAUC weberp="">1900-01-01 </FECHAUC>
+                <CONTACTA weberp="">0</CONTACTA>
+                <FCANAUT weberp="">1900-01-01 </FCANAUT>
+                <FMCANAUT weberp="">1900-01-01 </FMCANAUT>
+                <CANAUT weberp="">0</CANAUT>
+                <NOEMPLEA weberp="">0</NOEMPLEA>
+                <FULTREA weberp="">1900-01-01 </FULTREA>
+                <VIGINIMES weberp="">0</VIGINIMES>
+                <VIGINIANO weberp="">0</VIGINIANO>
+                <VIGFINMES weberp="">0</VIGFINMES>
+                <VIGFINANO weberp="">0</VIGFINANO>
+                <CLAVEPROMO weberp=" ">0</CLAVEPROMO>
+                <DIASCTO weberp=" ">0</DIASCTO>
+                <FOLIOCAN weberp=" ">0</FOLIOCAN>
+                <FECULAUMAN weberp=" ">1900-01-01</FECULAUMAN>
+                <TARIFAANT weberp=" ">0</TARIFAANT>
+                <IdUsuario weberp=" ">2</IdUsuario>
+                <LIM_SERV weberp="t.serviciolimitado">0</LIM_SERV>
+                <LIM_MES weberp=" ">0</LIM_MES>
+                <LIM_COSTEX weberp="t.costo_servicioextra">' . $Data['costo_servicioextra'] . '</LIM_COSTEX>
+                <ENF weberp="t.enfermeria">' . $Data['enfermeria'] . '</ENF>
+                <COSTOENF weberp="t.costoenfermeria">' . intval($Data['costoenfermeria']) . '</COSTOENF>
+                <CUENTA_SAT weberp=" "></CUENTA_SAT>
+                <CORREO2 weberp=" ">' . $Email[1] . '</CORREO2>
+                <CORREO3 weberp=" ">' . $Email[2] . '</CORREO3>
+                <CORREO4 weberp=" ">' . $Email[3] . '</CORREO4>
+                <METODOPAGO weberp=" "></METODOPAGO>
+                <IdFrecuenciaPago weberp=" ">1</IdFrecuenciaPago>
+                <IdFormaPago weberp=" ">1</IdFormaPago>
+                <TipoFolio weberp=" ">1</TipoFolio>
+           </CCM_Foltitular>
+        </row>');
+
+        return $XmlInsert;
+
+    }
+
+
+    /*XMl que se envia al WS con la Info a Actualizar*/
+    public function XMLUpdateTitular($Data) {
+
+        global $db;
+
+        if($Data['sexo'] == 'MASCULINO'){
+            $Data['sexo'] = "M";
+        }else{
+            $Data['sexo'] = "F";
+        }
+
+        switch ($Data['movimientos_afiliacion']) {
+            case "Activo" :
+                $Status = 1;
+                break;
+            case "Cancelado" :
+                $Status = 2;
+                break;
+            case "Suspendido" :
+                $Status = 3;
+                break;
+            default :
+                $Status = 1;
+                break;
+        }
+
+        if (!empty($Data['email'])) {
+            $Email = explode(",", $Data['email']);
+        }
+
+        if(!empty($Data['tipopersona'])){
+            if($Data['tipopersona']=='FISICA'){
+                $Data['tipopersona']=2;
+            }else{
+                $Data['tipopersona']=1;
+            }
+        }
+
+        if($Data['fecha_ultaum']=='0000-00-00'){
+            $Data['fecha_ultaum']='1900-01-01';
+        }
+
+        $_2GetMun = "SELECT rh_municipios.id, rh_municipios.municipio, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_municipios
+        LEFT JOIN ar_match arm on rh_municipios.id = arm.rh_id
+        WHERE rh_municipios.municipio = '" . $Data['address7'] . "'
+        AND arm.nombre_catalogo = 'MUNICIPIOS' AND arm.sucursal = 'MTY' ";
+        $_GetMunID = DB_query($_2GetMun, $db);
+        $GetMunID = DB_fetch_assoc($_GetMunID);
+        $Data['address7'] = $GetMunID['ar_id'];
+
+        /* Traduccion de Catalogo ESTADOS*/
+        $_2GetEstado = "SELECT rh_estados.id, rh_estados.estado, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_estados
+        LEFT JOIN ar_match arm on rh_estados.id = arm.rh_id
+        WHERE rh_estados.estado = '" . $Data['address8'] . "'
+        AND arm.nombre_catalogo = 'ESTADOS' AND arm.sucursal = 'MTY' ";
+        $_GetEstadoID = DB_query($_2GetEstado, $db);
+        $GetEstadoID = DB_fetch_assoc($_GetEstadoID);
+        $Data['address8'] = $GetEstadoID['ar_id'];
+
+         /* Traduccion de Catalogo MOTIVOS_CANCELACION*/
+        $_2GetCatMotivosCanc = "SELECT rh_motivos_cancelacion.id, rh_motivos_cancelacion.motivo, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_motivos_cancelacion
+        LEFT JOIN ar_match arm on rh_motivos_cancelacion.id = arm.rh_id
+        WHERE rh_motivos_cancelacion.id = '" . $Data['motivo_cancelacion'] . "'
+        AND arm.nombre_catalogo = 'MOTIVOS_CANCELACION' AND arm.sucursal = 'MTY' ";
+        $_GetCatMotivosCanc = DB_query($_2GetCatMotivosCanc, $db);
+        $GetMotivoCanID = DB_fetch_assoc($_GetCatMotivosCanc);
+
+        if(!empty($GetMotivoCanID['ar_id'])){
+            $Data['motivo_cancelacion'] = $GetMotivoCanID['ar_id'];
+        }else{
+            $Data['motivo_cancelacion']=0;
+        }
+
+        $XMLUpdate = ('
+        <row>
+         <CCM_Foltitular weberp="rh_titular
+         " where="folio=' . $Data['Folio'] . '">
+            <fecha weberp="fecha_ingreso" >' . $Data['fecha_ingreso'] . '</fecha>
+            <IdAsesor weberp="t.asesor">' . $Data['asesor'] . '</IdAsesor>
+            <APELLIDOS weberp="t.apellidos">' . $Data['apellidos'] . '</APELLIDOS>
+            <NOMBRES weberp="t.name">' . $Data['name'] . '</NOMBRES>
+            <SEXO weberp="t.sexo">' . $Data['sexo'] . '</SEXO>
+            <RFC weberp="t.taxref">' . $Data['taxref'] . '</RFC>
+            <CORREO weberp="t.email">' . $Data['email'] . '</CORREO>
+            <TELEFONO1 weberp="t.rh_tel">' . $Data['rh_tel'] . '</TELEFONO1>
+            <TELEFONO2 weberp="t.rh_tel2">' . $Data['rh_tel2'] . '</TELEFONO2>
+            <CALLE weberp="t.address1">' . $Data['address1'] . '</CALLE>
+            <NUMERO weberp="t.address2">' . $Data['address2'] . '</NUMERO>
+            <COLONIA weberp="t.address4">' . $Data['address4'] . '</COLONIA>
+            <SECTOR weberp="t.address5">' . $Data['address5'] . '</SECTOR>
+            <ENTRECALLE weberp="t.address6">' . $Data['address6'] . '</ENTRECALLE>
+            <IdMunicipio weberp="t.address7">' . $Data['address7'] . '</IdMunicipio>
+            <IdEstado weberp="t.address8">' . $Data['address8'] . '</IdEstado>
+            <CUADRANTE1 weberp="t.cuadrante1 ">' . $Data['cuadrante1'] . '</CUADRANTE1>
+            <CUADRANTE2 weberp="t.cuadrante2">' . $Data['cuadrante2'] . '</CUADRANTE2>
+            <CUADRANTE3 weberp="t.cuadrante3">' . $Data['cuadrante3'] . '</CUADRANTE3>
+            <IdMotivoCancelacion weberp="t.motivo_cancelacion">7</IdMotivoCancelacion>
+            <COSTO weberp="t.costo">' . $Data['costo_total'] . '</COSTO>
+            <TIPOPERSON weberp="t.tipopersona">' . $Data['tipopersona'] . '</TIPOPERSON>
+            <FECHAULTAU weberp="t.fecha_ultaum">' . $Data['fecha_ultaum'] . '</FECHAULTAU>
+            <CP weberp="t.address10">' . $Data['address10'] . '</CP>
+            <STATUS weberp="t.movimientos_afiliacion">' . $Status . '</STATUS>
+            <SINCLUIDOS weberp="t.servicios_seleccionados">' . $Data['servicios_seleccionados3'] . '</SINCLUIDOS>
+            <CONTACTO weberp="contacto">' . $Data['contacto'] . '</CONTACTO>
+            <IdUsuario weberp=" ">2</IdUsuario>
+            <LIM_SERV weberp="t.serviciolimitado"></LIM_SERV>
+            <LIM_COSTEX weberp="t.costo_servicioextra">' . $Data['costo_servicioextra'] . '</LIM_COSTEX>
+            <ENF weberp="t.enfermeria">' . $Data['enfermeria'] . '</ENF>
+            <COSTOENF weberp="t.costoenfermeria">' . intval($Data['costoenfermeria']) . '</COSTOENF>
+          </CCM_Foltitular>
+        </row>');
+
+        return $XMLUpdate;
+    }
+
+    /**
+     * @Todo
+     * Complementa los Datos de rh_titular
+     * los datos faltantes estan en la table de rh_cobranza
+     * $Data = array('Folio' => 123,
+     *               'stockid' => 'FAMILIA',
+     *               'cuenta_sat' => '12345',
+     *               'identificacion' => '1',
+     *               'frecuencia_pago' => '1',
+     *               'paymentid' => '1');
+    */
+    public function XMLUpdateTitularComplemento($Data) {
+
+        $ProductsT = array(
+            "AFIL15" => 1,
+            "AFIL18" => 10,
+            "CONTINUACION HOGAR" => 11,
+            "GNP PORVENIR" => 12,
+            "CONT. FAMILIA PROTEG" => 16,
+            "AFIL22" => 13,
+            "AFIL16" => 17,
+            "AFIL30" => 2,
+            "AFIL17" => 21,
+            "AFIL8" => 22,
+            "AFIL24" => 23,
+            "AFIL23" => 24,
+            "AFIL3" => 27,
+            "AFIL2" => 28,
+            "AFIL10" => 29,
+            "AFIL5" => 3,
+            "AFIL25" => 62,
+            "AFIL21" => 4,
+            "AFIL13" => 5,
+            "AFIL9" => 6,
+            "AFIL11" => 7,
+            "AFIL27" => 8,
+            "AFIL25" => 59,
+            "AFIL19" => 9,
+            "AFIL26" => 61,
+            "AFIL5" => 32,
+            "AFIL14" => 31
+            );
+/*
++-----------------+---------------------+
+| stockid         | description         |
++-----------------+---------------------+
+| AFIL1           | ANUAL INSEN 71+     |
+| AFIL10          | CORTESIA BEBES      |
+| AFIL11          | CORTESIA MEDICOS    |
+| AFIL13          | CUENTA COMPAÑIA     |
+| AFIL14          | ENFERMERIAS         |
+| AFIL15          | FAMILIA             |
+| AFIL16          | FAMILIA 5 X 4       |
+| AFIL17          | FAMILIA BASICO      |
+| AFIL18          | HOGAR PROTEGIDO     |
+| AFIL19          | INTERCAMBIO         |
+| AFIL2           | ANUAL INSEN 60 A 70 |
+| AFIL20          | OMNIBUS PROTEGIDO   |
+| AFIL21          | PLAN INSTITUCIONAL  |
+| AFIL22          | PLAN PEQ. COMERCIOS |
+| AFIL23          | PROMOCION 2 X 1     |
+| AFIL24          | PROMOCION 3 X 2     |
+| AFIL25          | PROMOCION DE MEDIOS |
+| AFIL26          | PROMOCION DICIEMBRE |
+| AFIL27          | PROMOCION MADRES    |
+| AFIL29          | TAXI PROTEGIDO      |
+| AFIL3           | ANUAL INSEN 71+     |
+| AFIL30          | ZONA PROTEGIDA      |
+| AFIL4           | AR SALUD INTEGRAL   |
+| AFIL5           | AUTO  PROTEGIDO     |
+| AFIL8           | C-1                 |
+| AFIL9           | CORTESIA            |
+| AUTO  PROTEGIDO | AUTO  PROTEGIDO     |
++-----------------+---------------------+
+*/
+
+        $XMLUpdateTitular = ('
+        <row>
+         <CCM_Foltitular weberp="rh_titular" where="folio=' . $Data['Folio'] . '">
+            <IdProducto weberp="c.stockid" >' . $ProductsT[$Data['stockid']]  . '</IdProducto>
+            <CUENTA_SAT weberp="c.cuenta_sat">' . $Data['cuenta_sat'] . '</CUENTA_SAT>
+            <IdIdentificacion weberp="c.identificacion">1</IdIdentificacion>
+            <IdFrecuenciaPago weberp="c.frecuencia_pago">1</IdFrecuenciaPago>
+            <IdFormaPago weberp="c.paymentid">' . $Data['paymentid'] . '</IdFormaPago>
+          </CCM_Foltitular>
+        </row>');
+
+        return $XMLUpdateTitular;
+    }
+
+    public function XMLUpdateCobranza($Data) {
+        global $db;
+
+        $_2GetMun = "SELECT rh_municipios.id, rh_municipios.municipio, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_municipios
+        LEFT JOIN ar_match arm on rh_municipios.id = arm.rh_id
+        WHERE rh_municipios.municipio = '" . $Data['address7'] . "'
+        AND arm.nombre_catalogo = 'MUNICIPIOS' AND arm.sucursal = 'MTY' ";
+        $_GetMunID = DB_query($_2GetMun, $db);
+        $GetMunID = DB_fetch_assoc($_GetMunID);
+        $Data['address7'] = $GetMunID['ar_id'];
+
+        /* Traduccion de Catalogo ESTADOS*/
+        $_2GetEstado = "SELECT rh_estados.id, rh_estados.estado, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_estados
+        LEFT JOIN ar_match arm on rh_estados.id = arm.rh_id
+        WHERE rh_estados.estado = '" . $Data['address8'] . "'
+        AND arm.nombre_catalogo = 'ESTADOS' AND arm.sucursal = 'MTY' ";
+        $_GetEstadoID = DB_query($_2GetEstado, $db);
+        $GetEstadoID = DB_fetch_assoc($_GetEstadoID);
+        $Data['address8'] = $GetEstadoID['ar_id'];
+
+         /* Traduccion de Catalogo MOTIVOS_CANCELACION*/
+
+        if ($Data['dias_cobro']=='Por Dia') {
+            $IdTipoCobro = 1;
+            $DiaSemanaCobro = $Data['dias_cobro_dia'];
+            $DiasDeCobro = "";
+        } else {
+            $IdTipoCobro = 2;
+            $DiasDeCobro = $Data['dias_cobro_dia'];
+            $DiaSemanaCobro = "";
+        }
+
+        if ($Data['dias_revision']=='Por Dia') {
+            $IdTipoRevision = 1;
+            $DiasSemanaRevision = $Data['dias_revision_dia'];
+            $DiasDeRevision = "";
+        } else {
+            $IdTipoRevision = 2;
+            $DiasDeRevision = $Data['dias_revision_dia'];
+            $DiasSemanaRevision = "";
+        }
+
+         if (!empty($Data['email'])) {
+            $Email = explode(",", $Data['email']);
+        }
+
+        $XMLUpdate = ('
+        <row>
+         <CCM_FolCobranza weberp="rh_cobranza" where="FOLIO=' . $Data['Folio'] . '">
+            <Calle weberp="c.address1">' . $Data['address1'] . '</Calle>
+            <Numero weberp="c.address2">' . $Data['address2'] . '</Numero>
+            <Colonia weberp="c.address4">' . $Data['address4'] . '</Colonia>
+            <Sector weberp="c.address5">' . $Data['address5'] . '</Sector>
+            <EntreCalles weberp="c.address6">' . $Data['address6'] . '</EntreCalles>
+            <IdMunicipio weberp="c.address7">' . $Data['address7'] . '</IdMunicipio>
+            <IdEstado weberp="c.address8">' . $Data['address8'] . '</IdEstado>
+            <CP weberp="c.address10">' . $Data['address10'] . '</CP>
+            <Cuadrante1 weberp="c.cuadrante1 ">' . $Data['cuadrante1'] . '</Cuadrante1>
+            <Cuadrante2 weberp="c.cuadrante2">' . $Data['cuadrante2'] . '</Cuadrante2>
+            <Cuadrante3 weberp="c.cuadrante3">' . $Data['cuadrante3'] . '</Cuadrante3>
+            <Telefono weberp="c.rh_tel">' . $Data['rh_tel'] . '</Telefono>
+            <TelefonoAlternativo weberp="c.rh_tel2">' . $Data['rh_tel2'] . '</TelefonoAlternativo>
+            <Email weberp="c.email">' . $Email[0] . '</Email>
+            <Email1 weberp=" ">' . $Email[1] . '</Email1>
+            <Email2 weberp=" ">' . $Email[2] . '</Email2>
+            <Email3 weberp=" ">' . $Email[3] . '</Email3>
+            <EncargadoDePagos weberp="c.encargado_pagos">' . $Data['encargado_pagos'] . '</EncargadoDePagos>
+            <IdFrecuenciaPago weberp="c.frecuencia_pago">' . $Data['frecuencia_pago'] . '</IdFrecuenciaPago>
+            <IdFormaPago weberp="c.paymentid">' . $Data['paymentid'] . '</IdFormaPago>
+            <Zona weberp="c.zona">' . $Data['zona'] . '</Zona>
+            <IdCobrador weberp="c.cobrador">' . $Data['cobrador'] . '</IdCobrador>
+            <NCuenta weberp="c.cuenta">' . $Data['cuenta'] . '</NCuenta>
+            <FechaVencimiento weberp="c.vencimiento"></FechaVencimiento>
+            <CuentaSAT weberp="c.cuenta_sat">' . $Data['cuenta_sat'] . '</CuentaSAT>
+            <NumeroPlastico weberp="c.num_plastico"></NumeroPlastico>
+            <IdTipoTarjeta weberp="c.tipo_tarjeta"></IdTipoTarjeta>
+            <TipoCuenta weberp="c.tipo_cuenta"></TipoCuenta>
+            <IdIdentificacion weberp="c.identificacion">1</IdIdentificacion>
+            <FechaCorte weberp="c.fecha_corte">' . $Data['fecha_corte'] . '</FechaCorte>
+            <FolioAsociado weberp="c.folio_asociado">' . $Data['folio_asociado'] . '</FolioAsociado>
+
+            <IdTipoCobro weberp="c.dias_cobro">' . $IdTipoCobro . '</IdTipoCobro>
+            <DiasDeCobro weberp="c.dias_cobro_dia">' . $DiasDeCobro . '</DiasDeCobro>
+            <DiaSemanaCobro weberp="c.dias_cobro_dia">' . $DiaSemanaCobro . '</DiaSemanaCobro>
+            <HorarioInicioCobro weberp="c.cobro_datefrom">' . $Data['cobro_datefrom'] . '</HorarioInicioCobro>
+            <HorarioFinCobro weberp="c.cobro_dateto">' . $Data['cobro_dateto'] . '</HorarioFinCobro>
+
+            <IdTipoRevision weberp="c.dias_revision">' . $IdTipoRevision . '</IdTipoRevision>
+            <DiasDeRevision weberp="c.dias_revision_dia">' . $DiasDeRevision . '</DiasDeRevision>
+            <DiasSemanaRevision weberp="c.dias_revision_dia">' . $DiasSemanaRevision . '</DiasSemanaRevision>
+            <HoraInicioRevision weberp="c.revision_datefrom">' . $Data['revision_datefrom'] . '</HoraInicioRevision>
+            <HoraFinRevision weberp="c.revision_dateto">' . $Data['revision_dateto'] . '</HoraFinRevision>
+          </CCM_FolCobranza>
+        </row>');
+        return $XMLUpdate;
+    }
+
+
+     public function XMLInsertCobranza($Data){
+
+        global $db;
+
+        $_2GetMun = "SELECT rh_municipios.id, rh_municipios.municipio, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_municipios
+        LEFT JOIN ar_match arm on rh_municipios.id = arm.rh_id
+        WHERE rh_municipios.municipio = '" . $Data['address7'] . "'
+        AND arm.nombre_catalogo = 'MUNICIPIOS' AND arm.sucursal = 'MTY' ";
+        $_GetMunID = DB_query($_2GetMun, $db);
+        $GetMunID = DB_fetch_assoc($_GetMunID);
+        $Data['address7'] = $GetMunID['ar_id'];
+
+        /* Traduccion de Catalogo ESTADOS*/
+        $_2GetEstado = "SELECT rh_estados.id, rh_estados.estado, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_estados
+        LEFT JOIN ar_match arm on rh_estados.id = arm.rh_id
+        WHERE rh_estados.estado = '" . $Data['address8'] . "'
+        AND arm.nombre_catalogo = 'ESTADOS' AND arm.sucursal = 'MTY' ";
+        $_GetEstadoID = DB_query($_2GetEstado, $db);
+        $GetEstadoID = DB_fetch_assoc($_GetEstadoID);
+        $Data['address8'] = $GetEstadoID['ar_id'];
+
+
+
+        if (!empty($Data['email'])) {
+            $Email = explode(",", $Data['email']);
+        }
+
+         if ($Data['dias_cobro']=='Por Dia') {
+            $IdTipoCobro = 1;
+            $DiaSemanaCobro = $Data['dias_cobro_dia'];
+            $DiasDeCobro = "";
+        } else {
+            $IdTipoCobro = 2;
+            $DiasDeCobro = $Data['dias_cobro_dia'];
+            $DiaSemanaCobro = "";
+        }
+
+        if ($Data['dias_revision']=='Por Dia') {
+            $IdTipoRevision = 1;
+            $DiasSemanaRevision = $Data['dias_revision_dia'];
+            $DiasDeRevision = "";
+        } else {
+            $IdTipoRevision = 2;
+            $DiasDeRevision = $Data['dias_revision_dia'];
+            $DiasSemanaRevision = "";
+        }
+
+        $XmlInsert = ('
+        <row>
+            <CCM_FolCobranza weberp="rh_cobranza">
+            <FOLIO weberp="folio" prime="1" >' . $Data['Folio'] . '</FOLIO>
+            <Calle weberp="c.address1">' . $Data['address1'] . '</Calle>
+            <Telefono weberp="c.rh_tel">' . $Data['rh_tel'] . '</Telefono>
+            <TelefonoAlternativo weberp="c.rh_tel2">' . $Data['rh_tel2'] . '</TelefonoAlternativo>
+            <EntreCalles weberp="c.address6">' . $Data['address6'] . '</EntreCalles>
+            <Numero weberp="c.address2">' . $Data['address2'] . '</Numero>
+            <CP weberp="c.address10">' . $Data['address10'] . '</CP>
+            <Colonia weberp="c.address4">' . $Data['address4'] . '</Colonia>
+            <Sector weberp="c.address5">' . $Data['address5'] . '</Sector>
+            <IdMunicipio weberp="c.address7">' . $Data['address7'] . '</IdMunicipio>
+            <IdEstado weberp="c.address8">' . $Data['address8'] . '</IdEstado>
+            <Cuadrante1 weberp="c.cuadrante1">' . $Data['cuadrante1'] . '</Cuadrante1>
+            <Cuadrante2 weberp="c.cuadrante2">' . $Data['cuadrante2'] . '</Cuadrante2>
+            <Cuadrante3 weberp="c.cuadrante3">' . $Data['cuadrante3'] . '</Cuadrante3>
+            <IdCobrador weberp="c.cobrador">' . $Data['cobrador'] . '</IdCobrador>
+            <IdFormaPago weberp="c.paymentid">' . $Data['paymentid'] . '</IdFormaPago>
+            <NCuenta weberp="c.cuenta">' . $Data['cuenta'] . '</NCuenta>
+            <IdFrecuenciaPago weberp="c.frecuencia_pago">' . $Data['frecuencia_pago'] . '</IdFrecuenciaPago>
+            <RequiereFacturaFisica weberp="c.factura_fisica">' . $Data['factura_fisica'] . '</RequiereFacturaFisica>
+            <Email weberp="c.email">' . $Email[0] . '</Email>
+            <Email1 weberp="">' . $Email[1] . '</Email1>
+            <Email2 weberp="">' . $Email[2] . '</Email2>
+            <Email3 weberp="">' . $Email[3] . '</Email3>
+            <EncargadoDePagos weberp="c.encargado_pagos">' . $Data['encargado_pagos'] . '</EncargadoDePagos>
+            <Zona weberp="c.zona">' . $Data['zona'] . '</Zona>
+            <FechaVencimiento weberp=""></FechaVencimiento>
+            <NumeroPlastico weberp=""></NumeroPlastico>
+            <IdTipoTarjeta weberp=""></IdTipoTarjeta>
+            <TipoCuenta weberp="c.tipo_cuenta">' . $Data['tipo_cuenta'] . '</TipoCuenta>
+            <CuentaSAT weberp="c.cuenta_sat">' . $Data['cuenta_sat'] . '</CuentaSAT>
+            <IdIdentificacion weberp="c.identificacion">1</IdIdentificacion>
+            <FechaCorte weberp="c.fecha_corte">' . $Data['fecha_corte'] . '</FechaCorte>
+            <FolioAsociado weberp="c.folio_asociado">' . $Data['folio_asociado'] . '</FolioAsociado>
+            <IdTipoCobro weberp="c.dias_cobro">' . $IdTipoCobro . '</IdTipoCobro>
+            <IdTipoRevision weberp="c.dias_revision">' . $IdTipoRevision . '</IdTipoRevision>
+            <HorarioInicioCobro weberp="c.cobro_datefrom">' . $Data['cobro_datefrom'] . '</HorarioInicioCobro>
+            <HorarioFinCobro weberp="c.cobro_dateto">' . $Data['cobro_dateto'] . '</HorarioFinCobro>
+            <DiasDeCredito weberp="c.dias_credito">' . $Data['dias_credito'] . '</DiasDeCredito>
+            <NumeroDiasCobro weberp=""></NumeroDiasCobro>
+            <IdUsuario weberp="">2</IdUsuario>
+            <DiasDeRevision weberp="c.dias_revision">' . $DiasDeRevision . '</DiasDeRevision>
+            <DiasDeCobro weberp="c.dias_cobro">' . $DiasDeCobro . '</DiasDeCobro>
+            <DiaSemanaCobro weberp="c.dias_cobro_dia">' . $DiaSemanaCobro. '</DiaSemanaCobro>
+            <DiasSemanaRevision weberp="c.dias_revision_dia">' . $DiasSemanaRevision . '</DiasSemanaRevision>
+            <EnviaFacturaPorCorreo weberp=""></EnviaFacturaPorCorreo>
+           </CCM_FolCobranza>
+        </row>');
+        return $XmlInsert;
+
+     }
+
+    public function XMLInsertSocios($Data){
+
+        global $db;
+
+        switch ($Data['movimientos_afiliacion']) {
+            case "Activo" :
+                $Status = 1;
+                break;
+            case "Cancelado" :
+                $Status = 2;
+                break;
+            case "Suspendido" :
+                $Status = 3;
+                break;
+            default :
+                $Status = 1;
+                break;
+        }
+
+        $Padecimientos = array(
+                'CRISIS CONVULSIVA'=>1,
+                'PROBLEMAS RENALES'=>2,
+                'PROBLEMAS CONGENITOS'=>3,
+                'PROBLEMAS CARDIACOS'=>4,
+                'PROBLEMAS PSIQUIATRICOS'=>5,
+                'HIPERTENSION ARTERIAL'=>6,
+                'ASMA'=>7,
+                'ALCOHOLISMO'=>8,
+                'EMBOLIA CEREBRAL'=>9,
+                'ALERGIA A ANALGESICO'=>10,
+                'ALERGIA A ANTIBIOTICO'=>11,
+                'ANGINA DE PECHO'=>12,
+                'INFARTO PREVIO'=>13,
+                'FUMADOR'=>14,
+                'DIABETES'=>15,
+                'CANCER'=>16,
+                'SIDA'=>17,
+                'ENF. INFECCIOSA'=>18,
+                'ENF. PULMONARES'=>19,
+                'ENF. DEL HIGADO.'=>20,
+                'ALERGIA RESPIRATORIA'=>21,
+                'CIRUGIAS PREVIAS'=>22,
+                'PROBLEMA OCULAR'=>23,
+                'PROBLEMA AUDITIVO'=>24,
+                'SANGRADOS FRECUENTES'=>25,
+                'MEDICAMENTOS HAB.'=>26,
+                'OTROS'=>27,
+                'NINGUNO'=>28,
+            );
+
+        if($Data['sexo'] == 'MASCULINO'){
+            $Data['sexo'] = "1";
+        }else{
+            $Data['sexo'] = "2";
+        }
+
+        $_2GetMun = "SELECT rh_municipios.id, rh_municipios.municipio, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_municipios
+        LEFT JOIN ar_match arm on rh_municipios.id = arm.rh_id
+        WHERE rh_municipios.municipio = '" . $Data['braddress7'] . "'
+        AND arm.nombre_catalogo = 'MUNICIPIOS' AND arm.sucursal = 'MTY' ";
+        $_GetMunID = DB_query($_2GetMun, $db);
+        $GetMunID = DB_fetch_assoc($_GetMunID);
+        $Data['braddress7'] = $GetMunID['ar_id'];
+
+        $_2GetEstado = "SELECT rh_estados.id, rh_estados.estado, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_estados
+        LEFT JOIN ar_match arm on rh_estados.id = arm.rh_id
+        WHERE rh_estados.estado = '" . $Data['braddress8'] . "'
+        AND arm.nombre_catalogo = 'ESTADOS' AND arm.sucursal = 'MTY' ";
+        $_GetEstadoID = DB_query($_2GetEstado, $db);
+        $GetEstadoID = DB_fetch_assoc($_GetEstadoID);
+        $Data['braddress8'] = $GetEstadoID['ar_id'];
+
+        $AntecedentesClinicos=json_decode($Data['antecedentes_clinicos'], 1);
+        FB::INFO($Data['antecedentes_clinicos'], 'antecedentes_clinicos 1');
+        FB::INFO($AntecedentesClinicos, 'antecedentes_clinicos 2');
+
+        $Padece = "0";
+
+        foreach($Padecimientos as $nombre  => $id){
+            if(in_array($nombre, $AntecedentesClinicos)){
+                $Padece .= "-".$id;
+            }
+        }
+
+        if(!empty($AntecedentesClinicos['otros'])){
+            $Padece .= "-27";
+        }
+         FB::INFO($Padece, 'Padece');
+
+        $XmlInsert = ('
+        <row>
+            <CCM_Folsocios weberp="custbranch">
+                <FOLIO weberp="folio" prime="1" >' . $Data['Folio'] . '</FOLIO>
+                <TIPOSOCIO weberp="null">i</TIPOSOCIO>
+                <APELLIDOS weberp="null"></APELLIDOS>
+                <NOMBRES weberp="brname">' . $Data['brname'] . '</NOMBRES>
+                <NOMCOMERC weberp="nombre_empresa">' . $Data['nombre_empresa'] . '</NOMCOMERC>
+                <SEXO weberp="sexo">' . $Data['sexo'] . '</SEXO>
+                <CALLE weberp="braddress1">' . $Data['braddress1'] . '</CALLE>
+                <NUMERO weberp="braddress2">' . $Data['braddress2'] . '</NUMERO>
+                <COLONIA weberp="braddress4">' . $Data['braddress4'] . '</COLONIA>
+                <IdMunicipio weberp="braddress7">' . $Data['braddress7'] . '</IdMunicipio>
+                <CP weberp="braddress10">' . $Data['braddress10'] . '</CP>
+                <SECTOR weberp="braddress5">' . $Data['braddress5'] . '</SECTOR>
+                <FECNAC weberp="fecha_nacimiento">' . $Data['fecha_nacimiento'] . '</FECNAC>
+                <PADECE weberp="antecedentes_clinicos">' . $Padece . '</PADECE>
+                <OTROSPAD weberp="null">' .$AntecedentesClinicos['otros'] . '</OTROSPAD>
+                <IdHospital weberp="null">1</IdHospital>
+                <ESTATUS weberp="movimientos_afiliacion">' . $Status . '</ESTATUS>
+                <FECBAJA weberp="fecha_baja">' . $Data['fecha_baja'] . '</FECBAJA>
+                <MOTBAJA></MOTBAJA>
+                <ENTRECALLE weberp="braddress6">' . $Data['braddress6'] . '</ENTRECALLE>
+                <CUADRANTE1 weberp="cuadrante1">' . $Data['cuadrante1'] . '</CUADRANTE1>
+                <CUADRANTE2 weberp="cuadrante2">' . $Data['cuadrante2'] . '</CUADRANTE2>
+                <CUADRANTE3 weberp="cuadrante3">' . $Data['cuadrante3'] . '</CUADRANTE3>
+                <TELEFONO weberp="phoneno">' . $Data['phoneno'] . '</TELEFONO>
+                <NOSOCIO weberp="branchcode">' . $Data['branchcode'] . '</NOSOCIO>
+                <FECHA weberp="fecha_ingreso" >' . $Data['fecha_ingreso'] . '</FECHA>
+                <FECHASUSP1 weberp=""></FECHASUSP1>
+                <FECHASUSP2 weberp=""></FECHASUSP2>
+                <MOTIVOSUSP weberp=""></MOTIVOSUSP>
+                <PORCCOM weberp=""></PORCCOM>
+                <TARIFAZ weberp=""></TARIFAZ>
+                <FECHAULTAU weberp="fecha_ultaum">' . $Data['fecha_ultaum'] . '</FECHAULTAU>
+                <EMAIL weberp="email">' . $Data['email'] . '</EMAIL>
+                <HPROTEGE weberp=""></HPROTEGE>
+                <TRANSFE weberp=""></TRANSFE>
+                <NUEVO weberp=""></NUEVO>
+                <EDITA weberp=""></EDITA>
+                <EXPEDIENTE weberp=""></EXPEDIENTE>
+                <FECALTAEXP weberp=""></FECALTAEXP>
+                <USERALTAEX weberp=""></USERALTAEX>
+                <FOLIOCAN weberp=""></FOLIOCAN>
+                <IdUsuario weberp="">2</IdUsuario>
+                <IdEstado weberp="braddress8">' . $Data['braddress8'] . '</IdEstado>
+            </CCM_Folsocios>
+        </row>');
+
+        return $XmlInsert;
+    }
+    public function XMLUpdateSocios($Data){
+
+        global $db;
+
+        $Padecimientos = array(
+            'CRISIS CONVULSIVA'=>1,
+            'PROBLEMAS RENALES'=>2,
+            'PROBLEMAS CONGENITOS'=>3,
+            'PROBLEMAS CARDIACOS'=>4,
+            'PROBLEMAS PSIQUIATRICOS'=>5,
+            'HIPERTENSION ARTERIAL'=>6,
+            'ASMA'=>7,
+            'ALCOHOLISMO'=>8,
+            'EMBOLIA CEREBRAL'=>9,
+            'ALERGIA A ANALGESICO'=>10,
+            'ALERGIA A ANTIBIOTICO'=>11,
+            'ANGINA DE PECHO'=>12,
+            'INFARTO PREVIO'=>13,
+            'FUMADOR'=>14,
+            'DIABETES'=>15,
+            'CANCER'=>16,
+            'SIDA'=>17,
+            'ENF. INFECCIOSA'=>18,
+            'ENF. PULMONARES'=>19,
+            'ENF. DEL HIGADO.'=>20,
+            'ALERGIA RESPIRATORIA'=>21,
+            'CIRUGIAS PREVIAS'=>22,
+            'PROBLEMA OCULAR'=>23,
+            'PROBLEMA AUDITIVO'=>24,
+            'SANGRADOS FRECUENTES'=>25,
+            'MEDICAMENTOS HAB.'=>26,
+            'OTROS'=>27,
+            'NINGUNO'=>28,
+        );
+
+        if($Data['sexo'] == 'MASCULINO'){
+            $Data['sexo'] = "1";
+        }else{
+            $Data['sexo'] = "2";
+        }
+
+        $_2GetMun = "SELECT rh_municipios.id, rh_municipios.municipio, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_municipios
+        LEFT JOIN ar_match arm on rh_municipios.id = arm.rh_id
+        WHERE rh_municipios.municipio = '" . $Data['braddress7'] . "'
+        AND arm.nombre_catalogo = 'MUNICIPIOS' AND arm.sucursal = 'MTY' ";
+        $_GetMunID = DB_query($_2GetMun, $db);
+        $GetMunID = DB_fetch_assoc($_GetMunID);
+        $Data['braddress7'] = $GetMunID['ar_id'];
+
+        $_2GetEstado = "SELECT rh_estados.id, rh_estados.estado, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_estados
+        LEFT JOIN ar_match arm on rh_estados.id = arm.rh_id
+        WHERE rh_estados.estado = '" . $Data['braddress8'] . "'
+        AND arm.nombre_catalogo = 'ESTADOS' AND arm.sucursal = 'MTY' ";
+        $_GetEstadoID = DB_query($_2GetEstado, $db);
+        $GetEstadoID = DB_fetch_assoc($_GetEstadoID);
+        $Data['braddress8'] = $GetEstadoID['ar_id'];
+
+        $AntecedentesClinicos=json_decode($Data['antecedentes_clinicos'], 1);
+        FB::INFO($Data['antecedentes_clinicos'], 'antecedentes_clinicos 1');
+        FB::INFO($AntecedentesClinicos, 'antecedentes_clinicos 2');
+
+        $Padece = "0";
+
+        foreach($Padecimientos as $nombre  => $id){
+            if(in_array($nombre, $AntecedentesClinicos)){
+                $Padece .= "-".$id;
+            }
+        }
+
+        if(!empty($AntecedentesClinicos['otros'])){
+            $Padece .= "-27";
+        }
+
+        if($Data['fecha_ultaum']=='0000-00-00'){
+            $Data['fecha_ultaum']='1900-01-01';
+        }
+         FB::INFO($Padece, 'Padece');
+        FB::INFO($Data,'DATA');
+
+        $XMLUpdate = ('
+            <row>
+                <CCM_Folsocios weberp="custbranch" where="FOLIO= ' . $Data['folio'] . ' AND NOSOCIO=' . $Data['branchcode'] . '">
+                    <NOMBRES weberp="brname">' . $Data['brname'] . '</NOMBRES>
+                    <SEXO weberp="sexo">' . $Data['sexo'] . '</SEXO>
+                    <NOMCOMERC weberp="nombre_empresa">' . $Data['nombre_empresa'] . '</NOMCOMERC>
+                    <CALLE weberp="braddress1">' . $Data['braddress1'] . '</CALLE>
+                    <NUMERO weberp="braddress2">' . $Data['braddress2'] . '</NUMERO>
+                    <COLONIA weberp="braddress4">' . $Data['braddress4'] . '</COLONIA>
+                    <SECTOR weberp="braddress5">' . $Data['braddress5'] . '</SECTOR>
+                    <ENTRECALLE weberp="braddress6">' . $Data['braddress6'] . '</ENTRECALLE>
+                    <IdMunicipio weberp="braddress7">' . $Data['braddress7'] . '</IdMunicipio>
+                    <IdEstado weberp="braddress8">' . $Data['braddress8'] . '</IdEstado>
+                    <CP weberp="braddress10">' . $Data['braddress10'] . '</CP>
+                    <CUADRANTE1 weberp="cuadrante1">' . $Data['cuadrante1'] . '</CUADRANTE1>
+                    <CUADRANTE2 weberp="cuadrante2">' . $Data['cuadrante2'] . '</CUADRANTE2>
+                    <CUADRANTE3 weberp="cuadrante3">' . $Data['cuadrante3'] . '</CUADRANTE3>
+                    <TELEFONO weberp="phoneno">' . $Data['phoneno'] . '</TELEFONO>
+                    <FECHA weberp="fecha_ingreso">' . $Data['fecha_ingreso'] . '</FECHA>
+                    <FECHAULTAU weberp="fecha_ultaum">' . $Data['fecha_ultaum'] . '</FECHAULTAU>
+                    <PADECE weberp="antecedentes_clinicos">' . $Padece . '</PADECE>
+                    <OTROSPAD weberp="null">' . $AntecedentesClinicos['otros'] . '</OTROSPAD>
+                </CCM_Folsocios>
+            </row>');
+
+        return $XMLUpdate;
+    }
+
+    public function XMLCancelarAfiliados($Data){
+
+        global $db;
+
+        $Data['Cancelacion']['movimientos_afiliacion'] = 2;
+
+        /* Traduccion de Catalogo MOTIVOS_CANCELACION*/
+        $_2GetCatMotivosCanc = "SELECT rh_motivos_cancelacion.id, rh_motivos_cancelacion.motivo, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_motivos_cancelacion
+        LEFT JOIN ar_match arm on rh_motivos_cancelacion.id = arm.rh_id
+        WHERE rh_motivos_cancelacion.id = '" . $Data['Cancelacion']['motivo_cancelacion'] . "'
+        AND arm.nombre_catalogo = 'MOTIVOS_CANCELACION' AND arm.sucursal = 'MTY' ";
+        $_GetCatMotivosCanc = DB_query($_2GetCatMotivosCanc, $db);
+        $GetMotivoCanID = DB_fetch_assoc($_GetCatMotivosCanc);
+
+        if(!empty($GetMotivoCanID['ar_id'])){
+            $Data['Cancelacion']['motivo_cancelacion'] = $GetMotivoCanID['ar_id'];
+        }else{
+            $Data['Cancelacion']['motivo_cancelacion']=0;
+        }
+
+        $XMLUpdate = ('
+            <row>
+                <CCM_Foltitular weberp="rh_titular" where="FOLIO = ' . $Data['Cancelacion']['folio'] . '">
+                    <STATUS weberp="movimientos_afiliacion">' . $Data['Cancelacion']['movimientos_afiliacion'] . '</STATUS>
+                    <FECHACAN weberp="fecha_cancelacion">' . $Data['Cancelacion']['fecha_cancelacion'] . '</FECHACAN>
+                    <IdMotivoCancelacion weberp="t.motivo_cancelacion">' . $Data['Cancelacion']['motivo_cancelacion'] . '</IdMotivoCancelacion>
+                </CCM_Foltitular>
+            </row>
+            ');
+         return $XMLUpdate;
+    }
+
+    public function XMLCancelarSocios($Data){
+
+        global $db;
+
+        $Data['Cancelacion']['movimientos_afiliacion'] = 2;
+
+        /* Traduccion de Catalogo MOTIVOS_CANCELACION*/
+        $_2GetCatMotivosCanc = "SELECT rh_motivos_cancelacion.id, rh_motivos_cancelacion.motivo, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_motivos_cancelacion
+        LEFT JOIN ar_match arm on rh_motivos_cancelacion.id = arm.rh_id
+        WHERE rh_motivos_cancelacion.id = '" . $Data['Cancelacion']['motivo_cancelacion'] . "'
+        AND arm.nombre_catalogo = 'MOTIVOS_CANCELACION' AND arm.sucursal = 'MTY' ";
+        $_GetCatMotivosCanc = DB_query($_2GetCatMotivosCanc, $db);
+        $GetMotivoCanID = DB_fetch_assoc($_GetCatMotivosCanc);
+
+        if(!empty($GetMotivoCanID['ar_id'])){
+            $Data['Cancelacion']['motivo_cancelacion'] = $GetMotivoCanID['ar_id'];
+        }else{
+            $Data['Cancelacion']['motivo_cancelacion']=0;
+        }
+
+         $XMLUpdate = ('
+            <row>
+                <CCM_Folsocios weberp="custbranch" where="FOLIO = ' . $Data['Cancelacion']['folio'] . ' ">
+                    <ESTATUS weberp="movimientos_afiliacion">' . $Data['Cancelacion']['movimientos_afiliacion'] . '</ESTATUS>
+                    <FECBAJA weberp="fecha_cancelacion">' . $Data['Cancelacion']['fecha_cancelacion'] . '</FECBAJA>
+                    <MOTBAJA weberp="t.motivo_cancelacion">' . $Data['Cancelacion']['motivo_cancelacion'] . '</MOTBAJA>
+                </CCM_Folsocios>
+            </row>
+            ');
+        return $XMLUpdate;
+    }
+
+
+    public function XMLCancelarSocio($Data){
+
+        global $db;
+
+        $Data['movimientos_afiliacion'] = 2;
+
+        /* Traduccion de Catalogo MOTIVOS_CANCELACION*/
+        $_2GetCatMotivosCanc = "SELECT rh_motivos_cancelacion.id, rh_motivos_cancelacion.motivo, arm.rh_id,arm.ar_id, arm.nombre_catalogo
+        FROM rh_motivos_cancelacion
+        LEFT JOIN ar_match arm on rh_motivos_cancelacion.id = arm.rh_id
+        WHERE rh_motivos_cancelacion.id = '" . $Data['CMotivos'] . "'
+        AND arm.nombre_catalogo = 'MOTIVOS_CANCELACION' AND arm.sucursal = 'MTY' ";
+        $_GetCatMotivosCanc = DB_query($_2GetCatMotivosCanc, $db);
+        $GetMotivoCanID = DB_fetch_assoc($_GetCatMotivosCanc);
+
+        if(!empty($GetMotivoCanID['ar_id'])){
+           $Data['CMotivos'] = $GetMotivoCanID['ar_id'];
+        }else{
+           $Data['CMotivos']=0;
+        }
+
+         $XMLUpdate = ('
+            <row>
+                <CCM_Folsocios weberp="custbranch" where="NOSOCIO=' . $Data['CBranchCode'] . ' AND FOLIO = ' . $Data['CFolio'] . ' ">
+                    <ESTATUS weberp="movimientos_afiliacion">' . $Data['movimientos_afiliacion'] . '</ESTATUS>
+                    <FECBAJA weberp="fecha_cancelacion">' . $Data['CFecha_Baja'] . '</FECBAJA>
+                    <MOTBAJA weberp="t.motivo_cancelacion">' . $Data['CMotivos'] . '</MOTBAJA>
+                </CCM_Folsocios>
+            </row>
+            ');
+        return $XMLUpdate;
+    }
+
+    public function XMLReactivarAfiliado($Data){
+
+        $Data['Reactivasion']['movimientos_afiliacion'] = 1;
+
+        /* Traduccion de Catalogo MOTIVOS_CANCELACION*/
+         $XMLUpdate = ('
+            <row>
+                <CCM_Foltitular weberp="rh_titular" where="FOLIO = ' . $Data['Reactivasion']['RFolio'] . ' ">
+                    <STATUS weberp="movimientos_afiliacion">' . $Data['Reactivasion']['movimientos_afiliacion'] . '</STATUS>
+                </CCM_Foltitular>
+            </row>
+            ');
+        return $XMLUpdate;
+    }
+
+    public function XMLReactivarSocios($Data){
+
+        $Data['Reactivasion']['movimientos_afiliacion'] = 1;
+        /* Traduccion de Catalogo MOTIVOS_CANCELACION*/
+         $XMLUpdate = ('
+            <row>
+                <CCM_Folsocios weberp="custbranch" where="NOSOCIO = ' . $Data['Activar']['BranchCode'] . ' and FOLIO = ' . $Data['Activar']['Folio'] . ' ">
+                    <ESTATUS weberp="movimientos_afiliacion">' . $Data['Reactivasion']['movimientos_afiliacion'] . '</ESTATUS>
+                </CCM_Folsocios>
+            </row>
+            ');
+        return $XMLUpdate;
+    }
+
+    public function XMLSuspenderAfiliados($Data){
+
+         $XMLUpdate = ('
+            <row>
+                <CCM_Foltitular weberp="rh_titular" where="FOLIO = ' . $Data['folio'] . ' ">
+                    <STATUS weberp="movimientos_afiliacion">' . $Data['movimientos_afiliacion'] . '</STATUS>
+                </CCM_Foltitular>
+            </row>
+            ');
+        return $XMLUpdate;
+    }
+
+    public function XMLSuspenderSocios($Data){
+
+         $XMLUpdate = ('
+            <row>
+                <CCM_Folsocios weberp="custbranch" where="FOLIO = ' . $Data['folio'] . ' ">
+                    <ESTATUS weberp="movimientos_afiliacion">' . $Data['movimientos_afiliacion'] . '</ESTATUS>
+                    <FECHASUSP1 weberp="">' . $Data['SFecha_Inicial'] . '</FECHASUSP1>
+                    <FECHASUSP2 weberp="">' . $Data['SFecha_Final'] . '</FECHASUSP2>
+                </CCM_Folsocios>
+            </row>
+            ');
+        return $XMLUpdate;
+    }
+
+
+    public function XMLSuspenderSocio($Data, $Folio){
+
+         $XMLUpdate = ('
+            <row>
+                <CCM_Folsocios weberp="custbranch" where="NOSOCIO= ' . $Data['SBranchCode'] . ' AND FOLIO = ' . $Folio . ' ">
+                    <ESTATUS weberp="movimientos_afiliacion">' . $Data['movimientos_afiliacion'] . '</ESTATUS>
+                    <FECHASUSP1 weberp="">' . $Data['SFecha_Inicial'] . '</FECHASUSP1>
+                    <FECHASUSP2 weberp="">' . $Data['SFecha_Final'] . '</FECHASUSP2>
+                </CCM_Folsocios>
+            </row>
+            ');
+        return $XMLUpdate;
+    }
+ }

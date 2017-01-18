@@ -1,0 +1,440 @@
+<?php
+
+
+/**
+* Metodos necesarios para la migracion de Datos
+*/
+class MigrationController extends Controller {
+
+
+
+    public function actionIndex()
+    {
+        # code...
+        $this->render("index");
+    }
+
+
+    public function actionProcess($action=null, $run=null){
+
+        if($run == true){
+            switch ($action) {
+                case 'encrypt':
+                    $this->EncryptData();
+                    break;
+                case 'antecedentesjson':
+                    $this->_GeneraJsonAntecedentes();
+                    break;
+                case 'refacturachh_30sep':
+                    $this->__FacturacionChh($this->__get30Sep15(), '30-SEP-15');
+                    break;
+                case 'refacturachh_01oct':
+                    $this->__FacturacionChh($this->__get01oct15(), '01-OCT-15');
+                    break;
+                default:
+                    Yii::app()->user->setFlash("danger", "Error: No se Eligio ninguna Accion");
+                    $this->redirect($this->createUrl("index"));
+                    break;
+            }
+        }
+        Yii::app()->user->setFlash("danger", "Error: No se Ejecuto ninguna Accion");
+        $this->redirect($this->createUrl("index"));
+
+    }
+
+    /**
+    * @todo
+    * Encripta los Datos de las Tarjetas Credito/Debito
+    * @author erasto@realhost.com.mx
+    */
+    protected function EncryptData(){
+
+
+        $_GetData = Yii::app()->db->createCommand()
+        ->select("folio, cuenta, vencimiento, cuenta_sat, num_plastico")
+        ->from("rh_cobranza")
+        ->where("paymentid IN(2,9,10,11)")
+        ->queryAll();
+        try {
+
+            $Transaccion = Yii::app()->db->beginTransaction();
+
+            $count = 0;
+            foreach ($_GetData as $Data) {
+
+                if(!empty($Data['folio']))
+                {
+
+                    $Encryptdata = "UPDATE rh_cobranza SET
+                        cuenta = :cuenta,
+                        vencimiento = :vencimiento,
+                        cuenta_sat = :cuenta_sat,
+                        num_plastico = :num_plastico
+                    WHERE folio = :folio
+                    ";
+
+                    $EncyptParameters = array(
+                        ":cuenta" => $this->OpenSSLEncrypt($Data['cuenta']),
+                        ":vencimiento" => $this->OpenSSLEncrypt($Data['vencimiento']),
+                        ":cuenta_sat" => $this->OpenSSLEncrypt($Data['cuenta_sat']),
+                        ":num_plastico" => $this->OpenSSLEncrypt($Data['num_plastico']),
+                        ":folio" => $Data['folio']
+                    );
+                    Yii::app()->db->createCommand($Encryptdata)->execute($EncyptParameters);
+                }
+                $count++;
+            }
+
+            $Transaccion->commit();
+            Yii::app()->user->setFlash("success", "Los datos se actualizaron Correctamente. ");
+        } catch (Exception $e) {
+            $Transaccion->rollBack();
+            Yii::app()->user->setFlash("danger", "Error: " . $e->getMessage());
+        }
+
+        $this->redirect($this->createUrl("afiliaciones/index"));
+
+    }
+
+
+
+    /**
+    * @todo
+    * Genera Documento Json para los Antecedentes Clinicos
+    * @author erasto@realhost.com.mx
+    */
+    protected function _GeneraJsonAntecedentes(){
+
+
+        $_GetData = Yii::app()->db->createCommand()
+        ->select("branchcode,folio, antecedentes_clinicos")
+        ->from("custbranch")
+        ->queryAll();
+        //FB::INFO($_GetData,'_____________data');
+
+
+        $LIstAntecedentesClinicos = array(
+            1 => 'CRISIS CONVULSIVA',
+            2 => 'PROBLEMAS RENALES',
+            3 => 'PROBLEMAS CONGENITOS',
+            4 => 'PROBLEMAS CARDIACOS',
+            5 => 'PROBLEMAS PSIQUIATRICOS',
+            6 => 'HIPERTENCION ARTERIAL',
+            7 => 'ASMA',
+            8 => 'ALCOHOLISMO',
+            9 => 'EMBOLIA CEREBRAL',
+            10 => 'ALERGIA A ANALGESICO',
+            11 => 'ALERGIA A ANTIBIOTICO',
+            12 => 'ANGINA DE PECHO',
+            13 => 'INFARTO PREVIO',
+            14 => 'FUMADOR',
+            15 => 'DIABETES',
+            16 => 'CANCER',
+            17 => 'SIDA',
+            18 => 'ENF. INFECCIOSA',
+            19 => 'ENF. PULMONARES',
+            20 => 'ENF. HIGADO',
+            21 => 'ALERGIA RESPIRATORIA',
+            22 => 'CIRUGIAS PREVIAS',
+            23 => 'PROBLEMA OCULAR',
+            24 => 'PROBLEMA AUDITIVO',
+            25 => 'SANGRADOS FRECUENTES',
+            26 => 'MEDICAMENTOS HAB.',
+            27 => 'OTROS',
+            28 => 'NINGUNO',
+        );
+
+        /*
+        ID_ANTECEDENTESC    DESCRIPCION_ANTECEDENTESC
+        1   CRISIS CONVULSIVA
+        2   PROBLEMAS RENALES
+        3   PROBLEMAS CONGENITOS
+        4   PROBLEMAS CARDIACOS
+        5   PROBLEMAS PSIQUIATRICOS
+        6   HIPERTENSION ARTERIAL
+        7   ASMA
+        8   ALCOHOLISMO
+        9   EMBOLIA CEREBRAL
+        10  ALERGIA ANALGESICO
+        11  ALERGIA A ANTIBIOTICO
+        12  ANGINA DE PECHO
+        13  INFARTO PREVIO
+        14  FUMADOR
+        15  DIABETES
+        16  CANCER
+        17  SIDA
+        18  ENF. INFECCIOSA
+        19  ENF. PULMONARES
+        20  ENF. HIGADO
+        21  ALERGIA RESPIRATORIA
+        22  CIRUGIAS PREVIAS
+        23  PROBLEMA OCULAR
+        24  PROBLEMA AUDITIVO
+        25  SANGRADOS FRECUENTES
+        26  MEDICAMENTEOS HAB.
+        27  OTROS
+        28  NINGUNO
+        */
+
+        try {
+
+            $Transaccion = Yii::app()->db->beginTransaction();
+
+            $count = 0;
+            foreach ($_GetData as $Data) {
+
+                if(!empty($Data['folio']) && !empty($Data['antecedentes_clinicos']))
+                {
+                    $AntecedentesJson=$Data['antecedentes_clinicos'];
+
+                    $AntecedentesID = explode("-", $Data['antecedentes_clinicos']);
+
+                    $AntecedentesJson=json_decode($AntecedentesJson,1);
+
+                    if(count($AntecedentesID)>0&&!$AntecedentesJson){
+                        $AntecedentesJson = array();
+                        foreach ($AntecedentesID as $ARID) {
+                            if(is_numeric($ARID)&&$ARID&&isset($LIstAntecedentesClinicos[$ARID])) {
+                                $AntecedentesJson[] = $LIstAntecedentesClinicos[$ARID];
+                            }
+                        }
+                    }else{
+			if(!is_array($AntecedentesJson))
+				$AntecedentesJson=array($LIstAntecedentesClinicos[$AntecedentesJson]);
+                        foreach ($AntecedentesJson as $key => $value)
+                            if(!$value)
+                                unset($AntecedentesJson[$key]);
+                    }
+
+                    $ActualizaAntecedentes = "UPDATE custbranch SET
+                        antecedentes_clinicos = :antecedentes_clinicos
+                    WHERE folio = :folio
+                    AND branchcode = :branchcode
+                    ";
+
+                    $ActualizaAntecedentesParameters = array(
+                        ":antecedentes_clinicos" => json_encode($AntecedentesJson,1),
+                        ":folio" => $Data['folio'],
+                        ":branchcode" => $Data['branchcode']
+                    );
+                    Yii::app()->db->createCommand($ActualizaAntecedentes)->execute($ActualizaAntecedentesParameters);
+                }
+                $count++;
+            }
+
+            $Transaccion->commit();
+            Yii::app()->user->setFlash("success", "Los datos se actualizaron Correctamente. ");
+        } catch (Exception $e) {
+            $Transaccion->rollBack();
+            Yii::app()->user->setFlash("danger", "Error: " . $e->getMessage());
+        }
+
+        $this->redirect($this->createUrl("afiliaciones/index"));
+
+    }
+
+
+
+    protected function __FacturacionChh($Debtors,$Emision){
+
+        $Refacturacion = new RefacturacionChh($Debtors);
+        $Refacturacion->Emision = $Emision;
+        try {
+            if($Refacturacion->FacturaFolios()){
+                Yii::app()->user->setFlash("success", "Procesados Correctamete");
+            }
+        } catch (Exception $e) {
+            Yii::app()->user->setFlash("danger", "Error: " . $e->getMessage());
+        }
+
+        $this->redirect($this->createUrl("afiliaciones/index"));
+    }
+
+
+    /**
+    * @todo
+    * Lista de Clientes alos que se les emitio Factura el 01 de Oct. 2015
+    * 133 Clientes en Total
+    * @author erasto@realhost.com.mx
+    */
+    protected function __get01oct15(){
+
+        return array(
+            '330',
+            '370',
+            '392',
+            '416',
+            '438',
+            '498',
+            '525',
+            '687',
+            '46',
+            '60',
+            '66',
+            '77',
+            '82',
+            '120',
+            '230',
+            '247',
+            '266',
+            '277',
+            '291',
+            '299',
+            '304',
+            '309',
+            '320',
+            '325',
+            '333',
+            '377',
+            '413',
+            '461',
+            '465',
+            '499',
+            '500',
+            '501',
+            '507',
+            '531',
+            '559',
+            '560',
+            '562',
+            '563',
+            '573',
+            '577',
+            '578',
+            '582',
+            '587',
+            '622',
+            '656',
+            '659',
+            '662',
+            '663',
+            '680',
+            '506',
+            '74',
+            '132',
+            '244',
+            '366',
+            '477',
+            '513',
+            '547',
+            '553',
+            '610',
+            '648',
+            '919',
+            '1205',
+            '722',
+            '723',
+            '734',
+            '761',
+            '764',
+            '766',
+            '779',
+            '794',
+            '799',
+            '870',
+            '891',
+            '909',
+            '940',
+            '961',
+            '965',
+            '976',
+            '980',
+            '981',
+            '987',
+            '1007',
+            '1009',
+            '1017',
+            '1023',
+            '1028',
+            '1030',
+            '1041',
+            '1042',
+            '1043',
+            '1049',
+            '1055',
+            '1061',
+            '1075',
+            '1096',
+            '1103',
+            '1110',
+            '1112',
+            '1124',
+            '1134',
+            '1144',
+            '1145',
+            '1148',
+            '1149',
+            '1151',
+            '1169',
+            '1180',
+            '1181',
+            '1183',
+            '1195',
+            '1215',
+            '1227',
+            '1236',
+            '1237',
+            '1238',
+            '1246',
+            '1249',
+            '724',
+            '763',
+            '795',
+            '929',
+            '1013',
+            '1031',
+            '1037',
+            '1081',
+            '1143',
+            '1146',
+            '1157',
+            '1173',
+            '1179',
+            '1186',
+            '1204',
+            '1247',
+            );
+    }
+
+
+    /**
+    * @todo
+    * Lista de Clientes alos que se les emitio Factura el 30 de Sep. 2015
+    * @author erasto@realhost.com.mx
+    * 16 Clientes en Total
+    */
+    protected function __get30Sep15(){
+
+        return array(
+            '201',
+            '272',
+            '558',
+            '797',
+            '526',
+            '536',
+            '448',
+            '472',
+            '537',
+            '807',
+            '971',
+            '974',
+            '1114',
+            '963',
+            '885',
+            '1005',
+        );
+
+    }
+
+
+
+
+
+
+}
+
+
+
+
+
+

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ticket" language="groovy" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="20" rightMargin="10" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="11"/>
+	<property name="ireport.y" value="258"/>
+	<parameter name="transno" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     debtortrans.`trandate`,
+     SUBSTRING(DATE_FORMAT(debtortrans.trandate,'%M'),1,3)as mm,
+     DATE_FORMAT(debtortrans.trandate,'%d')as dd,
+     DATE_FORMAT(debtortrans.trandate,'%Y')as yy,
+     debtortrans.`transno`,
+     debtortrans.`ovamount`,
+     debtortrans.`ovdiscount`,
+     debtortrans.`ovfreight`,
+     debtortrans.`ovgst`,
+     debtortrans.`rate`,
+     debtortrans.`invtext`,
+     debtortrans.`consignment`,
+     debtorsmaster.`name`,
+     debtorsmaster.`address1`,
+     debtorsmaster.`address2`,
+     debtorsmaster.`address3`,
+     debtorsmaster.`address4`,
+     debtorsmaster.`address5`,
+     debtorsmaster.`address6`,
+     debtorsmaster.`currcode`,
+     debtorsmaster.`invaddrbranch`,
+     debtorsmaster.`taxref`,
+     paymentterms.`terms`,
+     salesorders.`deliverto`,
+     salesorders.`deladd1`,
+     salesorders.`deladd2`,
+     salesorders.`deladd3`,
+     salesorders.`deladd4`,
+     salesorders.`deladd5`,
+     salesorders.`deladd6`,
+     salesorders.`customerref`,
+     salesorders.`orderno`,
+     salesorders.`orddate`,
+     locations.`locationname`,
+     shippers.`shippername`,
+     custbranch.`brname`,
+     custbranch.`braddress1`,
+     custbranch.`braddress2`,
+     custbranch.`braddress3`,
+     custbranch.`braddress4`,
+     custbranch.`braddress5`,
+     custbranch.`braddress6`,
+     custbranch.`brpostaddr1`,
+     custbranch.`brpostaddr2`,
+     custbranch.`brpostaddr3`,
+     custbranch.`brpostaddr4`,
+     custbranch.`brpostaddr5`,
+     custbranch.`brpostaddr6`,
+     salesman.`salesmanname`,
+     debtortrans.`debtorno`,
+     debtortrans.`branchcode`,
+     stockmoves.`stockid`,
+     stockmaster.`description`,
+     -stockmoves.qty AS quantity,
+     rh_remdetails.`qty` AS qty2,
+     stockmoves.`discountpercent`,
+     ((1-stockmoves.discountpercent)*stockmoves.price*1*rh_remdetails.qty)AS fxnet,
+     (stockmoves.price*1)AS fxprice,
+     stockmoves.`narrative`,
+     stockmaster.`units`,
+     concat(debtorsmaster.address1,' ',debtorsmaster.address2,' ',debtorsmaster.address3)as direccion1,
+     concat(debtorsmaster.address4,' ',debtorsmaster.address5)as direccion2,
+     debtorsmaster.`address6` AS direccion3
+FROM
+     `debtortrans` debtortrans,
+     `debtorsmaster` debtorsmaster,
+     `custbranch` custbranch,
+     `salesorders` salesorders,
+     `shippers` shippers,
+     `salesman` salesman,
+     `locations` locations,
+     `paymentterms` paymentterms,
+     `stockmoves` stockmoves,
+     `stockmaster` stockmaster,
+     `rh_remdetails` rh_remdetails
+WHERE
+     debtortrans.order_ = salesorders.orderno
+ AND debtortrans.type = 20000
+ AND debtortrans.transno = $P{transno}
+ AND debtortrans.shipvia = shippers.shipper_id
+ AND debtortrans.debtorno = debtorsmaster.debtorno
+ AND debtorsmaster.paymentterms = paymentterms.termsindicator
+ AND debtortrans.debtorno = custbranch.debtorno
+ AND debtortrans.branchcode = custbranch.branchcode
+ AND custbranch.salesman = salesman.salesmancode
+ AND salesorders.fromstkloc = locations.loccode
+ AND debtortrans.transno = stockmoves.transno
+ AND rh_remdetails.transno = stockmoves.transno
+ AND stockmoves.stockid = stockmaster.stockid
+ AND rh_remdetails.transno = rh_remdetails.transno
+ AND stockmoves.type = 20000
+ AND rh_remdetails.stockid = stockmoves.stockid
+ AND rh_remdetails.reference = stockmoves.stkmoveno
+ AND stockmoves.show_on_inv_crds = 1]]>
+	</queryString>
+	<field name="trandate" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dd" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="yy" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="transno" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ovamount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ovdiscount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ovfreight" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ovgst" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rate" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invtext" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="consignment" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="currcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invaddrbranch" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="taxref" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="terms" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deliverto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deladd6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customerref" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="orderno" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="orddate" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="locationname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="shippername" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="braddress6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brpostaddr1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brpostaddr2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brpostaddr3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brpostaddr4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brpostaddr5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brpostaddr6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="salesmanname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="debtorno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="branchcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stockid" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantity" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty2" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="discountpercent" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fxnet" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fxprice" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="narrative" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="units" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="8" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="246" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="65" width="30" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dd}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="148" y="65" width="30" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mm}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="180" y="65" width="30" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{yy}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="61" y="101" width="149" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="61" y="160" width="149" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{taxref}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="61" y="120" width="149" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{direccion1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="61" y="140" width="149" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{direccion2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="9" y="1" width="47" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.000" isBlankWhenNull="true">
+				<reportElement x="497" y="1" width="55" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{fxnet}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.000" isBlankWhenNull="true">
+				<reportElement x="415" y="1" width="55" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{fxprice}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="89" y="1" width="300" height="14"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,53 @@
+-- MySQL dump 10.13  Distrib 5.1.62, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: armedica_erp_001
+-- ------------------------------------------------------
+-- Server version	5.1.62-0ubuntu0.10.04.1-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `rh_parentescos`
+--
+
+DROP TABLE IF EXISTS `rh_parentescos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rh_parentescos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(20) DEFAULT NULL,
+  `sucursal` varchar(20) DEFAULT NULL,
+  `status` tinyint(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rh_parentescos`
+--
+
+LOCK TABLES `rh_parentescos` WRITE;
+/*!40000 ALTER TABLE `rh_parentescos` DISABLE KEYS */;
+INSERT INTO `rh_parentescos` VALUES (1,'PADRE','MTY',1),(2,'MADRE','MTY',1),(3,'HIJO (A)','MTY',1),(4,'ABUELO (A)','MTY',1),(5,'HERMANO (A)','MTY',1),(6,'PROPIETARIO','MTY',1),(7,'ESPOSO (A)','MTY',1),(8,'TITULAR','MTY',1),(9,'FAMILIAR','MTY',1),(10,'AMIGO/VECINO','MTY',1),(11,'PADRE','CHIH',1),(12,'MADRE','CHIH',1),(13,'HIJO (A)','CHIH',1),(14,'ABUELO (A)','CHIH',1),(15,'HERMANO (A)','CHIH',1),(16,'PROPIETARIO','CHIH',1),(17,'ESPOSO (A)','CHIH',1),(18,'TITULAR','CHIH',1),(19,'FAMILIAR','CHIH',1),(20,'AMIGO/VECINO','CHIH',1);
+/*!40000 ALTER TABLE `rh_parentescos` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-08-18 12:16:19

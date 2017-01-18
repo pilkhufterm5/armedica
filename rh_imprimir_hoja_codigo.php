@@ -1,0 +1,250 @@
+<?php
+$PageSecurity = 1;
+
+/* Session started in header.inc for password checking and authorisation level check */
+include('includes/session.inc');
+
+include('includes/tablas.php');
+
+include ('barcode2/barcode.inc.php');
+
+$title = _('Hoja de impresion');
+
+$sql=
+	"select ".
+		"'' imagen, ".
+		" impr.barcode codebar, ".
+		" purchorderdetails.orderno, ".
+		" grns.grnbatch as recepcion, ".
+		" impr.stockid, ".
+		" impr.serialno lote, ".
+		" stockmaster.barcode, ".
+		" impr.impresiones, ".
+		" stockmaster.description, ".
+		" impr.documento, ".
+		" impr.status ".
+		" from ".
+	" rh_etiquetas_documento_impresion impr ".
+	" left join rh_etiquetas_impresion imprim on impr.id_etiq_impresion=imprim.id ".
+	" left join grns on grns.grnno=imprim.grnno ".
+	" left join stockmaster on stockmaster.stockid= impr.stockid ".
+	" left join purchorderdetails on purchorderdetails.podetailitem=imprim.podetailitem "
+	;
+$grupo="";
+$where="";
+if(isset($_REQUEST['documento']))
+	$where=" where impr.documento='".DB_escape_String($_REQUEST['documento'])."' ";
+else
+	$where=" where impr.documento='-1' ";
+$head=array(
+		"imagen"=>_('Codigo'),
+		"codebar"=>_('Código de Barras Lote'),
+		"orderno"=>_('Orden de Compra'),
+		"recepcion"=>_('Recepción'),
+		"stockid"=>_('Stockid'),
+		"lote"=>_('Lote'),
+		"barcode"=>_('Código Barras'),
+		"impresiones"=>_('Impresiones'),
+		"description"=>_('Descripción')
+);
+$tabla=new tablas($sql.$where.$grupo,"rh_etiquetas_impresion",$db);
+if(isset($_REQUEST['PDF'])){
+	$headAncho=array(
+			"imagen"=> 125 ,
+			"barcode"=> 96 ,
+			"codebar"=> 96 ,
+			"orderno"=> 70 ,
+			"recepcion"=> 50 ,
+			"stockid"=> 96 ,
+			"lote"=> 50 ,
+			"barcode"=> 96 ,
+			"impresiones"=> 50 ,
+			"description"=> 164
+	);
+	$PaperSize='A4_Landscape';
+	include('includes/PDFStarter.php');
+      
+	$FontSize=9;
+	$YPos=$Bottom_Margin;//init header
+	$YPos=$Page_Height-$Top_Margin;
+	$Encabezados=true;
+	$borde='';
+	$alingn='right';
+	foreach ($tabla as $fila){
+		if($YPos<=$Bottom_Margin){
+			$pdf->newPage();
+			$YPos=$Page_Height-$Top_Margin;
+			$Encabezados=true;
+			
+		}
+		$XPos=$Left_Margin;
+		if($Encabezados){
+			$alingn='right';
+			$Encabezados=false;
+			$width=($Page_Width-$Left_Margin-$Right_Margin)/count($head);
+			{
+				$LeftOvers= _('Fecha:') . date($_SESSION["DefaultDateFormat"]);
+				
+				$pdf->addTextWrap($XPos,$YPos,$width,$FontSize,$LeftOvers,$alingn,$borde);
+				$YPos-=$FontSize;
+				$LeftOvers= _('Documento:') . htmlentities($_REQUEST['documento']);
+				$pdf->addTextWrap($XPos,$YPos,$width+$FontSize,$FontSize,$LeftOvers,$alingn,$borde);
+				$YPos-=$FontSize;
+			}
+			$alingn='center';
+			$YPos__=$Page_Height;
+			foreach($head as $id=>$val){
+				$LeftOvers=$val;
+				$YPos_=$YPos+$FontSize;
+				$width=$headAncho[$id];
+				do{
+					$YPos_-=$FontSize;
+					$LeftOvers=$pdf->addTextWrap($XPos,$YPos_,$width,$FontSize,$LeftOvers,$alingn,$borde);
+				}while(trim($LeftOvers)!='');
+				$YPos__=min($YPos__,$YPos_);
+				$XPos+=$width;
+			}
+			$YPos=$YPos__;
+			$XPos=$Left_Margin;
+			$YPos-=$FontSize;
+			
+		}
+		$YPos__=$Page_Height;
+		foreach($head as $id=>$val){
+			$LeftOvers=$fila[$id];
+			$YPos_=$YPos+$FontSize;
+			$width=$headAncho[$id];
+			if($id=='imagen'){
+				$Barcode=$val;
+				$dirfile = "tmp/po_codigo_barras";
+				if(!is_dir($dirfile))mkdir($dirfile);
+			        $file = "ETIQ_" . $Barcode . ".jpeg";
+				if (!is_file($dirfile . "/" . $file)){
+			            $bar = new BARCODE();
+			            $bar->setSymblogy("CODE128");
+			            $bar->setHeight(30);
+			            $bar->setScale(0);
+			            $bar->setHexColor("#00000", "#FFFFFF");         
+			            $return = $bar->genBarCode($Barcode, "jpeg", $dirfile . "/ETIQ_" . $Barcode);
+			    }
+			    $file=$dirfile . "/ETIQ_" . $Barcode.'.jpeg';
+			    list($Xwidth,$height)=$pdf->_parsejpg($file);
+			    
+			    $height=$width*$height/$Xwidth;
+				$pdf->Image($file,$XPos,$Page_Height-$YPos-$FontSize*1.5,$width);
+				$YPos_-=$FontSize*3;
+				$borde='';
+			}else
+			do{
+				$YPos_-=$FontSize;
+				$LeftOvers=$pdf->addTextWrap($XPos,$YPos_,$width,$FontSize,$LeftOvers,$alingn,$borde);
+			}while(trim($LeftOvers)!='');
+			$YPos__=min($YPos__,$YPos_-$FontSize);
+			$XPos+=$width;
+		}
+		$YPos=min($YPos__,$YPos);
+	}
+	$pdf->output('Hoja de Impresion Etiquetas ('.$_REQUEST['documento'].').pdf','D');
+	
+}else{
+
+	include('includes/header.inc');
+	echo '<center>';
+?>
+<script type="text/javascript" src="javascript/descargar/csvExporter.js"></script>
+<script type="text/javascript" src="javascript/descargar/pdfExporter.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('csv').show();
+		
+	})
+</script>
+<form>
+Documento: 
+<input name="documento" type="text" style="width: 5em;" value="<?=htmlentities($_REQUEST['documento'])?>">
+<input name="Refresh" type="submit" value="<?=_('Buscar')?>">
+<br />
+	<input type="submit" name="PDF" value="PDF">
+<csv style="display:none" target="Hoja de Impresion Etiquetas <?php ?>(<?=$_REQUEST['documento']?>)" title=".TablaOrdenes" >
+	<input type="button" name="XLS" value="Excel">
+</csv>
+</form>
+<?php 
+echo '<table class="TablaOrdenes">';
+echo '<thead>';
+echo '<tr style="display:none">';
+echo '<td>';
+echo _('Fecha:');
+echo '</td>';
+echo '<td colspan="'.(count($head)-1).'">';
+echo date($_SESSION["DefaultDateFormat"]);
+echo '</td>';
+echo '</tr>';
+echo '<tr style="display:none">';
+echo '<td>';
+echo _('Documento:');
+echo '<td colspan="'.(count($head)-1).'">';
+echo htmlentities($_REQUEST['documento']);
+echo '</td>';
+echo '</tr>';
+echo '<tr>';
+foreach($head as $id=>$val){
+	echo
+		'<th';
+	if($id=='imagen')
+		echo ' style="display:none" ';
+	echo '>';
+	if($id=='imagen')
+		echo '<img style="display:none">';
+	echo 
+			$val.
+		'</th>';
+}
+echo '</tr>';
+echo '<tr>';
+echo '<td>';
+echo '</td>';
+echo '</tr>';
+echo '</thead>';
+$i=0;
+foreach ($tabla as $fila){
+	$i++;
+	$Barcode=$fila['barcode'];
+	$dirfile = "tmp/po_codigo_barras";
+	if(!is_dir($dirfile))mkdir($dirfile);
+        $file = "ETIQ_" . $Barcode . ".jpeg";
+	if (!is_file($dirfile . "/" . $file)){
+            $bar = new BARCODE();
+            $bar->setSymblogy("CODE128");
+            $bar->setHeight(30);
+            $bar->setScale(0);
+            $bar->setHexColor("#00000", "#FFFFFF");         
+            $return = $bar->genBarCode($Barcode, "jpeg", $dirfile . "/ETIQ_" . $Barcode);
+    }
+	echo '<tr>';
+	$fila['imagen']=$fila['barcode'];
+	if(true||$i%2)
+	{
+	$fila['imagen']='<img file="'.$dirfile.'/'.$file.'" width="150" src="'.
+		$dirfile.'/'.$file.
+		'" >';
+	}
+	else
+		$fila['barcode']='<img file="'.$dirfile.'/'.$file.'" width="150" src="'.
+		$dirfile.'/'.$file.
+		'" >';
+	foreach($head as $id=>$val){
+		echo 
+			'<td style="';
+		if($id=='imagen')
+		echo ' display:none ';
+		echo '">'. 
+				$fila[$id].
+			'</td>';
+	}
+	echo '</tr>';
+}
+echo '</table>';
+echo '</center>';
+include_once 'includes/footer.inc';
+}

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ObtenerCabecera">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Receta" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerCabeceraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerCabeceraResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalle">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Receta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FechaSurtido" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenDetallePasado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Receta" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenDetallePasadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenDetallePasadoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenSalidasDiarias">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="almacen" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="reporte" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenSalidasDiariasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenSalidasDiariasResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ObtenerCabeceraSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerCabecera" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerCabeceraSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerCabeceraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalleSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalle" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalleSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenDetallePasadoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenDetallePasado" />
+  </wsdl:message>
+  <wsdl:message name="ObtenDetallePasadoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenDetallePasadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenSalidasDiariasSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenSalidasDiarias" />
+  </wsdl:message>
+  <wsdl:message name="ObtenSalidasDiariasSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenSalidasDiariasResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MedixSoap">
+    <wsdl:operation name="ObtenerCabecera">
+      <wsdl:input message="tns:ObtenerCabeceraSoapIn" />
+      <wsdl:output message="tns:ObtenerCabeceraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalle">
+      <wsdl:input message="tns:ObtenerDetalleSoapIn" />
+      <wsdl:output message="tns:ObtenerDetalleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenDetallePasado">
+      <wsdl:input message="tns:ObtenDetallePasadoSoapIn" />
+      <wsdl:output message="tns:ObtenDetallePasadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenSalidasDiarias">
+      <wsdl:input message="tns:ObtenSalidasDiariasSoapIn" />
+      <wsdl:output message="tns:ObtenSalidasDiariasSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MedixSoap" type="tns:MedixSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerCabecera">
+      <soap:operation soapAction="http://tempuri.org/ObtenerCabecera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalle">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenDetallePasado">
+      <soap:operation soapAction="http://tempuri.org/ObtenDetallePasado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenSalidasDiarias">
+      <soap:operation soapAction="http://tempuri.org/ObtenSalidasDiarias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MedixSoap12" type="tns:MedixSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerCabecera">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerCabecera" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalle">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenDetallePasado">
+      <soap12:operation soapAction="http://tempuri.org/ObtenDetallePasado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenSalidasDiarias">
+      <soap12:operation soapAction="http://tempuri.org/ObtenSalidasDiarias" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Medix">
+    <wsdl:port name="MedixSoap" binding="tns:MedixSoap">
+      <soap:address location="http://ar.isssteleon.gob.mx/recetas/Medix.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MedixSoap12" binding="tns:MedixSoap12">
+      <soap12:address location="http://ar.isssteleon.gob.mx/recetas/Medix.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

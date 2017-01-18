@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sat.gob.mx/cfd/2" xsi:schemaLocation="http://www.sat.gob.mx/cfd/2 ../satFiles/cfdv2.xsd" version="2.0" folio="00000000000000000352" fecha="2009-09-03T17:00:20" sello="FNP6NboeoRkACbWzMDChPI5+UqDcYwnLjFlYaPkZtZ+KSXgr0eQ3qnuGoxJZ+T4m27dFMpABnqTpbGfpSBn/MaIF6a9GHFkVv0RSGoI9XgciOkDW6sU086K5tqvZzRkUkCY+g41pxYsJbXcRSDYVTb4Z5r7KyYv0A6GUf7q0Xjw=" noAprobacion="46947" anoAprobacion="2010" formaDePago="PAGO EN UNA SOLA EXHIBICION" noCertificado="00001000000101270479" subTotal="-2208" total="-2208" tipoDeComprobante="traslado" serie="A" condicionesDePago="condicionesDePago">
+  <Emisor rfc="REA080108FS0" nombre="REALHOST, S.A. de C.V.">
+    <DomicilioFiscal calle="ESCOBEDO" municipio="MONTERREY" estado="NUEVO LEON" pais="Juan  &#x1E96;&#x216D;&#xFF26;&#xA786;&#x1E12;&#x279;&#x196;rQ&#x1B9;&#x1A4;&#x1CF;&#x1CD;&#x1B3;  --1@#^!!@$&amp;&amp;$%^&amp;*#%@$!$@#%$^@!$#U$^*&amp;$#%@!@$^&amp;#$^*^%&amp;@@!%^()$(#@%$!#~~~!@~#$%^^&amp;*(%^/*-*/*/-/*-&lt;&gt;&lt;.,fasdf.as  d &amp; Jo-s&#xE9; &amp; &quot;Ni&#xF1;o&quot;" codigoPostal="64000" noExterior="342 NTE" colonia="CENTRO"/>
+    <ExpedidoEn pais="MEXICO" calle="ESCOBEDO" noExterior="342 NTE" colonia="CENTRO" municipio="MONTERREY" estado="NUEVO LEON" codigoPostal="64000"/>
+  </Emisor>
+  <Receptor rfc="ICN050530AYA" nombre="ICNSA S.A. de C.V.">
+    <Domicilio pais="MEXICO" calle="ESCOBEDO" noExterior="340 NTE." colonia="CENTRO" municipio="MONTERREY" estado="NUEVO LEON" codigoPostal="64000"/>
+  </Receptor>
+  <Conceptos>
+    <Concepto cantidad="4" descripcion="Renta de Equipo iMac 2.4Ghz, 320Gb, 3Gb RAM" valorUnitario="1500.0000" importe="6000" unidad="c/u"/>
+    <Concepto cantidad="1" descripcion="Renta de Equipo Stylus Pro 7880" valorUnitario="3700.0000" importe="3700" unidad="pza."/>
+    <Concepto cantidad="1" descripcion="Renta Copiadora IR3570RMF" valorUnitario="3200.0000" importe="3200" unidad="pza."/>
+  </Conceptos>
+  <Impuestos>
+    <Traslados>
+      <Traslado impuesto="IVA" tasa="16" importe="0"/>
+    </Traslados>
+  </Impuestos>
+</Comprobante>

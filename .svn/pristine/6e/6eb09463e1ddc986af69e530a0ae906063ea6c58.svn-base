@@ -1,0 +1,60 @@
+-- MySQL dump 10.13  Distrib 5.1.62, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: armedica_erp_001
+-- ------------------------------------------------------
+-- Server version	5.1.62-0ubuntu0.10.04.1-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `rh_encuesta`
+--
+
+DROP TABLE IF EXISTS `rh_encuesta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rh_encuesta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `folio` varchar(10) NOT NULL,
+  `comisionista_id` int(11) NOT NULL,
+  `p1` enum('NO','SI') NOT NULL DEFAULT 'SI',
+  `p2` enum('NO','SI') NOT NULL DEFAULT 'SI',
+  `p3` enum('NO','SI') NOT NULL DEFAULT 'SI',
+  `p4` enum('NO','SI') NOT NULL DEFAULT 'SI',
+  `p5` enum('BUENA','MALA') NOT NULL DEFAULT 'BUENA',
+  `p5pq` varchar(15) NOT NULL,
+  `p5otro` varchar(100) NOT NULL,
+  `p6` enum('NO','SI') NOT NULL DEFAULT 'SI',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rh_encuesta`
+--
+
+LOCK TABLES `rh_encuesta` WRITE;
+/*!40000 ALTER TABLE `rh_encuesta` DISABLE KEYS */;
+INSERT INTO `rh_encuesta` VALUES (4,'10',529,'SI','NO','SI','NO','BUENA','','test','NO'),(5,'100',633,'SI','SI','SI','SI','BUENA','','','SI'),(6,'115',677,'SI','SI','SI','SI','BUENA','','','SI'),(7,'17919',109,'SI','SI','SI','SI','BUENA','Tardaba mucho','132132','SI'),(8,'17919',109,'SI','SI','SI','SI','BUENA','Tardaba mucho','132132','SI'),(9,'300',529,'SI','SI','SI','SI','BUENA','','','SI'),(10,'500',1,'SI','SI','SI','SI','BUENA','','','SI'),(11,'505',109,'SI','SI','SI','SI','BUENA','','','SI'),(12,'520',109,'SI','SI','SI','SI','BUENA','','','SI'),(13,'510',109,'SI','SI','SI','SI','BUENA','','','SI'),(14,'540',633,'SI','SI','SI','SI','BUENA','','','SI'),(15,'600',645,'SI','SI','SI','SI','BUENA','','','SI'),(16,'605',645,'SI','SI','SI','SI','BUENA','','','SI'),(17,'620',645,'SI','SI','SI','SI','BUENA','','','SI'),(18,'680',645,'SI','SI','SI','SI','BUENA','','','SI'),(19,'690',633,'SI','SI','SI','SI','BUENA','','','SI'),(20,'700',633,'SI','SI','SI','SI','BUENA','','','SI'),(21,'750',633,'SI','SI','SI','SI','BUENA','','','SI'),(22,'760',529,'SI','SI','SI','SI','BUENA','','','SI'),(23,'790',645,'SI','SI','SI','SI','BUENA','','','SI'),(24,'800',633,'SI','SI','SI','SI','BUENA','','','SI'),(25,'810',645,'SI','SI','SI','SI','BUENA','','','SI'),(26,'820',529,'SI','SI','SI','SI','BUENA','','','SI'),(27,'830',529,'SI','SI','SI','SI','BUENA','','','SI'),(28,'21762',109,'SI','SI','SI','SI','BUENA','','','SI'),(29,'21686',717,'SI','SI','SI','SI','BUENA','','','SI'),(30,'21776',716,'SI','SI','SI','SI','BUENA','','','SI'),(31,'21776',716,'SI','SI','SI','SI','BUENA','','','SI'),(32,'21776',716,'SI','SI','SI','SI','BUENA','','','SI'),(33,'21779',109,'SI','SI','SI','SI','BUENA','','','SI'),(34,'21755',716,'SI','SI','SI','SI','BUENA','','','SI'),(35,'21698',652,'SI','SI','SI','SI','BUENA','','','SI'),(36,'21685',704,'SI','SI','SI','SI','BUENA','','','SI'),(37,'21770',704,'SI','SI','SI','SI','BUENA','','','SI'),(38,'21772',699,'SI','SI','SI','SI','BUENA','','','SI'),(39,'21753',716,'SI','SI','SI','SI','BUENA','','','SI'),(40,'21730',109,'SI','SI','SI','SI','BUENA','','','SI'),(41,'21752',716,'SI','SI','SI','SI','BUENA','','','SI'),(42,'21769',704,'SI','SI','SI','SI','BUENA','','','SI'),(43,'21777',716,'SI','SI','SI','SI','BUENA','','','SI'),(44,'21763',109,'SI','SI','SI','SI','BUENA','','','SI'),(45,'21771',704,'SI','SI','SI','SI','BUENA','','','SI'),(46,'21754',716,'SI','SI','SI','SI','BUENA','','','SI'),(47,'21708',640,'SI','SI','SI','SI','BUENA','','','SI'),(48,'99000',1,'SI','SI','SI','SI','BUENA','','','SI'),(49,'21964',109,'SI','SI','SI','SI','BUENA','','','SI'),(50,'21781',109,'SI','SI','SI','SI','BUENA','','','SI'),(51,'21781',0,'SI','SI','SI','SI','BUENA','','','SI'),(52,'21784',652,'SI','SI','SI','SI','BUENA','','','SI'),(53,'21976',717,'SI','SI','SI','SI','BUENA','','','SI'),(54,'21787',704,'SI','SI','SI','SI','BUENA','','','SI'),(55,'21333',700,'SI','SI','SI','SI','BUENA','','','SI'),(56,'21789',704,'SI','SI','SI','SI','BUENA','','','SI'),(57,'500000',1,'SI','SI','SI','SI','BUENA','','','SI'),(58,'500003',1,'SI','SI','SI','SI','BUENA','','','SI'),(59,'21796',716,'SI','SI','SI','SI','BUENA','','','SI'),(60,'21967',109,'SI','SI','SI','SI','BUENA','','','SI'),(61,'21967',109,'SI','SI','SI','SI','BUENA','','','SI'),(62,'21967',109,'SI','SI','SI','SI','BUENA','','','SI'),(63,'21967',109,'SI','SI','SI','SI','BUENA','','','SI'),(64,'21967',109,'SI','SI','SI','SI','BUENA','','','SI'),(65,'21967',0,'SI','SI','SI','SI','BUENA','','','SI'),(66,'21797',716,'SI','SI','SI','SI','BUENA','','','SI'),(67,'21961',733,'SI','SI','SI','SI','BUENA','','','SI'),(68,'21791',733,'SI','SI','SI','SI','BUENA','','','SI'),(69,'21798',716,'SI','SI','SI','SI','BUENA','','','SI'),(70,'21357',716,'SI','SI','SI','SI','BUENA','','','SI'),(71,'21800',716,'SI','SI','SI','SI','BUENA','','','SI'),(72,'21314',733,'SI','SI','SI','SI','BUENA','','','SI'),(73,'500002',1,'SI','SI','SI','SI','BUENA','','','SI'),(74,'500004',1,'SI','SI','SI','SI','BUENA','','','SI');
+/*!40000 ALTER TABLE `rh_encuesta` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-08-18 10:55:36

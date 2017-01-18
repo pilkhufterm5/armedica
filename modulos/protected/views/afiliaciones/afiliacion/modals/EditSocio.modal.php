@@ -1,0 +1,255 @@
+<script type="text/javascript">
+    $(document).on('ready', function() {
+        $('#E_fecha_nacimiento').datepicker({
+            dateFormat : 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100:+5'
+        });
+
+        $('#Create-Modal-EditSocio').click(function(){
+            var jqxhr = $.ajax({
+                url: "<?php echo $this->createUrl("afiliaciones/UpdateSocio"); ?>",
+                type: "POST",
+                dataType : "json",
+                timeout : (120 * 1000),
+                data: {
+                      Update:{
+                          folio: $('#E_folio').val(),
+                          branchcode: $('#E_branchcode').val(),
+                          debtorno: $('#E_debtorno').val(),
+                          brname: $('#E_brname').val(),
+                          sexo: $('#E_sexo').val(),
+                          nombre_empresa: $('#E_nombre_empresa').val(),
+                          fecha_nacimiento: $('#E_fecha_nacimiento').val(),
+                          braddress1: $('#E_braddress1').val(),
+                          braddress2: $('#E_braddress2').val(),
+                          fecha_ingreso: $('#E_fecha_ingreso').val(),
+                          fecha_ultaum: $('#E_fecha_ultaum').val(),
+                          braddress10: $('#E_braddress10').val(),
+                          braddress4: $('#E_braddress4').val(),
+                          braddress5: $('#E_braddress5').val(),
+                          braddress6: $('#E_braddress6').val(),
+                          braddress7: $('#E_braddress7').val(),
+                          braddress8: $('#E_braddress8').val(),
+                          braddress11: $('#E_braddress11').val(),// Se agrego para la lista de hospitales Angeles Perez 2016-06-09
+                          cuadrante1: $('#E_cuadrante1').val(),
+                          cuadrante2: $('#E_cuadrante2').val(),
+                          cuadrante3: $('#E_cuadrante3').val(),
+                          phoneno: $('#E_phoneno').val(),
+                          otros_padecimientos: $('#E_otros_padecimientos').val(),// Se agrego para mostrar lo que se ingresa en el campo Otros Padecimientos Angeles Perez 2016-08-12
+                          otros: $('#E_ACOTROS').val(),
+                          antecedentes_clinicos : ($("input[name='E_AntecedentesC[]']:checked").map(function(){
+                               return this.value;
+                            }).get().join(",")),
+                      },
+                },
+                success : function(data, newValue) {
+                    if (data.requestresult == 'ok') {
+                        displayNotify('success', data.message);
+                        $('#SociosTable #' + data.BranchCode).html(data.NewRow);
+                    }else{
+                        displayNotify('alert', data.message);
+                    }
+                },
+                error : ajaxError
+            });
+        });
+    });
+
+    function LoadForm(DebtorNo,BranchCode){
+        var jqxhr = $.ajax({
+            url: "<?php echo $this->createUrl("afiliaciones/UpdateSocio"); ?>",
+            type: "POST",
+            dataType : "json",
+            timeout : (120 * 1000),
+            data: {
+                  GetData:{
+                      BranchCode: BranchCode,
+                      DebtorNo: DebtorNo
+                  },
+            },
+            success : function(data, newValue) {
+                if (data.requestresult == 'ok') {
+                    displayNotify('success', data.message);
+                    $('#E_folio').val(data.GetData.folio);
+                    $('#E_branchcode').val(data.GetData.branchcode);
+                    $('#E_debtorno').val(data.GetData.debtorno);
+                    $('#E_brname').val(data.GetData.brname);
+                    $("#E_sexo option[value='"+ data.GetData.sexo +"']").attr("selected",true);
+                    $('#E_nombre_empresa').val(data.GetData.nombre_empresa);
+                    $('#E_fecha_nacimiento').val(data.GetData.fecha_nacimiento);
+                    $('#E_braddress1').val(data.GetData.braddress1);
+                    $('#E_braddress2').val(data.GetData.braddress2);
+                    $('#E_fecha_ingreso').val(data.GetData.fecha_ingreso);
+                    $('#E_fecha_ultaum').val(data.GetData.fecha_ultaum);
+                    $('#E_braddress10').val(data.GetData.braddress10);
+                    $('#E_braddress4').val(data.GetData.braddress4);
+                    $('#E_braddress5').val(data.GetData.braddress5);
+                    $('#E_braddress6').val(data.GetData.braddress6);
+                    $("#E_braddress7 option[value='"+ data.GetData.braddress7 +"']").attr("selected",true);
+                    $("#E_braddress8 option[value='"+ data.GetData.braddress8 +"']").attr("selected",true);
+                    $("#E_braddress11 option[value='"+ data.GetData.braddress11 +"']").attr("selected",true);// Se agrego para la lista de hospitales Angeles Perez 2016-06-09
+                    $('#E_cuadrante1').val(data.GetData.cuadrante1);
+                    $('#E_cuadrante2').val(data.GetData.cuadrante2);
+                    $('#E_cuadrante3').val(data.GetData.cuadrante3);
+                    $('#E_phoneno').val(data.GetData.phoneno);
+                    $('#E_otros_padecimientos').val(data.GetData.otros_padecimientos);// Se agrego para mostrar lo que se ingresa en el campo Otros Padecimientos Angeles Perez 2016-08-12
+                    if(data.GetAntecedentes != null){
+                        $.each(data.GetAntecedentes, function(idx,value) {
+                            value = value.replace(/\s/g, '')
+                            value = value.replace('.','');
+                            $("#"+value).selected(true);
+                        });
+                        $('#E_ACOTROS').val(data.GetAntecedentes.otros);
+                    }
+                }else{
+                    displayNotify('error', data.message);
+                }
+            },
+            error : ajaxError
+        });
+    }
+
+</script>
+
+<div id="Modal_EditSocio" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 50%;"  >
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload()">×</button>
+        <h3 id="ModalLabelEdit"> </h3>
+    </div>
+    <div class="modal-body">
+        <p>
+            <input id="E_branchcode" type="hidden" value="" />
+            <input id="E_debtorno" type="hidden" value="" />
+            <input id="E_folio" type="hidden" value="" />
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><label class="control-label">Nombre: </label></td>
+                        <td><input type="text" id="E_brname" class="span12" /></td>
+                        <td><label class="control-label">Sexo: </label></td>
+                        <td>
+                            <select id="E_sexo" name="E_sexo" class="span12" >
+                                <option value="MASCULINO">MASCULINO</option>
+                                <option value="FEMENINO">FEMENINO</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="control-label">Nombre Comercial: </label></td>
+                        <td><input type="text" id="E_nombre_empresa" class="span12" /></td>
+                        <td><label class="control-label">Fecha Nacimiento: </label></td>
+                        <td><input type="text" id="E_fecha_nacimiento" class="span12" /></td>
+                    </tr>
+                    <tr>
+                        <td><label class="control-label">Calle: </label></td>
+                        <td><input type="text" id="E_braddress1" class="span12" /></td>
+                        <td><label class="control-label">N°: </label></td>
+                        <td><input type="text" id="E_braddress2" class="span12" /></td>
+                    </tr>
+                    <tr>
+                        <td><label class="control-label">Fecha Ingreso: </label></td>
+                        <td><input type="text" id="E_fecha_ingreso" readonly="readonly" class="span12" /></td>
+                        <td><label class="control-label">Fecha ult. Aum: </label></td>
+                        <td><input type="text" id="E_fecha_ultaum" readonly="readonly" class="span12" /></td>
+                    </tr>
+                    <tr>
+                        <td><label class="control-label">C.P.: </label></td>
+                        <td><input type="text" id="E_braddress10" class="span12" /></td>
+                        <td><label class="control-label">Colonia: </label></td>
+                        <td><input type="text" id="E_braddress4" class="span12" /></td>
+                    </tr>
+                    <tr>
+                        <td><label class="control-label">Sector: </label></td>
+                        <td><input type="text" id="E_braddress5" class="span12" /></td>
+                        <td><label class="control-label">Entre Calles: </label></td>
+                        <td><input type="text" id="E_braddress6" class="span12" /></td>
+                    </tr>
+                    <tr>
+                        <td><label class="control-label">Municipio: </label></td>
+                        <td>
+                            <select id="E_braddress7" name="E_braddress7" class="span12" >
+                                <option value="">&nbsp;</option>
+                                <?php foreach($ListaMunicipios as $id => $Municipio){ ?>
+                                    <option value="<?=$Municipio?>"><?=$Municipio?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <td><label class="control-label">Estado: </label></td>
+                        <td>
+                            <select id="E_braddress8" name="E_braddress8" class="span12" >
+                                <option value="">&nbsp;</option>
+                                <?php foreach($ListaEstados as $id => $Estado){ ?>
+                                    <option value="<?=$Estado?>"><?=$Estado?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <!--Se agrego para mostrar la lista de Hospitales Angeles Perez 2016-06-09-->
+                        <td><label class="control-label">Hospital: </label></td>
+                        <td>
+                            <select id="E_braddress11" name="E_braddress11" class="span12" >
+                                <option value="">&nbsp;</option>
+                                <?php foreach($ListaHospitales as $id => $Hospital){ ?>
+                                    <option value="<?=$Hospital?>"><?=$Hospital?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <!--Termina-->
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <table>
+                            <tr>
+                                <td><label class="control-label">Cuad.A: </label></td>
+                                <td><input type="text" id="E_cuadrante1" class="span6" /></td>
+                                <td><label class="control-label">Cuad.B: </label></td>
+                                <td><input type="text" id="E_cuadrante2" class="span6" /></td>
+                                <td><label class="control-label">Cuad.C: </label></td>
+                                <td><input type="text" id="E_cuadrante3" class="span6" /></td>
+                            </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="control-label">Telefono: </label></td>
+                        <td><input type="text" id="E_phoneno" class="span12" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <br />
+                            <label class="">Antecedentes Clinicos:</label>
+                            <table>
+                                <tr>
+                                <?php
+                                $au = 0;
+                                foreach ($LIstAntecedentesClinicos as $key => $value) { ?>
+                                    <td><input id = "<?=str_replace(array(" ","."),"",$value)?>" name = "E_AntecedentesC[]" type="checkbox" value="<?=$value?>" style="margin-top: 0px;" ></td><td><?=$value?></td>
+                                <?php
+                                    $au++;
+                                    if($au == 3){
+                                        echo "</tr><tr>";
+                                        $au = 0;
+                                    }
+                                } ?>
+                            </table>
+                            <div class="controls">
+                                <label>Otros Padecimientos</label>
+                                <!--<input type="text" id="E_ACOTROS" name="antecedentes_clinicos[otros]" />-->
+                                <input type="text" id="E_otros_padecimientos" name="E_otros_padecimientos" /> <!-- Se agrego para mostrar lo que se ingresa en el campo Otros Padecimientos Angeles Perez 2016-08-12-->
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button id="Close-Modal-EditSocio" class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload()">Cancelar</button>
+        <button id="Create-Modal-EditSocio" class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload()">Aceptar</button>
+    </div>
+</div>

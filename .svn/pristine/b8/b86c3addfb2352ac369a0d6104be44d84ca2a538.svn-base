@@ -1,0 +1,240 @@
+<?php
+$PageSecurity = 1;
+
+/* Session started in header.inc for password checking and authorisation level check */
+include('includes/session.inc');
+
+include('includes/tablas.php');
+
+$title = _('Impresion de codigos');
+include('includes/header.inc');
+$sql="select ".
+		" '#' checkbox,".
+		" rh_etiquetas.barcode,".
+		" rh_etiquetas.stockid,".
+		" description,".
+		" rh_etiquetas.serialno,".
+		" purchorderdetails.orderno,".
+		" purchorderdetails.quantityord,".
+		" grns.qtyrecd,".
+		" grns.qtyrecd-rh_etiquetas_impresion.impresiones impresiones,".
+		" rh_etiquetas_impresion.impresiones diferencia ".
+		" ,rh_etiquetas_impresion.id ".
+	"from rh_etiquetas_impresion ".
+	" left join rh_etiquetas on rh_etiquetas.barcode=rh_etiquetas_impresion.barcode ".
+	" left join stockmaster sma on rh_etiquetas.stockid=sma.stockid ".
+	" left join purchorderdetails on purchorderdetails.podetailitem=rh_etiquetas_impresion.podetailitem ".
+	" left join grns on grns.grnno=rh_etiquetas_impresion.grnno ".
+	" where rh_etiquetas_impresion.status=0 and rh_etiquetas_impresion.impresiones<=grns.qtyrecd ";
+$Documento=0;
+$grupo=' order by purchorderdetails.orderno , rh_etiquetas.stockid';
+
+if((isset($_REQUEST['completed'])||isset($_REQUEST['print']))&&count($_REQUEST['porimprimir'])>0){
+	$res=DB_query(
+	'select max(documento) Documento from rh_etiquetas_documento_impresion '
+	,$db);
+	$fila=DB_fetch_assoc($res);
+	$Documento=$fila['Documento']+1;
+	$sqlx="insert into rh_etiquetas_documento_impresion(id_etiq_impresion,documento,barcode,stockid,serialno,userid,quantityord,qtyrecd,impresiones,creado)value(";
+
+	foreach($_REQUEST['porimprimir'] as $id=>$barras){
+		$where=" and rh_etiquetas.barcode ='".$barras."'";
+		$cantidad=(int)$_REQUEST['impresion'][$id];
+		$res=DB_query(str_replace("'#'",'rh_etiquetas_impresion.id',$sql).$where.$grupo." limit 1 ",$db);
+		while ($row=DB_fetch_assoc($res)){
+			DB_query(
+			$sqlx.
+				'"'.DB_escape_string($row['checkbox']).'",'.
+				'"'.DB_escape_string($Documento).'",'.
+				'"'.DB_escape_string($row['barcode']).'",'.
+				'"'.DB_escape_string($row['stockid']).'",'.
+				'"'.DB_escape_string($row['serialno']).'",'.
+				'"'.DB_escape_string($_SESSION['UserID']).'",'.
+				'"'.DB_escape_string($row['quantityord']).'",'.
+				'"'.DB_escape_string($row['qtyrecd']).'",'.
+				'"'.DB_escape_string($cantidad).'",'.
+				'NOW()'.
+			")",$db
+			);
+		}
+	}
+	foreach($_REQUEST['porimprimir'] as $id=>$barras)
+		if(isset($_REQUEST['impresion'][$id])){
+			$cantidad=(int)$_REQUEST['impresion'][$id];
+			$cantidadImpresion='impresiones-'.((int)$cantidad).'';
+			if(isset($_REQUEST['completed']))
+				$cantidadImpresion='0';
+			DB_query(
+			'update rh_etiquetas set impresiones=impresiones+"'.$cantidad.'" where barcode="'.DB_escape_string($barras).'"'
+			,$db);
+
+			DB_query(
+			'update rh_etiquetas_impresion set impresiones='.$cantidadImpresion.' where id="'.DB_escape_string($id).'"'
+			,$db);
+			DB_query(
+			'update rh_etiquetas_impresion set documento="'.DB_escape_string($Documento).'" where id="'.DB_escape_string($id).'"'
+			,$db);
+			DB_query(
+			'update rh_etiquetas_impresion set status=1, impresiones=0 where impresiones<=0 and id="'.DB_escape_string($id).'"'
+			,$db);
+	}
+}
+
+
+
+
+
+$desde=date('Y-m-d');
+$hasta=date('Y-m-d');
+if(isset($_REQUEST['recepcion']))
+	$recepcion=DB_escape_string($_REQUEST['recepcion']);
+
+if(isset($recepcion)&&$recepcion!='')
+	$where.=" and grns.grnbatch='".$recepcion."'";
+
+$tabla=new tablas($sql.$where.$grupo,"stockmoves",$db);
+
+$head=array(
+		"checkbox"=>'<input type="checkbox" class="porimprimirParent" checked=checked value="">',
+		"barcode"=>'Codigo de barras',
+		"orderno"=>_('Orden de Compra'),
+		"serialno"=>'Lote',
+		"stockid"=>'Stockid',
+		//"description"=>'Articulo',
+		"quantityord"=>'Unidades en OC',
+		"qtyrecd"=>'Unidades recibidas en OC',
+		"impresiones"=>'Etiquetas Impresas',
+		"diferencia"=>'Diferencia a imprimir'
+		);
+$Mensaje=array();
+if(isset($_REQUEST['print'])&&isset($_REQUEST['porimprimir'])&&count($_REQUEST['porimprimir'])>0){
+	foreach($_REQUEST['porimprimir'] as $id=>$barras)
+		if($_REQUEST['impresion'][$id]>0)
+			$Mensaje[]=array('codigo'=>$barras,'cantidad'=>$_REQUEST['impresion'][$id],'descripcion'=>$_REQUEST['descripcion'][$id]);
+
+		if(count($Mensaje)>0){
+	?>
+	<center>
+	<applet  code="appletr.AppletR.class" archive="barcode2/AppletR.jar?param=10" width="2" height="2">
+			<PARAM name="Message" value="<?=htmlentities(json_encode($Mensaje))?>">
+	</applet>
+	<?php }
+	?>
+	<a href="rh_imprimir_hoja_codigo.php?documento=<?=$Documento?>">Imprimir hoja de relacion numero <b><?=$Documento?></b></a>
+	</center>
+	<?php
+}
+?>
+<script type="text/javascript">
+function CrearApplet(){
+	$('#print').parent().find('applet').remove();
+	applet="<applet  code=\"appletr.AppletR.class\" archive=\"barcode2/AppletR.jar?param=10\" width=\"70\" height=\"25\">"+
+		"<PARAM name=\"Message\" value='[{codigo:\"NO DATA\",cantidad:3},{codigo:\"NO DATA\",cantidad:3}]'>"+
+	"</applet>";
+	parametros=[];
+	$('#CodigosBarras').find("input[name^=porimprimir]:checked").map(function(){
+		info={codigo:"NO DATA",cantidad:3};
+		info.codigo=$(this).val();
+		info.cantidad=$(this).closest('tr').find('input[type=text]').val();
+		if(info.cantidad>0)
+			parametros.push(info);
+	});
+	$(applet).find('PARAM[name=Message]').attr('value',JSON.stringify(parametros)).parent().appendTo($('#print').parent());
+
+}
+// $(function(){
+// 		$('#CodigosBarras').find("input").change(CrearApplet);
+// 		$('#print').click(function(){
+// 			CrearApplet();
+// 			setTimeout(function(){
+// 				$(this).closest('form').find('[name=completed]').click();
+// 			},60000);
+// 		});
+
+// });
+
+</script>
+
+<center>
+	<form method="post">
+	<table >
+		<tr>
+			<td>Recepcion</td>
+			<td><input type="text" name="recepcion" value="<?=$_REQUEST['recepcion']?>"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="Filtrar" name="filtro"></td>
+		</tr>
+	</table>
+
+    <table id="CodigosBarras" class="table table-bordered table-striped table-hover" >
+        <thead>
+        <tr>
+        	<?php
+        	foreach($head as $campo=>$nombre){
+        	?>
+        	<th><?php
+        	if($campo=='checkbox')
+        		echo ($nombre);
+        	else
+        		echo htmlentities($nombre);
+        	?></th>
+        	<?php }?>
+        	<script>
+document.getElementsByClassName('porimprimirParent')[0].onclick=function(){
+	checkboxes=document.getElementsByClassName('porimprimir');
+	for(i in checkboxes){
+		checkboxes[i].checked=
+			document.getElementsByClassName('porimprimirParent')[0].checked;
+	}
+}
+        	</script>
+        </thead>
+        </tr>
+		<?php
+		$columnas=count($head);
+		foreach($tabla as $imprimir){
+			$imprimir['checkbox']='<input type="checkbox" class="porimprimir" name="porimprimir['.$imprimir['id'].']" checked="checked" value="'.$imprimir['barcode'].'">';
+			$imprimir['checkbox'].='<input type="hidden" name="descripcion['.$imprimir['id'].']" value="'.htmlentities($imprimir['stockid'].' ['.$imprimir['serialno'].']').'">';
+
+			$selector='';
+			for($i=1//$imprimir['diferencia']
+				;$i>=0;$i--){
+				$selector.='<option '.(
+				$i==1/* $i==$imprimir['diferencia']*/?' selected=selected ':''
+				).'value="'.htmlentities($i).'">'.htmlentities($i).'</option>';
+			}
+			$imprimir['diferencia']=
+				'<select name="impresion['.$imprimir['id'].']" min=0 max="'.$imprimir['diferencia'].'">'.
+					$selector.
+				'</select>';
+			echo '<tr>';
+			foreach($head as $id=>$nombre){
+				echo '<td style="text-align: center;">'.($imprimir[$id]).'</td>';
+			}
+			echo '</tr>';
+			$columnas=max($columnas,count($imprimir));
+		}
+		?>
+		<tr><td colspan="<?=$columnas?>">
+		<center>
+			<input type="submit" name="completed" value="Marcar Completo sin Imprimir">
+			<input type="submit" name="print" id="print" value="Imprimir"><br />
+		</center>
+		</td></tr>
+		</table>
+	</form>
+</center>
+<script type="text/javascript">
+$(function(){
+	$('.porimprimirParent').click(function(){
+		if($(this).filter(':checked').length>0)
+			$('.porimprimir').attr('checked','checked');
+		else
+			$('.porimprimir').removeAttr('checked');
+	});
+});
+</script>
+<?php
+include('includes/footer.inc');

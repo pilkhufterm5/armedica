@@ -1,0 +1,9 @@
+INSERT INTO tmp_frecuenciapago (ar_id, nombre, dias, sucursal)VALUES(1, 'MENSUAL', 30, 'MTY');
+INSERT INTO tmp_frecuenciapago (ar_id, nombre, dias, sucursal)VALUES(2, 'SEMESTRAL', 182, 'MTY');
+INSERT INTO tmp_frecuenciapago (ar_id, nombre, dias, sucursal)VALUES(3, 'ANUAL', 359, 'MTY');
+INSERT INTO tmp_frecuenciapago (ar_id, nombre, dias, sucursal)VALUES(4, 'ANUAL INSEN', 15, 'MTY');
+INSERT INTO tmp_frecuenciapago (ar_id, nombre, dias, sucursal)VALUES(15, 'MENSUAL', 30, 'CHIHUAHUA');
+INSERT INTO tmp_frecuenciapago (ar_id, nombre, dias, sucursal)VALUES(16, 'SEMESTRAL', 182, 'CHIHUAHUA');
+INSERT INTO tmp_frecuenciapago (ar_id, nombre, dias, sucursal)VALUES(17, 'ANUAL', 359, 'CHIHUAHUA');
+INSERT INTO tmp_frecuenciapago (ar_id, nombre, dias, sucursal)VALUES(18, 'ANUAL INSEN', 359, 'CHIHUAHUA');
+

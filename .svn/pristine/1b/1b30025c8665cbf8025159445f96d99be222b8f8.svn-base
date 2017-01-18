@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Comprobante version="2.0" serie="NC" folio="5" fecha="2010-09-10T09:46:54" sello="lynOv7FgBpo/6VBIJfWCRXpDPyIAvitXkt5WZOSb/foYKDe6vlnHV3Y2Zq5Y3ZcVw/Ca/9/Dnyh25JPTTtT5elHuO1rcsBArojr3Vnn2NTtC6oDGZ1f/Jw/v3QiMO95CXjEGLnjudLo6RX6nb83iVvU0zEiRjf3sU+tntxPeIRw=" noAprobacion="55863" anoAprobacion="2010" formaDePago="PAGO EN UNA SOLA EXHIBICION" noCertificado="30001000000100000801" certificado="MIIE/TCCA+WgAwIBAgIUMzAwMDEwMDAwMDAxMDAwMDA4MDEwDQYJKoZIhvcNAQEFBQAwggFvMRgwFgYDVQQDDA9BLkMuIGRlIHBydWViYXMxLzAtBgNVBAoMJlNlcnZpY2lvIGRlIEFkbWluaXN0cmFjacOzbiBUcmlidXRhcmlhMTgwNgYDVQQLDC9BZG1pbmlzdHJhY2nDs24gZGUgU2VndXJpZGFkIGRlIGxhIEluZm9ybWFjacOzbjEpMCcGCSqGSIb3DQEJARYaYXNpc25ldEBwcnVlYmFzLnNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxEjAQBgNVBAcMCUNveW9hY8OhbjEVMBMGA1UELRMMU0FUOTcwNzAxTk4zMTIwMAYJKoZIhvcNAQkCDCNSZXNwb25zYWJsZTogSMOpY3RvciBPcm5lbGFzIEFyY2lnYTAeFw0xMDA3MzAxNjU4NDFaFw0xMjA3MjkxNjU4NDFaMIGWMRIwEAYDVQQDDAlNYXRyaXogU0ExEjAQBgNVBCkMCU1hdHJpeiBTQTESMBAGA1UECgwJTWF0cml6IFNBMSUwIwYDVQQtExxBQUEwMTAxMDFBQUEgLyBBQUFBMDEwMTAxQUFBMR4wHAYDVQQFExUgLyBBQUFBMDEwMTAxSERGUlhYMDExETAPBgNVBAsMCFVuaWRhZCAyMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCgkoIKLkYQBJdR1JjkRCq/T0JqB5kOaNw9naqvrp7Os3yKlWRN+J7a9XKuY8H5/NyjUFTC2F93x2oEQJoFfHCNXy5EGE1rZzjHAZbVzGxxtIu1ZZAxu8UYKbfrjc/UVUGjW7i+5rKxrZcEMJOzpkrsq0+EakzLBMEZuRjuBsgQ6wIDAQABo4HqMIHnMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMB0GA1UdDgQWBBSgN7w/3u0eiXhpkmoS0iAht8lhQzAuBgNVHR8EJzAlMCOgIaAfhh1odHRwOi8vcGtpLnNhdC5nb2IubXgvc2F0LmNybDAzBggrBgEFBQcBAQQnMCUwIwYIKwYBBQUHMAGGF2h0dHA6Ly9vY3NwLnNhdC5nb2IubXgvMB8GA1UdIwQYMBaAFOtZfQQimlONnnEaoFiWKfU54KDFMBAGA1UdIAQJMAcwBQYDKgMEMBMGA1UdJQQMMAoGCCsGAQUFBwMCMA0GCSqGSIb3DQEBBQUAA4IBAQCDc400iPAeeKzfonxcxNjXxUx6JKTeGTC3FaXtOPZn9Goh5nnk3iRK0laPESJFQIk7q1ztrK9Vzf4si6fV2Q8jknVQEA6qzkey7zUHP0pj9JSila217rJQuJOFW7ICTiXmgKOuJAbFwfnVyXXlBsgA6EOZcTDtkQJ0oDcjx/nnmh6qFxoK0k8J9RHZjF2bqulIogy5t2SRluRcjt7YMaDxse+kjGDCIIJemjYpwng2fwX/vozvKiBgZjQ8Y/HZg7C9etHlc1OETsRYY5PRyw8Dn0bEXshi5MfVRqPadfvHtL77wx2EK+Be96ibgkH1swNh7Vkga6Ej7Q0m8pc2QJHm" condicionesDePago="CONTADO" subTotal="50.00" descuento="0.00" total="58.00" tipoDeComprobante="traslado" xsi:schemaLocation="http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd" xmlns="http://www.sat.gob.mx/cfd/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Emisor rfc="REC0409215S1" nombre="mangueras_erp_test">
+        <DomicilioFiscal calle="PRESIDENTE CARDENAS 122 PTE. " noExterior="MARIANO ESCOBEDO 1210 NTE. CONTRO MONTER" noInterior="CENTRO" colonia="SALTILLO" localidad="SALTILLO" referencia="25000" municipio="asdf" estado="SALTILLO" pais="asdf" codigoPostal="12345"/>
+    </Emisor>
+    <Receptor rfc="MSF9601293Y0" nombre="MUELLES Y SUSPENSIONES FABIAN, S.A. DE C.V.">
+        <Domicilio calle="CHURUBUSCO 3007 NTE" colonia="INDUSTRIAS DEL VIDRIO" localidad="MONTERREY, N.L." municipio="asdf" estado="asdf" pais="asdf" codigoPostal="12345"/>
+    </Receptor>
+    <Conceptos>
+        <Concepto cantidad="1" unidad="c/u" descripcion="SERVICIO DE MAQUINADO DE PIEZAS" valorUnitario="50.00" importe="50.00"/>
+    </Conceptos>
+    <Impuestos>
+        <Traslados>
+            <Traslado impuesto="IVA" tasa="16" importe="8.00"/>
+        </Traslados>
+    </Impuestos>
+</Comprobante>

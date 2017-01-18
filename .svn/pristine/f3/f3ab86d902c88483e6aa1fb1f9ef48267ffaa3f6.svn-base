@@ -1,0 +1,17 @@
+/* 
+    Document   : index
+    Created on : Feb 15, 2010, 2:42:41 PM
+    Author     : roberto
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+

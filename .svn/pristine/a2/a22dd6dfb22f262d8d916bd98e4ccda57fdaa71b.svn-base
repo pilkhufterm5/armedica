@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Comprobante version="2.0" serie="A" folio="37" fecha="2010-08-25T16:48:00" sello="LPHpMZP8c1M7CLmo86L6Qm8gWRVjQwe3H09M2I1ruoGJ2BUF84F1bYSgUbJDALmxQ98gXRZsozHKqF7bnScfAUiGL389iiZl/PppnjFcg2Y+Ao7/2ZzL+gJEY1bAgkNWZjDVyfaSDSuI15OrJuzNc3mxh3tkpQaCypb/Fc21reE=" noAprobacion="46947" anoAprobacion="2010" formaDePago="PAGO EN UNA SOLA EXHIBICION" noCertificado="00001000000101270479" certificado="MIID9DCCAtygAwIBAgIUMDAwMDEwMDAwMDAxMDEyNzA0NzkwDQYJKoZIhvcNAQEFBQAwggE2MTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExHzAdBgkqhkiG9w0BCQEWEGFjb2RzQHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxEzARBgNVBAcMCkN1YXVodGVtb2MxMzAxBgkqhkiG9w0BCQIMJFJlc3BvbnNhYmxlOiBGZXJuYW5kbyBNYXJ0w61uZXogQ29zczAeFw0xMDAzMDUxNTI2NDRaFw0xMjAzMDQxNTI2NDRaMIGUMREwDwYDVQQDEwhSRUFMSE9TVDERMA8GA1UEKRMIUkVBTEhPU1QxETAPBgNVBAoTCFJFQUxIT1NUMSUwIwYDVQQtExxSRUEwODAxMDhGUzAgLyBMRUdSNzUxMTA5STkxMR4wHAYDVQQFExUgLyBMRUdSNzUxMTA5SE5MTFJCMDgxEjAQBgNVBAsTCU1PTlRFUlJFWTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA5Yuh/CQjm88uYfrMFnWHIPlwB+TlqXZvIYzgrJ/7E913jlpUgkZiN2A+dkvAUlO3vw+ZHQckUO5e3xTmibwq3RUd+nvN1e3wNULXcIK/FEWoyjW/xJTBlUtlAWdL3AGfhhoha5MxhrwxY8Llm/CMp+Jlc4ElZOpQLjCPlKMk990CAwEAAaMdMBswDAYDVR0TAQH/BAIwADALBgNVHQ8EBAMCBsAwDQYJKoZIhvcNAQEFBQADggEBACzzy9t/f5FfwPTzbJzAJFOiCEvRnys2Z56N26JMl3YCIi++S5GzLJR9YHPYYjHjNemB3357Zzq1Q896KlyEeGAEBkDYC7zRzW198AZo3J0VqXnZj/OEjQjgrF3CrUuUyYMVHpYGpRWBeVb0A028br7ZQTM+E7Fn31eBmN+QJgCL5lFDG9jR79sC+itPc1c25MwkhxvAYRne7dnlKf3NlMqQ+EeEtkikuMPGjkq4fvk+MiWIkIIFFtCns3fPn1BpZsVOgBy1bLqnICVZenoEeSJTsMK3V2eNREO3pOstQ7Cslq9/+XS3K9qJgcvnQWJBpOY9SeOBfs4IusKJ1CeMXJY=" condicionesDePago="Al dia 20 del Mes Actual" subTotal="200.00" descuento="0.00" total="232.00" tipoDeComprobante="traslado" xsi:schemaLocation="http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd" xmlns="http://www.sat.gob.mx/cfd/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Emisor rfc="REA080108FS0" nombre="realhost">
+        <DomicilioFiscal calle="Escobedo" noExterior="342 " colonia="Centro" localidad="Centro" municipio="Monterrey" estado="Centro" pais="Mexico" codigoPostal="64000"/>
+    </Emisor>
+    <Receptor rfc="XAXX010101000" nombre="ALTUS Condominio">
+        <Domicilio calle="AV DIEGO DIAZ DE BERLANGA" noExterior="511" colonia="SANTO DOMINGOs" municipio="SAN NICOLAS DE LOS GARZA" estado="NUEVO LEON" pais="MEXICO" codigoPostal="66437"/>
+    </Receptor>
+    <Conceptos>
+        <Concepto cantidad="1" unidad="c/u" descripcion="serv" valorUnitario="200" importe="200"/>
+    </Conceptos>
+    <Impuestos>
+        <Traslados>
+            <Traslado impuesto="IVA" tasa="16" importe="32.00"/>
+        </Traslados>
+    </Impuestos>
+</Comprobante>

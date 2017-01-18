@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.realhost.com.mx/schema" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.realhost.com.mx/schema" elementFormDefault="qualified">
+    <!--
+    <xs:complexType name="miNodo">
+        <xs:attribute name="miAtributo" use="required">
+                <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                                <xs:minLength value="1"/>
+                        </xs:restriction>
+                </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    -->
+    <xs:element name="miNodo">
+      <xs:complexType>
+          <xs:attribute name="miAtributo" type="xs:string">
+          </xs:attribute>
+      </xs:complexType>
+    </xs:element>
+</xs:schema>

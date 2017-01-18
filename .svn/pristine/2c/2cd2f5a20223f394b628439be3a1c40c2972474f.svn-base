@@ -1,0 +1,19 @@
+table#table_id{
+	width: 100%;
+}
+table#table_id tr td:last-child{
+	  text-align: center;
+	  color: red;
+}
+table#table_id tr td:last-child a{
+	/*padding: 0.3rem;*/
+}
+.fi-pencil{
+	color:orange;
+}
+.fi-x{
+	color:red;
+}
+.fi-info{
+	color:#62C313;
+}

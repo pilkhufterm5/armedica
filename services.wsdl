@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<wsdl:definitions targetNamespace="urn:RealhostAPI" xmlns:tns="urn:RealhostAPI" 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+<wsdl:types> <!-- "WSDL" namespace is important-->
+<xsd:schema targetNamespace="urn:RealhostAPI" xmlns:test="http://www.test.com/schema">
+<!-- *************************** Start of Schemas ********************************** -->
+
+<!-- Start of getRecordRequest --> 
+<!-- type address starts -->
+
+<!--- type address ends -->
+
+ <xsd:element name="getRecordRequest">
+     <xsd:complexType>
+      <xsd:sequence>
+       <xsd:element name="ItemInformation">
+       <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="stockid" type="xs:string" minOccurs="1" />
+            <xsd:element name="rfc" type="xs:string" minOccurs="1" /> <!-- PHP SOAP Client DOES CHECK minOccurs -->
+         </xsd:sequence>
+       </xsd:complexType>
+       </xsd:element>       
+      </xsd:sequence>
+     </xsd:complexType>
+ </xsd:element>
+   
+ <!-- End of getRecordRequest Structure -->
+ 
+ <!-- Start of getRecordResponse --> 
+ <xsd:element name="getRecordResponse">
+     <xsd:complexType>
+      <xsd:sequence>
+       <xsd:element name="price" type="xs:string" />
+      </xsd:sequence>
+     </xsd:complexType>
+ </xsd:element>
+ <!-- End of getSUMresponse Structure -->
+ 
+ 
+<!-- *************************** End of Schemas ************************************ -->
+ 
+ </xsd:schema>
+</wsdl:types>
+	
+<!-- Input message -->
+<wsdl:message name="getRecordRequest">
+<wsdl:part name="parameters" element="tns:getRecordRequest"/>
+</wsdl:message>
+<!-- Output Message -->
+<wsdl:message name="getRecordResponse">
+<wsdl:part name="price" element="tns:getRecordResponse"/>
+</wsdl:message>
+
+<!-- Port for Example API -->
+<wsdl:portType name="UserOperations">
+<wsdl:operation name="getRecord"> <!-- Important. Name of the actual function-->
+<wsdl:input message="getRecordRequest"/>
+<wsdl:output message="getRecordResponse"/>
+</wsdl:operation>
+<!-- Other operations -->
+</wsdl:portType>
+
+
+<!-- Binding for Example API - Document/literal, SOAP over HTTP -->
+<wsdl:binding name="HTTPBinding" type="UserOperations">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="getRecord">
+<soap:operation soapAction="getRecord"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<!-- Other operations -->
+</wsdl:binding>
+
+<!-- Endpoint for Example API -->
+<wsdl:service name="RealhostService">
+<wsdl:port name="AnyPortName" binding="HTTPBinding">
+<soap:address location="http://127.0.0.1/weberp305/webs_server.php"/> <!-- Important to have absolute URL, else it won't work -->
+</wsdl:port>
+</wsdl:service>
+
+
+</wsdl:definitions>

@@ -1,0 +1,409 @@
+<?php
+
+/**
+*
+*/
+class ReportesController extends Controller {
+
+    public function actionRelacionvmaestros(){
+
+
+        FB::INFO($_POST,'____________________POST');
+        $MaestrosData = array();
+        if(!empty($_POST)){
+
+            if(!empty($_POST['FTITULAR'])){
+                $_POST['FOLIOS'] = implode(",", $_POST['FTITULAR']);
+            }
+            FB::INFO($_POST,'_______________________POST2');
+
+            if(isset($_POST['IMPRIMIR'])){
+                global $db, $db_, $host, $dbuser, $dbpassword;;
+                $db_ = $db;
+                FB::INFO($db_,'________CONECTION');
+                include_once ($_SERVER['LocalERP_path'] . '/PHPJasperXML/formasmaestros.php');
+                exit;
+            }
+
+            $WhereString = " 1 = 1 ";
+
+            if (!empty($_POST['EMPRESA'])) {
+                $WhereString .= " AND cobranza.empresa = :empresa";
+                $WhereParams[':empresa'] = $_POST['EMPRESA'];
+            }
+
+            if (!empty($_POST['STATUS'])) {
+                //$Status = implode(",", $_POST['STATUS']);
+                $WhereString .= " AND titular.movimientos_afiliacion = :status ";
+                $WhereParams[':status'] = $_POST['STATUS'];
+            }
+
+            if (!empty($_POST['JUBILADOS'])) {
+                $WhereString .= " AND cobranza.sm_clavefiliacion LIKE 'E%'";
+                //$WhereParams[':status'] = $_POST['JUBILADOS'];
+                $Complemento = " , (sm_clavefiliacion) as num_empleado ";
+            }
+
+            if (!empty($_POST['QUINCENA']) && !empty($_POST['ANIO'])) {
+                //$Status = implode(",", $_POST['STATUS']);
+                $WhereString .= " AND cobranza.sm_vigencia = :vigencia ";
+                $WhereParams[':vigencia'] = $_POST['QUINCENA'] . '-' . $_POST['ANIO'];
+            }
+
+            // FB::INFO($WhereString, '_____________WHERE');
+            // FB::INFO($WhereParams, '_____________PARAMS');
+            $MaestrosData = Yii::app()->db->createCommand()->select("
+                cobranza.num_empleado,
+                cobranza.sm_depto,
+                cobranza.sm_vigencia,
+                cobranza.sm_vigencia_final,
+                (cobranza.sm_clavefiliacion) AS CLAVEFILIACION,
+                titular.costo_total,
+                CONCAT(titular.name,' ',titular.apellidos) as NombreTitular,
+                (titular.folio) FolioTitular,
+                cobranza.empresa,
+                titular.address1,
+                titular.address2,
+                titular.address4,
+                titular.address7,
+                titular.rh_tel" . $Complemento)
+            ->from("rh_titular titular")
+            ->leftjoin("rh_cobranza cobranza", "cobranza.folio = titular.folio")
+            ->where($WhereString, $WhereParams)
+            ->queryAll();
+
+        }
+
+        $this->render("relacionvmaestros", array("MaestrosData" => $MaestrosData));
+    }
+
+
+    public function actionRelacionvmaestros21(){
+
+
+        FB::INFO($_POST,'____________________POST');
+        $MaestrosData = array();
+        if(!empty($_POST)){
+
+            if(!empty($_POST['FTITULAR'])){
+                $_POST['FOLIOS'] = implode(",", $_POST['FTITULAR']);
+            }
+            FB::INFO($_POST,'_______________________POST2');
+
+            if(isset($_POST['IMPRIMIR'])){
+                global $db, $db_, $host, $dbuser, $dbpassword;;
+                $db_ = $db;
+                FB::INFO($db_,'________CONECTION');
+                include_once ($_SERVER['LocalERP_path'] . '/PHPJasperXML/formasmaestros.php');
+                exit;
+            }
+
+            $WhereString = " 1 = 1 ";
+
+            if (!empty($_POST['EMPRESA'])) {
+                $WhereString .= " AND cobranza.empresa = :empresa";
+                $WhereParams[':empresa'] = $_POST['EMPRESA'];
+            }
+
+            if (!empty($_POST['STATUS'])) {
+                //$Status = implode(",", $_POST['STATUS']);
+                $WhereString .= " AND titular.movimientos_afiliacion = :status ";
+                $WhereParams[':status'] = $_POST['STATUS'];
+            }
+
+            if (!empty($_POST['QUINCENA']) && !empty($_POST['ANIO'])) {
+                //$Status = implode(",", $_POST['STATUS']);
+                $WhereString .= " AND cobranza.sm_vigencia = :vigencia ";
+                $WhereParams[':vigencia'] = $_POST['QUINCENA'] . '-' . $_POST['ANIO'];
+
+            }
+
+
+            // FB::INFO($WhereString, '_____________WHERE');
+            // FB::INFO($WhereParams, '_____________PARAMS');
+            $MaestrosData = Yii::app()->db->createCommand()->select("
+                cobranza.num_empleado,
+                cobranza.sm_clavefiliacion,
+                cobranza.sm_depto,
+                cobranza.sm_cpresupuestal,
+                cobranza.sm_vigencia,
+                cobranza.sm_vigencia_final,
+                titular.costo_total,
+                CONCAT(titular.name,' ',titular.apellidos) as NombreTitular,
+                (titular.folio) FolioTitular,
+                cobranza.empresa,
+                titular.address1,
+                titular.address2,
+                titular.address4,
+                titular.address7,
+                titular.rh_tel")
+            ->from("rh_titular titular")
+            ->leftjoin("rh_cobranza cobranza", "cobranza.folio = titular.folio")
+            ->where($WhereString, $WhereParams)
+            ->queryAll();
+
+        }
+
+        $this->render("relacionvmaestros21", array("MaestrosData" => $MaestrosData));
+    }
+
+    public function actionEstadoscuenta(){
+
+        global $db, $db_, $host, $dbuser, $dbpassword;;
+        $db_ = $db;
+
+        if(empty($_POST['FINICIO'])){
+            $_POST['FINICIO'] = date('Y-m-d', mktime(0, 0, 0, date("m") - 1, date("d"), date("Y")));
+            $_POST['FFIN'] = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")));
+        }
+
+        FB::INFO($_POST,'_______________________POST');
+
+        if(isset($_POST['SendMail']) && isset($_POST['FOLIO'])){
+            $attachment = array();
+            $Folio = $_POST['FOLIO'];
+            $GetEmail = Yii::app()->db->createCommand()->select(' email ')->from('rh_cobranza')->where('folio = "' . $Folio . '"')->queryAll();
+            $EmailTo = explode(",", str_replace(array(';',' '), ',', $GetEmail[0]['email']));
+            $Para = "";
+            $Para= str_replace(",,",",",implode(",",array_map(function($arreglo){
+                                                                return trim($arreglo);
+                                                            }, $EmailTo)));
+            $EmailTo[0] = $Para;
+            // $EmailTo = array();
+            // $EmailTo[0] = "erasto@realhost.com.mx";
+
+            $AddCC = "claudia.barrientos@armedica.com.mx";
+            $BCC ="erasto@realhost.com.mx,rleal@realhost.com.mx";
+            FB::INFO($EmailTo,'_______________________EMAIL');
+
+            $from = 'AR MEDICA';
+            $To = $EmailTo[0];
+            $Subject = 'Estado de Cuenta Folio: ' . $Folio;
+            $Mensaje = 'Estados de Cuenta';
+
+            /*Get PDF*/
+            $PDF = $this->actionGeneraestadocuenta('',$Ret = 'S', $Folio, $_POST);
+            $attachment[] = array('nombre'=>"EstadoCuenta-{$Folio}.pdf",'archivo'=>$PDF);
+            try {
+                $Response = $this->EnviarMail($from, $To, $Subject, $Mensaje, $attachment , $BCC, $repplyTo = '', $AddCC);
+                if ($Response == "success") {
+                    Yii::app()->user->setFlash("success", "Los Estados de Cuenta se han enviado Correctamente . ");
+                }
+            } catch (Exception $e) {
+                Yii::app()->user->setFlash("error", "Ocurrio un problema al Enviar el E-Mail: " . $e->getMessage());
+            }
+            $this->redirect($this->createUrl("reportes/estadoscuenta"));
+            exit;
+        }
+
+
+        if(isset($_POST['IMPRIMIR'])){
+            include_once ($_SERVER['LocalERP_path'] . '/PHPJasperXML/estadoscuenta.php');
+            exit;
+        }
+
+        $this->render("estadoscuenta");
+    }
+
+    /**
+    * @todo
+    * Genera PDF Estados de Cuenta para enviar por Email
+    * */
+    public function actionGeneraestadocuenta($name = '', $Ret = 'S', $Folio = null, $ArrayPOST){
+        global $db, $db_, $host, $dbuser, $dbpassword;
+        $_POST = $ArrayPOST;
+
+        /*
+        array(
+            ['STATUS'] =>'Activo'
+            ['FINICIO'] =>'2014-12-28'
+            ['FFIN'] =>'2015-01-28'
+            ['FOLIO'] =>20490
+            ['IMPRIMIR'] =>'Imprimir Estados de Cuenta'
+        )
+        */
+        $bufer = true;
+        include($_SERVER['LocalERP_path'] . '/PHPJasperXML/estadoscuenta.php');
+        return $bufer;
+    }
+
+
+
+    public function actionAsmxinsert(){
+        FB::INFO($_POST,'_______________________POST');
+        if(!empty($_POST['SendXML']) && !empty($_POST['XML'])){
+            try {
+                $SQLServerWS = new SQLServerWS();
+                $InsertAction = "http://tempuri.org/insert";
+                $ServiceURL = $SQLServerWS->ServiceURL;
+                $XMLINSERT = $_POST['XML'];
+
+                $INSERT = $SQLServerWS->InsertInToWS($XMLINSERT, $ServiceURL, array('SOAPAction: ' . $InsertAction))->saveXML();
+                $SQLServerWS->UpdateTransLog($SQLServerWS->LogID, $INSERT);
+                FB::INFO($INSERT,'____________________RESPONSE');
+                Yii::app()->user->setFlash("success", "Enviado Correctamente.");
+            } catch (Exception $e) {
+                FB::INFO($e->getMessage(), "Error: ");
+            }
+        }
+
+        $this->render("asmxinsert");
+    }
+
+
+
+    /*
+    2015012007000116
+    1)      Blanco:  espacio en blanco
+    2)      BANCOREC:  el campo de Convenio en pestaña de cobranza dentro de Afiliaciones
+    3)      TIPOCTA=Dato fijo siempre 3
+    4)      CUENTA:  Campo No. De Cuenta en pestaña de cobranza dentro de Afiliaciones
+    5)      IMPORTE=Campo Tarifa del Folio
+    6)      NOMBRE=Nombre y/o Razón Social del Folio
+
+    7)      EMP1=SERVICIOS MEDICOS DE EMERGENCIAS (FIJO)
+    8)      EMP2=AR EMERGENCIAS(FIJO)
+    9)      FOLIO=Campo de Número de Folio del Titular
+    10)  EMP3=AR EMERGENCIAS (FIJO)
+    11)  DESTATUS=Campo ESTATUS DEL FOLIO
+    12)  DCOBRO=Al día de cobro o día de la semana de cobro del folio
+    */
+    public function actionTarjetas(){
+
+        $GetData = Yii::app()->db->createCommand()->select("
+            '' as BLANCO,
+            (conv.bcotrans) AS BANCOREC,
+            (3) AS TIPOCTA,
+            (cobranza.num_plastico) AS CUENTA,
+            (titular.costo_total) AS IMPORTE,
+            CONCAT(titular.name,' ',titular.apellidos) AS NOMBRE,
+            'SERVICIOS MEDICOS DE EMERGENCIAS' AS EMP1,
+            'AR EMERGENCIAS' AS EMP2,
+            (titular.folio) AS FOLIO,
+            'AR EMERGENCIAS' AS EMP3,
+            (titular.movimientos_afiliacion) AS DESTATUS,
+            (cobranza.dias_cobro) AS TIPO_DIA_COBRO,
+            (cobranza.dias_cobro_dia) AS DCOBRO
+            ")
+        ->from("rh_titular titular")
+        ->leftjoin("rh_cobranza cobranza", "cobranza.folio = titular.folio")
+        ->leftjoin("rh_foliosasignados fasig", "fasig.folio = titular.folio")
+        ->leftjoin("rh_convenios conv", "conv.id = cobranza.convenio")
+        ->where("fasig.tipo_membresia = 'Socio'
+            AND titular.movimientos_afiliacion IN ('Activo', 'Suspendido')
+            AND cobranza.paymentid IN (10) ")
+        ->queryAll();
+
+
+        $this->render("tarjetas", array("GetData" => $GetData));
+    }
+
+
+
+    /*
+    2015012007000125
+    No. SOCIO     = Número del Socio de Afiliaciones
+    Nombre y/o Razón Social   = Nombre de  Pestaña Afiliaciones
+    Fecha de inscripción   = Fecha de Ingreso de Pestaña Afiliaciones
+    Estatus del titular   = Estatus de Pestaña Afiliaciones (Activo, Suspendido, Cancelado)
+    Plan o producto  (agregar)  = Plan de Pestaña Cobranza
+    Forma de pago    = Forma pago de Pestaña Cobranza
+    Frecuencia de pago   = Frecuencia de Pago de Pestaña Cobranza
+    Facturas Vencidas   = Número de Facturas Vencidas
+    Saldo Vencido    = Total de las Facturas Vencidas
+    Candidato a:  es un dato calculado = Texto Dependiendo del Número de Facturas Vencidas:
+    SUSPENSIÓN(si esta Activo y tiene 3 ó mas facturas vencidas),
+    ACTIVACIÓN(si esta Suspendido y tiene 2 o Menos facturas vencidas)
+    */
+    public function actionCandidatossuspension(){
+        FB::INFO($_POST,'_____________________-POST');
+        $WhereString = " 1 = 1 ";
+        if(isset($_POST['BUSCAR'])){
+
+            if (!empty($_POST['FORMA_PAGO'])) {
+                $WhereString .= " AND cobranza.paymentid = :paymentid";
+                $WhereParams[':paymentid'] = $_POST['FORMA_PAGO'];
+            }
+
+            if (!empty($_POST['FRECUENCIA_PAGO'])) {
+                $WhereString .= " AND cobranza.frecuencia_pago = :frecuencia_pago";
+                $WhereParams[':frecuencia_pago'] = $_POST['FRECUENCIA_PAGO'];
+            }
+
+            if (!empty($_POST['PLAN'])) {
+                $WhereString .= " AND cobranza.stockid = :stockid";
+                $WhereParams[':stockid'] = $_POST['PLAN'];
+            }
+
+            if (!empty($_POST['STATUS'])) {
+                $WhereString .= " AND titular.movimientos_afiliacion = :status ";
+                $WhereParams[':status'] = $_POST['STATUS'];
+            }
+
+            if (!empty($_POST['INICIO']) && !empty($_POST['FIN'])) {
+                $WhereString .= " AND (date(titular.fecha_ingreso) >= date(:inicio) AND date(titular.fecha_ingreso) <= date(:fin)) ";
+                $WhereParams[':inicio'] = $_POST['INICIO'];
+                $WhereParams[':fin'] = $_POST['FIN'];
+            }
+        }
+
+        FB::INFO($WhereString,'____________WHERE');
+        FB::INFO($WhereParams,'____________WHEREPARAMS');
+
+        $GetData = Yii::app()->db->createCommand()->select("
+            (titular.folio) AS NoSOCIO,
+            CONCAT(titular.name,' ',titular.apellidos) AS NOMBRE,
+            (titular.fecha_ingreso) AS FECHA_INSCIPCION,
+            (titular.movimientos_afiliacion) AS ESTATUS_TITULAR,
+            (stkm.description) AS PLAN,
+            (pm.paymentname) AS FORMA_PAGO,
+            (fp.frecuencia) AS FRECUENCIA_PAGO,
+            (SELECT sum(1)
+                FROM debtortrans dt
+                WHERE (TO_DAYS(from_unixtime(unix_timestamp())) - (TO_DAYS(trandate) + dm.paymentterms))>1
+                AND dt.debtorno =dm.debtorno
+                AND dt.settled = 0) AS FACTURAS_VENCIDAS,
+            (SELECT sum(dt.ovamount + dt.ovgst + dt.ovfreight + dt.ovdiscount- dt.alloc)
+                FROM debtortrans dt
+                WHERE (TO_DAYS(from_unixtime(unix_timestamp())) - (TO_DAYS(trandate) + dm.paymentterms))>1
+                AND dt.debtorno =dm.debtorno
+                AND dt.settled = 0) AS SALDO_VENCIDO
+            ")
+        ->from("rh_titular titular")
+        ->leftjoin("rh_foliosasignados fasig", "fasig.folio = titular.folio")
+        ->leftjoin("rh_cobranza cobranza", "cobranza.folio = titular.folio")
+        ->leftjoin("debtorsmaster dm", "dm.debtorno = titular.debtorno")
+        ->leftjoin("stockmaster stkm", "stkm.stockid = cobranza.stockid")
+        ->leftjoin("paymentmethods pm", "cobranza.paymentid = pm.paymentid")
+        ->leftjoin("rh_frecuenciapago fp", "cobranza.frecuencia_pago = fp.id")
+        ->where($WhereString ." AND fasig.tipo_membresia = 'Socio'
+            AND titular.movimientos_afiliacion IN ('Activo', 'Suspendido')
+            HAVING FACTURAS_VENCIDAS > 0 ", $WhereParams)
+        //->limit("10")
+        ->queryAll();
+
+        //FB::INFO($GetData,'___________________DATA');
+
+        $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(), 'paymentid', 'paymentname');
+        $ListaFrecuenciaPago = CHtml::listData(FrecuenciaPago::model()->findAll(), 'id', 'frecuencia');
+        $_ListaPlanes = Yii::app()->db->createCommand()->select(' stockid, description ')->from('stockmaster')->where('categoryid = "AFIL" ORDER BY stockid ASC')->queryAll();
+        $ListaPlanes = array();
+        foreach ($_ListaPlanes as $Planes) {
+            $ListaPlanes[$Planes['stockid']] = $Planes['description'];
+        }
+
+
+        $this->render("candidatossuspension", array(
+            "Candidatos" => $GetData,
+            "ListaFormasPago" => $ListaFormasPago,
+            "ListaFrecuenciaPago" => $ListaFrecuenciaPago,
+            "ListaPlanes" => $ListaPlanes
+            ));
+    }
+
+
+
+
+
+}
+

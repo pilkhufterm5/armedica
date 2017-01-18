@@ -1,0 +1,7 @@
+|REA080108FS2|A|14|201046947|30/07/2010 22:22:22|120.00|20.00|1|I|miNumero3,miNumero2,miNumero1|miAduanita3,miAduanita2,miAduanita1|miAduanita3,miAduanita2,miAduanita1|
+|REA080108FS2|A|15|201046947|30/07/2010 22:22:22|120.00|20.00|1|I|miNumero2,miNumero1,miNumero3,miNumero2,miNumero1|miAduanita2,miAduanita1,miAduanita3,miAduanita2,miAduanita1|miAduanita2,miAduanita1,miAduanita3,miAduanita2,miAduanita1|
+|REA080108FS2|A|16|201046947|30/07/2010 22:22:22|120.00|20.00|1|I|miNumero3,miNumero3|miAduanita2s,miAduanita1s|miAduanita2s,miAduanita1s|
+|REA080108FS2|A|18|201046947|30/07/2010 22:22:22|120.00|20.00|1|E|miNumero3|miAduanita2s|miAduanita2s|
+|REA080108FS2|A|19|201046947|30/07/2010 22:22:22|120.00|20.00|1|E||||
+|REA080108FS2|A|20|201046947|30/07/2010 22:22:22|120.00|20.00|1|T||||
+|REA080108FS2|A|21|201046947|30/07/2010 22:22:22|251.88|151.88|1|T||||

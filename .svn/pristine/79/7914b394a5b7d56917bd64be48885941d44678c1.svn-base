@@ -1,0 +1,406 @@
+<script type="text/javascript">
+    $(document).on('ready', function() {
+        $('#Fecha_Baja').datepicker({
+            dateFormat : 'yy-mm-dd'
+        });
+        $('#Fecha_Cancelacion_Efectiva').datepicker({
+            dateFormat : 'yy-mm-dd'
+        });
+
+        $('#M_Cancelacion').select2();
+
+        /*Confirma Cancelacion del Folio*/
+        $('#Cancelar').click(function(){
+            $('<div></div>').appendTo('body')
+            .html('<div><h6>Esta seguro de Cancelar el Folio: <?=$_POST['Folio']?></h6></div>')
+            .dialog({
+                modal: true, title: 'Cancelar Folio', zIndex: 10000, autoOpen: true,
+                top: 800,
+                width: 400,
+                resizable: false,
+                buttons: [{
+                    text: "SI",
+                        click: function() {
+                            $('#Modal-Cancelar').modal('show');
+                            $(this).dialog("close");
+                        }
+                    },
+                    {
+                    text: "NO",
+                        click: function() {
+                            $(this).dialog("close");
+                        }
+                }],
+                close: function (event, ui) {
+                    $(this).remove();
+                }
+            });
+        });
+
+        /*Abre Modal Suspension*/
+        $('#Suspender').click(function(){
+            if (confirm('Esta seguro de Suspender el Folio: <?=$_POST['Folio']?>')) {
+                $('#ModalLabelSuspensionA').text('Suspender Folio <?=$_POST['Folio']?>');
+                $('#Modal_SuspenderAfiliado').modal('show');
+            } else {
+                // Do nothing!
+            };
+        });
+
+        /*Abre Modal Levantar Suspension*/
+        $('#LSuspension').click(function(){
+            if (confirm('Esta seguro de Levantar la Suspensión al Folio: <?=$_POST['Folio']?>')) {
+                $('#ModalLabelReactivacion').text('Reactivar Folio <?=$_POST['Folio']?>');
+                $('#Reac_DebtorNo').val(<?=$_POST['debtorno']?>);
+                $('#Reac_Tipo').val('LevantaSuspencion');
+                $('#Modal_ReactivarAfiliado').modal('show');
+            } else {
+                // Do nothing!
+            };
+        });
+
+        $('#Reactivar').click(function(){
+            if (confirm('Esta seguro de Reactivar el Folio: <?=$_POST['Folio']?>')) {
+                $('#ModalLabelReactivacion').text('Reactivar Folio <?=$_POST['Folio']?>');
+                $('#Reac_DebtorNo').val(<?=$_POST['debtorno']?>);
+                $('#Reac_Tipo').val('ReactivacionFolio');
+                $('#Modal_ReactivarAfiliado').modal('show');
+            } else {
+                // Do nothing!
+            };
+        });
+
+        /*Genera Cancelacion de Socio*/
+        $('#Create-Modal-Cancelar').click(function(){
+            var jqxhr = $.ajax({
+                url: "<?php echo $this->createUrl("afiliaciones/cancelarafiliado"); ?>",
+                type: "POST",
+                dataType : "json",
+                timeout : (120 * 1000),
+                data: {
+                      Cancelacion:{
+                          folio: $('#Folio').val(),
+                          fecha_baja: $('#Fecha_Baja').val(),
+                          fecha_cancelacion: $('#Fecha_Cancelacion_Efectiva').val(),
+                          motivo_cancelacion: $('select[id="M_Cancelacion"] :selected').val()
+                      },
+                },
+                success : function(data, newValue) {
+                    if (data.requestresult == 'ok') {
+                        displayNotify('success', data.message);
+                        $('#Modal-Cancelar').modal("toggle");
+                        $("#AFStatus").text("Afiliado Cancelado");
+                        $("#AFStatus").removeClass("badge-success");
+                        $("#AFStatus").addClass("badge-important");
+                        $("#UpdateData").hide();
+
+                        ConfirmPDF(data.CancelNo);
+                    }else{
+                        displayNotify('alert', data.message);
+                    }
+                },
+                error : ajaxError,
+            });
+        });
+        /*Confirmacion Abrir PDF*/
+        function ConfirmPDF(CancelNo){
+            Folio = $('#Folio').val();
+            $('<div></div>').appendTo('body')
+            .html('<div><h6>El Folio: <?=$_POST['Folio']?> ha sido Cancelado Correctamente.<br> Folio de Cancelacion: ' + CancelNo + ' <br> ¿Desea Imprimir el Reporte de Cancelación?</h6></div>')
+            .dialog({
+                modal: true, title: 'Cancelar Folio', zIndex: 10000, autoOpen: true,
+                top: 800,
+                width: 400,
+                resizable: false,
+                buttons: [{
+                    text: "SI",
+                        click: function() {
+                            OpenInNewTab("<?php echo $this->createUrl('afiliaciones/viewcancelpdf'); ?>&Folio=" + Folio + "&CancelNo=" + CancelNo);
+                            $('#LSuspension').hide();
+                            $('#Cancelar').hide();
+                            $('#Suspender').hide();
+                            $(this).dialog("close");
+                            //window.location = window.location;
+                        }
+                    },
+                    {
+                    text: "NO",
+                        click: function() {
+                            $(this).dialog("close");
+                        }
+                    }],
+                close: function (event, ui) {
+                    $(this).remove();
+                }
+            });
+        }
+
+        function OpenInNewTab(url ){
+            var win = window.open(url, '_blank');
+            win.focus();
+        }
+
+        <?php if($TipoMembresia == "Socio"){ ?>
+        $('#SaveData').click(function() {
+            var Counter = 0;
+            $(".SS").each(function(index){
+                if ($(this).is(":checked")){
+                    Counter++;
+                }
+            });
+            if(Counter == 0){
+                alert ('Debe seleccionar un servicio');
+                return false;
+            }
+            $("#AfiliacionForm").valid();
+        });
+        <?php } ?>
+
+
+        $('#Limpiar').click(function() {
+            //$("#AfiliacionForm").reset();
+            $("#AfiliacionForm input").val('');
+            $("#AfiliacionForm select option[value='']").attr("selected",true);
+            $("#Search").val('Buscar');
+            $("#Limpiar").val('Limpiar');
+            $("#UpdateData").val('Actualizar');
+            $("#SaveData").val('Guardar y Continuar');
+        });
+    });
+</script>
+<style>
+    input.mayusculas{
+        text-transform:uppercase;
+    }
+
+    input[type="text"]{
+        margin-bottom: 0px;
+     }
+    .btnSearch{
+        height: 35px;
+        margin-top: 10px;
+    }
+</style>
+
+<?php
+FB::INFO($_POST, 'POST');
+?>
+
+<div id="Modal-Cancelar" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Cancelación de Folio: <?=$_POST['Folio']?></h3>
+    </div>
+    <div class="modal-body">
+        <p>
+        <div class="row span12">
+            <div class="span6">
+                <label>Fecha Baja:</label>
+                <input id="Fecha_Baja" type="text" class="span6" />
+            </div>
+            <div class="span6">
+                <label>Cancelación Efectiva a partir de:</label>
+                <input id="Fecha_Cancelacion_Efectiva" type="text" class="span6" />
+            </div>
+        </div>
+
+        <div style="height: 80px;"></div>
+        <div class="row span12">
+            <label>Motivo Cancelación:</label>
+            <select id="M_Cancelacion" class="span6" >
+            <?php foreach($ListaMotivosCancelacion as $id => $Name){ ?>
+                <option value="<?=$id?>"><?=$Name?></option>
+            <?php } ?>
+            </select>
+        </div>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button id="Close-Modal-Cancelar" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="Create-Modal-Cancelar" class="btn btn-danger">Aceptar</button>
+    </div>
+</div>
+
+<?php include_once("afiliacion/modals/Afiliado_Suspender.php"); ?>
+<?php include_once("afiliacion/modals/Afiliado_Activar.php"); ?>
+
+<?php
+switch ($_POST['movimientos_afiliacion']) {
+    case 'Activo':
+        $BadgeType = "success";
+        break;
+    case 'Cancelado':
+        $BadgeType = "important";
+        break;
+    case 'Suspendido':
+        $BadgeType = "warning";
+        break;
+    default:
+        //$BadgeType = "info";
+        break;
+}
+?>
+
+<div style="height: 10px;"></div>
+<div class="container-fluid">
+    <a href="<?php echo $this->createUrl("afiliaciones/cobranza&Folio=" . $_POST['Folio']); ?>" ><input type="button" class="btn btn-small" value="Cobranza" /></a>
+    <?php if($TipoMembresia == "Socio"){ ?>
+    <a href="<?php echo $this->createUrl("afiliaciones/socios&Folio=" . $_POST['Folio']); ?>" ><input type="button" class="btn btn-small" value="Socios" /></a>
+    <?php } ?>
+</div>
+<form class="form-horizontal" id="AfiliacionForm" method="POST" action="<?php echo $this->createUrl("afiliaciones/afiliacion/"); ?>" >
+
+    <div class="container-fluid">
+        <div class="form-legend">&nbsp;<?php if(!empty($_POST['movimientos_afiliacion'])){ echo "<span id='AFStatus' class='badge badge-{$BadgeType}'>" . $TipoMembresia . " " . $_POST['movimientos_afiliacion']; } ?></span></div>
+        <div class="control-group row-fluid">
+            <div class="span12">
+                <div class="controls">
+                    <div class="span1">
+                        <label class="control-label"><?php echo _('Folio'); ?></label>
+                    </div>
+                    <div class="span10">
+                        <div class="controls">
+                            <input type="text" class="required" id="Folio" name="Folio" value="<?=$_POST['Folio']?>" style="width: 100px;" />
+                            <input type="submit" id="Search" name="Search" class="btn btn-small btnSearch" value="Buscar"  />
+                            <a href="<?php echo $this->createUrl("afiliaciones/buscarfolio/"); ?>"><input type="button" id="SearchByName" name="SearchByName" class="btn btn-small btnSearch" value="Buscar por Nombre"  /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 10px;"></div>
+    <div id="Accordion" class="accordion">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#Accordion" href="#collapseOne">
+                    <?php echo _('Datos del Titular'); ?>
+                </a>
+            </div>
+
+            <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner" style="padding: 0px;" >
+                    <p>
+                        <?php include("afiliacion/contact_information.php"); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#Accordion" href="#collapseTwo">
+                    <?php echo _('Dirección'); ?>
+                </a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse in">
+                <div class="accordion-inner" style="padding: 0px;" >
+                    <p>
+                       <?php include("afiliacion/direccion.php"); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <?php if($TipoMembresia == "Socio"){ ?>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#Accordion" href="#collapseThree">
+                    <?php echo _('Servicios Seleccionados'); ?>
+                </a>
+            </div>
+            <div id="collapseThree" class="accordion-body collapse ">
+                <div class="accordion-inner" style="padding: 0px;">
+                    <p>
+                        <?php include("afiliacion/servicios_seleccionados.php"); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#Accordion" href="#collapseFour">
+                    <?php echo _('Examenes de Laboratorio'); ?>
+                </a>
+            </div>
+            <div id="collapseFour" class="accordion-body collapse">
+                <div class="accordion-inner" style="padding: 0px;" >
+                    <p>
+                        <?php include("afiliacion/examenes_laboratorio.php"); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#Accordion" href="#collapseFive">
+                    <?php echo _('Servicios Impartidos | Costos | Estado de Cuenta'); ?>
+                </a>
+            </div>
+            <div id="collapseFive" class="accordion-body collapse in">
+                <div class="accordion-inner" style="padding: 0px;" >
+                    <p>
+                        <?php include("afiliacion/servicios_impartidos.php"); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <?php if(($_SESSION['rh_AdminAfil'] == 1) && ($TipoMembresia == "Socio")){ ?>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#_Accordion" href="#collapse6">
+                    <?php echo _(' Movimientos de Afiliacion'); ?>
+                </a>
+            </div>
+            <div id="collapse6" class="accordion-body ">
+                <div class="accordion" style="padding: 0px;" >
+                    <div style="height: 10px;"></div>
+                    <p style="text-align: center;">
+                    <?php  ///PRINT BUTTONS
+                    switch ($_POST['movimientos_afiliacion']) {
+                        case 'Cancelado':
+                            echo '<a id="Reactivar" name="Reactivar" class="btn btn-success btn-large"><i class="icon-star icon-white" style="margin-top: 4px;"></i> Reactivar</a>&nbsp;';
+                            break;
+                        case 'Suspendido':
+                            echo '<a id="LSuspension" name="LSuspension" class="btn btn-info btn-large">   <i class="icon-star icon-white" style="margin-top: 4px;"></i > Levantar Suspension</a>&nbsp;';
+                            break;
+                        case 'Activo':
+                            echo '<a id="Cancelar"  name="Cancelar"  class="btn btn-danger btn-large" ><i class="icon-remove-sign icon-white" style="margin-top: 4px;"></i> Cancelar</a>&nbsp;';
+                            echo '<a id="Suspender" name="Suspender" class="btn btn-warning btn-large"><i class="icon-exclamation-sign icon-white" style="margin-top: 4px;"></i> Suspender</a>&nbsp;';
+                        break;
+                        default:
+
+                            break;
+                    }
+                    ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+
+    </div>
+
+    <div id="Savebtn" class="control-group row-fluid">
+        <div class="span2">
+            <?php if($_POST['Action'] == "UPDATE"){
+                if($_POST['movimientos_afiliacion'] == "Cancelado" || $_POST['movimientos_afiliacion'] == "Suspendido"){
+                    $Display = "display: none;";
+                }
+                ?>
+                <input type="submit" id="UpdateData" name="UpdateData" class="btn btn-large btn-success" value="Actualizar" style="margin-bottom: 0px; <?=$Display?>" />
+            <?php }else{ ?>
+                <input type="submit" id="SaveData" name="SaveData" class="btn btn-large btn-success" value="Guardar y Continuar" style="margin-bottom: 0px;" />&nbsp;
+            <?php } ?>
+        </div>
+        <div class="span2">
+        	<a href="<?php echo $this->createUrl("afiliaciones/afiliacion"); ?>"><input type="button" id="_Limpiar" name="_Limpiar" class="btn btn-large btn-success" value="Limpiar" style="margin-bottom: 0px;" /></a>
+       	</div>
+    </div>
+</form>

@@ -1,0 +1,3 @@
+INSERT INTO tmp_coordinadores (ar_id, sucursal, nombre)VALUES(1,'MTY','Empresa');
+INSERT INTO tmp_coordinadores (ar_id, sucursal, nombre)VALUES(3,'CHIHUAHUA','EMPRESA');
+

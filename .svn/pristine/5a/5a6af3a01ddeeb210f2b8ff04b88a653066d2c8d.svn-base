@@ -1,0 +1,80 @@
+<script type="text/javascript">
+    $(document).on('ready', function() {
+        $('#C_fecha_baja').datepicker({
+            dateFormat : 'yy-mm-dd', 
+            changeMonth: true, 
+            changeYear: true, 
+            yearRange: '-100:+5'
+        });
+        
+        $('#Send_Modal_CancelarSocio').click(function(){
+            var jqxhr = $.ajax({
+                url: "<?php echo $this->createUrl("afiliaciones/CancelarSocio"); ?>",
+                type: "POST",
+                dataType : "json",
+                timeout : (120 * 1000),
+                data: {
+                      Cancelar:{
+                          CFolio: '<?=$_POST['Folio']?>',
+                          CBranchCode: $('#Cancel_BranchCode').val(),
+                          CDebtorNo: $('#Cancel_DebtorNo').val(),
+                          CFecha_Baja: $('#C_fecha_baja').val(),
+                          CMotivos: $('#Motivo_Cancelacion').val(),
+                      },
+                },
+                success : function(data, newValue) {
+                    if (data.requestresult == 'ok') {
+                        displayNotify('success', data.message);
+                        $('#SociosTable #' + data.BranchCode).removeClass('warning');
+                        $('#SociosTable #' + data.BranchCode).addClass('danger');
+                    }else{
+                        displayNotify('alert', data.message);
+                    }
+                },
+                error : ajaxError
+            });
+        });
+    });
+    
+</script>
+<style>
+    .field-annotation{
+        top: 30px;
+    }
+</style>
+<div id="Modal_CancelarSocio" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="ModalLabelCancelacion"> </h3>
+    </div>
+    <div class="modal-body" style="height: 200px;">
+        <p>
+            <input type="hidden" id="Cancel_BranchCode" />
+            <input type="hidden" id="Cancel_DebtorNo" />
+            <div class="row span12">
+                <div class="span6 controls">
+                    <label class="control-label">Fecha Baja: </label>
+                    <input type="text" id="C_fecha_baja" class="span6" />
+                </div>
+            </div>
+            
+            <div class="row span12 ">
+                <div>
+                    <label>Motivo de Cancelación:</label>
+                    <select id="Motivo_Cancelacion" >
+                    <?php foreach($ListaMotivosCancelacion as $id => $Name){ ?>
+                        <option value="<?=$Name?>"><?=$Name?></option>
+                    <?php } ?>
+                    </select>
+                    
+                </div>
+            </div>
+            <div style="height: 20px;"></div>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button id="Close-Modal-CancelarSocio" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="Send_Modal_CancelarSocio" name="Modal_CancelarSocio" class="btn btn-danger" data-dismiss="modal" >Aceptar</button>
+    </div>
+</div>
+

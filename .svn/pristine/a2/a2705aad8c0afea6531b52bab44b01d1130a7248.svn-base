@@ -1,0 +1,208 @@
+ CREATE TABLE if not exists `temp_layout` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `moveno` varchar(20) DEFAULT '',
+  `fecha` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `rfc_iva` varchar(50) NOT NULL DEFAULT '',
+  `egreso` double NOT NULL DEFAULT '0',
+  `concepto` varchar(100) NOT NULL DEFAULT '',
+  `docto_cobrador` varchar(50) NOT NULL DEFAULT '',
+  `fechaLayout` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE if not exists `rh_stock_grupo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `clave` varchar(20) DEFAULT '',
+  `nombre` varchar(100) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+
+
+CREATE TABLE if not exists `rh_recepcion_dispositivos` (
+  `macaddress` varchar(17) NOT NULL,
+  `idgcm` longtext,
+  `sim` int(11) DEFAULT NULL,
+  `telefono` int(11) DEFAULT NULL,
+  `build_device` varchar(50) NOT NULL,
+  `build_display` varchar(50) NOT NULL,
+  `build_fingerprint` varchar(50) NOT NULL,
+  `build_hardware` varchar(50) NOT NULL,
+  `build_host` varchar(50) NOT NULL,
+  `build_id` varchar(50) NOT NULL,
+  `build_manufacturer` varchar(50) NOT NULL,
+  `build_model` varchar(50) NOT NULL,
+  `build_product` varchar(50) NOT NULL,
+  PRIMARY KEY (`macaddress`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE if not exists `rh_recepcion_scaneo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `podetailitem` int(11) NOT NULL,
+  `quantity` double NOT NULL,
+  `userid` varchar(20) NOT NULL,
+  `longitud` double NOT NULL,
+  `latitud` double NOT NULL,
+  `macaddress_disp` varchar(17) NOT NULL,
+  `datereceived` datetime NOT NULL,
+  `grnno` int(11) DEFAULT NULL,
+  `barcode` varchar(50) DEFAULT '',
+  `seriesDetalle` text,
+  PRIMARY KEY (`id`),
+  KEY `userid` (`userid`),
+  KEY `macaddress_disp` (`macaddress_disp`),
+  KEY `grnno` (`grnno`),
+  KEY `barcode` (`barcode`),
+  KEY `longitud` (`longitud`),
+  KEY `latitud` (`latitud`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE if not exists `rh_locstock_max_min_agr` (
+  `loccode` varchar(5) NOT NULL DEFAULT '',
+  `id_agrupador` varchar(20) NOT NULL DEFAULT '',
+  `quantity` double NOT NULL DEFAULT '0',
+  `maximo` bigint(20) NOT NULL DEFAULT '0',
+  `minimo` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`loccode`,`id_agrupador`),
+  KEY `StockID` (`id_agrupador`),
+  CONSTRAINT `rh_locstock_max_agr_ibfk_1` FOREIGN KEY (`loccode`) REFERENCES `locations` (`loccode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE if not exists `rh_loctransfers_scaneo` (
+  `reference` int(11) NOT NULL DEFAULT '0',
+  `stockid` varchar(20) NOT NULL DEFAULT '',
+  `recqty` double NOT NULL DEFAULT '0',
+  `userid` varchar(20) NOT NULL,
+  `longitud` double NOT NULL,
+  `latitud` double NOT NULL,
+  `macaddress_disp` varchar(17) NOT NULL,
+  `datereceived` datetime NOT NULL,
+  `type` smallint(6) DEFAULT NULL,
+  `transno` int(11) DEFAULT NULL,
+  `seriesDetalle` text,
+  KEY `stockid` (`stockid`),
+  KEY `reference_stk` (`reference`,`stockid`),
+  KEY `reference` (`reference`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE if not exists `rh_familia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `clave` varchar(20) DEFAULT '',
+  `nombre` varchar(100) DEFAULT '',
+  `categoria` int(11) DEFAULT 1,
+  PRIMARY KEY (`id`)
+  ,KEY `clave` (`clave`)
+  ,KEY `categoria` (`categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE  if not exists `rh_isssteleonWS` (
+  `MedicamentoId` int(11) NOT NULL DEFAULT '0',
+  `Medicamento` text NOT NULL,
+  `CodigoBarras` varchar(50) NOT NULL DEFAULT '',
+  `UnidadesSurtidas` varchar(5) NOT NULL,
+  `FechaInicial` datetime DEFAULT NULL,
+  `Comentarios` text NOT NULL,
+  `RecetaId` varchar(20) NOT NULL,
+  `FechaCreacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`MedicamentoId`,`CodigoBarras`,`RecetaId`),
+  KEY `MedicamentoId` (`MedicamentoId`),
+  KEY `CodigoBarras` (`CodigoBarras`),
+  KEY `RecetaId` (`RecetaId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `rh_familia_stock` (
+  `clave` varchar(20) NOT NULL DEFAULT '',
+  `stockid` varchar(20) NOT NULL DEFAULT '',
+  `categoria` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`clave`,`stockid`,`categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+drop procedure if exists rh_upgrade_database;
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE `rh_upgrade_database`()
+BEGIN
+	IF NOT EXISTS( (SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE()
+	AND TABLE_NAME='temp_layout'
+	AND COLUMN_NAME='moveno'
+	and COLUMN_TYPE='varchar(20)'
+  )) THEN
+  	alter table temp_layout modify moveno varchar(20) default '';
+  END IF;
+  IF NOT EXISTS( (SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE()
+	AND TABLE_NAME='temp_layout'
+	AND COLUMN_NAME='fechaLayout'
+  )) THEN
+  	alter table temp_layout add fechaLayout datetime;
+  END IF;
+  IF NOT EXISTS( (SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE()
+	AND TABLE_NAME='stockmaster'
+	AND COLUMN_NAME='id_agrupador'
+	and DATA_TYPE='int'
+  )) THEN
+  	alter table stockmaster modify id_agrupador varchar(20) DEFAULT '';
+  END IF;
+  IF NOT EXISTS( (SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE()
+	AND TABLE_NAME='stockmaster'
+	AND COLUMN_NAME='is_farmacia'
+  )) THEN
+  alter table stockmaster add  `rh_cantidadporunidad` int(11) NOT NULL;
+  END IF;
+  IF NOT EXISTS( (SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE()
+	AND TABLE_NAME='stockmaster'
+	AND COLUMN_NAME='is_farmacia'
+  )) THEN
+  alter table stockmaster add   `is_farmacia` tinyint(1) NOT NULL DEFAULT '0';
+  END IF;
+  IF NOT EXISTS( (SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE()
+	AND TABLE_NAME='purchorderdetails'
+	AND COLUMN_NAME='id_agrupador'
+  )) THEN
+  	alter table purchorderdetails add id_agrupador varchar(20) DEFAULT '';
+  END IF;
+  IF NOT EXISTS( (SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE()
+	AND TABLE_NAME='loctransfers'
+	AND COLUMN_NAME='serialno'
+  )) THEN
+  	alter table loctransfers add `serialno` varchar(30) NOT NULL DEFAULT '';
+  END IF;
+  IF NOT EXISTS( (SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE()
+	AND TABLE_NAME='loctransfers'
+	AND COLUMN_NAME='id'
+  )) THEN
+  	alter table loctransfers add id int(11) unsigned NOT NULL  primary key auto_increment;
+  END IF;
+  IF(NOT EXISTS(SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() 
+ 	AND TABLE_NAME='grns' 
+ 	and COLUMN_NAME='grnbatch' 
+ 	and DATA_TYPE='smallint'
+ )) THEN
+ 	alter table grns modify grnbatch int(11) NOT NULL DEFAULT '0';
+ END IF;
+ IF NOT EXISTS( (
+ SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() 
+ 	AND TABLE_NAME='rh_suppinvdetails' 
+ 	and COLUMN_NAME='transno' 
+ 	and COLUMN_KEY=''
+ 	)) THEN
+ 	 alter table rh_suppinvdetails add key (itemcode);
+	 alter table rh_suppinvdetails add key (transno);
+	 alter table rh_factura_oc add key (orderno);
+	 alter table rh_factura_oc add key (transno);
+	 alter table rh_factura_oc add key (type);
+	 alter table rh_factura_oc add key (grnno);
+ END IF;
+  IF NOT EXISTS( (SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE()
+	AND TABLE_NAME='stockmaster'
+	AND COLUMN_NAME='is_cortesia'
+  )) THEN
+  	ALTER TABLE stockmaster ADD  is_cortesia tinyint(1) NOT NULL DEFAULT 0;
+  	alter table stockmaster add key is_cortesia (is_cortesia);
+  END IF;
+  
+END $$
+
+DELIMITER ;
+call rh_upgrade_database();
+drop procedure rh_upgrade_database;

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sat.gob.mx/cfd/2" xsi:schemaLocation="http://www.sat.gob.mx/cfd/2 ../satFiles/cfdv2.xsd" version="2.0" folio="0000000000000000001" fecha="2010-03-02T00:00:00" sello="sello" noAprobacion="1000" anoAprobacion="2010" formaDePago="formaDePago" noCertificado="10001200000000022517" subTotal="100000" total="116000" tipoDeComprobante="traslado" serie="serie" certificado="certificado" condicionesDePago="condicionesDePago">
+  <Emisor rfc="REA080108F50" nombre="TRUNK">
+    <DomicilioFiscal calle="ESCOBEDO" municipio="MONTERREY" estado="NUEVO LEON" pais="MEXICO" codigoPostal="64000" noExterior="342 NTE" colonia="CENTRO"/>
+    <ExpedidoEn pais="MEXICO" calle="ESCOBEDO" noExterior="342 NTE" colonia="CENTRO" municipio="MONTERREY" estado="NUEVO LEON" codigoPostal="64000"/>
+  </Emisor>
+  <Receptor rfc="AAS000606QT1" nombre="ALTUS Condominio">
+    <Domicilio pais="MEXICO" calle="AV DIEGO DIAZ DE BERLANGA" noExterior="511" colonia="SAN NICOLAS DE LOS GARZA" municipio="MONTERREY" estado="NUEVO LEON" codigoPostal="64000"/>
+  </Receptor>
+  <Conceptos>
+    <Concepto cantidad="1" descripcion="Computadora de Escritorio" valorUnitario="10000.0000" importe="10000" unidad="c/u"/>
+    <Concepto cantidad="1" descripcion="Computadora de Escritorio" valorUnitario="10000.0000" importe="10000" unidad="each"/>
+    <Concepto cantidad="3" descripcion="Computadora de Escritorio" valorUnitario="10000.0000" importe="30000" unidad="each"/>
+    <Concepto cantidad="5" descripcion="Computadora de Escritorio" valorUnitario="10000.0000" importe="50000" unidad="each"/>
+  </Conceptos>
+  <Impuestos>
+    <Traslados>
+      <Traslado impuesto="IVA" tasa="16" importe="16000"/>
+    </Traslados>
+  </Impuestos>
+</Comprobante>

@@ -1,0 +1,93 @@
+<script type="text/javascript">
+    $(document).on('ready', function() {
+        $('#fecha_inicial').datepicker({
+            dateFormat : 'yy-mm-dd', 
+            changeMonth: true, 
+            changeYear: true, 
+            yearRange: '-100:+5'
+        });
+
+        $('#fecha_final').datepicker({
+            dateFormat : 'yy-mm-dd',
+            changeMonth: true, 
+            changeYear: true, 
+            yearRange: '-100:+5'
+        });
+        
+        $('#Send_Modal_SuspenderSocio').click(function(){
+            var jqxhr = $.ajax({
+                url: "<?php echo $this->createUrl("afiliaciones/SuspenderSocio"); ?>",
+                type: "POST",
+                dataType : "json",
+                timeout : (120 * 1000),
+                data: {
+                      Suspender:{
+                          SBranchCode: $('#Sus_BranchCode').val(),
+                          SDebtorNo: $('#Sus_DebtorNo').val(),
+                          SFecha_Inicial: $('#fecha_inicial').val(),
+                          SFecha_Final: $('#fecha_final').val(),
+                          SMotivos: $('#Motivo_Suspencion').val(),
+                      },
+                },
+                success : function(data, newValue) {
+                    if (data.requestresult == 'ok') {
+                        displayNotify('success', data.message);
+                        $('#SociosTable #' + data.BranchCode).addClass('warning');
+                    }else{
+                        displayNotify('alert', data.message);
+                    }
+                },
+                error : ajaxError
+            });
+        });
+    });
+    
+</script>
+<style>
+    .field-annotation{
+        top: 30px;
+    }
+</style>
+<div id="Modal_SuspenderSocio" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="ModalLabelSuspension"> </h3>
+    </div>
+    <div class="modal-body" style="height: 200px;">
+        <p>
+            <input type="hidden" id="Sus_BranchCode" />
+            <input type="hidden" id="Sus_DebtorNo" />
+            <div class="row span12">
+                <div class="span6 controls">
+                    <label class="control-label">Fecha Inicial: </label>
+                    <input type="text" id="fecha_inicial" class="span6" />
+                </div>
+                <div class="span6 controls">
+                    <label class="control-label">Fecha Final: </label>
+                    <input type="text" id="fecha_final" class="span6" />
+                </div>
+            </div>
+            
+            <div class="row span12 ">
+                <div>
+                    <label class="control-label">Motivo de Suspención: </label>
+                    <textarea id="Motivo_Suspencion"></textarea>
+                    <span class="field-annotation"></span>
+                    <script>
+                        $("#Motivo_Suspencion").charCount({
+                            allowed: 200,
+                            warning: 50,
+                            counterText: 'Caracteres restantes: '
+                        });
+                    </script>
+                </div>
+            </div>
+            <div style="height: 20px;"></div>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button id="Close-Modal-SuspenderSocio" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="Send_Modal_SuspenderSocio" name="Modal_SuspenderSocio" class="btn btn-danger" data-dismiss="modal" >Suspender</button>
+    </div>
+</div>
+

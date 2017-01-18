@@ -1,0 +1,193 @@
+<?php
+
+
+$PageSecurity = 2;
+
+include ('includes/session.inc');
+$title = _ ( 'Reporte CFD Mensual' );
+include ('includes/header.inc');
+include('XMLFacturacionElectronica/utils/File.php');
+require_once('Numbers/Words.php');
+if($_SESSION['CFDIVersion']==22){
+require_once('CFD22Manager.php');
+
+    function printDatosSat($datosSat){
+        $idWsCfd = $datosSat['idWsCfd'];
+        $noCertificado = $datosSat['noCertificado'];
+        $serie = $datosSat['serie'];
+        $folio = $datosSat['folio'];
+        $cadenaOriginal = $datosSat['cadenaOriginal'];
+        $cadenaOriginal = str_replace(" ", "&nbsp;", $cadenaOriginal);
+        //chars per line
+        $cpl = 180;
+        //cadena original length
+        $col = strlen($cadenaOriginal);
+        if($col>$cpl){
+            $cadenaOriginalFormatted = '';
+            for($i = 0; $i < $col; $i+=$cpl)
+                $cadenaOriginalFormatted.=substr($cadenaOriginal, $i, $cpl) . "\n";
+            $cadenaOriginal = $cadenaOriginalFormatted;
+        }
+        $selloDigital = $datosSat['selloDigital'];
+        $totalEnLetra = $datosSat['totalEnLetra'];
+        $noAprobacion = $datosSat['noAprobacion'];
+        $anoAprobacion = $datosSat['anoAprobacion'];
+        $addendaResponse = $datosSat['addendaResponse'];
+        echo '<table><tr><td bgcolor="#bbbbbb"><b>ID CFD (WS):</b></td></tr><tr><td>' . $idWsCfd . '</td></tr>';
+        echo '<tr><td bgcolor="#bbbbbb"><b>No Aprobacion:</b></td></tr><tr><td>' . $noAprobacion . '</td></tr>';
+        echo '<tr><td bgcolor="#bbbbbb"><b>Año Aprobacion:</b></td></tr><tr><td>' . $anoAprobacion . '</td></tr>';
+        echo '<tr><td bgcolor="#bbbbbb"><b>Serie:</b></td></tr><tr><td>' . $serie . '</td></tr>';
+        echo '<tr><td bgcolor="#bbbbbb"><b>Folio:</b></td></tr><tr><td>' . $folio . '</td></tr>';
+        echo '<tr><td bgcolor="#bbbbbb"><b>No Certificado: </b></td></tr><tr><td>' . $noCertificado . '</td></tr>';
+        echo '<tr><td bgcolor="#bbbbbb"><b>Cadena Original:</b></td></tr><tr><td>' . $cadenaOriginal . '</td></tr>';
+        echo '<tr><td bgcolor="#bbbbbb"><b>Sello Digital:</b></td></tr><tr><td>' . $selloDigital . '</td></tr>';
+        echo '<tr><td bgcolor="#bbbbbb"><b>Cantidad con Letra:</b></td></tr><tr><td>' . $totalEnLetra . '</td></tr>';
+        echo '<tr><td bgcolor="#bbbbbb"><b>Respuesta de la addenda:</b></td></tr><tr><td>' . t($addendaResponse) . '</td></tr></table>';
+    }
+}else
+   	if($_SESSION['CFDIVersion']==32){
+   	include_once('Numbers/Words.php');
+    include_once('CFDI32.php');
+    include_once('rh_cfdiFunctions32.php');
+}
+
+if(isset($_GET['id'])){
+    $sql=" select rh_recoverxml.*,debtortrans.transno,debtortrans.type, cast((((debtortrans.ovamount-debtortrans.ovdiscount)+debtortrans.ovgst)/1) as decimal(10,2)) Comprobante_total from  rh_recoverxml join debtortrans on debtortrans.id = rh_recoverxml.id_debtortrans left join rh_cfd__cfd on rh_cfd__cfd.id_debtortrans = rh_recoverxml.id_debtortrans  where isnull(rh_cfd__cfd.serie) and rh_recoverxml.id_debtortrans=".$_GET['id'];
+    $rs = DB_query($sql,$db);
+    if($rw = DB_fetch_array($rs)){
+       $type =$rw['type'];
+       $transno =  $rw['transno'];
+       $Comprobante_total = $rw['Comprobante_total'];
+       $idDebtortrans=$_GET['id'];
+       $idCsd = $rw['idcsd'];
+
+        $sql = "select p.terms Comprobante_condicionesDePago, cast((1/dt.rate) as decimal(18,10)) exchangeRate, dm.currcode,curr.currency  from paymentterms p, debtorsmaster dm, debtortrans dt, currencies curr where p.termsindicator = dm.paymentterms and dm.debtorno = dt.debtorno and dt.type=$type and dt.transno = $transno and dm.currcode=curr.currabrev limit 1";
+        $result = DB_query($sql,$db);
+        if(DB_error_no($db)) {
+            throw new Exception('No se pudo obtener informacion sobre el Comprobante (condiciones de pago) para la Factura Electronica', 1);
+        }
+        $row = DB_fetch_array($result);
+        $Comprobante_condicionesDePago = $row['Comprobante_condicionesDePago'];
+        $Comprobante_TasaCambio = $row['exchangeRate'];
+        $Comprobante_Moneda = $row['currcode'];
+        $Comprobante_NombreMoneda = $row['currency'];
+
+
+            $Letras = new Numbers_Words();
+		    $tot = explode(".",number_format($Comprobante_total,2,'.',''));
+		    $Letra = Numbers_Words::toWords($tot[0],"es");
+            if($Comprobante_Moneda=='MXN'){
+                $Comprobante_Moneda='M.N.';
+            }
+		    if($tot[1]==0){
+		        $ConLetra = $Letra.' '.$Comprobante_NombreMoneda." 00/100 ".$Comprobante_Moneda;
+		    }else if(strlen($tot[1])>=2){
+		        $ConLetra = $Letra.' '.$Comprobante_NombreMoneda.' '.$tot[1]."/100 ".$Comprobante_Moneda;
+		    }else {
+		        $ConLetra = $Letra.' '.$Comprobante_NombreMoneda.' '.$tot[1]."0/100 ".$Comprobante_Moneda;
+		    }
+            $ConLetra= strtoupper($ConLetra);
+
+
+
+       $tipoDeComprobante;
+        switch($type){
+            case 10:
+                $tipoDeComprobante = 'ingreso';
+            break;
+            case 11:
+                $tipoDeComprobante = 'egreso';
+            break;
+        }
+
+    $CFDManager = CFD22Manager::getInstance();
+            try{
+                try{
+                    $MyXML= $CFDManager->SignXML($rw['serie'],$rw['idcsd'],$rw['xmldata']);
+                }catch(Exception $e){
+                    throw new Exception($e->getMessage());
+                }
+                $XMLSerie=$CFDManager->getXMLSerie();
+                $XMLFolio=$CFDManager->getXMLFolio();
+                $OString = $CFDManager->getCadena($XMLSerie,$XMLFolio);
+                $NoAuth = $CFDManager->getXMLnoAuth();
+                $AnoAuth = $CFDManager->getXMLanoAuth();
+                $Sello = $CFDManager->getXMLSello();
+                $Fecha = $CFDManager->getXMLFecha();
+                $ctaPago = $CFDManager->getCuentaPago();
+                $metodoPago = $CFDManager->getMetodoPago();
+                $idWsCfd = 0;
+
+
+                if(strpos($MyXML,'xsi:schemaLocation')===false){
+                    $MyXML = str_replace('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"', 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv22.xsd"',$MyXML);
+                }
+
+                if(!file_exists("XMLFacturacionElectronica/facturasElectronicas/$idCsd/"))
+                    if(!mkdir("XMLFacturacionElectronica/facturasElectronicas/$idCsd"))
+                        throw new Exception('No se pudo crear el directorio donde se guardara el CFD');
+
+                $filename = "XMLFacturacionElectronica/facturasElectronicas/$idCsd/$XMLSerie$XMLFolio-$transno.xml";
+                File::createFile($MyXML, $filename);
+
+                $sqlInsert = "insert into rh_cfd__cfd(metodopago,cuentapago,id_systypes, id_ws_cfd, no_certificado, ano_aprobacion, no_aprobacion, total_en_letra, cadena_original, sello, fecha, serie, xml, id_debtortrans, fk_transno, folio, addenda_response, tipo_de_comprobante)
+                          values('".$metodoPago."','".$ctaPago."',$type, $idWsCfd, '$idCsd', $AnoAuth, $NoAuth, '$ConLetra', '".DB_escape_string($OString)."', '$Sello', '$Fecha', '$XMLSerie', '".DB_escape_string($MyXML)."', $idDebtortrans, $transno,'$XMLFolio',null,'$tipoDeComprobante')";
+
+                $result = DB_query($sqlInsert,$db);
+                if(DB_error_no($db)){
+                    throw new Exception('No se pudieron insertar los datos del CFD en la base de datos local.');
+                }
+                if(!DB_query('commit',$db,'','',false,false)) {
+                    throw new Exception('Error al efectuar el commit, Transaccion no efectuada.', 1);
+                }
+                $Return = Array('idWsCfd' => $idWsCfd, 'noCertificado' => $idCsd, 'serie' => $XMLSerie, 'folio' => $XMLFolio, 'transno' => $transno, 'cadenaOriginal' => $OString, 'selloDigital' => $Sello, 'totalEnLetra' => $ConLetra, 'noAprobacion' => $NoAuth, 'anoAprobacion' => $AnoAuth, 'addendaResponse' => $addendaResponse);
+                printDatosSat($Return);
+
+
+            }catch(Exception $e){
+                throw new Exception($e->getMessage());
+            }
+    }else{
+    	$sql=" select count(*)t from rh_cfd__cfd where rh_cfd__cfd.serie is not null  and id_debtortrans=".$_GET['id'];
+    	$rs = DB_query($sql,$db);
+    	$rw = DB_fetch_assoc($rs);
+    	if($rw['t']>0){
+    		prnMsg( _('Imposible Recouperar XML, registro de recuperacion no encontrado o ya fue recuperado'), 'error' );
+    	}else{
+    		$idDebtortrans=$_GET['id'];
+    		$sql=" select * from debtortrans where id=".$_GET['id'];
+    		$rs = DB_query($sql,$db);
+    		$rw = DB_fetch_assoc($rs);
+    	
+    		$transno = $rw['transno'];
+    		$type = $rw['type'];
+    	
+    		$sql="select * from stockmoves where type='".$type."' and transno='".$transno."' limit 1";
+    		$rss = DB_query($sql,$db);
+    		$rsm = DB_fetch_assoc($rss);
+    		$Location=$rsm['loccode'];
+    		$sql= 'select id_ws_csd, serie from rh_cfd__locations__systypes__ws_csd where id_locations = "'.$rsm['loccode'].'"  and id_systypes = '.$type;
+    		$rscsd = DB_query($sql,$db);
+    		$idCsdYSerie = DB_fetch_array($rscsd);
+    	
+    		//$idCsdYSerie = explode('-', $_POST['selectIdFolio']);
+    		$idCsd = $idCsdYSerie[0];
+    		$serie = $idCsdYSerie[1];
+    		$serie = getSerieByBranch($Location,$type,$db);
+    		$idXsd = '';
+    		$xmlXsd = '';
+    		$sql = "select not isnull(v.id_salesorders) is_transportista from debtortrans d join rh_vps__transportista v on d.order_ = v.id_salesorders and d.id = $idDebtortrans";
+    		$result = DB_query($sql, $db);
+    		$is_transportista = DB_num_rows($result);
+    		//var_dump($db, $idDebtortrans, $transno, $type, $serie, $idCsd, $idXsd, $xmlXsd,$_SESSION['metodoPago'],$_SESSION['cuentaPago']);
+    		global $BlockFolio;$BlockFolio=false;
+    		$datosSat2 = cfd($db, $idDebtortrans, $transno, $type, $serie, $idCsd, $idXsd, $xmlXsd);
+    		printDatosSat($datosSat2);
+    	}
+    }
+}else{
+    prnMsg( _('Parametro faltante.'), 'error' );
+}
+
+include ('includes/footer.inc');
+?>

@@ -1,0 +1,106 @@
+<?php 
+/**
+ *  Clase base para las respuestas del servidor SOAP
+ *
+ *  @pw_element string $product Codigo de producto
+ *  @pw_element string $label Descripcion del producto encontrado
+ *  @pw_element string $barcode Codigo de barras del producto
+ *  @pw_element integer $loccode Codigo del almacen donde buscamos disponibilidades
+ *  @pw_element string $almacen Nombre del almacen donde buscamos disponibilidades
+ *  @pw_element integer $qty Cantidad de producto en el almacen
+ *  @pw_complex ModeloProductoBase Fin de definicion+
+ */
+class ModeloProductoBase
+{
+
+    public $loccode;
+    
+    /**
+     * Cantidad de producto en el almacen
+     * 
+     * @var integer
+     */
+    public $qty;
+}
+
+
+/**
+ * Clase de disponibilidades de producto.
+ */
+class DisponibilidadProducto extends ModeloProductoBase
+{
+	/**
+     * id unico
+     * 
+     * @var integer
+     */
+	public $stkmoveno;
+}
+
+/**
+ * Clase de salidas de producto.
+ */
+class SalidaProducto extends ModeloProductoBase
+{
+	/**
+     * id unico
+     * 
+     * @var integer
+     */
+	public $stkmoveno;
+}
+
+/**
+ * Clase de transferencias de producto.
+ */
+class TransferenciaProducto extends ModeloProductoBase
+{}
+
+/**
+ * Clase de registro de etiquetas
+ * 
+ *  @pw_element string $barcode Codigo de barras del producto
+ *  @pw_element string $agrupador Codigo agrupador de la etiqueta
+ *  @pw_element integer $producto Codigo de producto
+ *  @pw_element string $serialno Numero serial del producto
+ *  @pw_element string $expiracion Fecha de expiracion del producto
+ *  @pw_complex Etiquetas Fin de definicion+
+ */
+class Etiquetas
+{
+    /**
+     * Codigo de barras del producto
+     * 
+     * @var string
+     */
+    public $barcode;
+    
+    /**
+     * Codigo agrupador de la etiqueta
+     * 
+     * @var string
+     */
+    public $agrupador;
+    
+    /**
+     * Codigo de producto
+     * 
+     * @var integer
+     */
+    public $producto;
+    
+    /**
+     * Numero serial del producto
+     * 
+     * @var string
+     */
+    public $serialno;
+    
+    /**
+     * Fecha de expiracion del producto
+     * 
+     * @var string
+     */
+    public $expiracion;
+    
+}

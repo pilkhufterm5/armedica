@@ -1,0 +1,84 @@
+<?php
+
+/* $Revision: 14 $ */
+
+$PageSecurity = 1;
+
+include('includes/session.inc');
+
+$title = _('Transferencia por Lote');
+
+include('includes/header.inc');
+
+If (true) {
+
+	echo '<center>';
+	
+	echo '<h2>Transferencias pendientes de Recepci&oacute;n</h2>';
+	
+	echo '<TABLE CELLPADDING=2 COLSPAN=7 BORDER=2>';
+
+	$TableHeadings = "
+				 <TR><TD class='tableheader'>" . _('N&uacute;mero de Env&iacute;o') . "</TD>" .
+				"<TD class='tableheader'>" . _('Fecha de env&iacute;o') . "</TD>" .
+				"<TD class='tableheader'>" . _('Usuario que env&iacute;a') . "</TD>" .
+				"<TD class='tableheader'>" . _('Almacen Origen') . '</TD>' .
+				"<TD class='tableheader'>" . _('Almacen Destino') . '</TD>' .
+				"<TD class='tableheader'>" . _('Comentario') . "</TD></TR>" ;
+
+	echo $TableHeadings;
+
+	$j = 1;
+	$k=0; //row colour counter
+	
+	$sql_transfer = 'select id,fecha_envio, userid_envio, location_from, location_to, comentario from rh_transfer_lote_preview where recibida=0';
+	$rs_transfer = DB_query($sql_transfer,$db);
+
+	while($rw_transfer = DB_fetch_array($rs_transfer)){
+
+		if ($k==1){
+			echo "<tr bgcolor='#CCCCCC'>";
+			$k=0;
+		} else {
+			echo "<tr bgcolor='#EEEEEE'>";
+			$k++;
+		}
+		
+		$link = '<a href="rh_recepcionTransferLote.php?TransferID='.$rw_transfer['id'].'">Recibir</a>';
+		// Se agrego el link para ir al programa que hara el update para la cancelacion de las transferencias Angeles Perez 2016-06-09
+		$link2 = '<a href="rh_cancelacionTransferLote.php?TransferID='.$rw_transfer['id'].'">Cancelar</a>';
+		
+		printf("
+			<td><FONT SIZE=1>%s</FONT></td>
+			<td><FONT SIZE=1>%s</FONT></td>
+			<td ALIGN=RIGHT><FONT SIZE=1>%s</FONT></td>
+			<td ALIGN=RIGHT><FONT SIZE=1>%s</FONT></td>
+			<td ALIGN=RIGHT><FONT SIZE=1>%s</FONT></td>
+			<td><FONT SIZE=1>%s</FONT></td>
+			<td>%s</td>
+			<td>%s</td></tr>",
+			$rw_transfer['id'],
+			$rw_transfer['fecha_envio'],
+			$rw_transfer['userid_envio'],
+			$rw_transfer['location_from'],
+			$rw_transfer['location_to'],
+			$rw_transfer['comentario'],
+			$link,
+			$link2);
+
+		$j++;
+		If ($j == 12){
+			$j=1;
+			echo $TableHeadings;
+		}
+//end of page full new headings if
+	}
+//end of while loop
+
+	echo '</TABLE>';
+	echo '</center>';
+}
+
+//include('includes/footer.inc');
+
+?>

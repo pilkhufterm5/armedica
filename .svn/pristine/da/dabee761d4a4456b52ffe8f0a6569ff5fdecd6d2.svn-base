@@ -1,0 +1,102 @@
+<?php
+
+$PageSecurity = 8;
+$AllowAnyone=true;
+$DatabaseName='mga_erp_001';
+include ('includes/session.inc');
+include_once('CFDI32.php');
+ini_set('memory_limit','256M');
+set_time_limit(0);
+$title = _('Cancelacion masiva');
+include('includes/header.inc');
+function getAttr($xml,$attr,$start=0){
+		$p1=strpos($xml,'"',strpos($xml,$attr,$start))+1;
+		$p2=strpos($xml,'"',$p1);
+		$cer=substr($xml,$p1,$p2-$p1);
+		return $cer;
+}
+//      $sql = "SELECT gstno FROM companies LIMIT 1";
+//        $rs = DB_query($sql,$db);
+//        if($rw = DB_fetch_array($rs)){
+//          $RFC=$rw['gstno'];
+//        }
+        $RFC = "MGA141013KU2";
+
+
+
+  //       $sqlQuery = "SELECT rh_cfd__cfd.uuid,pfx,pfxpass
+  //       		FROM
+  //       		rh_cfdi rh_cfd__cfd
+  //       		JOIN rh_cfd__locations__systypes__ws_csd ON rh_cfd__locations__systypes__ws_csd.serie = rh_cfd__cfd.serie AND rh_cfd__locations__systypes__ws_csd.`id_systypes`=rh_cfd__cfd.`id_systypes`
+  //               JOIN rh_csd ON rh_csd.noserie  = rh_cfd__locations__systypes__ws_csd.id_ws_csd
+  //                    WHERE fk_transno = " . $_SESSION['ProcessingCredit'] . " AND rh_cfd__cfd.id_systypes = 10 LIMIT 1";
+		// $_SESSION['ProcessingCredit']=5382;
+
+		// $sql="select * from tmp_cancelarFacturas";
+  //       $result = DB_query($sql,$db,'','',false,false);
+
+        $UUID='';
+
+        $pfx = base64_encode(file_get_contents ('XMLFacturacionElectronica/csdandkey/00001000000307125610.pfx'));
+        // echo "<pre>";
+        // print_r($pfx);
+        // echo "</pre><br><br>";
+
+
+
+$CANCELAR = array(
+    "0F4BEF15-0C27-4D03-9F14-802612C7244A",
+    "3CD06522-138F-4128-8AAA-ACCB22B6710E",
+    "4094A0FA-FEF7-4397-AE13-D0FD05404D05",
+    "4B5EFEF9-B091-4D08-8702-C6355F094FB0",
+    "5960ED92-2F10-494E-A3E3-DC3CC54AF663",
+    "61422003-EDFA-47D6-A026-38A22392F19D",
+    "63B0BD1B-45FA-4AF6-A0F1-903E94F3F848",
+    "64E67E0B-2482-440F-BC78-DD085A862B82",
+    "66722E9F-A14E-46C7-8C92-475A54A6ADFB",
+    "6A57CABC-9F51-4882-9254-11BF45FA7EE6",
+    "733502C4-5B88-42EC-B90B-1F07BCFE14EE",
+    "8BCE0898-E782-4C26-A683-9A5D47C2731C",
+    "96C38EF3-EFDC-412B-988F-A13A7FA30646",
+    "9724DA46-FBCE-4662-8546-CDDCA7335FAD",
+    "99744941-F132-4BC3-835B-1DF7745822EA",
+    "9B812AB3-CA95-48E1-8239-18370AA876C5",
+    "ABCFE36A-C201-4FC6-BA32-7D3BE9E3D860",
+    "AC729C53-F7AC-48FF-BBE6-319ED6349DF0",
+    "B521B4A9-4FE2-425E-A80B-507BFC74E7AE",
+    "B7F01A07-F41B-4F0F-AA3E-643E222B5CF2",
+    "C0F492B5-E668-49A8-931A-99D4F1978229",
+    "DEA084DC-8AB2-4D65-81F8-60668BDEC1D3",
+    "E7BDCB52-20EC-4B9B-80D8-F219C42A7BD3",
+    "F1BB2B12-2680-4059-BD7F-821538CFA551",
+    "F3AA05F5-2B37-42BE-A331-A93A0AD77E60"
+);
+
+
+        // echo "<pre>";
+        // print_r($CANCELAR);
+        // echo "</pre>";
+        //exit;
+
+
+        echo '<table class="table table-striped table-bordered table-hover" > <tbody>';
+        foreach ($CANCELAR as $idx => $UUID){
+
+            try{
+                //public static function cancelCFDI($rfc, $uuid, $pfx, $pfxPassword)
+                $_uuid = CFDI::cancelCFDI($RFC,$UUID,$pfx,"MGA141013KU2");
+                if($_uuid == $UUID){
+                	echo '<tr>';
+                	echo '<td>CANCELADO CORRECTAMENTE </td>';
+                    echo "<td>{$uuid}</td>";
+                    echo '</tr>';
+                }
+            }catch(Exception $e){
+                echo '<tr>';
+                echo '<td>Error: </td>';
+                echo "<td>" . $e->getMessage()  . "</td>";
+                echo '</tr>';
+                //var_dump($e);
+            }
+        }
+        echo '</tbody></table>';

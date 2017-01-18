@@ -1,0 +1,279 @@
+
+    /**
+     * seccion principal del css del pos
+     * RealHost 17 de Abril del 2010
+     * Ricardo Abularach 
+     * */
+    
+    html {
+		min-width:1030px !important;
+    }
+    body {
+        margin:0;
+        padding:0;
+        border:0px;
+        width:100%;
+        background:#f1ffdd;
+        min-width:600px;
+		font-size:90%;
+		font-family:"serif";
+    }
+    p{
+		margin:1px !important;
+		padding:0px !important;
+    }
+    img{
+		border:0px !important;
+    }
+    #header {
+        clear:both;
+        float:left;
+        width:100%;
+        border-bottom:1px solid #000;
+        height:100px !important;
+        background-color:#f1ffdd;
+    }
+	.colmask {
+		position:relative;		/* This fixes the IE7 overflow hidden bug and stops the layout jumping out of place */
+	    clear:both;
+	    float:left;
+        width:100%;				/* width of whole page */
+		overflow:hidden;		/* This chops off any overhanging divs */
+	}
+	/* holy grail 3 column settings */
+    .holygrail .colmid {
+        float:left;
+        width:200%;
+        margin-left:-270px; 	/* Width of right column */
+        position:relative;
+        right:98%;
+        background:#b3b3b3;    	/* Centre column background colour */
+    }
+    .holygrail .colleft {
+        float:left;
+        width:100%;
+        margin-left:-50%;
+        position:relative;
+        left:530px;         	/* Left column width + right column width */   
+        background:#d7d5d5; 
+     }
+    .holygrail .col1wrap {
+        float:left;
+	    width:50%;
+	    position:relative;
+	    right:265px;        	/* Width of left column */
+	}
+	.holygrail {
+	    background:#d7d5d5;    	/* Right column background colour */
+	}	
+	.holygrail .col1 {
+        margin:0 280px;     	/* Centre column side padding:
+                            	Left padding = left column width + centre column left padding width
+                            	Right padding = right column width + centre column right padding width */
+        position:relative;
+	    left:198.2%;
+	    overflow:hidden;
+	    background:#b3b3b3; 
+	}
+    .holygrail .col2 {
+        float:left;
+        float:right;			/* This overrides the float:left above */
+        width:265px;        	/* Width of left column content (left column width minus left and right padding) */
+        position:relative;
+        right:15px;         	/* Width of the left-had side padding on the left column */
+		background:#d7d5d5; 
+    }
+    .holygrail .col3 {
+        float:left;
+        float:right;			/* This overrides the float:left above */
+        width:265px;        	/* Width of right column content (right column width minus left and right padding) */
+        margin-right:30px;  	/* Width of right column right-hand padding + left column left and right padding */
+        position:relative;
+        left:50%;
+        background:#d7d5d5; 
+    }
+    .col1, .col2, .col3{
+		height:70% !important;
+    }
+	#footer {
+        clear:both;
+        float:left;
+        width:100%;
+		border-top:1px solid #000;
+		height:100px !important;
+		background-color:#f1ffdd;  
+    }
+    .opciones {
+		  color:#505050;
+		  font: bold 95% 'trebuchet ms',helvetica,sans-serif;
+		  background-color:#fed;
+		  border: 1px solid;
+		  border-color: #505050;
+		  filter:progid:DXImageTransform.Microsoft.Gradient
+		  (GradientType=0,StartColorStr='#ffffffff',EndColorStr='#ffeeddaa');
+		  width:190px !important;
+		  height:65px !important;
+	}
+	.item{
+		width: 100px;
+		float: left;
+		text-align: left;
+		display: block;
+		margin:1px !important;
+	}
+	.input{
+		color: #000000;
+		background: #ffffff;
+		border: 1px solid #B0B0B0;
+		width: 100%;
+		height: 20px;
+		font-size:15px;
+	}	
+	.select{
+		color: #000000;
+		background: #ffffff;
+		border: 1px solid #B0B0B0;	
+		display:block;
+		width: 100%;
+		height: 20px;
+		font-size:15px;		
+	}
+	.submit{
+		  color:#505050;
+		  font: bold 100% 'trebuchet ms',helvetica,sans-serif;
+		  font-size:25px;
+		  background-color:#fed;
+		  border: 1px solid;
+		  border-color: #505050;
+		  filter:progid:DXImageTransform.Microsoft.Gradient
+		  (GradientType=0,StartColorStr='#ffffffff',EndColorStr='#ffeeddaa');
+		  display:block;
+		  clear:both;
+		  width:240px !important;
+		  height:45px !important;		
+	}
+	#pagarT{
+		  color:#505050;
+		  font: bold 100% 'trebuchet ms',helvetica,sans-serif;
+		  font-size:25px;
+		  background-color:#fed;
+		  border: 1px solid;
+		  border-color: #505050;
+		  filter:progid:DXImageTransform.Microsoft.Gradient
+		  (GradientType=0,StartColorStr='#ffffffff',EndColorStr='#ffeeddaa');
+		  width:190px !important;
+		  height:35px !important;
+	}
+	#cliente label{
+		width: 100px;
+		float: left;
+		text-align: left;
+		display: block;
+		margin:1px !important;
+	}
+	#cliente select{
+		color: #000000;
+		background: #ffffff;
+		border: 1px solid #B0B0B0;	
+		display:block;
+		width: 100%;
+		height: 20px;
+		font-size:15px;		
+	}
+        #Svend #Vendedor{
+		color: #000000;
+		background: #ffffff;
+		border: 1px solid #B0B0B0;
+		display:block;
+		width: 100%;
+		height: 20px;
+		font-size:15px;	
+        }
+	.botonn{
+		font: bold 100% 'trebuchet ms',helvetica,sans-serif;
+		font-size:18px;
+		padding:2px;
+		margin:8px;
+		display:block;
+		clear:both;
+		color:#505050;
+		background-color:#fed;
+		border: 1px solid;
+                height:26px;
+                vertical-align:bottom;
+                margin-left:auto;
+                margin-right:auto;
+		border-color: #505050;
+		filter:progid:DXImageTransform.Microsoft.Gradient
+		(GradientType=0,StartColorStr='#ffffffff',EndColorStr='#ffeeddaa');		
+	}
+        #resultados *{
+            font-size:12px !important;
+        }
+        
+        .highlight{
+            background-color: yellow !important;
+        }
+
+        .highlight *{
+            background-color: yellow !important;
+        }
+
+        table.helpT{
+            text-align: center;
+            font-family: Verdana;
+            font-weight: normal;
+            font-size: 11px;
+            color: #404040;
+            width: 99% !important;
+            background-color: #fafafa;
+            border: 1px #6699CC solid;
+            border-collapse: collapse;
+            margin:3px !important;
+            padding:3px !important;
+            border-spacing: 0px;
+        }
+        td.helpHed{
+                border-bottom: 2px solid #6699CC;
+                border-left: 1px solid #6699CC;
+                background-color: #BEC8D1;
+                text-align: left;
+                text-indent: 5px;
+                margin:3px !important;
+                padding:3px !important;
+                font-family: Verdana;
+                font-weight: bold;
+                font-size: 11px;
+                color: #404040;
+        }
+
+        td.helpBod{
+            border-bottom: 1px solid #9CF;
+            border-top: 0px;
+            border-left: 1px solid #9CF;
+            border-right: 0px;
+            text-align: left;
+            text-indent: 0px !important;
+            font-family: Verdana, sans-serif, Arial;
+            font-weight: normal;
+            font-size: 11px;
+            margin:3px !important;
+            padding:3px !important;
+            color: #404040;
+            background-color: #fafafa;
+        }
+
+        table.sofT{
+            text-align: left;
+            font-family: Verdana;
+            font-weight: normal;
+            font-size: 11px;
+            color: #404040;
+            margin:3px !important;
+            padding:3px !important;
+            width: 99% !important;
+            background-color:#f1ffdd;
+            border: 1px #6699CC solid;
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }

@@ -1,0 +1,23 @@
+<?php
+class CActiveRecord {
+}
+class FB{
+}
+include "../models/ISSTELEONWS.php";
+$_Fecha = '2014-08-17';
+$consumirs = new ISSTELEONWS("http://ar.isssteleon.gob.mx/recetas/Medix.asmx?WSDL", array(
+            'cache_wsdl' => WSDL_CACHE_NONE,
+            'trace' => false
+        ));
+$AlmacenIsssteleonWS = "030";
+$params = array(
+            'fecha' => $_Fecha,
+            'almacen' => $AlmacenIsssteleonWS,
+            'reporte' => '1'
+        );
+
+
+
+
+$ObtenerSalidasDiariasArray = $consumirs->consumir('ObtenSalidasDiarias', $params);
+var_dump($ObtenerSalidasDiariasArray);

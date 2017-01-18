@@ -1,0 +1,99 @@
+<script type="text/javascript">
+    $(document).on('ready', function() {
+        $('#Create-Modal-EditarCoordinador').click(function(){
+
+            if($("#E-activo").is(':checked')) {
+                var activo = 1;
+            }else{
+                var activo = 0;
+            }
+            var jqxhr = $.ajax({
+                url: "<?php echo $this->createUrl("coordinadores/Update"); ?>",
+                type: "POST",
+                dataType : "json",
+                timeout : (120 * 1000),
+                data: {
+                      Update:{
+                          coordina_id: $("#E-ID").val(),
+                          coordinador: $('#E-coordinador').val(),
+                          activo: activo
+                      },
+                },
+                success : function(data, newValue) {
+                    if (data.requestresult == 'ok') {
+                        displayNotify('success', data.message);
+                        $('#ListCoordinadores #' + data.coordina_id).html(data.NewRow);
+                    }else{
+                        displayNotify('alert', data.message);
+                    }
+                },
+                error : ajaxError
+            });
+        });
+
+    });
+
+
+    function EditarCoordinador(coordina_id){
+        $('#ModalLabelEdit').text('Editar Coordinador');
+        $('#Modal_EditarCoordinador').modal('show');
+        $("#E-ID").val(coordina_id);
+        LoadForm(coordina_id);
+    }
+
+    function LoadForm(coordina_id){
+
+        var jqxhr = $.ajax({
+            url: "<?php echo $this->createUrl("coordinadores/LoadForm"); ?>",
+            type: "POST",
+            dataType : "json",
+            timeout : (120 * 1000),
+            data: {
+                  GetData:{
+                      coordina_id: coordina_id
+                  },
+            },
+            success : function(data, newValue) {
+                if (data.requestresult == 'ok') {
+                    displayNotify('success', data.message);
+                    if(data.GetData.activo == 1){
+                        $("#E-activo").attr('checked', true);
+                    }
+                    $('#E-coordinador').val(data.GetData.coordinador);
+                }else{
+                    displayNotify('alert', data.message);
+                }
+            },
+            error : ajaxError
+        });
+    }
+</script>
+
+<div id="Modal_EditarCoordinador" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 40%;"  >
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="ModalLabelEdit"> </h3>
+    </div>
+    <div class="modal-body">
+        <p>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <input type="hidden" value="" id="E-ID" >
+                        <td><label class="control-label" style="margin-top: 10px;">Coordinador: </label></td>
+                        <td><input type="text" id="E-coordinador"  class="span12" /></td>
+                    </tr>
+                    <tr>
+                        <td><label class="control-label" style="margin-top: 10px;">Activar/Desactivar: </label></td>
+                        <td> <input type="checkbox" id="E-activo" value="1" > </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button id="Close-Modal-EditarCoordinador" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="Create-Modal-EditarCoordinador" class="btn btn-success" data-dismiss="modal" aria-hidden="true">Aceptar</button>
+    </div>
+</div>

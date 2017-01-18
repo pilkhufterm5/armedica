@@ -1,0 +1,319 @@
+<script type="text/javascript">
+    $(document).on('ready', function() {
+
+        <?php if($_POST['tipopersona'] == 'FISICA'){ ?>
+        $('#PMoral').hide();
+        <?php } ?>
+
+        $("#tipopersona").select2();
+        $("#asesor").select2();
+        $("#sexo").select2();
+        $("#razonsocial").select2();
+        $("#nombrecomercial").select2();
+
+        $('#tipopersona').change(function(){
+            if($('#tipopersona').val() == 'FISICA'){
+                $('#PMoral').hide();
+                $('.PFisica').show();
+            }else{
+                $('#PMoral').show();
+                $('.PFisica').hide();
+            }
+        });
+    });
+
+
+        function vRfcs(){
+            var elementInputTextTaxRef = document.getElementById('taxref')
+            var rfc = elementInputTextTaxRef.value
+            if(!rfc){
+                elementInputTextTaxRef.focus()
+                alert('El campo RFC es obligatorio')
+                return false
+            }
+
+            if($('#tipopersona').val() == 'FISICA'){
+                var pf = $('#tipopersona').val();
+            }
+
+            if($('#tipopersona').val() == 'MORAL'){
+                var pf = $('#tipopersona').val();
+            }
+
+            if(!($('#tipopersona').val())){
+                alert('Debe seleccionar un tipo de Persona')
+                return false
+            }
+
+            if($('#tipopersona').val() == 'MORAL'){
+                if(!rfc.match(/^[A-ZÑ&]{3}(\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))[0-9A-ZÑ]{3}$/)){
+                    alert('El RFC no es un RFC valido para Persona Moral')
+                    return false
+                }
+            }
+
+            if($('#tipopersona').val() == 'FISICA'){  //VECJ880326XXX
+                if(rfc == 'XAXX010101000' || rfc == 'XEXX010101000')
+                    return true
+                if(!rfc.match(/^[A-ZÑ&]{4}(\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))[0-9A-ZÑ]{3}$/)){
+                    alert('El RFC no es un RFC valido para Persona Fisica')
+                    return false
+                }
+            }
+            return true
+        }
+
+</script>
+
+<input type="hidden" name="DebtorNo" value="<?=$_POST['debtorno']?>" >
+    <div class="container-fluid bootspin">
+        <!--Spinners begin-->
+        <div class="control-group row-fluid">
+            <div class="span6">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Fecha de Ingreso'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Fecha de Ingreso"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <?php
+                    if(empty($_POST['fecha_ingreso'])){
+                        $_POST['fecha_ingreso'] = date('Y-m-d');
+                    }
+                    ?>
+                    <input type="text" id="fecha_ingreso" class="required" readonly="readonly" name="fecha_ingreso" style="width: 120px;" value="<?=$_POST['fecha_ingreso']?>" />
+                </div>
+            </div>
+            <div class="span6">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Fecha Ult Aum.'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Fecha ult Aum"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="fecha_ultaum"  readonly="readonly" name="fecha_ultaum" style="width: 120px;" value="<?=$_POST['fecha_ultaum']?>" />
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group row-fluid">
+            <div class="span6">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Tipo de Persona'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Tipo de Persona"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <select id="tipopersona" class="required" name="tipopersona" >
+                        <option value="FISICA">FISICA</option>
+                        <option value="MORAL">MORAL</option>
+                    </select>
+                    <script type="text/javascript">
+                        $("#tipopersona option[value='<?=$_POST['tipopersona']?>']").attr("selected",true);
+                    </script>
+                </div>
+            </div>
+            <div class="span6">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Asesor'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Asesor"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <select id="asesor" class="required" name="asesor" >
+                        <option value="">SELECCIONE</option>
+                        <?php foreach($ListaComisionistas as $id => $Name){ ?>
+                            <option value="<?=$id?>"><?=$Name?></option>
+                        <?php } ?>
+                    </select>
+                    <script type="text/javascript">
+                        $("#asesor option[value='<?=$_POST['asesor']?>']").attr("selected",true);
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group row-fluid PFisica">
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Apellidos'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Apellidos"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="apellidos" name="apellidos" class="required" value="<?=$_POST['apellidos']?>" style="width:300px;" />
+                </div>
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Nombre(s)'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Nombre(s)"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <input type="text" id="name" name="name" class="required" value="<?=$_POST['name']?>" style="width:300px;" />
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Sexo'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Sexo"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <select id="sexo" name="sexo" class="required" >
+                        <option value="MASCULINO">MASCULINO</option>
+                        <option value="FEMENINO">FEMENINO</option>
+                    </select>
+                    <script type="text/javascript">
+                        $("#sexo option[value='<?=$_POST['sexo']?>']").attr("selected",true);
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group row-fluid" id="PMoral">
+            <div class="span5">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Razón Social'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Razón Social"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="name2" name="name2" class="required" value="<?=$_POST['name2']?>" >
+                </div>
+            </div>
+
+            <div class="span7">
+                <label class="control-label" for="spin1">
+                    <?php echo _('Nombre Comercial'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Nombre Comercial"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="nombre_empresa" name="nombre_empresa" class="required" value="<?=$_POST['nombre_empresa']?>" >
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group row-fluid">
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('RFC'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="RFC"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="taxref" name="taxref" class="required mayusculas" value="<?=$_POST['taxref']?>"  onBlur="vRfcs(this.value)" />
+                </div>
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('CURP'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Curp"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="curp" name="curp" value="<?=$_POST['curp']?>" class="required mayusculas" />
+                </div>
+            </div>
+
+            <style>
+                #email{
+                    width: 250px;
+                    height: 40px;
+                }
+                #email:hover {
+                    position:absolute;
+                    background-color:#DFF0D8;
+                    height: 150px;
+                    width: 250px;
+                    z-index: 2;
+                }
+                #contacto{
+                    z-index: -1;
+                }
+            </style>
+
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('E-mail'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="E-mail"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <textarea id="email" name="email" class="span8 required" rows="1" ><?=$_POST['email']?></textarea>
+                    <!--<input type="text" id="email" name="email" value="<?=$_POST['email']?>" class="required" />-->
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group row-fluid">
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Contacto'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Contacto"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="contacto" name="contacto" value="<?=$_POST['contacto']?>" class="required" />
+                </div>
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Teléfono'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Teléfono"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="rh_tel" name="rh_tel" style="width: 150px;" value="<?=$_POST['rh_tel']?>" class="required" />
+                </div>
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Tel. Alterno'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Telefono Alterno"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="rh_tel2" name="rh_tel2" style="width: 150px;" value="<?=$_POST['rh_tel2']?>" />
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group row-fluid">
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Enfermeria'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Enfermeria"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <?php
+                    if($_POST['enfermeria']==1){
+                        $chekedEnf = "checked='checked' ";
+                    }else{
+                        $chekedEnf = "";
+                    }
+                    ?>
+                    <input type="checkbox" <?=$chekedEnf?> id="enfermeria" name="enfermeria" value="1" />
+                </div>
+            </div>
+            <div class="span8">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Costo Enfermeria'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Costo de Enfermeria"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="costoenfermeria" name="costoenfermeria" style="width: 100px;" value="<?=number_format($_POST['costoenfermeria'],2)?>" />
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group row-fluid">
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('¿Servicio Limitado?'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="¿Servicio Limitado?"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <?php
+                    if($_POST['serviciolimitado']==1){
+                        $chekedSL = "checked='checked' ";
+                    }else{
+                        $chekedSL = "";
+                    }
+                    ?>
+                    <input type="checkbox" <?=$chekedSL?> id="serviciolimitado" name="serviciolimitado" value="1" />
+                </div>
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Servicios Disponibles'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Servicios Disponibles"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="serviciosdisponibles" name="serviciosdisponibles" style="width: 50px;" value="<?=$_POST['serviciosdisponibles']?>" />
+                </div>
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="spin2">
+                    <?php echo _('Costo Servicio Extra'); ?><a href="javascript:;" class="bootstrap-tooltip" data-placement="top" data-original-title="Costo Servicio Extra"><i class="icon-photon info-circle"></i></a>
+                </label>
+                <div class="controls">
+                    <input type="text" id="costo_servicioextra" name="costo_servicioextra" style="width: 100px;" value="<?=number_format($_POST['costo_servicioextra'],2)?>" />
+                </div>
+            </div>
+        </div>
+
+    </div>

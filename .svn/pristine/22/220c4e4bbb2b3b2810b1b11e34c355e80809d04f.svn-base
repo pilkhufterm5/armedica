@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Comprobante version="2.0" serie="NC" folio="6" fecha="2010-09-10T09:49:29" sello="RgoxDaoYJqjFub9CpEj9wJH8DAVwk9G1v3GExyP9cqZaJK8K31Yw3AzaWghTJ1MRUCfz83JAK4Kl+fXJMdKtdEgivg3c+rf5Cil+BRPVTLM86+O0HItW+PtCHs8atXZtQ4ZHBOpI1jiKX6wEVvewWmOYDn+ZgLV9VxR6ti2rafg=" noAprobacion="55863" anoAprobacion="2010" formaDePago="PAGO EN UNA SOLA EXHIBICION" noCertificado="10001200000000022515" certificado="MIIDgjCCAmqgAwIBAgIUMTAwMDEyMDAwMDAwMDAwMjI1MTUwDQYJKoZIhvcNAQEFBQAwgcMxGTAXBgNVBAcTEENpdWRhZCBkZSBNZXhpY28xFTATBgNVBAgTDE1leGljbywgRC5GLjELMAkGA1UEBhMCTVgxGjAYBgNVBAMTEUFDIGRlIFBydWViYXMgU0FUMTYwNAYDVQQLFC1BZG1pbmlzdHJhY2nzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNp824xLjAsBgNVBAoUJVNlcnZpY2lvIGRlIEFkbWluaXN0cmFjafNuIFRyaWJ1dGFyaWEwHhcNMDgwODIxMTUyMjA3WhcNMTAwODIxMTUyMjA3WjCBljElMCMGA1UELRMcQUFBMDEwMTAxQUFBIC8gQUFBQTAxMDEwMUFBQTEeMBwGA1UEBRMVIC8gQUFBQTAxMDEwMUhERlJYWDAxMRIwEAYDVQQKEwlNYXRyaXogU0ExETAPBgNVBAsTCFVuaWRhZCA3MRIwEAYDVQQDEwlNYXRyaXogU0ExEjAQBgNVBCkTCU1hdHJpeiBTQTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAw35YtKyxdvPbGTFUJXm+J0wR9HqevXIC9eB1mfnwlSCJ/3dRinLG2jKp37XIWjo73iEQ1Tw3jf3bNpL3kHfXTjLVeoRHTpFotrW0pLkLCtxFIMJFD9l6lvh0SUv5rhI+2GbXol7bN9QNRw+HkAuh9cyPeB4SCqDSIh0bbaG0Bp0CAwEAAaMdMBswDAYDVR0TAQH/BAIwADALBgNVHQ8EBAMCBsAwDQYJKoZIhvcNAQEFBQADggEBANz6esENAQFQrO2uS+BPLmiM0ETyflK1PDQdlafABrAYyPi/OjSrahHr/sYbMsGcLXW8Gsb6UjQE9UrW1SeuBetaA66DpCKC/V4JFPGm1ReRf0xT48Et9c80i2JvjLmKhFrsULJlFBsWNdX0U7WAucXXmVU05eiWbfUhs/OEED7+VuoDyGQpwU0yD6WUJ3bsesqubHxOfiZngPdu/q5Z9q18u7xY9kyyTka1dBu20ierJ8GsHs/ZwbuUc0nANPSZ+NbSr9z54Pa5aBQJyGYkMCd8MEUHAlCRFSOzxnt+xooW5mU6WlE4o+ywIKOAoPJ77Y1swnr+rjIFtNE86hsujYA=" condicionesDePago="CONTADO" subTotal="50.00" descuento="0.00" total="58.00" tipoDeComprobante="traslado" xsi:schemaLocation="http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd" xmlns="http://www.sat.gob.mx/cfd/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Emisor rfc="REC0409215S1" nombre="mangueras_erp_test">
+        <DomicilioFiscal calle="PRESIDENTE CARDENAS 122 PTE. " noExterior="MARIANO ESCOBEDO 1210 NTE. CONTRO MONTER" noInterior="CENTRO" colonia="SALTILLO" localidad="SALTILLO" referencia="25000" municipio="asdf" estado="SALTILLO" pais="asdf" codigoPostal="12345"/>
+    </Emisor>
+    <Receptor rfc="MSF9601293Y0" nombre="MUELLES Y SUSPENSIONES FABIAN, S.A. DE C.V.">
+        <Domicilio calle="CHURUBUSCO 3007 NTE" colonia="INDUSTRIAS DEL VIDRIO" localidad="MONTERREY, N.L." municipio="asdf" estado="asdf" pais="asdf" codigoPostal="12345"/>
+    </Receptor>
+    <Conceptos>
+        <Concepto cantidad="1" unidad="c/u" descripcion="SERVICIO DE MAQUINADO DE PIEZAS" valorUnitario="50.00" importe="50.00"/>
+    </Conceptos>
+    <Impuestos>
+        <Traslados>
+            <Traslado impuesto="IVA" tasa="16" importe="8.00"/>
+        </Traslados>
+    </Impuestos>
+</Comprobante>

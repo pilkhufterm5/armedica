@@ -1,0 +1,101 @@
+<?php
+
+
+/**
+* Metodos necesarios para la migracion de Datos
+*/
+class MigrationController extends Controller {
+
+    public function actionIndex()
+    {
+        # code...
+        $this->render("index");
+    }
+
+
+    public function actionProcess($action=null, $run=null){
+        set_time_limit(0);
+        ini_set('memory_limit', '512M');
+        if($run == true){
+            switch ($action) {
+                case 'encrypt':
+                    $this->EncryptData();
+                    break;
+
+                default:
+                    Yii::app()->user->setFlash("danger", "Error: No se Eligio ninguna Accion");
+                    $this->redirect($this->createUrl("index"));
+                    break;
+            }
+        }
+        Yii::app()->user->setFlash("danger", "Error: No se Ejecuto ninguna Accion");
+        $this->redirect($this->createUrl("index"));
+
+    }
+
+    /**
+    *
+    * Encripta los Datos de las Tarjetas Credito/Debito
+    */
+    protected function EncryptData(){
+
+
+        $_GetData = Yii::app()->db->createCommand()
+        ->select("folio, cuenta, vencimiento, cuenta_sat, num_plastico")
+        ->from("rh_cobranza")
+        ->where("paymentid IN(9,10)")
+        //->limit(10)
+        ->queryAll();
+        //FB::INFO($_GetData,'_____________data');
+        try {
+
+            $Transaccion = Yii::app()->db->beginTransaction();
+
+            $count = 0;
+            foreach ($_GetData as $Data) {
+
+                if(!empty($Data['folio']))
+                {
+
+                    $Encryptdata = "UPDATE rh_cobranza SET
+                        cuenta = :cuenta,
+                        vencimiento = :vencimiento,
+                        cuenta_sat = :cuenta_sat,
+                        num_plastico = :num_plastico
+                    WHERE folio = :folio
+                    ";
+
+                    $EncyptParameters = array(
+                        ":cuenta" => $this->OpenSSLEncrypt($Data['cuenta']),
+                        ":vencimiento" => $this->OpenSSLEncrypt($Data['vencimiento']),
+                        ":cuenta_sat" => $this->OpenSSLEncrypt($Data['cuenta_sat']),
+                        ":num_plastico" => $this->OpenSSLEncrypt($Data['num_plastico']),
+                        ":folio" => $Data['folio']
+                    );
+                    Yii::app()->db->createCommand($Encryptdata)->execute($EncyptParameters);
+                }
+                $count++;
+            }
+
+            $Transaccion->commit();
+            Yii::app()->user->setFlash("success", "Los datos se actualizaron Correctamente. ");
+        } catch (Exception $e) {
+            $Transaccion->rollBack();
+            Yii::app()->user->setFlash("danger", "Error: " . $e->getMessage());
+        }
+
+        $this->redirect($this->createUrl("afiliaciones/index"));
+
+    }
+
+
+
+
+
+}
+
+
+
+
+
+

@@ -1,0 +1,1483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Carta Porte" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.6105100000000105"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+        <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{rootpath}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="trasno" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT rhcp.id_salesorders,rhcp.rh_carta_porte__expedida_en,rhcp.rh_carta_porte__contribuyente_regimen__reg,rhcp.rh_carta_porte__origen,rhcp.rh_carta_porte__origen__se_recogera_en,rhcp.rh_carta_porte__destino,rhcp.rh_carta_porte__destino__se_entregara_en,rhcp.rh_carta_porte__destino__destinatario,rhcp.rh_carta_porte__destino__rfc_destino,rhcp.rh_carta_porte__destino__domicilio_destino,rhcp.rh_carta_porte__cliente_retenedor,rhcp.rh_carta_porte__cliente_retenedor__rfc,rhcp.rh_carta_porte__cliente_retenedor__domicilio,rhcp.rh_carta_porte__cliente_retenedor__valor_declarado,rhcp.rh_carta_porte__poliza__nombre,rhcp.rh_carta_porte__poliza__numero,rhcp.rh_carta_porte__remitente__numero,rhcp.rh_carta_porte__remitente__embalaje,rhcp.rh_carta_porte__remitente__dice_contiene,rhcp.rh_carta_porte__remitente__peso,rhcp.rh_carta_porte__remitente__metros,rhcp.rh_carta_porte__remitente__peso_estimado,rhcp.rh_carta_porte__remitente__razon_social,rhcp.rh_carta_porte__remitente__rfc,rhcp.rh_carta_porte__remitente__direccion,rhcp.rh_carta_porte__mantener_temperatura_a,rhcp.rh_carta_porte__sello_numero,rhcp.rh_carta_porte__operador,rhcp.rh_carta_porte__carro,rhcp.rh_carta_porte__remolque,rhcp.rh_carta_porte__numero_pedimento,rhcp.rh_carta_porte__numero_factura,rhcp.rh_carta_porte__numero_remision,rhcp.rh_carta_porte__numero_orden,rhcp.rh_carta_porte__numero_proveedor,rhcp.rh_carta_porte__numero_trip,rhcp.rh_carta_porte__observaciones,rhcp.rh_carta_porte__documento, rh_transaddress.address10, cp.coyname, cp.telephone, cp.gstno, cp.regoffice1, cp.regoffice2, cp.regoffice7, cp.regoffice8, cp.regoffice9, debtortrans.trandate, SUBSTRING(DATE_FORMAT(debtortrans.trandate, '%M'),1,3) as mm, DATE_FORMAT(debtortrans.trandate, '%d') as dd, DATE_FORMAT(debtortrans.trandate, '%Y') as yy, cast(debtortrans.ovamount as decimal(10,2)) ovamount, debtortrans.id as ID, cast(debtortrans.ovdiscount as decimal(10,2)) ovdiscount, debtortrans.ovfreight, cast(debtortrans.ovgst as decimal(10,2)) ovgst, debtortrans.rate, debtortrans.invtext, debtortrans.consignment, debtorsmaster.name AS name_old, debtorsmaster.name2 AS name2_old, debtorsmaster.address1 AS address1_old, debtorsmaster.address2 AS address2_old, debtorsmaster.address3 AS address3_old, debtorsmaster.address4 AS address4_old, debtorsmaster.address5 AS address5_old, debtorsmaster.address6 AS address6_old, rh_transaddress.name, rh_transaddress.name2, rh_transaddress.address1, rh_transaddress.address2, rh_transaddress.address3, rh_transaddress.address4, rh_transaddress.address5, rh_transaddress.address6, rh_transaddress.taxref, debtorsmaster.currcode, debtorsmaster.invaddrbranch, debtorsmaster.taxref AS taxref_old, salesorders.deliverto, salesorders.deladd1, salesorders.deladd2, salesorders.deladd3, salesorders.deladd4, salesorders.customerref, salesorders.orderno, salesorders.orddate, shippers.shippername, custbranch.brname, custbranch.braddress1, custbranch.braddress2, custbranch.braddress3, custbranch.braddress4, custbranch.braddress5, custbranch.braddress6, salesman.salesmanname, debtortrans.debtorno ,stockmoves.stockid, stockmaster.description, -stockmoves.qty as quantity, stockmoves.discountpercent, ((1 - stockmoves.discountpercent) * stockmoves.price * 1* -stockmoves.qty)*debtortrans.rate AS fxnet, cast(((stockmoves.price * 1)*debtortrans.rate) as decimal(10,2)) AS fxprice, stockmoves.narrative, stockmaster.units, c.folio extinvoice , concat(rh_transaddress.address1,' ', rh_transaddress.address2, ' ',rh_transaddress.address3) as direccion1, concat(rh_transaddress.address4,' ', rh_transaddress.address5) as direccion2, rh_transaddress.address6 as direccion3, concat(rh_transaddress.address7,', ', rh_transaddress.address8) as direccion4, concat(rh_transaddress.address9,' ',rh_transaddress.address10) as direccion5,  concat(stockmaster.description,'\n',stockmoves.narrative) as descripcion, cast(debtortrans.ovamount+debtortrans.ovgst+ debtortrans.ovfreight+debtortrans.ovdiscount as decimal(10,2)) as gtotal, paymentterms.terms, c.no_certificado comprobante_no_certificado, c.ano_aprobacion as yy_aprovacion, c.no_aprobacion as numero_apr, c.total_en_letra extra_importe_con_letra, c.cadena_original comprobante_cadena_original, c.sello comprobante_sello, c.fecha fecha_y_hora_de_expedicion, debtorsmaster.rh_tel, c.serie, c.total_en_letra extra_importe_con_letra_emdc FROM debtortrans left join rh_carta_porte rhcp on rhcp.id_salesorders = debtortrans.order_, debtorsmaster, custbranch, salesorders, shippers, salesman, rh_transaddress , stockmoves, stockmaster, paymentterms, rh_cfd__cfd c, companies cp
+WHERE debtortrans.order_ = salesorders.orderno AND debtortrans.type=20002 AND rh_transaddress.type = 20002 AND rh_transaddress.transno = debtortrans.transno AND debtortrans.transno=$P{transno} AND debtortrans.shipvia=shippers.shipper_id AND debtortrans.debtorno=debtorsmaster.debtorno AND debtortrans.debtorno=custbranch.debtorno AND debtortrans.branchcode=custbranch.branchcode AND custbranch.salesman=salesman.salesmancode AND stockmoves.stockid = stockmaster.stockid AND stockmoves.type=20002 AND stockmoves.transno= rh_transaddress.transno AND stockmoves.show_on_inv_crds=1 AND debtortrans.transno=rh_transaddress.transno AND debtorsmaster.paymentterms=paymentterms.termsindicator AND c.fk_transno = debtortrans.transno AND c.id_systypes = 20002;;]]>
+	</queryString>
+	<field name="id_salesorders" class="java.lang.Integer"/>
+	<field name="rh_carta_porte__expedida_en" class="java.lang.String"/>
+	<field name="rh_carta_porte__contribuyente_regimen__reg" class="java.lang.String"/>
+	<field name="rh_carta_porte__origen" class="java.lang.String"/>
+	<field name="rh_carta_porte__origen__se_recogera_en" class="java.lang.String"/>
+	<field name="rh_carta_porte__destino" class="java.lang.String"/>
+	<field name="rh_carta_porte__destino__se_entregara_en" class="java.lang.String"/>
+	<field name="rh_carta_porte__destino__destinatario" class="java.lang.String"/>
+	<field name="rh_carta_porte__destino__rfc_destino" class="java.lang.String"/>
+	<field name="rh_carta_porte__destino__domicilio_destino" class="java.lang.String"/>
+	<field name="rh_carta_porte__cliente_retenedor" class="java.lang.String"/>
+	<field name="rh_carta_porte__cliente_retenedor__rfc" class="java.lang.String"/>
+	<field name="rh_carta_porte__cliente_retenedor__domicilio" class="java.lang.String"/>
+	<field name="rh_carta_porte__cliente_retenedor__valor_declarado" class="java.lang.String"/>
+	<field name="rh_carta_porte__poliza__nombre" class="java.lang.String"/>
+	<field name="rh_carta_porte__poliza__numero" class="java.lang.String"/>
+	<field name="rh_carta_porte__remitente__numero" class="java.lang.String"/>
+	<field name="rh_carta_porte__remitente__embalaje" class="java.lang.String"/>
+	<field name="rh_carta_porte__remitente__dice_contiene" class="java.lang.String"/>
+	<field name="rh_carta_porte__remitente__peso" class="java.lang.String"/>
+	<field name="rh_carta_porte__remitente__metros" class="java.lang.String"/>
+	<field name="rh_carta_porte__remitente__peso_estimado" class="java.lang.String"/>
+	<field name="rh_carta_porte__remitente__razon_social" class="java.lang.String"/>
+	<field name="rh_carta_porte__remitente__rfc" class="java.lang.String"/>
+	<field name="rh_carta_porte__remitente__direccion" class="java.lang.String"/>
+	<field name="rh_carta_porte__mantener_temperatura_a" class="java.lang.String"/>
+	<field name="rh_carta_porte__sello_numero" class="java.lang.String"/>
+	<field name="rh_carta_porte__operador" class="java.lang.String"/>
+	<field name="rh_carta_porte__carro" class="java.lang.String"/>
+	<field name="rh_carta_porte__remolque" class="java.lang.String"/>
+	<field name="rh_carta_porte__numero_pedimento" class="java.lang.String"/>
+	<field name="rh_carta_porte__numero_factura" class="java.lang.String"/>
+	<field name="rh_carta_porte__numero_remision" class="java.lang.String"/>
+	<field name="rh_carta_porte__numero_orden" class="java.lang.String"/>
+	<field name="rh_carta_porte__numero_proveedor" class="java.lang.String"/>
+	<field name="rh_carta_porte__numero_trip" class="java.lang.String"/>
+	<field name="rh_carta_porte__observaciones" class="java.lang.String"/>
+	<field name="rh_carta_porte__documento" class="java.lang.String"/>
+	<field name="address10" class="java.lang.String"/>
+	<field name="total_flete" class="java.math.BigDecimal"/>
+	<field name="flete" class="java.math.BigDecimal"/>
+	<field name="coyname" class="java.lang.String"/>
+	<field name="telephone" class="java.lang.String"/>
+	<field name="gstno" class="java.lang.String"/>
+	<field name="regoffice1" class="java.lang.String"/>
+	<field name="regoffice2" class="java.lang.String"/>
+	<field name="regoffice7" class="java.lang.String"/>
+	<field name="regoffice8" class="java.lang.String"/>
+	<field name="regoffice9" class="java.lang.String"/>
+	<field name="trandate" class="java.sql.Timestamp"/>
+	<field name="mm" class="java.lang.String"/>
+	<field name="dd" class="java.lang.String"/>
+	<field name="yy" class="java.lang.String"/>
+	<field name="ovamount" class="java.math.BigDecimal"/>
+	<field name="ID" class="java.lang.Integer"/>
+	<field name="ovdiscount" class="java.lang.Double"/>
+	<field name="ovfreight" class="java.lang.Double"/>
+	<field name="ovgst" class="java.math.BigDecimal"/>
+	<field name="rate" class="java.lang.Double"/>
+	<field name="invtext" class="java.lang.String"/>
+	<field name="consignment" class="java.lang.String"/>
+	<field name="name_old" class="java.lang.String"/>
+	<field name="name2_old" class="java.lang.String"/>
+	<field name="address1_old" class="java.lang.String"/>
+	<field name="address2_old" class="java.lang.String"/>
+	<field name="address3_old" class="java.lang.String"/>
+	<field name="address4_old" class="java.lang.String"/>
+	<field name="address5_old" class="java.lang.String"/>
+	<field name="address6_old" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="name2" class="java.lang.String"/>
+	<field name="address1" class="java.lang.String"/>
+	<field name="address2" class="java.lang.String"/>
+	<field name="address3" class="java.lang.String"/>
+	<field name="address4" class="java.lang.String"/>
+	<field name="address5" class="java.lang.String"/>
+	<field name="address6" class="java.lang.String"/>
+	<field name="taxref" class="java.lang.String"/>
+	<field name="currcode" class="java.lang.String"/>
+	<field name="invaddrbranch" class="java.lang.Integer"/>
+	<field name="taxref_old" class="java.lang.String"/>
+	<field name="deliverto" class="java.lang.String"/>
+	<field name="deladd1" class="java.lang.String"/>
+	<field name="deladd2" class="java.lang.String"/>
+	<field name="deladd3" class="java.lang.String"/>
+	<field name="deladd4" class="java.lang.String"/>
+	<field name="customerref" class="java.lang.String"/>
+	<field name="orderno" class="java.lang.Integer"/>
+	<field name="orddate" class="java.sql.Timestamp"/>
+	<field name="shippername" class="java.lang.String"/>
+	<field name="brname" class="java.lang.String"/>
+	<field name="braddress1" class="java.lang.String"/>
+	<field name="braddress2" class="java.lang.String"/>
+	<field name="braddress3" class="java.lang.String"/>
+	<field name="braddress4" class="java.lang.String"/>
+	<field name="braddress5" class="java.lang.String"/>
+	<field name="braddress6" class="java.lang.String"/>
+	<field name="salesmanname" class="java.lang.String"/>
+	<field name="debtorno" class="java.lang.String"/>
+	<field name="stockid" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.Double"/>
+	<field name="discountpercent" class="java.lang.Double"/>
+	<field name="fxnet" class="java.lang.Double"/>
+	<field name="fxprice" class="java.math.BigDecimal"/>
+	<field name="narrative" class="java.lang.String"/>
+	<field name="units" class="java.lang.String"/>
+	<field name="extinvoice" class="java.lang.String"/>
+	<field name="direccion1" class="java.lang.String"/>
+	<field name="direccion2" class="java.lang.String"/>
+	<field name="direccion3" class="java.lang.String"/>
+	<field name="direccion4" class="java.lang.String"/>
+	<field name="direccion5" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="gtotal" class="java.math.BigDecimal"/>
+	<field name="terms" class="java.lang.String"/>
+	<field name="comprobante_no_certificado" class="java.lang.String"/>
+	<field name="yy_aprovacion" class="java.lang.Integer"/>
+	<field name="numero_apr" class="java.lang.Integer"/>
+	<field name="extra_importe_con_letra" class="java.lang.String"/>
+	<field name="comprobante_cadena_original" class="java.lang.String"/>
+	<field name="comprobante_sello" class="java.lang.String"/>
+	<field name="fecha_y_hora_de_expedicion" class="java.sql.Timestamp"/>
+	<field name="rh_tel" class="java.lang.String"/>
+	<field name="serie" class="java.lang.String"/>
+	<field name="extra_importe_con_letra_emdc" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="371">
+			<staticText>
+				<reportElement x="120" y="15" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OFICINA MATRIZ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="35" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[A. CANTU LEAL NO 1200]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="45" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[COL. CENTRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="55" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="65" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="75" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="75" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="45" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="65" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="35" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[CARRETERA AEROPUERTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="15" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUEVO LAREDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="55" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="75" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="35" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[PROL. LAZARO CARDENAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="45" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="45" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[COL. TLANEPANTLA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="15" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TLAQUEPAQUE, JAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="65" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="65" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="35" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[ALAMBRE No 13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="75" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="55" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="15" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TLALNEPANTLA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="55" width="76" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="468" y="15" width="87" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6"/>
+				</textElement>
+				<text><![CDATA[CARTA PORTE FACTURA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="468" y="25" width="41" height="10"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="DejaVu Serif" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="506" y="35" width="49" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="4"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__expedida_en}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="468" y="45" width="87" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="468" y="55" width="87" height="10"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha_y_hora_de_expedicion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="514" y="25" width="41" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{extinvoice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="118" width="178" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[CONTRIBUYENTE DE REGIMEN SIMPLIFICADO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="43" y="134" width="219" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__origen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="332" y="134" width="223" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__destino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="144" width="207" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="144" width="195" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__destino__destinatario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="154" width="229" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{taxref}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="154" width="232" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__destino__rfc_destino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="184" width="186" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__origen__se_recogera_en}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="164" width="209" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address1}+" No "+$F{address2}+" COL. "+$F{address4}+" C.P. "+$F{address10}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="174" width="265" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="343" y="164" width="212" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__destino__domicilio_destino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="184" width="188" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__destino__se_entregara_en}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="174" width="262" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="118" width="30" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[R.F.C.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="118" width="22" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[REG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="206" width="555" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[CLIENTE/RETENEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="338" width="178" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[VALOR DECLARADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="226" width="53" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[R.F.C.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="387" y="348" width="168" height="10"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__cliente_retenedor__valor_declarado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="216" width="500" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__cliente_retenedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="226" width="500" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__cliente_retenedor__rfc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="338" width="367" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[POLIZA ABIERTA DE TRANSPORTES DE CARGA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="43" y="348" width="135" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__poliza__nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="263" width="98" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[BULTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="273" width="33" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[NUM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="43" y="273" width="55" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[EMBALAJE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="263" width="241" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[QUE EL REMITENTEN DICE CONTIENE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="263" width="61" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[PESO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="273" width="43" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[MTS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="273" width="70" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[PESO ESTIMADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="263" width="123" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[VOLUMEN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="108" y="283" width="241" height="11"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remitente__dice_contiene}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="283" width="33" height="11"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remitente__numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="283" width="61" height="11"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remitente__peso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="283" width="70" height="11"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remitente__peso_estimado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="283" width="43" height="11"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remitente__metros}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="283" width="55" height="11"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remitente__embalaje}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="360" width="451" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="468" y="360" width="87" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="539" y="0" width="16" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="468" y="0" width="34" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" size="6"/>
+				</textElement>
+				<text><![CDATA[PAGINA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="506" y="0" width="16" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="522" y="0" width="17" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="6"/>
+				</textElement>
+				<text><![CDATA[DE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="273" width="241" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="273" width="61" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="0" width="329" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[CONOCIMIENTO INTEGRAL DE SOFTWARE]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="273" width="98" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="204" width="262" height="1"/>
+			</line>
+			<line>
+				<reportElement x="290" y="204" width="265" height="1"/>
+			</line>
+			<line>
+				<reportElement x="2" y="282" width="31" height="1"/>
+			</line>
+			<line>
+				<reportElement x="43" y="283" width="55" height="1"/>
+			</line>
+			<line>
+				<reportElement x="108" y="282" width="241" height="1"/>
+			</line>
+			<line>
+				<reportElement x="360" y="282" width="61" height="1"/>
+			</line>
+			<line>
+				<reportElement x="432" y="272" width="123" height="1"/>
+			</line>
+			<line>
+				<reportElement x="432" y="282" width="43" height="1"/>
+			</line>
+			<line>
+				<reportElement x="485" y="282" width="70" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="369" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="127" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="337" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="358" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="262" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="468" y="14" width="87" height="1"/>
+			</line>
+			<line>
+				<reportElement x="468" y="24" width="87" height="1"/>
+			</line>
+			<line>
+				<reportElement x="468" y="34" width="87" height="1"/>
+			</line>
+			<line>
+				<reportElement x="468" y="44" width="87" height="1"/>
+			</line>
+			<line>
+				<reportElement x="468" y="54" width="87" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="219" y="348" width="148" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__poliza__numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="468" y="65" width="87" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[NUMERO DE CERTIFICADO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="468" y="75" width="87" height="10"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{comprobante_no_certificado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="216" width="53" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[REMITENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="55" y="236" width="500" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__cliente_retenedor__domicilio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="236" width="53" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[DOMICILIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="468" y="85" width="87" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[NUM-AÑO APROBACION]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="468" y="95" width="41" height="10"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numero_apr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="315" width="555" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remitente__direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="295" width="555" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remitente__razon_social}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="305" width="555" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remitente__rfc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="377" y="348" width="10" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="514" y="95" width="41" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{yy_aprovacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="508" y="95" width="7" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="5"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<line>
+				<reportElement x="468" y="64" width="87" height="1"/>
+			</line>
+			<line>
+				<reportElement x="468" y="74" width="87" height="1"/>
+			</line>
+			<line>
+				<reportElement x="468" y="84" width="87" height="1"/>
+			</line>
+			<line>
+				<reportElement x="468" y="94" width="87" height="1"/>
+			</line>
+			<line>
+				<reportElement x="468" y="104" width="87" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="468" y="35" width="38" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="4"/>
+				</textElement>
+				<text><![CDATA[EXPEDIDA EN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="134" width="43" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[ORIGEN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="144" width="53" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[REMITENTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="154" width="33" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[R.F.C.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="164" width="53" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[DOMICILIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="164" width="53" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[DOMICILIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="144" width="70" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[DESTINATARIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="154" width="33" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[R.F.C.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="134" width="41" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[DESTINO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="184" width="76" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[SE RECOGERA EN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="184" width="77" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[SE ENTREGARA EN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="348" width="43" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="348" width="30" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[NUM:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="219" y="118" width="148" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{gstno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="118" width="156" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__contribuyente_regimen__reg}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="120" height="94"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{rootpath}+"/logo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="2" y="0" width="449" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="485" y="0" width="70" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fxprice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="468" y="0" width="17" height="10"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="298">
+			<staticText>
+				<reportElement x="0" y="92" width="512" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[CADENA ORIGINAL]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="102" width="553" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{comprobante_cadena_original}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="70" width="143" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__mantener_temperatura_a}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="70" width="53" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[SELLO No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="82" width="51" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[REMOLQUE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="53" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[OPERADOR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="82" width="35" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[CARRO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="4" width="160" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[NUM. ORDEN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="4" width="88" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[SUMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="4" width="160" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[NUM PEDIMENTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="172" y="14" width="160" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__numero_orden}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="361" y="14" width="88" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[16% I.V.A.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="14" width="160" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__numero_pedimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="172" y="24" width="160" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[NUM. PROVEEDOR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="24" width="88" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="24" width="160" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[NUM. FACTURA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="172" y="54" width="160" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__numero_trip}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="361" y="54" width="88" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="44" width="160" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[NUM. TRIP:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="44" width="160" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[NUM: REMISION:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="172" y="34" width="160" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__numero_proveedor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="361" y="34" width="88" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[RETENCION]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="34" width="160" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__numero_factura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="361" y="44" width="88" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="54" width="160" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__numero_remision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="24" width="88" height="10"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="34" width="88" height="10"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ovdiscount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="4" width="88" height="10"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ovamount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="14" width="88" height="10"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ovgst}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="54" width="88" height="10"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{gtotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="198" width="555" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[OBSERVACIONES:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="208" width="555" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__observaciones}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="232" width="98" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD EN LETRA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="248" width="178" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="248" width="178" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[PAGO EN UNA SOLA EXHIBICION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="248" width="178" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[RECIBI DE CONFORMIDAD]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="377" y="258" width="178" height="10"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__documento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="189" y="258" width="178" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="258" width="178" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA["EFECTOS FISCALES AL PAGO"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="268" width="178" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="268" width="178" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="268" width="178" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="4"/>
+				</textElement>
+				<text><![CDATA[IMPUESTO RETENIDO DE CONFORMIDAD CON LA LE LA LEY DEL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="278" width="178" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="278" width="178" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="4"/>
+				</textElement>
+				<text><![CDATA[NOMBRE Y FIRMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="272" width="178" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="4"/>
+				</textElement>
+				<text><![CDATA[IMPUESTO AL VALOR AGREGADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="158" width="555" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[SELLO]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="168" width="555" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{comprobante_sello}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="288" width="555" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[ESTA ES UNA IMPRESION DE UN COMPROBANTE FISCAL DIGITAL]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="91" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="102" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="79" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="3" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="81" width="160" height="1"/>
+			</line>
+			<line>
+				<reportElement x="171" y="81" width="160" height="1"/>
+			</line>
+			<line>
+				<reportElement x="361" y="81" width="194" height="1"/>
+			</line>
+			<line>
+				<reportElement x="1" y="64" width="160" height="1"/>
+			</line>
+			<line>
+				<reportElement x="172" y="64" width="160" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="197" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="242" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="247" width="178" height="1"/>
+			</line>
+			<line>
+				<reportElement x="189" y="247" width="178" height="1"/>
+			</line>
+			<line>
+				<reportElement x="377" y="247" width="178" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="280" width="178" height="1"/>
+			</line>
+			<line>
+				<reportElement x="377" y="280" width="178" height="1"/>
+			</line>
+			<line>
+				<reportElement x="189" y="280" width="178" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="285" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="158" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="452" y="4" width="14" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="14" width="14" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="24" width="14" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="34" width="14" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="44" width="14" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="54" width="14" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="70" width="118" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[MANTENER TEMPERATURA A:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="343" y="70" width="212" height="9"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__sello_numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="82" width="108" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__operador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="206" y="82" width="126" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__carro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="82" width="144" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rh_carta_porte__remolque}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="98" y="232" width="457" height="10"/>
+				<textElement markup="none">
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{extra_importe_con_letra}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<pageFooter>
+            <band height="802" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="900" width="555" height="8"/>
+				<textElement textAlignment="Justified">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String">
+                                </textFieldExpression>
+                        </textField>
+                        <image>
+                                <reportElement x="0" y="-520" width="555" height="850"/>
+                                <imageExpression class="java.lang.String"><![CDATA[$P{rootpath}+"/clausula.jpg"]]></imageExpression>
+                        </image>
+		</band>
+	</pageFooter>
+</jasperReport>

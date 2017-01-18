@@ -1,0 +1,482 @@
+<?php
+
+/* $Revision: 375 $ */
+
+$PageSecurity = 2;
+
+include('includes/session.inc');
+$title = _('Stock Movements');
+include('includes/header.inc');
+
+
+if (isset($_GET['StockID'])){
+	$StockID = trim(strtoupper($_GET['StockID']));
+} elseif (isset($_POST['StockID'])){
+	$StockID = trim(strtoupper($_POST['StockID']));
+}
+
+// bowikaxu realhost - get dates from GET variables
+if (isset($_GET['BeforeDate'])){
+	$_POST['BeforeDate'] = trim(strtoupper($_GET['BeforeDate']));
+}
+if (isset($_GET['AfterDate'])){
+	$_POST['AfterDate'] = trim(strtoupper($_GET['AfterDate']));
+}
+/* 2013-05-08 Realhost: Rafael Rojas
+ * Se agrega permisos por fragmento de codigo
+*/
+$_Permisos=getPermisosPagina($_SESSION["UserID"],'StockMovements.php');
+if(!is_array($_Permisos)||count($_Permisos)==0||!isset($_Permisos['ReferenciaProv'])){
+	_('Referencia Proveedor')._('Precio Poveedor');
+	$_Permisos=array(
+			'ReferenciaProv'=>array(
+					'Nombre'=>'Referencia Proveedor',
+					'Visible'=>1,
+			),
+			'PrecioProv'=>array(
+					'Nombre'=>'Precio Poveedor',
+					'Visible'=>1,
+			)
+	);
+	setPermisosPagina($_Permisos,$_SESSION["UserID"],'StockMovements.php');
+}
+/*
+ *
+*/
+echo "<A HREF='" . $rootpath . '/SelectProduct.php?' . SID . "'>" .  _('Back to Items') . '</A><BR>';
+
+$result = DB_query("SELECT description, units FROM stockmaster WHERE stockid='$StockID'",$db);
+$myrow = DB_fetch_row($result);
+echo "<CENTER><BR><FONT COLOR=BLUE SIZE=3><B>$StockID - $myrow[0] </B>  (" . _('In units of') . " $myrow[1])</FONT>";
+
+echo "<FORM ACTION='". $_SERVER['PHP_SELF'] . "?" . SID . "' METHOD=POST>";
+echo _('Stock Code') . ":<INPUT TYPE=TEXT NAME='StockID' SIZE=21 VALUE='$StockID' MAXLENGTH=20>";
+
+echo '  ' . _('From Stock Location') . ":<SELECT NAME='StockLocation'> ";
+
+$sql = 'SELECT loccode, locationname FROM locations';
+$resultStkLocs = DB_query($sql,$db);
+
+while ($myrow=DB_fetch_array($resultStkLocs)){
+	if (isset($_POST['StockLocation']) AND $_POST['StockLocation']!='All'){
+		if ($myrow['loccode'] == $_POST['StockLocation']){
+		     echo "<OPTION SELECTED VALUE='" . $myrow['loccode'] . "'>" . $myrow['locationname'];
+		} else {
+		     echo "<OPTION VALUE='" . $myrow['loccode'] . "'>" . $myrow['locationname'];
+		}
+	} elseif ($myrow['loccode']==$_SESSION['UserStockLocation']){
+		 echo "<OPTION SELECTED VALUE='" . $myrow['loccode'] . "'>" . $myrow['locationname'];
+		 $_POST['StockLocation']=$myrow['loccode'];
+	} else {
+		 echo "<OPTION VALUE='" . $myrow['loccode'] . "'>" . $myrow['locationname'];
+	}
+}
+
+echo '</SELECT><BR>';
+
+if (!isset($_POST['BeforeDate']) OR !Is_Date($_POST['BeforeDate'])){
+   $_POST['BeforeDate'] = Date($_SESSION['DefaultDateFormat']);
+}
+if (!isset($_POST['AfterDate']) OR !Is_Date($_POST['AfterDate'])){
+   $_POST['AfterDate'] = Date($_SESSION['DefaultDateFormat'], Mktime(0,0,0,Date("m")-3,Date("d"),Date("y")));
+}
+echo ' ' . _('Show Movements before') . ": <INPUT TYPE=TEXT NAME='BeforeDate' SIZE=12 MAXLENGTH=12 VALUE='" . $_POST['BeforeDate'] . "'>";
+echo ' ' . _('But after') . ": <INPUT TYPE=TEXT NAME='AfterDate' SIZE=12 MAXLENGTH=12 VALUE='" . $_POST['AfterDate'] . "'>";
+echo "     <INPUT TYPE=SUBMIT NAME='ShowMoves' VALUE='" . _('Show Stock Movements') . "'>";
+echo '<HR>';
+
+$SQLBeforeDate = FormatDateForSQL($_POST['BeforeDate']);
+$SQLAfterDate = FormatDateForSQL($_POST['AfterDate']);
+
+$sqlCaduca = "SELECT count(*)t FROM stockserialitems WHERE stockid = '" . $StockID . "'";
+$resultCaduca = DB_fetch_assoc(DB_query($sqlCaduca, $db));
+$caducidad =$resultCaduca['t']>0;
+/*
+ * rleal
+ * Feb 24 2011
+ * Se hace un recalculo del ultimo movimiento de stock
+ */
+
+
+$sql1 = "SELECT max(stockmoves.stkmoveno)
+	FROM stockmoves
+	WHERE  stockmoves.loccode='" . $_POST['StockLocation'] . "'
+	AND stockmoves.trandate >= '". $SQLAfterDate . "'
+	AND stockmoves.stockid = '" . $StockID . "'
+	AND stockmoves.trandate <= '" . $SQLBeforeDate . "'
+	AND hidemovt=0";
+
+       $resultmaxstkmoveno = DB_query($sql1,$db);
+       $myrow1=DB_fetch_array($resultmaxstkmoveno);
+       $rh_stkmoveno = $myrow1[0];
+
+       if ($rh_stkmoveno >0){
+
+            $sqlUpdatSM = "call update_newqoh(". $rh_stkmoveno .")";
+            DB_query($sqlUpdatSM, $db);
+       }
+
+/*
+ * Fin de modificación
+ */
+
+       /*
+        * rleal
+        * Feb 26 2011
+        * Se sustituye este query por uno mas optimo
+        */
+       /*
+$sql = "SELECT stockmoves.stockid,
+		systypes.typename,
+		rh_cfd__cfd.serie as serie_cfd,
+		rh_cfd__cfd.folio,
+		stockmoves.type,
+		stockmoves.transno,
+		stockmoves.trandate,
+		stockmoves.debtorno,
+		stockmoves.branchcode,
+		stockmoves.qty,
+		stockmoves.reference,
+		stockmoves.price,
+		stockmoves.discountpercent,
+		stockmoves.newqoh,
+		stockmaster.decimalplaces,".
+                //rh_get_external(systypes.typeid, stockmoves.transno, stockmoves.loccode) AS numExtFac, //iJPe, esta forma de obtener el numero externo no funcionaba con los almacenes virtuales
+                "(SELECT extinvoice FROM rh_invoicesreference WHERE intinvoice = stockmoves.transno) AS numExtFac,
+                (Select rh_serie FROM rh_locations WHERE loccode = (SELECT loccode FROM rh_invoicesreference WHERE intinvoice = stockmoves.transno)) AS serie,
+                (CASE stockmoves.type WHEN 25 THEN rh_get_ponumber(stockmoves.transno) ELSE 0 END) AS numTrans
+	FROM stockmoves LEFT JOIN rh_cfd__cfd ON rh_cfd__cfd.fk_transno=stockmoves.transno
+	INNER JOIN systypes ON stockmoves.type=systypes.typeid
+	INNER JOIN stockmaster ON stockmoves.stockid=stockmaster.stockid
+	WHERE  stockmoves.loccode='" . $_POST['StockLocation'] . "'
+	AND stockmoves.trandate >= '". $SQLAfterDate . "'
+	AND stockmoves.stockid = '" . $StockID . "'
+	AND stockmoves.trandate <= '" . $SQLBeforeDate . "'
+	AND hidemovt=0
+	ORDER BY stkmoveno DESC";
+        *
+        */
+
+$sql = "SELECT stockmoves.stockid,
+		systypes.typename,
+		rh_cfd__cfd.serie as serie_cfd,
+		rh_cfd__cfd.folio,
+		stockmoves.type,
+		stockmoves.transno,
+		stockmoves.trandate,
+		stockmoves.debtorno,
+		stockmoves.branchcode,
+		stockmoves.qty,
+		stockmoves.reference,
+		stockmoves.price,
+		stockmoves.discountpercent,
+		stockmoves.newqoh,
+		stockmaster.decimalplaces,
+                extinvoice AS numExtFac,
+                rh_serie AS serie,
+                (CASE stockmoves.type WHEN 25 THEN rh_get_ponumber(stockmoves.transno) ELSE 0 END) AS numTrans
+		,stockmoves.stkmoveno
+	FROM stockmoves
+	LEFT JOIN rh_cfd__cfd ON rh_cfd__cfd.fk_transno=stockmoves.transno and rh_cfd__cfd.id_systypes=stockmoves.type  
+        INNER JOIN systypes ON stockmoves.type=systypes.typeid
+	INNER JOIN stockmaster ON stockmoves.stockid=stockmaster.stockid
+        LEFT JOIN rh_invoicesreference ON rh_invoicesreference.intinvoice = stockmoves.transno
+        LEFT JOIN rh_locations ON rh_locations.loccode = rh_invoicesreference. loccode
+	WHERE  stockmoves.loccode='" . $_POST['StockLocation'] . "'
+	AND stockmoves.trandate >= '". $SQLAfterDate . "'
+	AND stockmoves.stockid = '" . $StockID . "'
+	AND stockmoves.trandate <= '" . $SQLBeforeDate . "'
+	AND hidemovt=0
+	ORDER BY stkmoveno DESC";
+
+
+
+       /*
+        * Fin de modificacion
+        */
+$ErrMsg = _('The stock movements for the selected criteria could not be retrieved because') . ' - ';
+$DbgMsg = _('The SQL that failed was') . ' ';
+
+$MovtsResult = DB_query($sql, $db, $ErrMsg, $DbgMsg);
+
+/*Libreria para exportar a excel */
+require 'includes/PHPExcel/Classes/PHPExcel.php';
+$objPHPExcel = new PHPExcel();
+/*Asignamos los encabezados al archivo*/
+$objPHPExcel->getActiveSheet()->    setCellValue('A1', _('Type'))
+	                              ->setCellValue('B1', _('Number'))
+	                              ->setCellValue('C1', _('Date'))
+	                              ->setCellValue('D1', _('Customer'))
+	                              ->setCellValue('E1', _('Branch'))
+								  ->setCellValue('F1', _('Quantity'))
+	                              ->setCellValue('G1', _('Reference'))
+								  ->setCellValue('H1', _('Price'))
+	                              ->setCellValue('I1', _('Discount'))
+								  ->setCellValue('J1', _('New Qty'));
+if($caducidad)
+	$objPHPExcel->getActiveSheet()->setCellValue('K1', _('Serie/Lote'))->setCellValue('L1', _('Caducidad'))->setCellValue('M1', _('Quantity'));
+
+echo '<TABLE CELLPADDING=2 BORDER=0>';
+$tableheader = "<TR>
+		<TD CLASS='tableheader'>" . _('Type') . "</TD><TD CLASS='tableheader'>" . _('Number') . "</TD>
+		<TD CLASS='tableheader'>" . _('Date') . "</TD><TD CLASS='tableheader'>" . _('Customer') . "</TD>
+		<TD CLASS='tableheader'>" . _('Branch') . "</TD><TD CLASS='tableheader'>" . _('Quantity') . "</TD>
+		<TD CLASS='tableheader'>" . _('Reference') . "</TD><TD CLASS='tableheader'>" . _('Price') . "</TD>
+		<TD CLASS='tableheader'>" . _('Discount') . "</TD><TD CLASS='tableheader'>" . _('New Qty') . "</TD>
+		";
+if($caducidad){
+	$tableheader .="<TD CLASS='tableheader'>" . _('Serie/Lote') . "</TD>";
+	$tableheader .="<TD CLASS='tableheader'>" . _('Caducidad') . "</TD>";
+	$tableheader .="<TD CLASS='tableheader'>" . _('Quantity') . "</TD>";
+}
+$tableheader .="</TR>"; 
+
+echo $tableheader;
+$i= 2;
+$j = 1;
+$k=0; //row colour counter
+while ($myrow=DB_fetch_array($MovtsResult)) {
+
+	if ($k==1){
+		echo "<TR BGCOLOR='#CCCCCC'>";
+		$k=0;
+	} else {
+		echo "<TR BGCOLOR='#EEEEEE'>";
+		$k=1;
+	}
+
+	$DisplayTranDate = ConvertSQLDate($myrow['trandate']);
+    $sqlOrder = 'SELECT * FROM stockserialmoves WHERE stockmoveno = '.$myrow['stkmoveno'];
+    $resSer = DB_query($sqlOrder, $db);
+	if ($myrow['type']==10){ /*its a sales invoice allow link to show invoice it was sold on*/
+
+	  //SAINTS FE 24/02/2011
+	  if($myrow['folio']!=""){
+		printf("<TD><A TARGET='_blank' HREF='%s/rh_PrintCustTrans.php?%s&FromTransNo=%s&InvOrCredit=Invoice'>%s</TD>
+		<TD>%s</TD>
+		<TD>%s</TD>
+		<TD>%s</TD>
+		<TD>%s</TD>
+		<TD ALIGN=RIGHT>%s</TD>
+		<TD>%s</TD>
+		<TD ALIGN=RIGHT>%s</TD>
+		<TD ALIGN=RIGHT>%s%%</TD>
+		<TD ALIGN=RIGHT>%s</TD>",
+		$rootpath,
+		SID,
+		$myrow['transno'],
+		$myrow['typename'],
+		$myrow['serie_cfd'].$myrow['folio']. " (".$myrow['transno'].")",
+		$DisplayTranDate,
+		$myrow['debtorno'],
+		$myrow['branchcode'],
+		number_format($myrow['qty'],$myrow['decimalplaces']),
+		$myrow['reference'],
+		number_format($myrow['price'],2),
+		number_format($myrow['discountpercent']*100,2),
+		number_format($myrow['newqoh'],$myrow['decimalplaces']));}
+
+	  else
+	  {printf("<TD><A TARGET='_blank' HREF='%s/rh_PrintCustTrans.php?%s&FromTransNo=%s&InvOrCredit=Invoice'>%s</TD>
+		<TD>%s</TD>
+		<TD>%s</TD>
+		<TD>%s</TD>
+		<TD>%s</TD>
+		<TD ALIGN=RIGHT>%s</TD>
+		<TD>%s</TD>
+		<TD ALIGN=RIGHT>%s</TD>
+		<TD ALIGN=RIGHT>%s%%</TD>
+		<TD ALIGN=RIGHT>%s</TD>",
+		$rootpath,
+		SID,
+		$myrow['transno'],
+		$myrow['typename'],
+		$myrow['serie'].$myrow['numExtFac']. " (".$myrow['transno'].")",
+		$DisplayTranDate,
+		$myrow['debtorno'],
+		$myrow['branchcode'],
+		number_format($myrow['qty'],$myrow['decimalplaces']),
+		$myrow['reference'],
+		number_format($myrow['price'],2),
+		number_format($myrow['discountpercent']*100,2),
+		number_format($myrow['newqoh'],$myrow['decimalplaces']));}
+		//SAINTS fin
+
+	} elseif ($myrow['type']==11){
+
+		printf("<TD><A TARGET='_blank' HREF='%s/PrintCustTrans.php?%s&FromTransNo=%s&InvOrCredit=Credit'>%s</TD>
+		<TD>%s</TD>
+		<TD>%s</TD>
+		<TD>%s</TD>
+		<TD>%s</TD>
+		<TD ALIGN=RIGHT>%s</TD>
+		<TD>%s</TD>
+		<TD ALIGN=RIGHT>%s</TD>
+		<TD ALIGN=RIGHT>%s%%</TD>
+		<TD ALIGN=RIGHT>%s</TD>",
+		$rootpath,
+		SID,
+		$myrow['transno'],
+		$myrow['typename'],
+		$myrow['transno'],
+		$DisplayTranDate,
+		$myrow['debtorno'],
+		$myrow['branchcode'],
+		number_format($myrow['qty'],$myrow['decimalplaces']),
+		$myrow['reference'],
+		number_format($myrow['price'],2),
+		number_format($myrow['discountpercent']*100,2),
+		number_format($myrow['newqoh'],$myrow['decimalplaces']));
+	} else {
+            //PO_OrderDetails.php?OrderNo=24
+            if ($myrow['numTrans'] != 0){
+                $link = "<A TARGET='_blank' HREF='%s/PO_OrderDetails.php?%s&OrderNo=".$myrow['numTrans']."'>%s";
+
+                printf("<TD>".$link."</TD>
+                                    <TD>%s</TD>
+                                    <TD>%s</TD>
+                                    <TD>%s</TD>
+                                    <TD>%s</TD>
+                                    <TD ALIGN=RIGHT>%s</TD>
+                                    <TD>%s</TD>
+                                    <TD ALIGN=RIGHT>%s</TD>
+                                    <TD ALIGN=RIGHT>%s%%</TD>
+                                    <TD ALIGN=RIGHT>%s</TD>",
+                                    $rootpath,
+                                    SID,
+                                    $myrow['typename'],
+                                    $myrow['transno'].' ('.$myrow['numTrans'].')',
+                                    $DisplayTranDate,
+                                    $myrow['debtorno'],
+                                    $myrow['branchcode'],
+                                    number_format($myrow['qty'],$myrow['decimalplaces']),
+			                		$_Permisos['ReferenciaProv']['Visible']==1?$myrow['reference']:'',
+			                		$_Permisos['PrecioProv']['Visible']==1?number_format($myrow['price'],2):'',
+                                    number_format($myrow['discountpercent']*100,2),
+                                    number_format($myrow['newqoh'],$myrow['decimalplaces']));
+            }else{
+		printf("<TD>%s</TD>
+			<TD>%s</TD>
+			<TD>%s</TD>
+			<TD>%s</TD>
+			<TD>%s</TD>
+			<TD ALIGN=RIGHT>%s</TD>
+			<TD>%s</TD>
+			<TD ALIGN=RIGHT>%s</TD>
+			<TD ALIGN=RIGHT>%s%%</TD>
+			<TD ALIGN=RIGHT>%s</TD>",
+			$myrow['typename'],
+			$myrow['transno'],
+			$DisplayTranDate,
+			$myrow['debtorno'],
+			$myrow['branchcode'],
+			number_format($myrow['qty'],$myrow['decimalplaces']),
+			$myrow['reference'],
+			number_format($myrow['price'],2),
+			number_format($myrow['discountpercent']*100,2),
+			number_format($myrow['newqoh'],$myrow['decimalplaces']));
+	}
+
+	}
+	{
+		/*Definimos los datos de manera dinamica*/
+				$objPHPExcel->getActiveSheet()->
+									setCellValue('A'.$i, $myrow['typename'])
+	                              ->setCellValue('B'.$i, $myrow['transno'])
+	                              ->setCellValue('C'.$i, $DisplayTranDate)
+	                              ->setCellValue('D'.$i, $myrow['debtorno'])
+	                              ->setCellValue('E'.$i, $myrow['branchcode'])
+								  ->setCellValue('F'.$i, number_format($myrow['qty'],$myrow['decimalplaces']))
+	                              ->setCellValue('G'.$i, $myrow['reference'])
+								  ->setCellValue('H'.$i, number_format($myrow['price'],2))
+	                              ->setCellValue('I'.$i, number_format($myrow['discountpercent']*100,2))
+								  ->setCellValue('J'.$i, number_format($myrow['newqoh'],$myrow['decimalplaces']));
+	}
+	if($caducidad){
+	 /*
+         * iJPe
+         * realhost
+         * 06 Oct 2009
+         *
+         * Modificaciones para mostrar serials
+         */        
+                $flag = false;
+                while ($myrowSer = DB_fetch_array($resSer))
+                {
+                        if ($flag){
+                            echo "<tr><TD colspan=10></TD>";
+	                        {
+	                        	$i++;
+							/*Definimos los datos de manera dinamica*/
+							$objPHPExcel->getActiveSheet()->
+												setCellValue('A'.$i, '')
+				                              ->setCellValue('B'.$i, $myrow['transno'])
+				                              ->setCellValue('C'.$i, '')
+				                              ->setCellValue('D'.$i, '')
+				                              ->setCellValue('E'.$i, '')
+											  ->setCellValue('F'.$i, '')
+				                              ->setCellValue('G'.$i, $myrow['reference'])
+											  ->setCellValue('H'.$i, number_format($myrow['price'],2))
+				                              ->setCellValue('I'.$i, number_format($myrow['discountpercent']*100,2))
+											  ->setCellValue('J'.$i, number_format($myrow['newqoh'],$myrow['decimalplaces']));
+							}
+                        }
+                            $sqlCaduca = "SELECT expirationdate FROM stockserialitems WHERE serialno = '".$myrowSer['serialno']."' AND loccode = '".$_POST['StockLocation']."'";
+                            $resultCaduca = DB_query($sqlCaduca, $db);
+                            $fieldsCaduca = DB_fetch_array($resultCaduca);
+
+                            echo "					
+					<TD> <font color=\"#8A0808\">".$myrowSer['serialno']."</font></TD>
+                                        <TD> <font color=\"#8A0808\">".
+                                        		//date($_SESSION['DefaultDateFormat'],strtotime(
+                                        		$fieldsCaduca['expirationdate']
+												//))
+                                        		."</font></TD>
+                                	<TD> <font color=\"#8A0808\">".$myrowSer['moveqty']."</font></TD>";
+                            $objPHPExcel->getActiveSheet()->
+												setCellValue('K'.$i, $myrowSer['serialno'])
+				                              ->setCellValue('L'.$i, "'".
+				                              		//date('Y-m-d',strtotime(
+				                              		$fieldsCaduca['expirationdate']
+													//))
+												)
+				                              ->setCellValue('M'.$i, $myrowSer['moveqty']);                    
+                        if ($flag)
+                            echo "</tr>";
+                            
+                        $flag = true;
+                }
+	}
+	echo '</tr>';
+	$j++;
+	If ($j == 12){
+		$j=1;
+		echo $tableheader;
+	}
+//end of page full new headings if
+
+
+$i++;
+
+}
+//end of while loop
+
+echo '</TABLE><HR>';
+
+// Serializamos el reporte para utilizarlo en la pagina de descarga
+	 $reporte = serialize($objPHPExcel);
+	 $nombrearchivo = substr( md5(microtime()), 1, 8); 
+ 	 $rutatmp = sys_get_temp_dir();
+	 file_put_contents($rutatmp.'/'.$nombrearchivo, $reporte);
+	echo '<a href="contentToExcel.php?archivo='.$nombrearchivo.'" >Exportar a excel</a><br>';
+	
+echo "<A HREF='$rootpath/StockStatus.php?" . SID . "&StockID=$StockID'>" . _('Show Stock Status') . '</A>';
+echo "<BR><A HREF='$rootpath/StockUsage.php?" . SID . "&StockID=$StockID&StockLocation=" . $_POST['StockLocation'] . "'>" . _('Show Stock Usage') . '</A>';
+echo "<BR><A HREF='$rootpath/SelectSalesOrder.php?" . SID . "&SelectedStockItem=$StockID&StockLocation=" . $_POST['StockLocation'] . "'>" . _('Search Outstanding Sales Orders') . '</A>';
+echo "<BR><A HREF='$rootpath/SelectCompletedOrder.php?" . SID . "&SelectedStockItem=$StockID'>" . _('Search Completed Sales Orders') . '</A>';
+
+echo '</FORM></CENTER>';
+
+include('includes/footer.inc');
+
+?>

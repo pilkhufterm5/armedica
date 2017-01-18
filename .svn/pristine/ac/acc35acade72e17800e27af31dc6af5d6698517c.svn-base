@@ -1,0 +1,10051 @@
+<?php
+$Mixml = base64_encode('
+<row>
+    <Foltitular weberp="rh_titular">
+        <folio weberp="folio" prime="1" >
+            20065
+        </folio>
+        <fecha weberp="fecha_ingreso" >
+            2005-07-11
+        </fecha>
+        <IdProducto weberp="null">
+            1
+        </IdProducto>
+        <IdAsesor weberp="t.asesor">
+            1
+        </IdAsesor>
+        <IdCoordinador weberp="null">
+            1
+        </IdCoordinador>
+        <IdAsesorLaboratorio weberp=" ">
+            0
+        </IdAsesorLaboratorio>
+        <APELLIDOS weberp="t.apellidos">
+            GUTIERREZ PORTALES
+        </APELLIDOS>
+        <NOMBRES weberp="t.name">
+            TEST
+        </NOMBRES>
+        <SEXO weberp="t.sexo">
+            F
+        </SEXO>
+        <RFC weberp="t.taxref">
+            GUPA 720908
+        </RFC>
+        <CORREO weberp="t.email">
+            ADRIANA@hotmail.com
+        </CORREO>
+        <TELEFONO1 weberp="t.rh_tel">
+            80808080
+        </TELEFONO1>
+        <TELEFONO2 weberp="t.rh_tel2">
+            83838383
+        </TELEFONO2>
+        <CALLE weberp="t.address1">
+            ANTONIO L. RODRIGUEZ
+        </CALLE>
+        <NUMERO weberp="t.address2">
+            3090
+        </NUMERO>
+        <COLONIA weberp="t.address4">
+            SANTA MARIA
+        </COLONIA>
+        <SECTOR weberp="t.address5">
+            5
+        </SECTOR>
+        <ENTRECALLE weberp="t.address6">
+            PABLO M. HDZ Y ANGEL VOLARES
+        </ENTRECALLE>
+        <IdMunicipio weberp="t.address7">
+            1
+        </IdMunicipio>
+        <IdEstado weberp="t.address8">
+            1
+        </IdEstado>
+        <CUADRANTE1 weberp="t.cuadrante1 ">
+            62
+        </CUADRANTE1>
+        <CUADRANTE2 weberp="t.cuadrante2">
+            C
+        </CUADRANTE2>
+        <CUADRANTE3 weberp="t.cuadrante3">
+            4
+        </CUADRANTE3>
+        <FECHACAN weberp="t.motivo_cancelacion">
+            2009-09-03
+        </FECHACAN>
+        <IdMotivoCancelacion weberp="t.motivo_cancelacion">
+            null
+        </IdMotivoCancelacion>
+        <COSTO weberp="t.costo">
+            130.00
+        </COSTO>
+        <IdIdentificacion weberp="c.identificacion">
+            1
+        </IdIdentificacion>
+        <TIPOPERSON weberp="t.tipopersona">
+            2
+        </TIPOPERSON>
+        <FECHASUSP1 weberp="">
+            1900-01-01
+        </FECHASUSP1>
+        <FECHASUSP2 weberp="">
+            1900-01-01
+        </FECHASUSP2>
+        <NOMFAM weberp="">
+            JUAN CARLOS DE LEON SALAZAR
+        </NOMFAM>
+        <PARENTESCO weberp="">
+            8
+        </PARENTESCO>
+        <TELFAM weberp="">
+            8158.5700.
+        </TELFAM>
+        <ESP weberp="">
+            0
+        </ESP>
+        <TARIFA weberp="">
+            110.00
+        </TARIFA>
+        <TARIFAINS weberp="">
+            0.00
+        </TARIFAINS>
+        <FECHAULTAU weberp="t.fecha_ultaum">
+            2013-04-30
+        </FECHAULTAU>
+        <TIPTARIFA weberp="">
+            1
+        </TIPTARIFA>
+        <AUMENTO weberp="">
+            0
+        </AUMENTO>
+        <CP weberp="t.address10">
+            66050
+        </CP>
+        <STATUS weberp="">
+            2
+        </STATUS>
+        <MONTORECIB weberp="">
+            0
+        </MONTORECIB>
+        <PROMOCION weberp="">
+            0
+        </PROMOCION>
+        <SINCLUIDOS weberp="t.servicios_seleccionados">
+            1,2,3,4,5,6,7,8
+        </SINCLUIDOS>
+        <ACT weberp="">
+            0
+        </ACT>
+        <CONTACTO weberp="">
+            JUAN CARLOS DE LEON SALAZAR
+        </CONTACTO>
+        <FECHAUC weberp="">
+            1900-01-01
+        </FECHAUC>
+        <CONTACTA weberp="">
+            0
+        </CONTACTA>
+        <FCANAUT weberp="">
+            1900-01-01
+        </FCANAUT>
+        <FMCANAUT weberp="">
+            1900-01-01
+        </FMCANAUT>
+        <CANAUT weberp="">
+            0
+        </CANAUT>
+        <NOEMPLEA weberp="">
+            33889
+        </NOEMPLEA>
+        <FULTREA weberp="">
+            2007-07-12
+        </FULTREA>
+        <VIGINIMES weberp="">
+            0
+        </VIGINIMES>
+        <VIGINIANO weberp="">
+            0
+        </VIGINIANO>
+        <VIGFINMES weberp="">
+            0
+        </VIGFINMES>
+        <VIGFINANO weberp="">
+            0
+        </VIGFINANO>
+        <CLAVEPROMO weberp=" ">
+            0
+        </CLAVEPROMO>
+        <DIASCTO weberp=" ">
+            0
+        </DIASCTO>
+        <FOLIOCAN weberp=" ">
+            0
+        </FOLIOCAN>
+        <FECULAUMAN weberp=" ">
+            2008-07-01
+        </FECULAUMAN>
+        <TARIFAANT weberp=" ">
+            100.00
+        </TARIFAANT>
+        <IdUsuario weberp=" ">
+            51
+        </IdUsuario>
+        <LIM_SERV weberp="t.serviciolimitado">
+            0
+        </LIM_SERV>
+        <LIM_MES weberp=" ">
+            0
+        </LIM_MES>
+        <LIM_COSTEX weberp="t.costo_servicioextra">
+            0.00
+        </LIM_COSTEX>
+        <ENF weberp="t.enfermeria">
+            0
+        </ENF>
+        <COSTOENF weberp="t.costoenfermeria">
+            0
+        </COSTOENF>
+        <CUENTA_SAT weberp=" "></CUENTA_SAT>
+        <CORREO2 weberp=" "></CORREO2>
+        <CORREO3 weberp=" "></CORREO3>
+        <CORREO4 weberp=" "></CORREO4>
+        <METODOPAGO weberp=" "></METODOPAGO>
+        <IdFrecuenciaPago weberp=" ">
+            1
+        </IdFrecuenciaPago>
+        <IdFormaPago weberp=" ">
+            4
+        </IdFormaPago>
+        <IdConvenio weberp=" ">
+            null
+        </IdConvenio>
+        <MsgEditCosto weberp=" ">
+            null
+        </MsgEditCosto>
+        <TipoFolio weberp=" ">
+            1
+        </TipoFolio>
+        <MONTOREC weberp=" ">
+            null
+        </MONTOREC>
+    </Foltitular>
+</row>');
+
+echo $Mixml;
+
+////////////////////////////////////////UPDATE
+
+$Mixml = base64_encode('
+<row>
+    <Foltitular weberp="rh_titular" where="folio=20065">
+        <fecha weberp="fecha_ingreso" >
+            2005-07-11
+        </fecha>
+        <IdProducto weberp="null">
+            1
+        </IdProducto>
+        <IdAsesor weberp="t.asesor">
+            1
+        </IdAsesor>
+        <IdCoordinador weberp="null">
+            1
+        </IdCoordinador>
+        <IdAsesorLaboratorio weberp=" ">
+            0
+        </IdAsesorLaboratorio>
+        <APELLIDOS weberp="t.apellidos"></APELLIDOS>
+        <NOMBRES weberp="t.name">
+            TEST
+        </NOMBRES>
+        <SEXO weberp="t.sexo">
+            F
+        </SEXO>
+        <RFC weberp="t.taxref">
+            GUPA 720908
+        </RFC>
+        <CORREO weberp="t.email">
+            ADRIANA@hotmail.com
+        </CORREO>
+        <TELEFONO1 weberp="t.rh_tel">
+            80808080
+        </TELEFONO1>
+        <TELEFONO2 weberp="t.rh_tel2">
+            83838383
+        </TELEFONO2>
+        <CALLE weberp="t.address1">
+            ANTONIO L. RODRIGUEZ
+        </CALLE>
+        <NUMERO weberp="t.address2">
+            3090
+        </NUMERO>
+        <COLONIA weberp="t.address4">
+            SANTA MARIA
+        </COLONIA>
+        <SECTOR weberp="t.address5">
+            5
+        </SECTOR>
+        <ENTRECALLE weberp="t.address6">
+            PABLO M. HDZ Y ANGEL VOLARES
+        </ENTRECALLE>
+        <IdMunicipio weberp="t.address7">
+            1
+        </IdMunicipio>
+        <IdEstado weberp="t.address8">
+            1
+        </IdEstado>
+        <CUADRANTE1 weberp="t.cuadrante1 ">
+            62
+        </CUADRANTE1>
+        <CUADRANTE2 weberp="t.cuadrante2">
+            C
+        </CUADRANTE2>
+        <CUADRANTE3 weberp="t.cuadrante3">
+            4
+        </CUADRANTE3>
+        <FECHACAN weberp="t.motivo_cancelacion">
+            2009-09-03
+        </FECHACAN>
+        <COSTO weberp="t.costo">
+            130.00
+        </COSTO>
+        <IdIdentificacion weberp="c.identificacion">
+            1
+        </IdIdentificacion>
+        <TIPOPERSON weberp="t.tipopersona">
+            2
+        </TIPOPERSON>
+        <FECHASUSP1 weberp="">
+            1900-01-01
+        </FECHASUSP1>
+        <FECHASUSP2 weberp="">
+            1900-01-01
+        </FECHASUSP2>
+        <NOMFAM weberp="">
+            JUAN CARLOS DE LEON SALAZAR
+        </NOMFAM>
+        <PARENTESCO weberp="">
+            8
+        </PARENTESCO>
+        <TELFAM weberp="">
+            8158.5700.
+        </TELFAM>
+        <ESP weberp="">
+            0
+        </ESP>
+        <TARIFA weberp="">
+            110.00
+        </TARIFA>
+        <TARIFAINS weberp="">
+            0.00
+        </TARIFAINS>
+        <FECHAULTAU weberp="t.fecha_ultaum">
+            2013-04-30
+        </FECHAULTAU>
+        <TIPTARIFA weberp="">
+            1
+        </TIPTARIFA>
+        <AUMENTO weberp="">
+            0
+        </AUMENTO>
+        <CP weberp="t.address10">
+            66050
+        </CP>
+        <STATUS weberp="">
+            2
+        </STATUS>
+        <MONTORECIB weberp="">
+            0
+        </MONTORECIB>
+        <PROMOCION weberp="">
+            0
+        </PROMOCION>
+        <SINCLUIDOS weberp="t.servicios_seleccionados">
+            1,2,3,4,5,6,7,8
+        </SINCLUIDOS>
+        <ACT weberp="">
+            0
+        </ACT>
+        <CONTACTO weberp="">
+            JUAN CARLOS DE LEON SALAZAR
+        </CONTACTO>
+        <FECHAUC weberp="">
+            1900-01-01
+        </FECHAUC>
+        <CONTACTA weberp="">
+            0
+        </CONTACTA>
+        <FCANAUT weberp="">
+            1900-01-01
+        </FCANAUT>
+        <FMCANAUT weberp="">
+            1900-01-01
+        </FMCANAUT>
+        <CANAUT weberp="">
+            0
+        </CANAUT>
+        <NOEMPLEA weberp="">
+            33889
+        </NOEMPLEA>
+        <FULTREA weberp="">
+            2007-07-12
+        </FULTREA>
+        <VIGINIMES weberp="">
+            0
+        </VIGINIMES>
+        <VIGINIANO weberp="">
+            0
+        </VIGINIANO>
+        <VIGFINMES weberp="">
+            0
+        </VIGFINMES>
+        <VIGFINANO weberp="">
+            0
+        </VIGFINANO>
+        <CLAVEPROMO weberp=" ">
+            0
+        </CLAVEPROMO>
+        <DIASCTO weberp=" ">
+            0
+        </DIASCTO>
+        <FOLIOCAN weberp=" ">
+            0
+        </FOLIOCAN>
+        <FECULAUMAN weberp=" ">
+            2008-07-01
+        </FECULAUMAN>
+        <TARIFAANT weberp=" ">
+            100.00
+        </TARIFAANT>
+        <IdUsuario weberp=" ">
+            51
+        </IdUsuario>
+        <LIM_SERV weberp="t.serviciolimitado">
+            0
+        </LIM_SERV>
+        <LIM_MES weberp=" ">
+            0
+        </LIM_MES>
+        <LIM_COSTEX weberp="t.costo_servicioextra">
+            0.00
+        </LIM_COSTEX>
+        <ENF weberp="t.enfermeria">
+            0
+        </ENF>
+        <COSTOENF weberp="t.costoenfermeria">
+            0
+        </COSTOENF>
+        <CUENTA_SAT weberp=" "></CUENTA_SAT>
+        <CORREO2 weberp=" "></CORREO2>
+        <CORREO3 weberp=" "></CORREO3>
+        <CORREO4 weberp=" "></CORREO4>
+        <METODOPAGO weberp=" "></METODOPAGO>
+        <IdFrecuenciaPago weberp=" ">
+            1
+        </IdFrecuenciaPago>
+        <IdFormaPago weberp=" ">
+            4
+        </IdFormaPago>
+        <TipoFolio weberp=" ">
+            1
+        </TipoFolio>
+    </Foltitular>
+</row>');
+
+/////////////////////////////////////
+
+//////////////////////////////INSERT
+
+$Mixml = base64_encode('
+<row>
+    <Foltitular weberp="rh_titular" where="folio=20065">
+        <folio weberp="folio" prime="1" >
+            20065
+        </folio>
+        <fecha weberp="fecha_ingreso" >
+            2005-07-11
+        </fecha>
+        <IdProducto weberp="null">
+            1
+        </IdProducto>
+        <IdAsesor weberp="t.asesor">
+            1
+        </IdAsesor>
+        <IdCoordinador weberp="null">
+            1
+        </IdCoordinador>
+        <IdAsesorLaboratorio weberp=" ">
+            0
+        </IdAsesorLaboratorio>
+        <APELLIDOS weberp="t.apellidos">
+            GUTIERREZ PORTALES
+        </APELLIDOS>
+        <NOMBRES weberp="t.name">
+            TEST
+        </NOMBRES>
+        <SEXO weberp="t.sexo">
+            F
+        </SEXO>
+        <RFC weberp="t.taxref">
+            GUPA 720908
+        </RFC>
+        <CORREO weberp="t.email">
+            ADRIANA@hotmail.com
+        </CORREO>
+        <TELEFONO1 weberp="t.rh_tel">
+            80808080
+        </TELEFONO1>
+        <TELEFONO2 weberp="t.rh_tel2">
+            83838383
+        </TELEFONO2>
+        <CALLE weberp="t.address1">
+            ANTONIO L. RODRIGUEZ
+        </CALLE>
+        <NUMERO weberp="t.address2">
+            3090
+        </NUMERO>
+        <COLONIA weberp="t.address4">
+            SANTA MARIA
+        </COLONIA>
+        <SECTOR weberp="t.address5">
+            5
+        </SECTOR>
+        <ENTRECALLE weberp="t.address6">
+            PABLO M. HDZ Y ANGEL VOLARES
+        </ENTRECALLE>
+        <IdMunicipio weberp="t.address7">
+            1
+        </IdMunicipio>
+        <IdEstado weberp="t.address8">
+            1
+        </IdEstado>
+        <CUADRANTE1 weberp="t.cuadrante1 ">
+            62
+        </CUADRANTE1>
+        <CUADRANTE2 weberp="t.cuadrante2">
+            C
+        </CUADRANTE2>
+        <CUADRANTE3 weberp="t.cuadrante3">
+            4
+        </CUADRANTE3>
+        <FECHACAN weberp="t.motivo_cancelacion">
+            2009-09-03
+        </FECHACAN>
+        <COSTO weberp="t.costo">
+            130.00
+        </COSTO>
+        <IdIdentificacion weberp="c.identificacion">
+            1
+        </IdIdentificacion>
+        <TIPOPERSON weberp="t.tipopersona">
+            2
+        </TIPOPERSON>
+        <FECHASUSP1 weberp="">
+            1900-01-01
+        </FECHASUSP1>
+        <FECHASUSP2 weberp="">
+            1900-01-01
+        </FECHASUSP2>
+        <NOMFAM weberp="">
+            JUAN CARLOS DE LEON SALAZAR
+        </NOMFAM>
+        <PARENTESCO weberp="">
+            8
+        </PARENTESCO>
+        <TELFAM weberp="">
+            8158.5700.
+        </TELFAM>
+        <ESP weberp="">
+            0
+        </ESP>
+        <TARIFA weberp="">
+            110.00
+        </TARIFA>
+        <TARIFAINS weberp="">
+            0.00
+        </TARIFAINS>
+        <FECHAULTAU weberp="t.fecha_ultaum">
+            2013-04-30
+        </FECHAULTAU>
+        <TIPTARIFA weberp="">
+            1
+        </TIPTARIFA>
+        <AUMENTO weberp="">
+            0
+        </AUMENTO>
+        <CP weberp="t.address10">
+            66050
+        </CP>
+        <STATUS weberp="">
+            2
+        </STATUS>
+        <MONTORECIB weberp="">
+            0
+        </MONTORECIB>
+        <PROMOCION weberp="">
+            0
+        </PROMOCION>
+        <SINCLUIDOS weberp="t.servicios_seleccionados">
+            1,2,3,4,5,6,7,8
+        </SINCLUIDOS>
+        <ACT weberp="">
+            0
+        </ACT>
+        <CONTACTO weberp="">
+            JUAN CARLOS DE LEON SALAZAR
+        </CONTACTO>
+        <FECHAUC weberp="">
+            1900-01-01
+        </FECHAUC>
+        <CONTACTA weberp="">
+            0
+        </CONTACTA>
+        <FCANAUT weberp="">
+            1900-01-01
+        </FCANAUT>
+        <FMCANAUT weberp="">
+            1900-01-01
+        </FMCANAUT>
+        <CANAUT weberp="">
+            0
+        </CANAUT>
+        <NOEMPLEA weberp="">
+            33889
+        </NOEMPLEA>
+        <FULTREA weberp="">
+            2007-07-12
+        </FULTREA>
+        <VIGINIMES weberp="">
+            0
+        </VIGINIMES>
+        <VIGINIANO weberp="">
+            0
+        </VIGINIANO>
+        <VIGFINMES weberp="">
+            0
+        </VIGFINMES>
+        <VIGFINANO weberp="">
+            0
+        </VIGFINANO>
+        <CLAVEPROMO weberp=" ">
+            0
+        </CLAVEPROMO>
+        <DIASCTO weberp=" ">
+            0
+        </DIASCTO>
+        <FOLIOCAN weberp=" ">
+            0
+        </FOLIOCAN>
+        <FECULAUMAN weberp=" ">
+            2008-07-01
+        </FECULAUMAN>
+        <TARIFAANT weberp=" ">
+            100.00
+        </TARIFAANT>
+        <IdUsuario weberp=" ">
+            51
+        </IdUsuario>
+        <LIM_SERV weberp="t.serviciolimitado">
+            0
+        </LIM_SERV>
+        <LIM_MES weberp=" ">
+            0
+        </LIM_MES>
+        <LIM_COSTEX weberp="t.costo_servicioextra">
+            0.00
+        </LIM_COSTEX>
+        <ENF weberp="t.enfermeria">
+            0
+        </ENF>
+        <COSTOENF weberp="t.costoenfermeria">
+            0
+        </COSTOENF>
+        <CUENTA_SAT weberp=" "></CUENTA_SAT>
+        <CORREO2 weberp=" "></CORREO2>
+        <CORREO3 weberp=" "></CORREO3>
+        <CORREO4 weberp=" "></CORREO4>
+        <METODOPAGO weberp=" "></METODOPAGO>
+        <IdFrecuenciaPago weberp=" ">
+            1
+        </IdFrecuenciaPago>
+        <IdFormaPago weberp=" ">
+            4
+        </IdFormaPago>
+        <TipoFolio weberp=" ">
+            1
+        </TipoFolio>
+    </Foltitular>
+</row>');
+
+///////////////////////////////////////
+
+////////////////////////////////SEELCT
+$Mixml = base64_encode('
+<row>
+    <Foltitular weberp="rh_titular" where="folio=20065">
+        <folio weberp="folio" prime="1" >
+            20065
+        </folio>
+    </Foltitular>
+</row>');
+
+////////////////////////////////
+
+// The value for the SOAPAction: header
+$action = "http://tempuri.org/reseptor1";
+
+//<?xml version="1.0" encoding="utf-8"
+$xml22 = '
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+<soapenv:Header/>
+<soapenv:Body>
+<tem:reseptor1>
+<!--Optional:-->
+<tem:s>hh</tem:s>
+</tem:reseptor1>
+</soapenv:Body>
+</soapenv:Envelope>';
+
+// The URL to POST to
+$url = "http://172.16.1.106:8202/WebService.asmx?wsdl";
+//$url = "http://localhost:8202/WebService.asmx?wsdl";
+
+// Get the SOAP data into a string, I am using HEREDOC syntax
+// but how you do this is irrelevant, the point is just get the
+// body of the request into a string
+
+$mySOAP = '
+<?xml version="1.0" encoding="utf-8" ?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+<soapenv:Header/>
+<soapenv:Body>
+<tem:reseptor1>
+<!--Optional:-->
+<tem:s>hh</tem:s>
+</tem:reseptor1>
+</soapenv:Body>
+</soapenv:Envelope>
+';
+$mySOAP = '
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+<soapenv:Header/>
+<soapenv:Body>
+<tem:reseptor1>
+<!--Optional:-->
+<tem:s><![CDATA[hh]]></tem:s>
+</tem:reseptor1>
+</soapenv:Body>
+</soapenv:Envelope>';
+// The HTTP headers for the request (based on image above)
+
+///////Para  enviar Insert && Update
+function Request(&$mySOAP, $url, $Actions = array()) {
+    $headers = array(
+        'Content-Type: text/xml; charset=utf-8',
+        'Content-Length: ' . strlen($mySOAP)
+    );
+    $headers = array_merge($headers, $Actions);
+    // Build the cURL session
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, count($Actions));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $mySOAP);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+
+    // Send the request and check the response
+    if (($result = curl_exec($ch))===false)
+        return null;
+
+    curl_close($ch);
+    $mySOAP = $result;
+    // Handle the response from a successful request
+    $xmlobj = simplexml_load_string($result);
+    return $xmlobj;
+}
+
+//////Para Mandar Pedir un Registro
+function RequestSelect(&$xml, $url, $Actions = array()) {
+    $mySOAP = '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<soap:Body>
+<select xmlns="http://tempuri.org/">
+<Sxml><![CDATA[' . base64_encode($xml) . ']]></Sxml>
+</select>
+</soap:Body>
+</soap:Envelope>';
+    return Request($mySOAP, $url, $Actions);
+}
+
+/// Funcion de prueba
+echo Request($mySOAP, $url, array('SOAPAction: ' . $action))->saveXML();
+
+/*
+ [1] =>array(
+ ['Id'] =>12843
+ ['NUMMOVI'] =>
+ ['FOLIO'] =>20065
+ ['FECHA'] =>'7/11/2005 12:00:00 AM'
+ ['MODALIDAD'] =>
+ ['IdProducto'] =>1
+ ['IdAsesor'] =>1
+ ['IdCoordinador'] =>1
+ ['IdEmpresa'] =>
+ ['IdAsesorLaboratorio'] =>0
+ ['APELLIDOS'] =>'GUTIERREZ PORTALES'
+ ['NOMBRES'] =>'TEST'
+ ['RAZONSOC'] =>['NOMCOMERC'] =>
+ ['SEXO'] =>'F'
+ ['CURP'] =>
+ ['RFC'] =>'GUPA 720908'
+ ['CORREO'] =>'ADRIANA@hotmail.com'
+ ['TELEFONO1'] =>80808080
+ ['TELEFONO2'] =>83838383
+ ['CALLE'] =>'ANTONIO L. RODRIGUEZ'
+ ['NUMERO'] =>3090
+ ['COLONIA'] =>'SANTA MARIA'
+ ['SECTOR'] =>5
+ ['ENTRECALLE'] =>'PABLO M. HDZ Y ANGEL VOLARES'
+ ['IdMunicipio'] =>1
+ ['IdEstado'] =>1
+ ['CUADRANTE1'] =>62
+ ['CUADRANTE2'] =>'C'
+ ['CUADRANTE3'] =>4
+ ['FECHACAN'] =>'9/3/2009 12:00:00 AM'
+ ['IdMotivoCancelacion'] =>
+ ['COSTO'] =>130.00
+ ['IdIdentificacion'] =>1
+ ['IDENTIFICA'] =>
+ ['TIPOPERSON'] =>2
+ ['FECHASUSP1'] =>'1/1/1900 12:00:00 AM'
+ ['FECHASUSP2'] =>'1/1/1900 12:00:00 AM'
+ ['MOTIVOSUSP'] =>
+ ['NOMFAM'] =>'JUAN CARLOS DE LEON SALAZAR'
+ ['PARENTESCO'] =>8
+ ['TELFAM'] =>8158.5700.
+ ['CELFAM'] =>
+ ['MEDFAM'] =>
+ ['CELMED'] =>
+ ['ESP'] =>0
+ ['TARIFA'] =>110.00
+ ['TARIFAINS'] =>0.00
+ ['FECHAULTAU'] =>'4/30/2013 12:00:00 AM'
+ ['TIPTARIFA'] =>1
+ ['AUMENTO'] =>0.00
+ ['CP'] =>66050
+ ['STATUS'] =>2
+ ['MONTORECIB'] =>0
+ ['PROMOCION'] =>0
+ ['SINCLUIDOS'] =>'1,2,3,4,5,6,7,8'
+ ['HISTORIAL'] =>
+ ['ACT'] =>'False'
+ ['CONTACTO'] =>'JUAN CARLOS DE LEON SALAZAR'
+ ['FECHAUC'] =>'1/1/1900 12:00:00 AM'
+ ['CONTACTA'] =>'False'
+ ['FCANAUT'] =>'1/1/1900 12:00:00 AM'
+ ['FMCANAUT'] =>'1/1/1900 12:00:00 AM'
+ ['UMCANAUT'] =>
+ ['CANAUT'] =>'False'
+ ['CLASIFICA'] =>
+ ['NOEMPLEA'] =>33889
+ ['TURNO'] =>
+ ['MEDICOP'] =>
+ ['VISITANTE'] =>
+ ['PERMANECE'] =>
+ ['DIASPUB'] =>
+ ['FULTREA'] =>'7/12/2007 12:00:00 AM'
+ ['FILIA'] =>
+ ['VIGINIMES'] =>0
+ ['VIGINIANO'] =>0
+ ['VIGFINMES'] =>0
+ ['VIGFINANO'] =>0
+ ['DEPTO'] =>
+ ['FOLIOAS'] =>
+ ['FACFISICA'] =>
+ ['CLAVEPRES'] =>
+ ['CLAVEPROMO'] =>0
+ ['DIASCTO'] =>0
+ ['FOLIOCAN'] =>0
+ ['NUMREF'] =>
+ ['NUMOC'] =>
+ ['NUMPROV'] =>
+ ['FECULAUMAN'] =>'7/1/2008 12:00:00 AM'
+ ['TARIFAANT'] =>100.00
+ ['IdUsuario'] =>51
+ ['LIM_SERV'] =>'False'
+ ['LIM_MES'] =>0
+ ['LIM_COSTEX'] =>0.00
+ ['ENF'] =>'False'
+ ['COSTOENF'] =>0
+ ['CUENTA_SAT'] =>
+ ['CORREO2'] =>
+ ['CORREO3'] =>
+ ['CORREO4'] =>
+ ['METODOPAGO'] =>
+ ['IdFrecuenciaPago'] =>1
+ ['IdFormaPago'] =>4
+ ['ExamenesLaboratorio'] =>
+ ['Observacion'] =>
+ ['IdConvenio'] =>
+ ['MsgEditCosto'] =>
+ ['TipoFolio'] =>1
+ ['MONTOREC'] =>
+ )
+ */
+?>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">    <soap:Body>
+        <updateResponse xmlns="http://tempuri.org/">
+            <updateResult>
+                Resultado :
+            </updateResult>
+        </updateResponse>
+    </soap:Body>
+</soap:Envelope>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">    <soap:Body>
+        <soap:Fault>
+            <faultcode>
+                soap:Server
+            </faultcode>
+            <faultstring>
+                System.Web.Services.Protocols.SoapException: Server was unable to process request. ---&gt; System.Data.SqlClient.SqlException: The column name 'DiasSemanaRevision' is specified more than once in the SET clause. A column cannot be assigned more than one value in the same SET clause. Modify the SET clause to make sure that a column is updated only once. If the SET clause updates columns of a view, then the column name 'DiasSemanaRevision' may appear twice in the view definition. at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning() at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj) at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async) at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe) at System.Data.SqlClient.SqlCommand.ExecuteNonQuery() at WebService.EjecutaSql(String query) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 777 at WebService.update(String Sxml) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 281 --- End of inner exception stack trace ---
+            </faultstring>
+            <detail/>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">    <soap:Body>
+        <soap:Fault>
+            <faultcode>
+                soap:Server
+            </faultcode>
+            <faultstring>
+                System.Web.Services.Protocols.SoapException: Server was unable to process request. ---&gt; System.Data.SqlClient.SqlException: Invalid column name 'IdProducto'. at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning() at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj) at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async) at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe) at System.Data.SqlClient.SqlCommand.ExecuteNonQuery() at WebService.EjecutaSql(String query) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 777 at WebService.update(String Sxml) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 281 --- End of inner exception stack trace ---
+            </faultstring>
+            <detail/>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
+
+ <?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">    <soap:Body>
+        <updateResponse xmlns="http://tempuri.org/">
+            <updateResult>
+                Resultado :
+            </updateResult>
+        </updateResponse>
+    </soap:Body>
+</soap:Envelope>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">    <soap:Body>
+        <soap:Fault>
+            <faultcode>
+                soap:Server
+            </faultcode>
+            <faultstring>
+                System.Web.Services.Protocols.SoapException: Server was unable to process request. ---&gt; System.Data.SqlClient.SqlException: Invalid column name 'IdProducto'. at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning() at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj) at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async) at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe) at System.Data.SqlClient.SqlCommand.ExecuteNonQuery() at WebService.EjecutaSql(String query) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 777 at WebService.update(String Sxml) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 281 --- End of inner exception stack trace ---
+            </faultstring>
+            <detail/>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">    <soap:Body>
+        <soap:Fault>
+            <faultcode>
+                soap:Server
+            </faultcode>
+            <faultstring>
+                System.Web.Services.Protocols.SoapException: Server was unable to process request. ---&gt; System.Data.SqlClient.SqlException: Invalid column name 'IdProducto'. at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning() at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj) at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async) at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe) at System.Data.SqlClient.SqlCommand.ExecuteNonQuery() at WebService.EjecutaSql(String query) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 777 at WebService.update(String Sxml) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 281 --- End of inner exception stack trace ---
+            </faultstring>
+            <detail/>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <updateResponse xmlns="http://tempuri.org/">
+            <updateResult>
+                Resultado :
+            </updateResult>
+        </updateResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <insert xmlns="http://tempuri.org/">
+            <Sxml>
+                <![CDATA[Q2lBZ0lDQWdJQ0FnUEhKdmR6NEtJQ0FnSUNBZ0lDQWdJQ0FnUEVadmJIUnBkSFZzWVhJZ2QyVmlaWEp3UFNKeWFGOTBhWFIxYkdGeUlqNGdDaUFnSUNBZ0lDQWdJQ0FnSUR4bWIyeHBieUIzWldKbGNuQTlJbVp2YkdsdklpQndjbWx0WlQwaU1TSWdQakl3TURZMVBDOW1iMnhwYno0S0lDQWdJQ0FnSUNBZ0lDQWdQR1psWTJoaElIZGxZbVZ5Y0QwaVptVmphR0ZmYVc1bmNtVnpieUlnUGpJd01EVXRNRGN0TVRFZ1BDOW1aV05vWVQ0S0lDQWdJQ0FnSUNBZ0lDQWdQRWxrVUhKdlpIVmpkRzhnZDJWaVpYSndQU0p1ZFd4c0lqNHhQQzlKWkZCeWIyUjFZM1J2UGdvZ0lDQWdJQ0FnSUNBZ0lDQThTV1JCYzJWemIzSWdkMlZpWlhKd1BTSjBMbUZ6WlhOdmNpSStNVHd2U1dSQmMyVnpiM0krQ2lBZ0lDQWdJQ0FnSUNBZ0lEeEpaRU52YjNKa2FXNWhaRzl5SUhkbFltVnljRDBpYm5Wc2JDSStNVHd2U1dSRGIyOXlaR2x1WVdSdmNqNEtJQ0FnSUNBZ0lDQWdJQ0FnUEVsa1FYTmxjMjl5VEdGaWIzSmhkRzl5YVc4Z2QyVmlaWEp3UFNJZ0lqNHdQQzlKWkVGelpYTnZja3hoWW05eVlYUnZjbWx2UGlBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhCVUVWTVRFbEVUMU1nZDJWaVpYSndQU0owTG1Gd1pXeHNhV1J2Y3lJK1ZFVlRWRHd2UVZCRlRFeEpSRTlUUGlBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhPVDAxQ1VrVlRJSGRsWW1WeWNEMGlkQzV1WVcxbElqNVRaV0poYzFSbGMzUThMMDVQVFVKU1JWTStJQ0FnSUNBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhUUlZoUElIZGxZbVZ5Y0QwaWRDNXpaWGh2SWo1R1BDOVRSVmhQUGlBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhTUmtNZ2QyVmlaWEp3UFNKMExuUmhlSEpsWmlJK1IxVlFRU0EzTWpBNU1EZzhMMUpHUXo0Z0lBb2dJQ0FnSUNBZ0lDQWdJQ0E4UTA5U1VrVlBJSGRsWW1WeWNEMGlkQzVsYldGcGJDSStRVVJTU1VGT1FVQm9iM1J0WVdsc0xtTnZiVHd2UTA5U1VrVlBQaUFnQ2lBZ0lDQWdJQ0FnSUNBZ0lEeFVSVXhGUms5T1R6RWdkMlZpWlhKd1BTSjBMbkpvWDNSbGJDSStPREE0TURnd09EQThMMVJGVEVWR1QwNVBNVDRnSUFvZ0lDQWdJQ0FnSUNBZ0lDQThWRVZNUlVaUFRrOHlJSGRsWW1WeWNEMGlkQzV5YUY5MFpXd3lJajQ0TXpnek9ETTRNend2VkVWTVJVWlBUazh5UGlBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhEUVV4TVJTQjNaV0psY25BOUluUXVZV1JrY21WemN6RWlQa0ZPVkU5T1NVOGdUQzRnVWs5RVVrbEhWVVZhUEM5RFFVeE1SVDRnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRTVWVFVWU1R5QjNaV0psY25BOUluUXVZV1JrY21WemN6SWlQak13T1RBOEwwNVZUVVZTVHo0Z0lBb2dJQ0FnSUNBZ0lDQWdJQ0E4UTA5TVQwNUpRU0IzWldKbGNuQTlJblF1WVdSa2NtVnpjelFpUGxOQlRsUkJJRTFCVWtsQlBDOURUMHhQVGtsQlBpQWdDaUFnSUNBZ0lDQWdJQ0FnSUR4VFJVTlVUMUlnZDJWaVpYSndQU0owTG1Ga1pISmxjM00xSWo0MVBDOVRSVU5VVDFJK0NpQWdJQ0FnSUNBZ0lDQWdJRHhGVGxSU1JVTkJURXhGSUhkbFltVnljRDBpZEM1aFpHUnlaWE56TmlJK1VFRkNURThnVFM0Z1NFUmFJRmtnUVU1SFJVd2dWazlNUVZKRlV6d3ZSVTVVVWtWRFFVeE1SVDRnSUFvZ0lDQWdJQ0FnSUNBZ0lDQThTV1JOZFc1cFkybHdhVzhnZDJWaVpYSndQU0owTG1Ga1pISmxjM00zSWo0eFBDOUpaRTExYm1samFYQnBiejRnSUFvZ0lDQWdJQ0FnSUNBZ0lDQThTV1JGYzNSaFpHOGdkMlZpWlhKd1BTSjBMbUZrWkhKbGMzTTRJajR4UEM5SlpFVnpkR0ZrYno0Z0lBb2dJQ0FnSUNBZ0lDQWdJQ0E4UTFWQlJGSkJUbFJGTVNCM1pXSmxjbkE5SW5RdVkzVmhaSEpoYm5SbE1TQWlQall5UEM5RFZVRkVVa0ZPVkVVeFBpQWdDaUFnSUNBZ0lDQWdJQ0FnSUR4RFZVRkVVa0ZPVkVVeUlIZGxZbVZ5Y0QwaWRDNWpkV0ZrY21GdWRHVXlJajVEUEM5RFZVRkVVa0ZPVkVVeVBpQWdDaUFnSUNBZ0lDQWdJQ0FnSUR4RFZVRkVVa0ZPVkVVeklIZGxZbVZ5Y0QwaWRDNWpkV0ZrY21GdWRHVXpJajQwUEM5RFZVRkVVa0ZPVkVVelBpQWdDaUFnSUNBZ0lDQWdJQ0FnSUR4R1JVTklRVU5CVGlCM1pXSmxjbkE5SW5RdWJXOTBhWFp2WDJOaGJtTmxiR0ZqYVc5dUlqNHlNREE1TFRBNUxUQXpJRHd2UmtWRFNFRkRRVTQrSUNBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhEVDFOVVR5QjNaV0psY25BOUluUXVZMjl6ZEc4aVBqRXpNQzR3TUR3dlEwOVRWRTgrSUNBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhKWkVsa1pXNTBhV1pwWTJGamFXOXVJSGRsWW1WeWNEMGlZeTVwWkdWdWRHbG1hV05oWTJsdmJpSStNVHd2U1dSSlpHVnVkR2xtYVdOaFkybHZiajRnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRlJKVUU5UVJWSlRUMDRnZDJWaVpYSndQU0owTG5ScGNHOXdaWEp6YjI1aElqNHlQQzlVU1ZCUFVFVlNVMDlPUGlBZ0lBb2dJQ0FnSUNBZ0lDQWdJQ0E4UmtWRFNFRlRWVk5RTVNCM1pXSmxjbkE5SWlJK01Ua3dNQzB3TVMwd01TQThMMFpGUTBoQlUxVlRVREUrSUNBZ0lBb2dJQ0FnSUNBZ0lDQWdJQ0E4UmtWRFNFRlRWVk5RTWlCM1pXSmxjbkE5SWlJK01Ua3dNQzB3TVMwd01TQThMMFpGUTBoQlUxVlRVREkrSUNBZ0lBb2dJQ0FnSUNBZ0lDQWdJQ0E4VGs5TlJrRk5JSGRsWW1WeWNEMGlJajVLVlVGT0lFTkJVa3hQVXlCRVJTQk1SVTlPSUZOQlRFRmFRVkk4TDA1UFRVWkJUVDRnSUNBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhRUVZKRlRsUkZVME5QSUhkbFltVnljRDBpSWo0NFBDOVFRVkpGVGxSRlUwTlBQaUFnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRlJGVEVaQlRTQjNaV0psY25BOUlpSStPREUxT0M0MU56QXdMand2VkVWTVJrRk5QaUFnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRVZUVUNCM1pXSmxjbkE5SWlJK01Ed3ZSVk5RUGlBZ0lBb2dJQ0FnSUNBZ0lDQWdJQ0E4VkVGU1NVWkJJSGRsWW1WeWNEMGlJajR4TVRBdU1EQThMMVJCVWtsR1FUNGdJQ0FLSUNBZ0lDQWdJQ0FnSUNBZ1BGUkJVa2xHUVVsT1V5QjNaV0psY25BOUlpSStNQzR3TUR3dlZFRlNTVVpCU1U1VFBpQWdJQW9nSUNBZ0lDQWdJQ0FnSUNBOFJrVkRTRUZWVEZSQlZTQjNaV0psY25BOUluUXVabVZqYUdGZmRXeDBZWFZ0SWo0eU1ERXpMVEEwTFRNd0lEd3ZSa1ZEU0VGVlRGUkJWVDRnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRlJKVUZSQlVrbEdRU0IzWldKbGNuQTlJaUkrTVR3dlZFbFFWRUZTU1VaQlBpQWdJQW9nSUNBZ0lDQWdJQ0FnSUNBOFFWVk5SVTVVVHlCM1pXSmxjbkE5SWlJK01Ed3ZRVlZOUlU1VVR6NGdJQ0FLSUNBZ0lDQWdJQ0FnSUNBZ1BFTlFJSGRsWW1WeWNEMGlkQzVoWkdSeVpYTnpNVEFpUGpZMk1EVXdQQzlEVUQ0Z0lDQUtJQ0FnSUNBZ0lDQWdJQ0FnUEZOVVFWUlZVeUIzWldKbGNuQTlJaUkrTWp3dlUxUkJWRlZUUGlBZ0lBb2dJQ0FnSUNBZ0lDQWdJQ0E4VFU5T1ZFOVNSVU5KUWlCM1pXSmxjbkE5SWlJK01Ed3ZUVTlPVkU5U1JVTkpRajRnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRkJTVDAxUFEwbFBUaUIzWldKbGNuQTlJaUkrTUR3dlVGSlBUVTlEU1U5T1BpQWdJQW9nSUNBZ0lDQWdJQ0FnSUNBOFUwbE9RMHhWU1VSUFV5QjNaV0psY25BOUluUXVjMlZ5ZG1samFXOXpYM05sYkdWalkybHZibUZrYjNNaVBqRXNNaXd6TERRc05TdzJMRGNzT0R3dlUwbE9RMHhWU1VSUFV6NGdJQ0FLSUNBZ0lDQWdJQ0FnSUNBZ1BFRkRWQ0IzWldKbGNuQTlJaUkrTUR3dlFVTlVQaUFnSUFvZ0lDQWdJQ0FnSUNBZ0lDQThRMDlPVkVGRFZFOGdkMlZpWlhKd1BTSWlQa3BWUVU0Z1EwRlNURTlUSUVSRklFeEZUMDRnVTBGTVFWcEJVand2UTA5T1ZFRkRWRTgrSUNBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhHUlVOSVFWVkRJSGRsWW1WeWNEMGlJajR4T1RBd0xUQXhMVEF4SUR3dlJrVkRTRUZWUXo0Z0lDQUtJQ0FnSUNBZ0lDQWdJQ0FnUEVOUFRsUkJRMVJCSUhkbFltVnljRDBpSWo0d1BDOURUMDVVUVVOVVFUNGdJQ0FLSUNBZ0lDQWdJQ0FnSUNBZ1BFWkRRVTVCVlZRZ2QyVmlaWEp3UFNJaVBqRTVNREF0TURFdE1ERWdQQzlHUTBGT1FWVlVQaUFnSUFvZ0lDQWdJQ0FnSUNBZ0lDQThSazFEUVU1QlZWUWdkMlZpWlhKd1BTSWlQakU1TURBdE1ERXRNREVnUEM5R1RVTkJUa0ZWVkQ0Z0lDQWdDaUFnSUNBZ0lDQWdJQ0FnSUR4RFFVNUJWVlFnZDJWaVpYSndQU0lpUGpBOEwwTkJUa0ZWVkQ0Z0lDQUtJQ0FnSUNBZ0lDQWdJQ0FnUEU1UFJVMVFURVZCSUhkbFltVnljRDBpSWo0ek16ZzRPVHd2VGs5RlRWQk1SVUUrSUNBZ0lDQWdJQW9nSUNBZ0lDQWdJQ0FnSUNBOFJsVk1WRkpGUVNCM1pXSmxjbkE5SWlJK01qQXdOeTB3TnkweE1pQThMMFpWVEZSU1JVRStJQ0FnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRlpKUjBsT1NVMUZVeUIzWldKbGNuQTlJaUkrTUR3dlZrbEhTVTVKVFVWVFBpQWdJQW9nSUNBZ0lDQWdJQ0FnSUNBOFZrbEhTVTVKUVU1UElIZGxZbVZ5Y0QwaUlqNHdQQzlXU1VkSlRrbEJUazgrSUNBZ0NpQWdJQ0FnSUNBZ0lDQWdJRHhXU1VkR1NVNU5SVk1nZDJWaVpYSndQU0lpUGpBOEwxWkpSMFpKVGsxRlV6NGdJQ0FLSUNBZ0lDQWdJQ0FnSUNBZ1BGWkpSMFpKVGtGT1R5QjNaV0psY25BOUlpSStNRHd2VmtsSFJrbE9RVTVQUGdvZ0lDQWdJQ0FnSUNBZ0lDQThRMHhCVmtWUVVrOU5UeUIzWldKbGNuQTlJaUFpUGpBOEwwTk1RVlpGVUZKUFRVOCtJQ0FLSUNBZ0lDQWdJQ0FnSUNBZ1BFUkpRVk5EVkU4Z2QyVmlaWEp3UFNJZ0lqNHdQQzlFU1VGVFExUlBQaUFnSUFvZ0lDQWdJQ0FnSUNBZ0lDQThSazlNU1U5RFFVNGdkMlZpWlhKd1BTSWdJajR3UEM5R1QweEpUME5CVGo0Z0lDQWdDaUFnSUNBZ0lDQWdJQ0FnSUR4R1JVTlZURUZWVFVGT0lIZGxZbVZ5Y0QwaUlDSStNakF3T0Mwd055MHdNU0E4TDBaRlExVk1RVlZOUVU0K0lDQWdDaUFnSUNBZ0lDQWdJQ0FnSUR4VVFWSkpSa0ZCVGxRZ2QyVmlaWEp3UFNJZ0lqNHhNREF1TURBOEwxUkJVa2xHUVVGT1ZENGdJQ0FLSUNBZ0lDQWdJQ0FnSUNBZ1BFbGtWWE4xWVhKcGJ5QjNaV0psY25BOUlpQWlQalV4UEM5SlpGVnpkV0Z5YVc4K0lDQUtJQ0FnSUNBZ0lDQWdJQ0FnUEV4SlRWOVRSVkpXSUhkbFltVnljRDBpZEM1elpYSjJhV05wYjJ4cGJXbDBZV1J2SWo0d1BDOU1TVTFmVTBWU1ZqNGdJQ0FnQ2lBZ0lDQWdJQ0FnSUNBZ0lEeE1TVTFmVFVWVElIZGxZbVZ5Y0QwaUlDSStNRHd2VEVsTlgwMUZVejRnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRXhKVFY5RFQxTlVSVmdnZDJWaVpYSndQU0owTG1OdmMzUnZYM05sY25acFkybHZaWGgwY21FaVBqQXVNREE4TDB4SlRWOURUMU5VUlZnK0lDQWdJQW9nSUNBZ0lDQWdJQ0FnSUNBOFJVNUdJSGRsWW1WeWNEMGlkQzVsYm1abGNtMWxjbWxoSWo0d1BDOUZUa1krSUNBZ0lBb2dJQ0FnSUNBZ0lDQWdJQ0E4UTA5VFZFOUZUa1lnZDJWaVpYSndQU0owTG1OdmMzUnZaVzVtWlhKdFpYSnBZU0krTUR3dlEwOVRWRTlGVGtZK0lDQWdDaUFnSUNBZ0lDQWdJQ0FnSUR4RFZVVk9WRUZmVTBGVUlIZGxZbVZ5Y0QwaUlDSStJQ0FnSUNBZ0lDQWdJRHd2UTFWRlRsUkJYMU5CVkQ0Z0lDQUtJQ0FnSUNBZ0lDQWdJQ0FnUEVOUFVsSkZUeklnZDJWaVpYSndQU0lnSWo0Z0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ1BDOURUMUpTUlU4eVBpQWdJQW9nSUNBZ0lDQWdJQ0FnSUNBOFEwOVNVa1ZQTXlCM1pXSmxjbkE5SWlBaVBpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQThMME5QVWxKRlR6TStJQ0FnQ2lBZ0lDQWdJQ0FnSUNBZ0lEeERUMUpTUlU4MElIZGxZbVZ5Y0QwaUlDSStJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJRHd2UTA5U1VrVlBORDRnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRTFGVkU5RVQxQkJSMDhnZDJWaVpYSndQU0lnSWo0Z0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJRHd2VFVWVVQwUlBVRUZIVHo0Z0lDQUtJQ0FnSUNBZ0lDQWdJQ0FnUEVsa1JuSmxZM1ZsYm1OcFlWQmhaMjhnZDJWaVpYSndQU0lnSWo0eFBDOUpaRVp5WldOMVpXNWphV0ZRWVdkdlBpQWdJQW9nSUNBZ0lDQWdJQ0FnSUNBOFNXUkdiM0p0WVZCaFoyOGdkMlZpWlhKd1BTSWdJajQwUEM5SlpFWnZjbTFoVUdGbmJ6NGdJQ0FnSUNBS0lDQWdJQ0FnSUNBZ0lDQWdQRlJwY0c5R2IyeHBieUIzWldKbGNuQTlJaUFpUGpFOEwxUnBjRzlHYjJ4cGJ6NGdJQW9nSUNBZ0lDQWdJQ0FnSUR3dlJtOXNkR2wwZFd4aGNqNEtJQ0FnSUNBZ0lDQThMM0p2ZHo0PQ==]]>
+            </Sxml>
+        </insert>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <insertResponse xmlns="http://tempuri.org/">
+            <insertResult>
+                Resultado el registro se inserto exitosamente
+            </insertResult>
+        </insertResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <updateResponse xmlns="http://tempuri.org/">
+            <updateResult>
+                Resultadoel registro se actualizo exitosamente
+            </updateResult>
+        </updateResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <selectcontResponse xmlns="http://tempuri.org/">
+            <selectcontResult>
+                42
+            </selectcontResult>
+        </selectcontResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <selectcontResponse xmlns="http://tempuri.org/">
+            <selectcontResult>
+                Select Count(*) from CCM_Despachos where FOLIO = '20065' AND FECHA between '2013-08-01' AND '2013-10-01' ;
+            </selectcontResult>
+        </selectcontResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <selectcontResponse xmlns="http://tempuri.org/">
+            <selectcontResult>
+                0
+            </selectcontResult>
+        </selectcontResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <selectcontResponse xmlns="http://tempuri.org/">
+            <selectcontResult>
+                3
+            </selectcontResult>
+        </selectcontResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <selectcontResponse xmlns="http://tempuri.org/">
+            <selectcontResult>
+                6
+            </selectcontResult>
+        </selectcontResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <selectcontResponse xmlns="http://tempuri.org/">
+            <selectcontResult>
+                2794
+            </selectcontResult>
+        </selectcontResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <soap:Fault>
+            <faultcode>
+                soap:Server
+            </faultcode>
+            <faultstring>
+                System.Web.Services.Protocols.SoapException: Server was unable to process request. ---&gt; System.Data.SqlClient.SqlException: Invalid object name 'DB_72419_armedica.dbo.CCM_CCM_Foltitular'. at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning() at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj) at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async) at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe) at System.Data.SqlClient.SqlCommand.ExecuteNonQuery() at WebService.EjecutaSql(String query) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 682 at WebService.insert(String Sxml) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 119 --- End of inner exception stack trace ---
+            </faultstring>
+            <detail/>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <insertResponse xmlns="http://tempuri.org/">
+            <insertResult>
+                Resultado el registro se inserto exitosamente
+            </insertResult>
+        </insertResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <updateResponse xmlns="http://tempuri.org/">
+            <updateResult>
+                Resultado :el registro se actualizo exitosamente
+            </updateResult>
+        </updateResponse>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <soap:Fault>
+            <faultcode>
+                soap:Server
+            </faultcode>
+            <faultstring>
+                System.Web.Services.Protocols.SoapException: Server was unable to process request. ---&gt; System.Data.SqlClient.SqlException: Incorrect syntax near ', NOMBRES = '. Unclosed quotation mark after the character string ' where folio=20065;'. at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning() at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj) at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async) at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe) at System.Data.SqlClient.SqlCommand.ExecuteNonQuery() at WebService.EjecutaSql(String query) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 682 at WebService.update(String Sxml) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 239 --- End of inner exception stack trace ---
+            </faultstring>
+            <detail/>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <soap:Fault>
+            <faultcode>
+                soap:Server
+            </faultcode>
+            <faultstring>
+                System.Web.Services.Protocols.SoapException: Server was unable to process request. ---&gt; System.Data.SqlClient.SqlException: Incorrect syntax near ', NOMBRES = '. Unclosed quotation mark after the character string ' where folio=20065;'. at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection) at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning() at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj) at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async) at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe) at System.Data.SqlClient.SqlCommand.ExecuteNonQuery() at WebService.EjecutaSql(String query) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 703 at WebService.update(String Sxml) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 240 --- End of inner exception stack trace ---
+            </faultstring>
+            <detail/>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <soap:Fault>
+            <faultcode>
+                soap:Server
+            </faultcode>
+            <faultstring>
+                System.Web.Services.Protocols.SoapException: Server was unable to process request. ---&gt; System.Xml.XmlException: Name cannot begin with the '2' character, hexadecimal value 0x32. Line 2, position 85. at System.Xml.XmlTextReaderImpl.Throw(Exception e) at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args) at System.Xml.XmlTextReaderImpl.ParseAttributes() at System.Xml.XmlTextReaderImpl.ParseElement() at System.Xml.XmlTextReaderImpl.ParseElementContent() at System.Xml.XmlTextReaderImpl.Read() at System.Xml.XmlLoader.LoadNode(Boolean skipOverWhitespace) at System.Xml.XmlLoader.LoadDocSequence(XmlDocument parentDoc) at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace) at System.Xml.XmlDocument.Load(XmlReader reader) at System.Xml.XmlDocument.LoadXml(String xml) at WebService.selectcont(String Sxml) in e:\web\zona07co\myapp\App_Code\WebService.cs:line 509 --- End of inner exception stack trace ---
+            </faultstring>
+            <detail/>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
+
+<?xml version="1.0" encoding="utf-8" ?><
+row>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12842]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12843]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12844]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12845]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12846]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12847]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12851]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12852]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12853]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12854]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12855]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12856]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12857]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12858]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12859]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12860]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12861]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12862]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12863]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12864]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12865]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12866]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12867]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12868]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12869]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12870]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular>
+<Foltitular numrows= -1>
+    <Id>
+        <![CDATA[12871]]>
+    </Id>
+    <NUMMOVI>
+        <![CDATA[]]>
+    </NUMMOVI>
+    <FOLIO>
+        <![CDATA[20065]]>
+    </FOLIO>
+    <FECHA>
+        <![CDATA[7/11/2005 12:00:00 AM]]>
+    </FECHA>
+    <MODALIDAD>
+        <![CDATA[]]>
+    </MODALIDAD>
+    <IdProducto>
+        <![CDATA[1]]>
+    </IdProducto>
+    <IdAsesor>
+        <![CDATA[1]]>
+    </IdAsesor>
+    <IdCoordinador>
+        <![CDATA[1]]>
+    </IdCoordinador>
+    <IdEmpresa>
+        <![CDATA[]]>
+    </IdEmpresa>
+    <IdAsesorLaboratorio>
+        <![CDATA[0]]>
+    </IdAsesorLaboratorio>
+    <APELLIDOS>
+        <![CDATA[]]>
+    </APELLIDOS>
+    <NOMBRES>
+        <![CDATA[TEST]]>
+    </NOMBRES>
+    <RAZONSOC>
+        <![CDATA[]]>
+    </RAZONSOC>
+    <NOMCOMERC>
+        <![CDATA[]]>
+    </NOMCOMERC>
+    <SEXO>
+        <![CDATA[F]]>
+    </SEXO>
+    <CURP>
+        <![CDATA[]]>
+    </CURP>
+    <RFC>
+        <![CDATA[GUPA 720908]]>
+    </RFC>
+    <CORREO>
+        <![CDATA[ADRIANA@hotmail.com]]>
+    </CORREO>
+    <TELEFONO1>
+        <![CDATA[80808080]]>
+    </TELEFONO1>
+    <TELEFONO2>
+        <![CDATA[83838383]]>
+    </TELEFONO2>
+    <CALLE>
+        <![CDATA[ANTONIO L. RODRIGUEZ]]>
+    </CALLE>
+    <NUMERO>
+        <![CDATA[3090]]>
+    </NUMERO>
+    <COLONIA>
+        <![CDATA[SANTA MARIA]]>
+    </COLONIA>
+    <SECTOR>
+        <![CDATA[5]]>
+    </SECTOR>
+    <ENTRECALLE>
+        <![CDATA[PABLO M. HDZ Y ANGEL VOLARES]]>
+    </ENTRECALLE>
+    <IdMunicipio>
+        <![CDATA[1]]>
+    </IdMunicipio>
+    <IdEstado>
+        <![CDATA[1]]>
+    </IdEstado>
+    <CUADRANTE1>
+        <![CDATA[62]]>
+    </CUADRANTE1>
+    <CUADRANTE2>
+        <![CDATA[C]]>
+    </CUADRANTE2>
+    <CUADRANTE3>
+        <![CDATA[4]]>
+    </CUADRANTE3>
+    <FECHACAN>
+        <![CDATA[9/3/2009 12:00:00 AM]]>
+    </FECHACAN>
+    <IdMotivoCancelacion>
+        <![CDATA[]]>
+    </IdMotivoCancelacion>
+    <COSTO>
+        <![CDATA[130.00]]>
+    </COSTO>
+    <IdIdentificacion>
+        <![CDATA[1]]>
+    </IdIdentificacion>
+    <IDENTIFICA>
+        <![CDATA[]]>
+    </IDENTIFICA>
+    <TIPOPERSON>
+        <![CDATA[2]]>
+    </TIPOPERSON>
+    <FECHASUSP1>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP1>
+    <FECHASUSP2>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHASUSP2>
+    <MOTIVOSUSP>
+        <![CDATA[]]>
+    </MOTIVOSUSP>
+    <NOMFAM>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </NOMFAM>
+    <PARENTESCO>
+        <![CDATA[8]]>
+    </PARENTESCO>
+    <TELFAM>
+        <![CDATA[8158.5700.]]>
+    </TELFAM>
+    <CELFAM>
+        <![CDATA[]]>
+    </CELFAM>
+    <MEDFAM>
+        <![CDATA[]]>
+    </MEDFAM>
+    <CELMED>
+        <![CDATA[]]>
+    </CELMED>
+    <ESP>
+        <![CDATA[0]]>
+    </ESP>
+    <TARIFA>
+        <![CDATA[110.00]]>
+    </TARIFA>
+    <TARIFAINS>
+        <![CDATA[0.00]]>
+    </TARIFAINS>
+    <FECHAULTAU>
+        <![CDATA[4/30/2013 12:00:00 AM]]>
+    </FECHAULTAU>
+    <TIPTARIFA>
+        <![CDATA[1]]>
+    </TIPTARIFA>
+    <AUMENTO>
+        <![CDATA[0.00]]>
+    </AUMENTO>
+    <CP>
+        <![CDATA[66050]]>
+    </CP>
+    <STATUS>
+        <![CDATA[2]]>
+    </STATUS>
+    <MONTORECIB>
+        <![CDATA[0]]>
+    </MONTORECIB>
+    <PROMOCION>
+        <![CDATA[0]]>
+    </PROMOCION>
+    <SINCLUIDOS>
+        <![CDATA[1,2,3,4,5,6,7,8]]>
+    </SINCLUIDOS>
+    <HISTORIAL>
+        <![CDATA[]]>
+    </HISTORIAL>
+    <ACT>
+        <![CDATA[False]]>
+    </ACT>
+    <CONTACTO>
+        <![CDATA[JUAN CARLOS DE LEON SALAZAR]]>
+    </CONTACTO>
+    <FECHAUC>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FECHAUC>
+    <CONTACTA>
+        <![CDATA[False]]>
+    </CONTACTA>
+    <FCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FCANAUT>
+    <FMCANAUT>
+        <![CDATA[1/1/1900 12:00:00 AM]]>
+    </FMCANAUT>
+    <UMCANAUT>
+        <![CDATA[]]>
+    </UMCANAUT>
+    <CANAUT>
+        <![CDATA[False]]>
+    </CANAUT>
+    <CLASIFICA>
+        <![CDATA[]]>
+    </CLASIFICA>
+    <NOEMPLEA>
+        <![CDATA[33889]]>
+    </NOEMPLEA>
+    <TURNO>
+        <![CDATA[]]>
+    </TURNO>
+    <MEDICOP>
+        <![CDATA[]]>
+    </MEDICOP>
+    <VISITANTE>
+        <![CDATA[]]>
+    </VISITANTE>
+    <PERMANECE>
+        <![CDATA[]]>
+    </PERMANECE>
+    <DIASPUB>
+        <![CDATA[]]>
+    </DIASPUB>
+    <FULTREA>
+        <![CDATA[7/12/2007 12:00:00 AM]]>
+    </FULTREA>
+    <FILIA>
+        <![CDATA[]]>
+    </FILIA>
+    <VIGINIMES>
+        <![CDATA[0]]>
+    </VIGINIMES>
+    <VIGINIANO>
+        <![CDATA[0]]>
+    </VIGINIANO>
+    <VIGFINMES>
+        <![CDATA[0]]>
+    </VIGFINMES>
+    <VIGFINANO>
+        <![CDATA[0]]>
+    </VIGFINANO>
+    <DEPTO>
+        <![CDATA[]]>
+    </DEPTO>
+    <FOLIOAS>
+        <![CDATA[]]>
+    </FOLIOAS>
+    <FACFISICA>
+        <![CDATA[]]>
+    </FACFISICA>
+    <CLAVEPRES>
+        <![CDATA[]]>
+    </CLAVEPRES>
+    <CLAVEPROMO>
+        <![CDATA[0]]>
+    </CLAVEPROMO>
+    <DIASCTO>
+        <![CDATA[0]]>
+    </DIASCTO>
+    <FOLIOCAN>
+        <![CDATA[0]]>
+    </FOLIOCAN>
+    <NUMREF>
+        <![CDATA[]]>
+    </NUMREF>
+    <NUMOC>
+        <![CDATA[]]>
+    </NUMOC>
+    <NUMPROV>
+        <![CDATA[]]>
+    </NUMPROV>
+    <FECULAUMAN>
+        <![CDATA[7/1/2008 12:00:00 AM]]>
+    </FECULAUMAN>
+    <TARIFAANT>
+        <![CDATA[100.00]]>
+    </TARIFAANT>
+    <IdUsuario>
+        <![CDATA[51]]>
+    </IdUsuario>
+    <LIM_SERV>
+        <![CDATA[False]]>
+    </LIM_SERV>
+    <LIM_MES>
+        <![CDATA[0]]>
+    </LIM_MES>
+    <LIM_COSTEX>
+        <![CDATA[0.00]]>
+    </LIM_COSTEX>
+    <ENF>
+        <![CDATA[False]]>
+    </ENF>
+    <COSTOENF>
+        <![CDATA[0]]>
+    </COSTOENF>
+    <CUENTA_SAT>
+        <![CDATA[]]>
+    </CUENTA_SAT>
+    <CORREO2>
+        <![CDATA[]]>
+    </CORREO2>
+    <CORREO3>
+        <![CDATA[]]>
+    </CORREO3>
+    <CORREO4>
+        <![CDATA[]]>
+    </CORREO4>
+    <METODOPAGO>
+        <![CDATA[]]>
+    </METODOPAGO>
+    <IdFrecuenciaPago>
+        <![CDATA[1]]>
+    </IdFrecuenciaPago>
+    <IdFormaPago>
+        <![CDATA[4]]>
+    </IdFormaPago>
+    <ExamenesLaboratorio>
+        <![CDATA[]]>
+    </ExamenesLaboratorio>
+    <Observacion>
+        <![CDATA[]]>
+    </Observacion>
+    <IdConvenio>
+        <![CDATA[]]>
+    </IdConvenio>
+    <MsgEditCosto>
+        <![CDATA[]]>
+    </MsgEditCosto>
+    <TipoFolio>
+        <![CDATA[1]]>
+    </TipoFolio>
+    <MONTOREC>
+        <![CDATA[]]>
+    </MONTOREC>
+</Foltitular></row>
+
