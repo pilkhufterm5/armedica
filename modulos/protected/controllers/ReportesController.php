@@ -679,15 +679,14 @@ order by cast(titular.folio as integer)")->queryAll();
             ));
     } 
 
-
-
 /*** INICIA MODULO ACTIVOS FIJOS
 #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
 #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
 ***/
 
-public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
+ public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
     global $db, $AddCC, $BCC;
+  
     FB::INFO($Folio,'____________________-FOLIO');
     //FB::INFO($_POST,'::::::::::::____POST');
     if (!empty($_POST['SendMail']['Folio']) && $_POST['SendMail']['Tipo']) {
@@ -705,9 +704,11 @@ public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
             return trim($arreglo);
         }, $EmailTo)));
 
-        $EmailTo[0] = $Para;
+        //$EmailTo[0] = $Para;
+        $EmailTo[0] = "alicia.villarreal@armedica.com.mx";
         if(!isset($BCC))
-        $BCC ="mary.angeles.perez@hotmail.com"; // Aquí podría ir algún correo que quisieran ponerle copia oculta para que reciba todos los correos que se envían con la carta de Aviso de Aumento, ojo no olvidar que estos programas son generales para todas las plazas, a lo que quiero entender es que el correo que   pongan ahí recibirá correos de todas las plazas.
+        $BCC ="eliobethrh@gmail.com";
+        $AddCCp = "eli.obeth@hotmail.com";
 
         FB::INFO($EmailTo,'_______________________EMAIL');
 
@@ -718,34 +719,36 @@ public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
         ':enviar_carta'=>'1',
         ':folio'=>$folio
         );
-
-        Yii::app()->db->createCommand($ActualizarStatusCarta)->execute($Parametros_status_carta);switch ($Tipo) {
+ 
+        Yii::app()->db->createCommand($ActualizarStatusCarta)->execute($Parametros_status_carta);
+        switch ($Tipo) {
                 case 'CartaAumentoPrecio':
-                    $from = 'AR MEDICA';
-                    $To = $EmailTo[0];
-                    $Subject = 'AVISO IMPORTANTE PARA EL No. FOLIO : ' . $folio;
-                    $Mensaje = 'CARTA AVISO DE AUMENTO DE PRECIO';
-                    $PDF = $this->actionAumentopreciopdf('',$Ret = 'S');
-                    $attachment =array( array('nombre'=>'carta_aumento_precio.pdf','archivo'=>$PDF));
-                    $Response = $this->EnviarMail($from, $To, $Subject, $Mensaje, $attachment , $BCC, $repplyTo = '',
-                    $AddCC);
-                    if ($Response == "success") {
-                        echo CJSON::encode(array(
-                        'requestresult' => 'ok',
-                        'message' => "Se ha enviado un Email ala direccion: ". $To
-                        ));
-                    }else{
-                        echo CJSON::encode(array(
-                        'requestresult' => 'fail',
-                        'message' => "Ocurrio un error inesperado"
-                        ));
-                    }
-                break;
-                default:
-                break;
+         echo $Tipo ;
+            $from = 'AR MEDICA';
+            $To = $EmailTo[0];
+            $Subject = 'AVISO IMPORTANTE PARA EL No. FOLIO : ' . $folio;
+            $Mensaje = 'CARTA AVISO DE AUMENTO DE PRECIO';
+            $PDF = $this->actionAumentopreciopdf('',$Ret = 'S');
+            $attachment =array( array('nombre'=>'Carta_Aumento_Precio.pdf','archivo'=>$PDF));
+            $Response = $this->EnviarMail($from, $To, $Subject, $Mensaje, $attachment , $BCC, $repplyTo = '',
+            $AddCCp);
+            if ($Response == "success") {
+                echo CJSON::encode(array(
+                'requestresult' => 'ok',
+                'message' => "Se ha enviado un Email a la direccion: ". $To
+                ));
+            }else{
+                echo CJSON::encode(array(
+                'requestresult' => 'fail',
+                'message' => "Ocurrio un error inesperado"
+                ));
+            }
+        break;
         }
     }
 }
+/*** #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#==##==##=#==#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=**/
+
 
 public function actionAumentopreciopdf($name= '', $Ret = ''){
     chdir(dirname(__FILE__));
@@ -754,8 +757,10 @@ public function actionAumentopreciopdf($name= '', $Ret = ''){
     $pdf->AliasNbPages();
     $pdf->AddPage();
     $pdf->SetFont('Arial', '', 7);
+    //$pdf->Image($_SERVER['LocalERP_path'] . "/companies/" . $_SESSION['DatabaseName'] .
+   // "/carta_aumento_precio.jpg", 0, 0, 210, 'L');
     $pdf->Image($_SERVER['LocalERP_path'] . "/companies/" . $_SESSION['DatabaseName'] .
-    "/carta_aumento_precio.jpg", 0, 0, 210, 'L');
+    "/carta_bienvenida.jpg", 0, 0, 210, 'L');
     $pdfcode = $pdf->output($name, $Ret);
         return $pdfcode;
 }

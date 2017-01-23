@@ -854,10 +854,10 @@ class AfiliacionesController extends Controller {
         $ListaMotivosCancelacion = array();
         $ListaMotivosCancelacion = CHtml::listData(MotivosCancelacion::model()->findAll(), 'id', 'motivo');
 
-        /*====OBTIENE SERVICIOS DE CECOM*/
+        /*===========OBTIENE SERVICIOS DE CECOM==============*/
         $WS_CECOM = new WS_CECOM;
         $ListaServicios = $WS_CECOM->GetCatalog('rh_servicios');
-        /*=*/
+        /*==================================================*/
 
         /**
          * SI ESTE ENVIADO EL POST FOLIO, OBTENEMOS TODOS LOS MOVIMIENTOS DE RH_MOVIMIENTOS_AFILIACION Daniel Villarreal 06-05-2016
@@ -865,8 +865,6 @@ class AfiliacionesController extends Controller {
         if(isset($_POST['Folio']))
         {   
         
-
-
             $MovAfiliacion = Yii::app()->db->createCommand()
             ->select('rh_titular.fecha_inicial,rh_motivos_cancelacion.motivo,rh_movimientos_afiliacion.* ')
             ->from('rh_movimientos_afiliacion')
@@ -875,24 +873,6 @@ class AfiliacionesController extends Controller {
             ->where('rh_movimientos_afiliacion.folio = "' . $_POST['Folio'] . '" and movetype in ("Cancelado","Suspendido","Activo")')
             ->queryAll();
         }
-
-
-
-
-            $MovAfiliacion = Yii::app()->db->createCommand()// Se agregaron rh_titular.fecha_ingreso,rh_motivos_cancelacion.motivo, Angeles Perez 13/05/2016
-            ->select('rh_titular.fecha_inicial,rh_motivos_cancelacion.motivo,rh_movimientos_afiliacion.* ')
-            ->from('rh_movimientos_afiliacion')
-            ->join('rh_titular','rh_titular.folio = rh_movimientos_afiliacion.folio')// Se agrego Angeles Perez 12-05-2016
-            ->leftJoin('rh_motivos_cancelacion','rh_motivos_cancelacion.id=rh_movimientos_afiliacion.motivos')// Se agrego Angeles Perez 13-05-2016
-            ->where('rh_movimientos_afiliacion.folio = "' . $_POST['Folio'] . '" and movetype in ("Cancelado","Suspendido","Activo")')
-            ->queryAll();
-        }
-        /** TERMINA **/
-
-//Se agrego para traer las fechas de alerta que se cumplan en el dia actual de la bitacora seguimiento y asi mostrar en color rojo el botón Angeles Perez 2016-08-09
-
-
-
 
         $BitacoraSeguimiento = Yii::app()->db->createCommand()->select(' * ')->from('wrk_bitacora_seguimiento')
         ->where('fecha_alerta = "' .date('Y-m-d'). '"')
@@ -909,32 +889,14 @@ class AfiliacionesController extends Controller {
         $this->render('afiliacion', array(
             'ListaMunicipios' => $ListaMunicipios,
             'ListaEstados' => $ListaEstados,
-
-
             'ListaHospitales' => $ListaHospitales,
-
-            'ListaHospitales' => $ListaHospitales,// Se agrego para mostrar la lista de hospitales Angeles Perez 2016-06-09
-
-
-            'ListaHospitales' => $ListaHospitales,// Se agrego para mostrar la lista de hospitales Angeles Perez 2016-06-09
-
             'ListaComisionistas' => $ListaComisionistas,
             'ListaMotivosCancelacion' => $ListaMotivosCancelacion,
             'TipoMembresia' => $TipoMembresia,
             'ListaServicios' => $ListaServicios,
             'or_costo_afil'=>$Obteneror_costo_afil['or_costo_afil'],
-
-
             'MovAfiliacion'=>$MovAfiliacion,
             'BitacoraSeguimiento'=>$BitacoraSeguimiento
-
-            'MovAfiliacion'=>$MovAfiliacion, // Se agrego 13-05-2016
-            'BitacoraSeguimiento'=>$BitacoraSeguimiento // Se agrego Angeles Perez 2016-08-09
-
-
-            'MovAfiliacion'=>$MovAfiliacion, // Se agrego 13-05-2016
-            'BitacoraSeguimiento'=>$BitacoraSeguimiento // Se agrego Angeles Perez 2016-08-09
-
         ));
     }
 
@@ -1177,10 +1139,10 @@ class AfiliacionesController extends Controller {
                     $TableContent .="</tbody></table>";
                 }
             }*/ //Termina
-            /* ===
+            /* =============================================
             Por Daniel Villarreal 27/nov/2015, Se agregaron columnas Adicionales por Angeles Perez 12-05-2016
             Obtenemos el detalle desde la bd actual, no se usa el webservice.
-            ===== */
+            =============================================== */
             //$StartDate, $EndDate, $Folio, $_POST['GetServAcum']['Todos'] 
            /* if ($_SESSION['DatabaseName'] == "chh_erp_001") {
                 $plaza_servicio = 'CHI';
@@ -1323,9 +1285,9 @@ class AfiliacionesController extends Controller {
                     }
                     $TableContent .="</tbody></table>";
 
-            /* ======
+            /* ================================================
             TERMINA
-            = */
+            ================================================== */
 
             echo CJSON::encode(array(
                 'requestresult' => 'ok',
@@ -1541,19 +1503,7 @@ class AfiliacionesController extends Controller {
     public function actionCancelarafiliado() {
         global $db;
         FB::INFO($_POST, '_____________________________________POST');
-
-
         if (!empty($_POST['Cancelacion']['folio']) && !empty($_POST['Cancelacion']['fecha_cancelacion']) && !empty($_POST['Cancelacion']['mo_cancelacion']) && $_POST['Cancelacion']['fecha_cancelacion']>=date('Y-m-d') && $_POST['Cancelacion']['fecha_baja']>=date('Y-m-d') && $_POST['Cancelacion']['fecha_baja'] <= $_POST['Cancelacion']['fecha_cancelacion']) {
-
-// Se agrego  && !empty($_POST['Cancelacion']['fecha_cancelacion']) && ($_POST['Cancelacion']['fecha_cancelacion']<=date('Y-m-d') Angeles Perez/Daniel Villarreal 2016-06-29
-        //if (!empty($_POST['Cancelacion']['folio'])) {
-        if (!empty($_POST['Cancelacion']['folio']) && !empty($_POST['Cancelacion']['fecha_cancelacion']) && !empty($_POST['Cancelacion']['mo_cancelacion']) && ($_POST['Cancelacion']['fecha_cancelacion']<=date('Y-m-d'))) {
-
-
-// Se agrego  && !empty($_POST['Cancelacion']['fecha_cancelacion']) && ($_POST['Cancelacion']['fecha_cancelacion']<=date('Y-m-d') Angeles Perez/Daniel Villarreal 2016-06-29
-        //if (!empty($_POST['Cancelacion']['folio'])) {
-        if (!empty($_POST['Cancelacion']['folio']) && !empty($_POST['Cancelacion']['fecha_cancelacion']) && !empty($_POST['Cancelacion']['mo_cancelacion']) && ($_POST['Cancelacion']['fecha_cancelacion']<=date('Y-m-d'))) {
-
             $SQLUpdate = "UPDATE rh_titular SET
                                             movimientos_afiliacion = 'Cancelado',
                                             fecha_baja = '" . $_POST['Cancelacion']['fecha_baja'] . "',
@@ -1714,15 +1664,7 @@ class AfiliacionesController extends Controller {
         else {
             echo CJSON::encode(array(
                 'requestresult' => 'fail',
-
-
                 'message' => "Verifica que todos los datos solicitados esten bien y que las fechas seleccionadas no sean menores que la fecha actual",
-
-                'message' => "Ingrese todos los datos que se solicitan...",
-
-
-                'message' => "Ingrese todos los datos que se solicitan...",
-
             ));
         }
         return;
@@ -3407,8 +3349,6 @@ class AfiliacionesController extends Controller {
 
 
             $EmailTo[0] = $Para;
-
-
              //$EmailTo[0] = "eliobeth.ruiz@armedica.com.mx";
                         if(!isset($BCC))
                              $BCC ="";                             
@@ -3445,40 +3385,6 @@ Propietario:  ARMedica
                         }
                         break;
  //////////////////////////////////////////////////////////////////////////////////////////////////             
-
-
-
-            //$EmailTo[0] = "erasto@realhost.com.mx";
-
-			if(!isset($BCC))
-				$BCC ="";
-            FB::INFO($EmailTo,'_______________________EMAIL');
-
-            switch ($Tipo) {
-                case 'CartaBienvenida':
-
-                    $from = 'AR MEDICA';
-                    $To = $EmailTo[0];
-                    $Subject = 'BIENVENIDO No. FOLIO : ' . $Folio;
-                    $Mensaje = 'CARTA DE BIENVENIDA';
-                    $PDF = $this->actionBienvenidapdf('',$Ret = 'S');
-                    $PDF2 = $this->actionSociodistinguido('',$Ret = 'S');
-
-                    $attachment[] = array('nombre'=>'CartaBienvenida.pdf','archivo'=>$PDF);
-                    $attachment[] = array('nombre'=>'SocioDistinguido.pdf','archivo'=>$PDF2);
-
-                    $Response = $this->EnviarMail($from, $To, $Subject, $Mensaje, $attachment , $BCC, $repplyTo = '', $AddCC);
-                    if ($Response == "success") {
-                        echo CJSON::encode(array(
-                            'requestresult' => 'ok',
-                            'message' => "Se ha enviado un Email ala direccion: ". $To
-                        ));
-                    }
-                    break;
-
-
-
-
                 case 'RecordatorioPago':
 
                     $from = 'AR MEDICA';
@@ -3740,27 +3646,12 @@ Propietario:  ARMedica
         }
 
         $consultacancelpor = "SELECT * FROM rh_movimientos_afiliacion
-
-
                     WHERE debtorno = '".$VerifyFolio[0]['debtorno']."'
                     and id in(SELECT max(id) from rh_movimientos_afiliacion
                     where debtorno = '".$VerifyFolio[0]['debtorno']."')";
         $resultadoconsultacancelpor = DB_query($consultacancelpor, $db);
         $Cancelpor = DB_fetch_assoc($resultadoconsultacancelpor);
         //echo "<pre>";print_r($_cancelpor[."'userid']);exit();
-
-
-
-                    WHERE debtorno = '114450'
-                    and id in(SELECT max(id) from rh_movimientos_afiliacion
-                    where debtorno = '114450')";
-        $resultadoconsultacancelpor = DB_query($consultacancelpor, $db);
-        $Cancelpor = DB_fetch_assoc($resultadoconsultacancelpor);
-        //echo "<pre>";print_r($_cancelpor['userid']);exit();
-
-
-
-
 
         $GetSocios = array();
         if (!empty($_POST['Folio'])) {
@@ -4751,15 +4642,7 @@ Propietario:  ARMedica
 
        
 
-
-
         //echo "<pre>";print_r($_SESSION[DatabaseName]);exit();
-
-            //echo "<pre>";print_r($total_socios_restantes['sociostotales']);exit();
-
-
-            //echo "<pre>";print_r($total_socios_restantes['sociostotales']);exit();
-
         while ($GLBResult = DB_fetch_assoc($_GLBResult)) {
             $_2GLBData[] = $GLBResult;
         }
@@ -5722,22 +5605,12 @@ Propietario:  ARMedica
         return;
     }
 
-
-
         public function actionImpresionMasiva(){
-
-	public function actionImpresionMasiva(){
-
-
-	public function actionImpresionMasiva(){
-
         global $db, $db_;
 
         set_time_limit(0);
         parse_str($_REQUEST['SendMail2']['TransNo'], $Folios);
         if(count($Folios['SendEmail'])==0){
-
-
                 echo CJSON::encode(array(
                 'requestresult' => 'error',
                     'message' => "Favor de elegir que facturas requiere imprimir, utilice los criterios y los check box"
@@ -5746,27 +5619,10 @@ Propietario:  ARMedica
         }
         $FechaEsmision=date('Y-m-d His');
                 $zip = new ZipArchive();
-
-
-
-        	echo CJSON::encode(array(
-            	'requestresult' => 'error',
-	            'message' => "Favor de elegir que facturas requiere imprimir, utilice los criterios y los check box"
-	        ));
-        	return true;
-        }
-       	$FechaEsmision=date('Y-m-d His');
-		$zip = new ZipArchive();
-
-
-
-
         $dir = "../XMLFacturacionElectronica/xmlbycfdi";
         $filename = "EMISION_" . $FechaEsmision;
         $destination = $dir . "/" . $filename . ".zip";
         if ($zip->open($_SERVER['LocalERP_path'].'/tmp/'.$destination, ZIPARCHIVE::CREATE) !== true) {
-
-
                 echo CJSON::encode(array(
                 'requestresult' => 'error',
                     'message' => "No se pudo crear el archivo zip "
@@ -5776,22 +5632,6 @@ Propietario:  ARMedica
         global $FoliosAsignados;
         $FoliosAsignados=array();
                 $i=0;
-
-
-
-        	echo CJSON::encode(array(
-            	'requestresult' => 'error',
-	            'message' => "No se pudo crear el archivo zip "
-	        ));
-        	return true;
-        }
-        global $FoliosAsignados;
-        $FoliosAsignados=array();
-		$i=0;
-
-
-
-
         foreach ($Folios['SendEmail'] as $key => $TransNo) {
             /*Obtener Folio Mediante el TransNo*/
             $DebtorNo = $this->GetDebtorNoByTransNo($TransNo);
@@ -5799,83 +5639,33 @@ Propietario:  ARMedica
             $archivo=$this->actionGenerarPDF($Folio, 'GenerateZipPDF', $TransNo);
 
             if(is_array($archivo)&&trim($archivo['PDF']['archivo'])!=''){
-
-
                 $i++;
                 $zip->addFromString($archivo['XML']['nombre'],$archivo['XML']['archivo']);
                     $zip->addFromString($archivo['PDF']['nombre'],$archivo['PDF']['archivo']);
-
-            	$i++;
-            	$zip->addFromString($archivo['XML']['nombre'],$archivo['XML']['archivo']);
-	            $zip->addFromString($archivo['PDF']['nombre'],$archivo['PDF']['archivo']);
-
-
-            	$i++;
-            	$zip->addFromString($archivo['XML']['nombre'],$archivo['XML']['archivo']);
-	            $zip->addFromString($archivo['PDF']['nombre'],$archivo['PDF']['archivo']);
-
             }
         }
         $zip->close();
         if($i==0){
-
-
                 echo CJSON::encode(array(
                 'requestresult' => 'error',
                     'message' => "No se pudieron incluir facturas en el archivo zip"
                 ));
                 return true;
-
-
-
-        	echo CJSON::encode(array(
-            	'requestresult' => 'error',
-	            'message' => "No se pudieron incluir facturas en el archivo zip"
-	        ));
-        	return true;
-
-
-
-
         }
         echo CJSON::encode(array(
             'requestresult' => 'ok',
             'message' => "El Archivo se ha generado Correctamente con {$i} facturas<br >espere la <a href=\"".trim($destination,'./')."\">descarga</a>",
-
-
                 'url'=>trim($destination,'./')
-
-        	'url'=>trim($destination,'./')
-
-
-        	'url'=>trim($destination,'./')
-
         ));
         return true;
     }
 
-
-
         public function actionGenerarPDF($Folio = null, $Tipo = null, $_TransNo = null){
-
-	public function actionGenerarPDF($Folio = null, $Tipo = null, $_TransNo = null){
-
-
-	public function actionGenerarPDF($Folio = null, $Tipo = null, $_TransNo = null){
-
         global $db;
         if (!empty($Folio)) {
             switch ($Tipo) {
                 case 'GenerateZipPDF':
-
-
                                         $attachment=array();
-
-					$attachment=array();
-
-
-					$attachment=array();
-
                     /*Get XML*/
                     $CFDIData = Yii::app()->db->createCommand()->select(' c.uuid, c.serie, c.folio, c.xml ')->from('rh_cfd__cfd c')->where('c.fk_transno = :fk_transno', array(':fk_transno' => $_TransNo) )->queryAll();
                     $UUID = $CFDIData[0]['uuid'];
@@ -5886,8 +5676,6 @@ Propietario:  ARMedica
                     $PDF = $this->actionGenerapdfinvoice('',$Ret = 'S', $Folio, $_TransNo);
                             FB::INFO($Folios['SendEmail'],'________________SEND');
                     if(!isset($FoliosAsignados[$archivo['PDF']['folio'].$archivo['PDF']['serie']]))
-
-
                                 $FoliosAsignados[$archivo['PDF']['folio'].$archivo['PDF']['serie']]=0;
                     else
                         $cfdName.=' ('.$FoliosAsignados[$archivo['PDF']['folio'].$archivo['PDF']['serie']].')';
@@ -5907,32 +5695,6 @@ Propietario:  ARMedica
                                     'serie'=>$CFDIData[0]['serie'],
                                     'folio'=>$CFDIData[0]['folio']
                                 );
-
-
-
-            			$FoliosAsignados[$archivo['PDF']['folio'].$archivo['PDF']['serie']]=0;
-                    else
-                    	$cfdName.=' ('.$FoliosAsignados[$archivo['PDF']['folio'].$archivo['PDF']['serie']].')';
-                    	$FoliosAsignados[$archivo['PDF']['folio'].$archivo['PDF']['serie']]++;
-                    $attachment['PDF'] = array(
-                    		'nombre'=>"{$cfdName}.pdf",
-	                    	'archivo'=>$PDF,
-		                    'uuid'=>$UUID,
-		                    'serie'=>$CFDIData[0]['serie'],
-		                    'folio'=>$CFDIData[0]['folio']
-	                    );
-                    if(!empty($xmlFile)){
-                        $attachment['XML'] = array(
-                        	'nombre'=>"{$cfdName}.xml",
-                        	'archivo'=>$xmlFile,
-                        	'uuid'=>$UUID,
-		                    'serie'=>$CFDIData[0]['serie'],
-		                    'folio'=>$CFDIData[0]['folio']
-                        	);
-
-
-
-
                     }
 
                     return $attachment;
@@ -6013,12 +5775,4 @@ Propietario:  ARMedica
         
     }
 }
-
-
-?>
-
-?>
-
-
-?>
-
+?>	
