@@ -52,9 +52,6 @@
                                                 Folio: $('.EnviarCarta').serialize()
                                         },
                                 },
-                                beforeSend:function(error){
-                                        console.log(error);
-                                },
                                 success : function(data, newValue) {
                                         if (data.requestresult == 'ok') {
                                                 displayNotify('success', data.message);
@@ -139,7 +136,7 @@
                 </div>
                 <div class="span2">
                 <label>&nbsp;</label>
-                <input type="button" id="CartaAumentoPrecio" value="Carta Aviso De Aumento De Precio" class="btn btn-danger" >
+                <input type="button" id="CartaAumentoPrecio" value="Carta Aviso De Aumento De Precio" class="btn btn-danger" onclick="window.location.reload()" >
                 </div>
         </div>
         <div class="row">
@@ -172,7 +169,8 @@
                                         <tr>
                                         <td><?=$Data['Folio']?></td>
                                         <td><?=$Data['Nombre']?></td>
-                                        <td><?=$Data['fecha_ingreso']?></td><td><?=$Data['movimientos_afiliacion']?></td>
+                                        <td><?=$Data['fecha_ingreso']?></td>
+                                        <td><?=$Data['movimientos_afiliacion']?></td>
                                         <td><?=$Data['fecha_ultimo_aumento']?></td>
                                         <td style="text-align:right;"><?=number_format($Data['costo_actual'],2, '.', '')?></td>
                                         <td><?=$Data['stockid']?></td>
@@ -180,7 +178,7 @@
                                         <td><?=$Data['frecuencia_pago']?></td>
                                         <td><?=$Data['prc_aumento_tarifa']?></td>
                                         <td><?=$Data['fecha_aumento_tarifa']?></td>
-                                        <td style="text-align:right;"><?=number_format($Data['nueva_tarifa'],2, '.', '')?></td>
+                                        <td style="text-align:right;"><?=number_format($Data['nueva_tarifa_redondeada'],2, '.', '')?></td>
                                         <td><?=$Data['usuario']?></td>
                                         <td style="text-align:center;">
                                         <input type="checkbox" id="EnviarCarta<?=$Data['id']?>" name="EnviarCarta[]"

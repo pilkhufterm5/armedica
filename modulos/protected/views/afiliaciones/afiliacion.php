@@ -437,7 +437,7 @@ else{
         <div class="accordion-group">
             <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#Accordion" href="#collapseOne">
-                    <?php echo _('Datos del Titular Titular'); ?>
+                    <?php echo _('Datos del Titular'); ?>
                 </a>
             </div>
 

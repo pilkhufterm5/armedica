@@ -1674,14 +1674,30 @@ class AfiliacionesController extends Controller {
     public function actionReactivarafiliado() {
         global $db;
         if (!empty($_POST['Reactivasion']['RFolio'])) {
+// condicion para modificar la fecha de reactivacion de un afiliado solo si este esta cancelado, en caso de suspendido no aplica
+            
+            $ConsultaEstatus = Yii::app()->db->createCommand()
+                    ->select(' * ')
+                    ->from('rh_titular')
+                    ->where('folio = "' . $_POST['Reactivasion']['RFolio'] . '"')
+                    ->queryAll();
+
+                   $EstatusTitular = $ConsultaEstatus[0]['movimientos_afiliacion']; 
+                   if ($EstatusTitular == "Suspendido") {
+                       $fecha_mov = $ConsultaEstatus[0]['fecha_ingreso']; 
+                   }else{
+                        $fecha_mov = date('Y-m-d');
+                   }
 
             $UpdateMove = "UPDATE rh_titular SET movimientos_afiliacion = :movimientos_afiliacion, fecha_ingreso = :fecha_ingreso
             WHERE folio = :folio";
             $parameters = array(
                 ':folio' => $_POST['Reactivasion']['RFolio'],
                 ':movimientos_afiliacion' => 'Activo',
-                ':fecha_ingreso' => date('Y-m-d')
+                ':fecha_ingreso' => $fecha_mov
             );
+
+// termina    
             if (Yii::app()->db->createCommand($UpdateMove)->execute($parameters)) {
 
                 $MoveNo = GetNextTransNo(20011, $db);
@@ -5775,4 +5791,4 @@ Propietario:  ARMedica
         
     }
 }
-?>	
+?>

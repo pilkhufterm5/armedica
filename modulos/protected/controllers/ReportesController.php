@@ -695,6 +695,7 @@ order by cast(titular.folio as integer)")->queryAll();
         parse_str($_POST['SendMail']['Folio'], $datos);
     }
     FB::INFO($Folio,'_________________SENDTO');
+
     foreach ($datos['EnviarCarta'] as $key => $folio) {
         $GetEmail = Yii::app()->db->createCommand()->select(' email ')->from('rh_cobranza')->where('folio = "'
         . $folio . '"')->queryAll();
@@ -705,9 +706,11 @@ order by cast(titular.folio as integer)")->queryAll();
         }, $EmailTo)));
 
         //$EmailTo[0] = $Para;
-        $EmailTo[0] = "alicia.villarreal@armedica.com.mx";
+        //$EmailTo[0] = "alicia.villarreal@armedica.com.mx";
+        $EmailTo[0] = "eliobethrh@gmail.com";
         if(!isset($BCC))
-        $BCC ="eliobethrh@gmail.com";
+        //$BCC ="mariela.esquivel@armedica.com.mx";
+        $BCC ="";
         $AddCCp = "eli.obeth@hotmail.com";
 
         FB::INFO($EmailTo,'_______________________EMAIL');
@@ -726,9 +729,10 @@ order by cast(titular.folio as integer)")->queryAll();
          echo $Tipo ;
             $from = 'AR MEDICA';
             $To = $EmailTo[0];
-            $Subject = 'AVISO IMPORTANTE PARA EL No. FOLIO : ' . $folio;
+            $Subject = 'CARTA DE AUMENTO DE TARIFA (Adjunto Archivo)';
             $Mensaje = 'CARTA AVISO DE AUMENTO DE PRECIO';
-            $PDF = $this->actionAumentopreciopdf('',$Ret = 'S');
+
+            $PDF = $this->actionAumentopreciopdf('',$Ret = 'S',$folio);
             $attachment =array( array('nombre'=>'Carta_Aumento_Precio.pdf','archivo'=>$PDF));
             $Response = $this->EnviarMail($from, $To, $Subject, $Mensaje, $attachment , $BCC, $repplyTo = '',
             $AddCCp);
@@ -750,7 +754,14 @@ order by cast(titular.folio as integer)")->queryAll();
 /*** #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#==##==##=#==#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=**/
 
 
-public function actionAumentopreciopdf($name= '', $Ret = ''){
+public function actionAumentopreciopdf($name= '', $Ret = '', $folio){
+    
+    $porcentajeAumento = "SELECT * FROM wrk_simulacion_aumentosprecio WHERE folio = '".$folio."' ";
+    $datosPocentaje = Yii::app()->db->createCommand($porcentajeAumento)->queryAll();
+
+    $fecha = $datosPocentaje[0]['fecha_aumento_tarifa'];
+    $fep = explode('-', $fecha);
+
     chdir(dirname(__FILE__));
     include_once ($_SERVER['LocalERP_path'] . '/PHPJasperXML/class/fpdf/fpdf.php');
     $pdf = new FPDF('P','mm','A4');
@@ -760,7 +771,22 @@ public function actionAumentopreciopdf($name= '', $Ret = ''){
     //$pdf->Image($_SERVER['LocalERP_path'] . "/companies/" . $_SESSION['DatabaseName'] .
    // "/carta_aumento_precio.jpg", 0, 0, 210, 'L');
     $pdf->Image($_SERVER['LocalERP_path'] . "/companies/" . $_SESSION['DatabaseName'] .
-    "/carta_bienvenida.jpg", 0, 0, 210, 'L');
+    "/carta_aumento.jpg", 0, 0, 210, 'L');
+
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetXY(143, 36);
+    $pdf->Cell(0, 0, $fep[2], 0, 0, "L");
+
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetXY(160, 36);
+    $pdf->Cell(0, 0, $fep[1], 0, 0, "L");
+
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetXY(58, 181);
+    $pdf->Cell(0, 0, $datosPocentaje[0]['prc_aumento_tarifa'], 0, 0, "L");
+
+    
+
     $pdfcode = $pdf->output($name, $Ret);
         return $pdfcode;
 }
@@ -873,6 +899,8 @@ public function actionSimulacionpreciosaplicada(){
     $WhereString = " 1 = 1 ";
     $WhereParams=array();
 
+    //echo "<pre>";print_r($_SERVER['LocalERP_path']);exit();
+
     if(isset($_POST['BUSCAR'])){
         if (!empty($_POST['FORMA_PAGO'])) { 
             $WhereString .= " AND wrk.paymentid = :paymentid";
@@ -925,6 +953,7 @@ public function actionSimulacionpreciosaplicada(){
         wrk.prc_aumento_tarifa,
         wrk.fecha_aumento_tarifa,
         wrk.nueva_tarifa,
+        wrk.nueva_tarifa_redondeada,
         wrk.usuario,
         wrk.enviar_carta ")
         ->from ("wrk_simulacion_aumentosprecio wrk")
