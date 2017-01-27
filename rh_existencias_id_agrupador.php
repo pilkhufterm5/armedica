@@ -46,7 +46,6 @@ $(function(){
 	$NombreTabla="rh_locstock_max_min_agr"; 
 	$SQL="select rh_locstock_max_min_agr.loccode,locations.locationname from rh_locstock_max_min_agr join locations on locations.loccode=rh_locstock_max_min_agr.loccode group by loccode";
 	$AlmacenesFarmaciasT=new tablas($SQL,$NombreTabla,$db);
-	
 	foreach($AlmacenesFarmaciasT as $almacen){
 		$AlmacenesFarmacias[]=$almacen;
 		$AlmacenesFarmaciasX[]=$almacen['loccode'];
@@ -96,7 +95,7 @@ $(function(){
 										echo '</td></tr>';
 				                    }
 				                    echo '<tr>';
-	$SQL="Select * from rh_familia  group by categoria asc";
+	/*$SQL="Select * from rh_familia  group by categoria asc";
 	$res=DB_query($SQL,$db);
 	while($fila=DB_fetch_assoc($res)){
 		echo '<td>Categoria '.htmlentities($fila['categoria']).' </td>';
@@ -129,7 +128,7 @@ $(function(){
 		}
 		echo '</select></td>';	
 	} 
-	echo '</tr>';
+	echo '</tr>';*/
 	
 				                    ?>
 				                    
@@ -177,7 +176,7 @@ $(function(){
 			"rh_locstock_max_min_agr.id_agrupador ";
 	$SQLMAinleft=$SQLFamiliaWhere='';
 	$and='';
-	foreach($_REQUEST['Categoria'] as $categoria=>$valor){
+	/*foreach($_REQUEST['Categoria'] as $categoria=>$valor){
 		$categoria=(int)$categoria;
 		$SQLMAinleft.=" left join rh_familia_stock rh_familiaCatStock".$categoria." on rh_familiaCatStock".$categoria.".stockid=stockmaster.stockid and rh_familiaCatStock".$categoria.".categoria='$categoria' ";
 		$SQLMAinleft.=" left join rh_familia rh_familiaCat".$categoria." on rh_familiaCatStock".$categoria.".clave=rh_familiaCat".$categoria.".clave and rh_familiaCat".$categoria.".categoria='$categoria' ";
@@ -187,7 +186,7 @@ $(function(){
 			$SQLFamiliaWhere.=" and rh_familiaCatStock".$categoria.".clave='".DB_escape_string($valor)."' ";
 			$and=' and ';
 		}
-	}
+	}*/
 	
 	$SQL.="from locstock ".
 		"join stockmaster on locstock.stockid=stockmaster.stockid ".
@@ -228,7 +227,7 @@ $(function(){
 			                		<th alingn='center'><span><?=_('ID')?></span></th>
 			                		<th alingn='center' style="border:BR;"><span><?=_('Agrupador')?></span></th>
 			                		<?php
-			                		echo $Familias;
+			                		//echo $Familias;
 				                	foreach($AlmacenGrupo as $grupo){
 				                	?>
 				                	<th alingn='center'><span><?=_('Real')?></span></th>

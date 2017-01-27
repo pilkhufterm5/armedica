@@ -679,13 +679,6 @@ order by cast(titular.folio as integer)")->queryAll();
             ));
     } 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*** INICIA MODULO ACTIVOS FIJOS
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
-***/
-
 public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
     global $db, $AddCC, $BCC;
     FB::INFO($Folio,'____________________-FOLIO');
@@ -950,15 +943,6 @@ public function actionSimulacionpreciosaplicada(){
 }
 
 
-/***
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
-        TERMINA MODULO ACTIVOS FIJOS***/
-
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
     //Termina
 
 /*

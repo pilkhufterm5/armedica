@@ -24,7 +24,14 @@ else{
 
 if(isset($_REQUEST['New'])){
 		$_REQUEST['data'][$ClaveTablaPrincipalId]=$ClaveTablaPrincipalIdDefault;
+        
+        $query = "select null from ".$NombreTabla." where clave=".$_REQUEST['data']['clave'];
+        $res=sql_dq($query);
+        $row=mysql_fetch_assoc($res);
+
+        if(!$row and $_REQUEST['data']['clave'])
 		$Grupos->Save($_REQUEST['data']);
+
 		$Grupos=new tablas("Select * from ".$NombreTabla,$NombreTabla,$Encabezados,$db);
 }else
 if(isset($_REQUEST['Edith'])){
@@ -47,7 +54,6 @@ if(isset($_REQUEST['Borrar'])){
 
 
 echo '<center>';
-
 echo '<form method=post action="'.$_SERVER["SCRIPT_NAME"].'">';
 echo '<table>';
 

@@ -8,13 +8,6 @@ include('includes/session.inc');
 $title = _('Item Maintenance');
 include('includes/header.inc');
 
-/*If this form is called with the StockID then it is assumed that the stock item is to be modified */
-//echo "<pre>";
-//var_dump($_POST);
-//echo "</pre>";
-
-
-
 if(isset($_POST['is_farmacia'])){
     $_POST['is_farmacia']=1;
 }else{
@@ -40,11 +33,14 @@ if (isset($StockID)&& (!isset($_POST['submit']))) {
 	$sql = "SELECT COUNT(stockid) FROM stockmaster WHERE stockid='".$StockID."'";
 	$result = DB_query($sql,$db);
 	$myrow = DB_fetch_row($result);
+	
+
 	if ($myrow[0]==0) {
 		$New=1;
 	}
 }else if(isset($_POST['submit'])){
     $New=1;
+
 }
 
 ?>
@@ -73,7 +69,8 @@ if (isset($StockID)&& (!isset($_POST['submit']))) {
 </script>
 
 <?php
-echo "<A HREF='" . $rootpath . '/SelectProduct.php?' . SID . "'>" . _('Back to Items') . '</A><BR>' . "\n";
+echo "<A style='text-decoration:underline' HREF='" . $rootpath . '/SelectProduct.php?' . SID . "'>" . _('Back to Items') . '</A>      ' . "\n";
+echo "<A style='text-decoration:underline' HREF='" . $rootpath . '/Stocks.php?' . SID . "'>" . '<b>Ingresar nuevo articulo</b>' . '</A><BR>' . "\n";
 
 
 if (isset($_FILES['ItemPicture']) AND $_FILES['ItemPicture']['name'] !='') {
@@ -324,9 +321,6 @@ if (isset($_POST['submit'])||isset($_POST['submit2'])) {
 
 			if ($InputError == 0){
 
-
-
-			// bowikaxu realhost - 18 july 2008 - set the lowest production quantity
 				$sql = "UPDATE stockmaster
 						SET longdescription='" . $_POST['LongDescription'] . "',
 							description='" . $_POST['Description'] . "',
@@ -390,6 +384,7 @@ if (isset($_POST['submit'])||isset($_POST['submit2'])) {
 				$DbgMsg = _('Eror: 0x0001 Error de SQL');
                 $SQL="delete from rh_familia_stock where stockid='".DB_escape_string($StockID)."'";
                 DB_query($SQL,$db,$ErrMsg,$DbgMsg);
+
 				//Tabla de familia gamma N
 				foreach($_REQUEST['rh_familia'] as $clave=>$familia)
 					if($familia!=''){
@@ -490,6 +485,19 @@ if (isset($_POST['submit'])||isset($_POST['submit2'])) {
 				$ErrMsg =  _('The item could not be added because');
 				$DbgMsg = _('The SQL that was used to add the item failed was');
 				$result = DB_query($sql,$db, $ErrMsg, $DbgMsg);
+
+				// Se inserta en movimiento de Id agrupador
+                $sql="insert into rh_stock_grupo (clave,nombre) values('".$StockID."','".$_POST['Description']."');";
+				DB_query($sql,$db,$ErrMsg,$DbgMsg);
+
+	
+	/*$sql1 = "SELECT COUNT(stockid) FROM stockmaster WHERE stockid='".$StockID."'";
+	$result1 = DB_query($sql1,$db);
+	$myrow1 = DB_fetch_row($result1);    
+
+	if($myrow1 and $_POST['StockID'])*/
+	prnMsg( 'articulo agregado correctamente', 'success');
+
 				if (DB_error_no($db)==0) {
 
                 $sql="insert into rh_especie_stock (idEspecie,stockid) values('".$_POST['rh_especie']."','".$StockID."');";
@@ -501,7 +509,7 @@ if (isset($_POST['submit'])||isset($_POST['submit2'])) {
 				$ErrMsg = _('Error 0x0001 actualizar gamma');
 				$DbgMsg = _('Eror: 0x0001 Error de SQL');
 				DB_query($sql,$db,$ErrMsg,$DbgMsg);
-				
+
 				//Tabla de familia gamma N
 				foreach($_REQUEST['rh_familia'] as $clave=>$familia)
 					if($familia!=''){
