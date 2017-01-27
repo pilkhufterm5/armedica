@@ -1898,9 +1898,9 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==0){
 								</td>
 							</tr>
 							<tr>
-							<td class="menu_group_item">
-								<?php echo "<A HREF='" . $rootpath . '/rh_stock_grupos.php?' . SID . "'><LI>" . _('Mantenimiento ID Agrupador') . '</LI></A>'; ?>
-							</td>
+							<!--<td class="menu_group_item">
+								<?php //echo "<A HREF='" . $rootpath . '/rh_stock_grupos.php?' . SID . "'><LI>" . _('Mantenimiento ID Agrupador') . '</LI></A>'; ?>
+							</td>-->
 							</tr>
 							<tr>
 							<td class="menu_group_item">
