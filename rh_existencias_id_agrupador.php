@@ -47,6 +47,10 @@ $(function(){
 	$SQL="select rh_locstock_max_min_agr.loccode,locations.locationname from rh_locstock_max_min_agr join locations on locations.loccode=rh_locstock_max_min_agr.loccode group by loccode";
 	$AlmacenesFarmaciasT=new tablas($SQL,$NombreTabla,$db);
 	foreach($AlmacenesFarmaciasT as $almacen){
+		
+		if($almacen["loccode"]=='029')
+		continue;
+		
 		$AlmacenesFarmacias[]=$almacen;
 		$AlmacenesFarmaciasX[]=$almacen['loccode'];
 	}

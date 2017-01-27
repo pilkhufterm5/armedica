@@ -679,8 +679,18 @@ order by cast(titular.folio as integer)")->queryAll();
             ));
     } 
 
+<<<<<<< HEAD
 public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
+=======
+/*** INICIA MODULO ACTIVOS FIJOS
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+***/
+
+ public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
+>>>>>>> 8788ee898ab3db4b22ad52fc1a7b14bb26f93217
     global $db, $AddCC, $BCC;
+  
     FB::INFO($Folio,'____________________-FOLIO');
     //FB::INFO($_POST,'::::::::::::____POST');
     if (!empty($_POST['SendMail']['Folio']) && $_POST['SendMail']['Tipo']) {
@@ -689,6 +699,7 @@ public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
         parse_str($_POST['SendMail']['Folio'], $datos);
     }
     FB::INFO($Folio,'_________________SENDTO');
+
     foreach ($datos['EnviarCarta'] as $key => $folio) {
         $GetEmail = Yii::app()->db->createCommand()->select(' email ')->from('rh_cobranza')->where('folio = "'
         . $folio . '"')->queryAll();
@@ -699,8 +710,12 @@ public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
         }, $EmailTo)));
 
         $EmailTo[0] = $Para;
+        //$EmailTo[0] = "alicia.villarreal@armedica.com.mx";
+        //$EmailTo[0] = "eliobethrh@gmail.com";
         if(!isset($BCC))
-        $BCC ="mary.angeles.perez@hotmail.com"; // Aquí podría ir algún correo que quisieran ponerle copia oculta para que reciba todos los correos que se envían con la carta de Aviso de Aumento, ojo no olvidar que estos programas son generales para todas las plazas, a lo que quiero entender es que el correo que   pongan ahí recibirá correos de todas las plazas.
+        $BCC ="mariela.esquivel@armedica.com.mx";
+        //$BCC ="";
+        //$AddCCp = "eli.obeth@hotmail.com";
 
         FB::INFO($EmailTo,'_______________________EMAIL');
 
@@ -711,44 +726,72 @@ public function actionSendmail($Folio = null, $Tipo = null, $_TransNo = null){
         ':enviar_carta'=>'1',
         ':folio'=>$folio
         );
-
-        Yii::app()->db->createCommand($ActualizarStatusCarta)->execute($Parametros_status_carta);switch ($Tipo) {
+ 
+        Yii::app()->db->createCommand($ActualizarStatusCarta)->execute($Parametros_status_carta);
+        switch ($Tipo) {
                 case 'CartaAumentoPrecio':
-                    $from = 'AR MEDICA';
-                    $To = $EmailTo[0];
-                    $Subject = 'AVISO IMPORTANTE PARA EL No. FOLIO : ' . $folio;
-                    $Mensaje = 'CARTA AVISO DE AUMENTO DE PRECIO';
-                    $PDF = $this->actionAumentopreciopdf('',$Ret = 'S');
-                    $attachment =array( array('nombre'=>'carta_aumento_precio.pdf','archivo'=>$PDF));
-                    $Response = $this->EnviarMail($from, $To, $Subject, $Mensaje, $attachment , $BCC, $repplyTo = '',
-                    $AddCC);
-                    if ($Response == "success") {
-                        echo CJSON::encode(array(
-                        'requestresult' => 'ok',
-                        'message' => "Se ha enviado un Email ala direccion: ". $To
-                        ));
-                    }else{
-                        echo CJSON::encode(array(
-                        'requestresult' => 'fail',
-                        'message' => "Ocurrio un error inesperado"
-                        ));
-                    }
-                break;
-                default:
-                break;
+         echo $Tipo ;
+            $from = 'AR MEDICA';
+            $To = $EmailTo[0];
+            $Subject = 'CARTA DE AUMENTO DE TARIFA (Adjunto Archivo)';
+            $Mensaje = 'CARTA AVISO DE AUMENTO DE PRECIO';
+
+            $PDF = $this->actionAumentopreciopdf('',$Ret = 'S',$folio);
+            $attachment =array( array('nombre'=>'Carta_Aumento_Precio.pdf','archivo'=>$PDF));
+            $Response = $this->EnviarMail($from, $To, $Subject, $Mensaje, $attachment , $BCC, $repplyTo = '',
+            $AddCC);
+            if ($Response == "success") {
+                echo CJSON::encode(array(
+                'requestresult' => 'ok',
+                'message' => "Se ha enviado un Email a la direccion: ". $To
+                ));
+            }else{
+                echo CJSON::encode(array(
+                'requestresult' => 'fail',
+                'message' => "Ocurrio un error inesperado"
+                ));
+            }
+        break;
         }
     }
 }
+/*** #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#==##==##=#==#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=**/
 
-public function actionAumentopreciopdf($name= '', $Ret = ''){
+
+public function actionAumentopreciopdf($name= '', $Ret = '', $folio){
+    
+    $porcentajeAumento = "SELECT * FROM wrk_simulacion_aumentosprecio wrk WHERE  wrk.id=(select max(id) from wrk_simulacion_aumentosprecio wrkmax where wrkmax.folio=wrk.folio) and wrk.folio = '".$folio."' "; 
+
+    $datosPocentaje = Yii::app()->db->createCommand($porcentajeAumento)->queryAll();
+
+    $fecha = $datosPocentaje[0]['fecha_aumento_tarifa'];
+    $fep = explode('-', $fecha);
+
     chdir(dirname(__FILE__));
     include_once ($_SERVER['LocalERP_path'] . '/PHPJasperXML/class/fpdf/fpdf.php');
     $pdf = new FPDF('P','mm','A4');
     $pdf->AliasNbPages();
     $pdf->AddPage();
     $pdf->SetFont('Arial', '', 7);
+    //$pdf->Image($_SERVER['LocalERP_path'] . "/companies/" . $_SESSION['DatabaseName'] .
+   // "/carta_aumento_precio.jpg", 0, 0, 210, 'L');
     $pdf->Image($_SERVER['LocalERP_path'] . "/companies/" . $_SESSION['DatabaseName'] .
-    "/carta_aumento_precio.jpg", 0, 0, 210, 'L');
+    "/carta_aumento.jpg", 0, 0, 210, 'L');
+
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetXY(143, 36);
+    $pdf->Cell(0, 0, $fep[2], 0, 0, "L");
+
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetXY(160, 36);
+    $pdf->Cell(0, 0, $fep[1], 0, 0, "L");
+
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->SetXY(58, 181);
+    $pdf->Cell(0, 0, $datosPocentaje[0]['prc_aumento_tarifa'], 0, 0, "L");
+
+    
+
     $pdfcode = $pdf->output($name, $Ret);
         return $pdfcode;
 }
@@ -861,6 +904,8 @@ public function actionSimulacionpreciosaplicada(){
     $WhereString = " 1 = 1 ";
     $WhereParams=array();
 
+    //echo "<pre>";print_r($_SERVER['LocalERP_path']);exit();
+
     if(isset($_POST['BUSCAR'])){
         if (!empty($_POST['FORMA_PAGO'])) { 
             $WhereString .= " AND wrk.paymentid = :paymentid";
@@ -913,6 +958,7 @@ public function actionSimulacionpreciosaplicada(){
         wrk.prc_aumento_tarifa,
         wrk.fecha_aumento_tarifa,
         wrk.nueva_tarifa,
+        wrk.nueva_tarifa_redondeada,
         wrk.usuario,
         wrk.enviar_carta ")
         ->from ("wrk_simulacion_aumentosprecio wrk")
@@ -943,6 +989,14 @@ public function actionSimulacionpreciosaplicada(){
 }
 
 
+<<<<<<< HEAD
+=======
+/***
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+        TERMINA MODULO ACTIVOS FIJOS***/
+
+>>>>>>> 8788ee898ab3db4b22ad52fc1a7b14bb26f93217
     //Termina
 
 /*

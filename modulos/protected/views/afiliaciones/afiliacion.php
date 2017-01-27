@@ -437,15 +437,7 @@ else{
         <div class="accordion-group">
             <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#Accordion" href="#collapseOne">
-<<<<<<< HEAD
-<<<<<<< HEAD
                     <?php echo _('Datos del Titular'); ?>
-=======
-                    <?php echo _('Datos del Titular Titular'); ?>
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
-                    <?php echo _('Datos del Titular Titular'); ?>
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
                 </a>
             </div>
 
@@ -599,15 +591,7 @@ else{
                         <td><?=$rows['userid']?></td>
                         <td><?=$rows['moveno']?></td>
                         <td><?=$rows['movetype']?></td>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        <td><?=$rows['motivos'].' '.'['.$rows['motivo'].']'?></td>
-=======
                         <td><?=$rows['motivos'].' '.'['.$rows['motivo'].']'?></td><!--Se concateno el motivo para mostrarla descripcion del motivo de cancelación Angeles Perez 13-05-2016-->
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
-                        <td><?=$rows['motivos'].' '.'['.$rows['motivo'].']'?></td><!--Se concateno el motivo para mostrarla descripcion del motivo de cancelación Angeles Perez 13-05-2016-->
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
                         <td><?=$rows['fecha_baja']?></td>
                         <td><?=$rows['fecha_cancelacion']?></td>
                         <td><?=$rows['sus_fechainicial']?></td>

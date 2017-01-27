@@ -584,20 +584,20 @@ class FacturacionController extends Controller {
                 //$Mas1Mes = 0;
             }
 
-            /* ======================================
-            =========================================
+            /* ===
+            ======
             OPCION AGREGADA EN BASE A LA OPCION SELECCIONADA PARA LA FECHA , 
                 MES ACTUAL - NO SUMA MES
             REALIZADO POR DANIEL VILLARREAL EL 24 DE NOVIEMBRE DEL 2015
-            =========================================
-            ========================================= */
+            ======
+            ====== */
             // 0 = MesActual y 1 = MesSiguiente 
             $Mas1Mes = $CambiarMesFacturacion;
-            /* ======================================
-            =========================================
+            /* ===
+            ======
                             TERMINA
-            =========================================
-            ======================================= */
+            ======
+            ==== */
             
             $CreateOrders = false;
             switch ($Frecuencia) {
@@ -613,10 +613,10 @@ class FacturacionController extends Controller {
                     $GetFechas = $this->GetPeriods($Fecha_Ingreso,2, $TipoEmision);
                     $ToDay = date('Y-m-d');
                     $GetTodayParts = explode("-", $ToDay);
-                    /*==============================
+                    /*==
                     POR DANIEL VILLARREAL, 04 DIC 2015
                     FUNCION OBSOLETA
-                    ================================*/
+                    ====*/
                     #if(($GetFechas[0] == $GetTodayParts[1]) || ($GetFechas[1] == $GetTodayParts[1]) ){
                         $Date = date('Y-m-d', mktime(0, 0, 0, date("m"), $DiaEmision, date("Y")));
                         $CreateOrders = true;
@@ -633,10 +633,10 @@ class FacturacionController extends Controller {
                     $GetFechas = $this->GetPeriods($Fecha_Ingreso,3, $TipoEmision);
                     $ToDay = date('Y-m-d');
                     $GetTodayParts = explode("-", $ToDay);
-                    /*==============================
+                    /*==
                     POR DANIEL VILLARREAL, 04 DIC 2015
                     FUNCION OBSOLETA
-                    ================================*/
+                    ====*/
                     #if(($GetFechas[0] == $GetTodayParts[1]) || ($GetFechas[1] == $GetTodayParts[1]) ){
                         $Date = date('Y-m-d', mktime(0, 0, 0, date("m"), $DiaEmision, date("Y")));
                         $CreateOrders = true;
@@ -653,10 +653,10 @@ class FacturacionController extends Controller {
                     $GetFechas = $this->GetPeriods($Fecha_Ingreso,3, $TipoEmision);
                     $ToDay = date('Y-m-d');
                     $GetTodayParts = explode("-", $ToDay);
-                    /*==============================
+                    /*==
                     POR DANIEL VILLARREAL, 04 DIC 2015
                     FUNCION OBSOLETA
-                    ================================*/
+                    ====*/
                     #if(($GetFechas[0] == $GetTodayParts[1]) || ($GetFechas[1] == $GetTodayParts[1]) ){
                         $Date = date('Y-m-d', mktime(0, 0, 0, date("m"), $DiaEmision, date("Y")));
                         $CreateOrders = true;
@@ -772,19 +772,19 @@ class FacturacionController extends Controller {
 
         //FB::INFO($_POST,'__________________________POST');
 
-        /* ======================================
-        ========================================
+        /* ===
+        =====
         OPCION AGREGADA EN BASE A LA OPCION SELECCIONADA PARA LA FECHA , 
             MES ACTUAL - NO SUMA MES, MES SIGUIENTE - SUMA 1 MES
         REALIZADO POR DANIEL VILLARREAL EL 1 DE DICIEMBRE DEL 2015
-        =========================================
-        ========================================= */
+        ======
+        ====== */
         $CambiarMesFacturacion = $_POST['Emision']['CambiarMesFacturacion'];
-        /* ======================================
-        =========================================
+        /* ===
+        ======
                         TERMINA
-        =========================================
-        ======================================= */
+        ======
+        ==== */
         
 
         if(!empty($_POST['Emision']['Folios'])){
@@ -837,30 +837,30 @@ class FacturacionController extends Controller {
                 $WhereString .= " AND cobranza.frecuencia_pago IN ({$_2FrecuenciaPago}) ";
             }
 
-             /* ====================================================
+             /* ===
             AGREGADO POR DANIEL VILLARREAL 03 DE DICIEMBRE DEL 2015
             PARA FILTRAR POR COBRADOR
-            ===================================================== */
+            ==== */
              if (!empty($_POST['cobradorid'])) {
                 $_2Cobrador = implode(",", $_POST['cobradorid']);
                 $WhereString .= " AND cobranza.cobrador IN ({$_2Cobrador}) ";
             }
-            /* ====================================================
+            /* ===
             TERMINA 
-            ===================================================== */
+            ==== */
 
 
-             /* ====================================================
+             /* ===
             AGREGADO POR DANIEL VILLARREAL 03 DE DICIEMBRE DEL 2015
             SE OBTIENE EL VALOR DEL PERIODO ACTUAL O SIGUIENTE
-            ===================================================== */
+            ==== */
             if (isset($_POST['CambiarMesFacturacion'])) {
                 // 0 = Mes Actual o Periodo Actual y 1 = Mes siguiente o Periodo Siguiente
                 $CambiarMesFacturacion = $_POST['CambiarMesFacturacion'];
             }else{ $CambiarMesFacturacion = 0; }
-            /* ====================================================
+            /* ===
             TERMINA 
-            ===================================================== */
+            ==== */
 
 
             FB::INFO($WhereString,'____________________WHERE');
@@ -920,26 +920,26 @@ class FacturacionController extends Controller {
         foreach ($_ListaPlanes as $Planes) {
             $ListaPlanes[$Planes['stockid']] = $Planes['description'];
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
         $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(' paymentid NOT IN (3,4,6,7)'), 'paymentid', 'paymentname');
-=======
+
         $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(' paymentid NOT IN (3,6,7)'), 'paymentid', 'paymentname');
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
+
+
         $ListaFormasPago = CHtml::listData(Paymentmethod::model()->findAll(' paymentid NOT IN (3,6,7)'), 'paymentid', 'paymentname');
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
         $ListaFrecuenciaPago = CHtml::listData(FrecuenciaPago::model()->findAll(/*" sucursal = 'MTY' "*/), 'id', 'frecuencia');
 
 
-        /* ================================================================================================= 
+        /* ====== 
         AGREGADO PARA MOSTRAR LA LISTA DE COBRADORES,
         POR DANIEL VILLARREAL EL 30 DE DICIEMBRE DEL 2015
-        =================================================================================================*/ 
+        ======*/ 
         $ListaCobradores = CHtml::listData(Cobradores::model()->findAll(/*" sucursal = 'MTY' "*/), 'id', 'nombre');
-        /* ================================================================================================= 
+        /* ====== 
         TERMINA
-        =================================================================================================*/ 
+        ======*/ 
         
 
         $this->render("emision", array(
@@ -4963,16 +4963,16 @@ array(
                     (rh_titular.movimientos_afiliacion) as AfilStatus,
                     (rh_cobranza.cobrador) as AfilCobrador,
                     (rh_titular.asesor) as AfilAsesor,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
+
+
                     (rh_titular.fecha_ingreso) as fecha_ingreso,
                     (rh_titular.fecha_ultaum) as fecha_ultaum,
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
+
+
                     (rh_titular.fecha_ingreso) as fecha_ingreso,
                     (rh_titular.fecha_ultaum) as fecha_ultaum,
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
                     (rh_cobranza.stockid) as AfilProduct,
                     (rh_cobranza.frecuencia_pago) as AfilFrecuenciaPago,
                     (rh_cobranza.paymentid) as AfilMetodoPago,
@@ -5004,44 +5004,44 @@ array(
                     LEFT JOIN rh_titular ON debtortrans.debtorno = rh_titular.debtorno
                     LEFT JOIN rh_cobranza ON rh_titular.folio = rh_cobranza.folio
                     LEFT JOIN rh_foliosasignados on rh_foliosasignados.folio = rh_titular.folio
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
                     # Agregamos un JOIN para obtener los motivos de las notas de credito - por Daniel Villarreal el 14 de Diciembre del 2015
                     LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
                     # Termina
                 WHERE 1=1 " . $Where . " AND debtortrans.type in(10) GROUP BY debtortrans.id ";
-=======
+
                     LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
                 WHERE 1=1 " . $Where . " AND debtortrans.type in(10) GROUP BY debtortrans.id";
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
+
+
                     LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
                 WHERE 1=1 " . $Where . " AND debtortrans.type in(10) GROUP BY debtortrans.id";
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
 /*  AND rh_titular.movimientos_afiliacion = 'Activo'  */
 
                 $_2GetInvoiceDataResult = DB_query($_2GetInvoiceData, $db);
                 $_InvoiceQTY = DB_num_rows($_2GetInvoiceDataResult);
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
 
         $_InvoiceData = array();
         while ( $_InvoiceData = DB_fetch_assoc($_2GetInvoiceDataResult)) {
             $InvoiceData[] = $_InvoiceData;
              $_2GetCreditNotes = "SELECT
                    #(debtortrans.tipo_factura) AS TipoFactura,
-=======
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
+
+
         $i=0;
         while ( $_InvoiceData = DB_fetch_assoc($_2GetInvoiceDataResult)) {
             $InvoiceData[] = $_InvoiceData;
              $_2GetCreditNotes = "SELECT
-<<<<<<< HEAD
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
+
+
+
                     (debtortrans.rh_status) AS StatusFactura,
                     (debtortrans.alloc) AS LOPAGADO,
                     (debtortrans.ovamount + debtortrans.ovgst + debtortrans.ovfreight + debtortrans.ovdiscount- debtortrans.alloc) AS SALDO,
@@ -5057,31 +5057,31 @@ array(
                      FROM debtortrans
             JOIN custallocns ca1 on debtortrans.id = ca1.transid_allocfrom
             LEFT JOIN  rh_cfd__cfd ON rh_cfd__cfd.id_debtortrans = debtortrans.id
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
             # Agregamos un JOIN para obtener los motivos de las notas de credito - por Daniel Villarreal el 14 de Diciembre del 2015
             LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
             # Termina
-=======
+
             LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
+
+
             LEFT JOIN  or_motivosnotascredito ON or_motivosnotascredito.id = debtortrans.shipvia
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
             WHERE type = 11 and ca1.transid_allocto = ".$_InvoiceData['id'];
 
             $_2GetInvoiceDataResultNC = DB_query($_2GetCreditNotes, $db);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
              while ( $_InvoiceDataNC = DB_fetch_assoc($_2GetInvoiceDataResultNC)) {
                 $InvoiceData[] = array_merge($_InvoiceData,$_InvoiceDataNC);
             }
         }
 
-=======
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
+
+
             $query = "SELECT 
                     fecha_reactivacion from rh_movimientos_afiliacion where folio=".$_InvoiceData["AfilNo"]." order by id desc limit 1";
             $res = DB_query($query, $db);
@@ -5095,10 +5095,10 @@ array(
             }
         }
         //exit();
-<<<<<<< HEAD
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
+
+
+
         //Cobrador  Asesor  Producto    Frec.Pago   Form.Pago
         $ListaCobradores = CHtml::listData(Cobradores::model()->findAll(), 'id', 'nombre');
         $ListaAsesores = CHtml::listData(Comisionista::model()->findAll('activo=1'), 'id', 'comisionista');
@@ -5109,15 +5109,15 @@ array(
         $ListaTipoFacturas = CHtml::listData(Tipofacturas::model()->findAll(), 'id', 'tipo');
 
         //FB::INFO($_2GetInvoiceData,'____________________________2GetInvoiceData');
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
+
+
+
 //print_r($InvoiceData);
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
+
+
 //print_r($InvoiceData);
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
 
         $this->render("relacionfacturas",array(
             "InvoiceData" => $InvoiceData,
@@ -5131,10 +5131,10 @@ array(
 
     }
 
-      /* ===========================================
+      /* =
     METODO AGREGADO PARA FACTURAR N CANTIDAD DE SUCURSALES EN 1 FACTURA,
     POR DANIEL VILLARREAL EL 23 DE DICIEMBRE DEL 2015
-    ==============================================*/
+    ====*/
 
     public function actionEmisionMasiva(){
         FB::INFO($_POST,'_______________POST');
@@ -5164,17 +5164,17 @@ array(
             $EmpresaPadre = $_POST['EmpresaPadre']; // folio de rh_titular
             $WhereString .= " AND or_empresashijo.id_empresapadre in (select id from rh_titular where folio = $EmpresaPadre)";
 
-             /* ====================================================
+             /* ===
             AGREGADO POR DANIEL VILLARREAL 03 DE DICIEMBRE DEL 2015
             SE OBTIENE EL VALOR DEL PERIODO ACTUAL O SIGUIENTE
-            ===================================================== */
+            ==== */
             if (isset($_POST['CambiarMesFacturacion'])) {
                 // 0 = Mes Actual o Periodo Actual y 1 = Mes siguiente o Periodo Siguiente
                 $CambiarMesFacturacion = $_POST['CambiarMesFacturacion'];
             }else{ $CambiarMesFacturacion = 0; }
-            /* ====================================================
+            /* ===
             TERMINA 
-            ===================================================== */
+            ==== */
 
 
             FB::INFO($WhereString,'____________________WHERE');
@@ -5252,27 +5252,27 @@ array(
             ));
     } // end actionEmisionMasiva
 
-    /* ===========================================
+    /* =
     METODO AGREGADO PARA FACTURAR N CANTIDAD DE SUCURSALES EN 1 FACTURA,
     POR DANIEL VILLARREAL EL 23 DE DICIEMBRE DEL 2015
-    ==============================================*/
+    ====*/
     public function actionFacturaemisionmasiva(){
 
         //FB::INFO($_POST,'__________________________POST');
 
-        /* ======================================
-        ========================================
+        /* ===
+        =====
         OPCION AGREGADA EN BASE A LA OPCION SELECCIONADA PARA LA FECHA , 
             MES ACTUAL - NO SUMA MES, MES SIGUIENTE - SUMA 1 MES
         REALIZADO POR DANIEL VILLARREAL EL 1 DE DICIEMBRE DEL 2015
-        =========================================
-        ========================================= */
+        ======
+        ====== */
         $CambiarMesFacturacion = $_POST['Emision']['CambiarMesFacturacion'];
-        /* ======================================
-        =========================================
+        /* ===
+        ======
                         TERMINA
-        =========================================
-        ======================================= */
+        ======
+        ==== */
 
         // Obtenemos el ID de la empresa padre
         $EmpresaPadre =  $_POST['Emision']['EmpresaPadre'];
@@ -5305,10 +5305,10 @@ array(
         FB::INFO('_____END');
     } //end actionFacturaemisionMasiva
 
-/* ===========================================
+/* =
     METODO AGREGADO PARA FACTURAR N CANTIDAD DE SUCURSALES EN 1 FACTURA,
     POR DANIEL VILLARREAL EL 23 DE DICIEMBRE DEL 2015
-    ==============================================*/
+    ====*/
 public function CreaPedidoEmisionMasiva($DebtorNo,$EmpresaPadre,$CambiarMesFacturacion,$arrayFoliosSucursales){
 
     
@@ -5561,10 +5561,10 @@ public function CreaPedidoEmisionMasiva($DebtorNo,$EmpresaPadre,$CambiarMesFactu
     }// end CreaPedidoEmisionMasiva
 
 
-    /* ===========================================
+    /* =
     METODO AGREGADO PARA FACTURAR N CANTIDAD DE SUCURSALES EN 1 FACTURA,
     POR DANIEL VILLARREAL EL 23 DE DICIEMBRE DEL 2015
-    ==============================================*/
+    ====*/
 
     public function actionEmisionMasiva1concepto(){
         FB::INFO($_POST,'_______________POST');
@@ -5594,17 +5594,17 @@ public function CreaPedidoEmisionMasiva($DebtorNo,$EmpresaPadre,$CambiarMesFactu
             $EmpresaPadre = $_POST['EmpresaPadre']; // folio de rh_titular
             $WhereString .= " AND or_empresashijo.id_empresapadre in (select id from rh_titular where folio = $EmpresaPadre)";
 
-             /* ====================================================
+             /* ===
             AGREGADO POR DANIEL VILLARREAL 03 DE DICIEMBRE DEL 2015
             SE OBTIENE EL VALOR DEL PERIODO ACTUAL O SIGUIENTE
-            ===================================================== */
+            ==== */
             if (isset($_POST['CambiarMesFacturacion'])) {
                 // 0 = Mes Actual o Periodo Actual y 1 = Mes siguiente o Periodo Siguiente
                 $CambiarMesFacturacion = $_POST['CambiarMesFacturacion'];
             }else{ $CambiarMesFacturacion = 0; }
-            /* ====================================================
+            /* ===
             TERMINA 
-            ===================================================== */
+            ==== */
 
 
             FB::INFO($WhereString,'____________________WHERE');
@@ -5684,27 +5684,27 @@ public function CreaPedidoEmisionMasiva($DebtorNo,$EmpresaPadre,$CambiarMesFactu
             'ListaEmpresasPadre' => $EmpresasPadre
             ));
     } // end actionEmisionMasiva1concepto
-    /* ===========================================
+    /* =
     METODO AGREGADO PARA FACTURAR N CANTIDAD DE SUCURSALES EN 1 FACTURA,
     POR DANIEL VILLARREAL EL 23 DE DICIEMBRE DEL 2015
-    ==============================================*/
+    ====*/
     public function actionFacturaemisionMasiva1Concepto(){
 
         //FB::INFO($_POST,'__________________________POST');
 
-        /* ======================================
-        ========================================
+        /* ===
+        =====
         OPCION AGREGADA EN BASE A LA OPCION SELECCIONADA PARA LA FECHA , 
             MES ACTUAL - NO SUMA MES, MES SIGUIENTE - SUMA 1 MES
         REALIZADO POR DANIEL VILLARREAL EL 1 DE DICIEMBRE DEL 2015
-        =========================================
-        ========================================= */
+        ======
+        ====== */
         $CambiarMesFacturacion = $_POST['Emision']['CambiarMesFacturacion'];
-        /* ======================================
-        =========================================
+        /* ===
+        ======
                         TERMINA
-        =========================================
-        ======================================= */
+        ======
+        ==== */
 
         // Obtenemos el ID de la empresa padre
         $EmpresaPadre =  $_POST['Emision']['EmpresaPadre'];
@@ -5737,10 +5737,10 @@ public function CreaPedidoEmisionMasiva($DebtorNo,$EmpresaPadre,$CambiarMesFactu
         FB::INFO('_____END');
     } //end actionFacturaemisionMasiva1Concepto
 
-/* ===========================================
+/* =
     METODO AGREGADO PARA FACTURAR N CANTIDAD DE SUCURSALES EN 1 FACTURA,
     POR DANIEL VILLARREAL EL 23 DE DICIEMBRE DEL 2015
-    ==============================================*/
+    ====*/
 public function CreaPedidoEmisionMasiva1Concepto($DebtorNo,$EmpresaPadre,$CambiarMesFacturacion,$arrayFoliosSucursales){
 
     
@@ -6406,8 +6406,8 @@ public function CreaPedidoEmisionMasiva1Concepto($DebtorNo,$EmpresaPadre,$Cambia
                 $Fecha_Corte =  date ( 'Y-m-d' , $Fecha_Corte);       
         }       
     } //   public function actionRegularpagosadelantados()
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
 
 
 /*******************************************************************************************
@@ -6540,9 +6540,9 @@ pr($datos_por_folio);   */
 //$union_datos = array_merge($datos_conciliacion, $datos_conciliacion_tarjetas);
 //echo "<pre>";print_r($data);exit();
 // " . $_POST['Fecha_Inicial'] . "
-=======
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
+
+
     
     /*FUNCION PARA GENERAR LA CONCILIACION DE LAS FACTURAS DEL MES SELECCIONADO*/
     public function actionConciliacionFactura(){
@@ -6647,24 +6647,24 @@ pr($datos_por_folio);   */
             AND titular.movimientos_afiliacion = 'Activo'";
             $_datos_conciliacion_tarjetas = Yii::app()->db->createCommand($_sql_conciliacion_tarjetas)->queryAll();
         }
-<<<<<<< HEAD
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
+
+
+
         $this->render('Conciliacion', array(
                     'datosConciliacion' => $union_datos,    
                     'datosConciliacionSinFactura' => $_datos_conciliacion_tarjetas,    
                     //'datosConciliacionTarjetas' => $datos_conciliacion_tarjetas,
 
             )); 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
 } // fin de function actionConciliacionFactura
 
-=======
+
     } // fin de function actionConciliacionFactura
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
-=======
+
+
     } // fin de function actionConciliacionFactura
->>>>>>> fa8bab7029f2d4a5733b5cac0afbd59b4211dc3c
+
 }//End Class
