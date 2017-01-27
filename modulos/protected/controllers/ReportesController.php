@@ -705,13 +705,13 @@ order by cast(titular.folio as integer)")->queryAll();
             return trim($arreglo);
         }, $EmailTo)));
 
-        //$EmailTo[0] = $Para;
+        $EmailTo[0] = $Para;
         //$EmailTo[0] = "alicia.villarreal@armedica.com.mx";
-        $EmailTo[0] = "eliobethrh@gmail.com";
+        //$EmailTo[0] = "eliobethrh@gmail.com";
         if(!isset($BCC))
-        //$BCC ="mariela.esquivel@armedica.com.mx";
-        $BCC ="";
-        $AddCCp = "eli.obeth@hotmail.com";
+        $BCC ="mariela.esquivel@armedica.com.mx";
+        //$BCC ="";
+        //$AddCCp = "eli.obeth@hotmail.com";
 
         FB::INFO($EmailTo,'_______________________EMAIL');
 
@@ -735,7 +735,7 @@ order by cast(titular.folio as integer)")->queryAll();
             $PDF = $this->actionAumentopreciopdf('',$Ret = 'S',$folio);
             $attachment =array( array('nombre'=>'Carta_Aumento_Precio.pdf','archivo'=>$PDF));
             $Response = $this->EnviarMail($from, $To, $Subject, $Mensaje, $attachment , $BCC, $repplyTo = '',
-            $AddCCp);
+            $AddCC);
             if ($Response == "success") {
                 echo CJSON::encode(array(
                 'requestresult' => 'ok',
@@ -756,7 +756,8 @@ order by cast(titular.folio as integer)")->queryAll();
 
 public function actionAumentopreciopdf($name= '', $Ret = '', $folio){
     
-    $porcentajeAumento = "SELECT * FROM wrk_simulacion_aumentosprecio WHERE folio = '".$folio."' ";
+    $porcentajeAumento = "SELECT * FROM wrk_simulacion_aumentosprecio wrk WHERE  wrk.id=(select max(id) from wrk_simulacion_aumentosprecio wrkmax where wrkmax.folio=wrk.folio) and wrk.folio = '".$folio."' "; 
+
     $datosPocentaje = Yii::app()->db->createCommand($porcentajeAumento)->queryAll();
 
     $fecha = $datosPocentaje[0]['fecha_aumento_tarifa'];
@@ -781,7 +782,7 @@ public function actionAumentopreciopdf($name= '', $Ret = '', $folio){
     $pdf->SetXY(160, 36);
     $pdf->Cell(0, 0, $fep[1], 0, 0, "L");
 
-    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFont('Arial', '', 9);
     $pdf->SetXY(58, 181);
     $pdf->Cell(0, 0, $datosPocentaje[0]['prc_aumento_tarifa'], 0, 0, "L");
 

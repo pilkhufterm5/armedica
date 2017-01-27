@@ -159,9 +159,9 @@ class SimulacionesController extends Controller{
 
                         switch ($tamaño_cifra) {
                         case '7':
-                                $unidades                       = substr($cifra, -1,1);
-                                $decenas                        = substr($cifra, -2,1);
-                                $centenas                       = substr($cifra, -3,1);
+                        $unidades                       = substr($cifra, -1,1);
+                        $decenas                        = substr($cifra, -2,1);
+                        $centenas                       = substr($cifra, -3,1);
                         $unidad_de_millar               = substr($cifra, -4,1);
                         $decena_de_millar               = substr($cifra, -5,1);
                         $centena_de_millar              = substr($cifra, -6,1);
@@ -303,7 +303,9 @@ class SimulacionesController extends Controller{
                         if ($CheckRedondear == "NoAplica") {
                                 $_numero_redondeado = $CostoNuevo;
                         }
-                        
+                        //$WrkActualizarEstatus = "UPDATE wrk_simulacion_aumentosprecio set status = '0'
+                        //WHERE folio = '".$Folio."'";
+
                         $Simulacion="insert into wrk_simulacion_aumentosprecio
                         (folio,nombre,apellidos,name2,fecha_ingreso, movimientos_afiliacion,servicios_mes,servicios_acumulados,stockid,paymentid,frecuencia_pago,fecha_ultimo_aumento,costo_actual, prc_aumento_tarifa, fecha_aumento_tarifa,nueva_tarifa,usuario,nueva_tarifa_redondeada)
                         values(:folio,:nombre,:apellidos,:name2,:fecha_ingreso,:movimientos_afiliacion,:servicios_mes,
@@ -585,6 +587,7 @@ class SimulacionesController extends Controller{
                     parse_str($_POST['Actualizar']['Folio'], $datos);
                     
                     foreach ($datos['ActualizarTarifa'] as $key => $folio) {
+                        
                         $GetActualizaTarifa = Yii::app()->db->createCommand()->select ('
                         titular.folio,
                         titular.name,
@@ -636,6 +639,7 @@ class SimulacionesController extends Controller{
                 );
                                 
                 Yii::app()->db->createCommand($ActualizarTarifa)->execute($Parametros_tarifa);
+
                 $ActualizarStatus = "update wrk_simulacion_aumentosprecio set status = :status where id = :id";
                 $Parametros_status = array(
                 ':status'=>'1',
