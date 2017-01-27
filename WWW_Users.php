@@ -6,18 +6,33 @@ $PageSecurity=15;
 
 include('includes/session.inc');
 
-$ModuleList = array(
+/*$ModuleList = array(
             _('Orders'),
-                        _('Receivables'),
+            _('Receivables'),
             _('CFD'),
-                        _('Afiliaciones'),
-                        _('CRM'),
-                        _('Payables'),
-                        _('Purchasing'),
-                        _('Inventory'),
-                        _('Manufacturing'),
-                        _('General Ledger'),
-                        _('Setup'));
+            _('Afiliaciones'),
+            _('CRM'),
+            _('Payables'),
+            _('Purchasing'),
+            _('Inventory'),
+            _('Manufacturing'),
+            _('General Ledger'),
+            _('Setup'));*/
+
+$ModuleList = array(
+            _('Orders'),// 1
+            _('Receivables'),// 2
+            _('CFD'),// 3
+            _('Afiliaciones'),// 4
+            _('Punto De Venta'),// 5
+            _('CRM'),// 6
+            _('Payables'),// 7
+            _('Requisitions'),// 8
+            _('Purchasing'),// 9
+            _('Inventory'),// 10
+            _('Manufacturing'),// 11
+            _('General Ledger'),// 12
+            _('Setup'));// 13
 
 $title = _('User Maintenance');
 include('includes/header.inc');
@@ -119,75 +134,81 @@ if (isset($_POST['submit'])) {
                         $UpdatePassword = "password='" . CryptPass($_POST['Password']) . "',";
                 }
 
-                $sql = "UPDATE www_users SET realname='" . DB_escape_string($_POST['RealName']) . "',
-                                                customerid='" . DB_escape_string($_POST['Cust']) ."',
-                                                phone='" . DB_escape_string($_POST['Phone']) ."',
-                                                email='" . DB_escape_string($_POST['Email']) ."',
-                                                ".$UpdatePassword."
-                                                branchcode='" . DB_escape_string($_POST['BranchCode']) . "',
-                                                pagesize='" . $_POST['PageSize'] . "',
-                                                fullaccess=" . $_POST['Access'] . ",
-                                                theme='" . $_POST['Theme'] . "',
-                                                language ='" . $_POST['Language'] . "',
-                                                defaultlocation='" . $_POST['DefaultLocation'] ."',
-                                                modulesallowed='" . $ModulesAllowed . "',
-                                                blocked=" . $_POST['Blocked'] . ",
-                                                rh_updatecost = ".$_POST['rh_updatecost'].",
-                     rh_adminafil = ".$_POST['rh_adminafil'].",
-                      or_costo_afil = ".$_POST['or_costo_afil'].",
-                      or_cancelar_factura = ".$_POST['or_cancelar_factura'].",
-                        or_cambio_membresia = ".$_POST['or_cambio_membresia'].",
-                        simulacion_aum_prec = ".$_POST['simulacion_aum_prec'].",
-                     rh_permitionlocation='".implode(',',$_POST['PermitionLocation'])."'
-                                        WHERE userid = '$SelectedUser'";
+    $sql = "UPDATE www_users SET realname='" . DB_escape_string($_POST['RealName']) . "',
+            customerid='" . DB_escape_string($_POST['Cust']) ."',
+            phone='" . DB_escape_string($_POST['Phone']) ."',
+            email='" . DB_escape_string($_POST['Email']) ."',
+            ".$UpdatePassword."
+            branchcode='" . DB_escape_string($_POST['BranchCode']) . "',
+            pagesize='" . $_POST['PageSize'] . "',
+            fullaccess=" . $_POST['Access'] . ",
+            theme='" . $_POST['Theme'] . "',
+            language ='" . $_POST['Language'] . "',
+            defaultlocation='" . $_POST['DefaultLocation'] ."',
+            modulesallowed='" . $ModulesAllowed . "',
+            blocked=" . $_POST['Blocked'] . ",
+            rh_updatecost = ".$_POST['rh_updatecost'].",
+            rh_adminafil = ".$_POST['rh_adminafil'].",
+            or_costo_afil = ".$_POST['or_costo_afil'].",
+            or_cancelar_factura = ".$_POST['or_cancelar_factura'].",
+            or_cambio_membresia = ".$_POST['or_cambio_membresia'].",
+            or_compras = ".$_POST['or_compras'].",
+            or_pos_admin = ".$_POST['or_pos_admin'].",
+            simulacion_aum_prec = ".$_POST['simulacion_aum_prec'].",
+            rh_permitionlocation='".implode(',',$_POST['PermitionLocation'])."'
+                                WHERE userid = '$SelectedUser'";
 
-                $msg = _('The selected user record has been updated');
+    $msg = _('The selected user record has been updated');
         } elseif ($InputError !=1) {
 
-                $sql = "INSERT INTO www_users (userid,
-                                                realname,
-                                                customerid,
-                                                branchcode,
-                                                password,
-                                                phone,
-                                                email,
-                                                pagesize,
-                                                fullaccess,
-                                                defaultlocation,
-                                                modulesallowed,
-                                                displayrecordsmax,
-                                                theme,
-                                                language,
-                                                rh_updatecost,
-                                                or_costo_afil,
-                                                or_cancelar_factura,
-                                                or_cambio_membresia,
-                                                rh_adminafil,
-                                                simulacion_aum_prec,
-                        rh_permitionlocation)
-                                        VALUES ('" . $_POST['UserID'] . "',
-                                                '" . DB_escape_string($_POST['RealName']) ."',
-                                                '" . DB_escape_string($_POST['Cust']) ."',
-                                                '" . DB_escape_string($_POST['BranchCode']) ."',
-                                                '" . CryptPass($_POST['Password']) ."',
-                                                '" . DB_escape_string($_POST['Phone']) . "',
-                                                '" . DB_escape_string($_POST['Email']) ."',
-                                                '" . $_POST['PageSize'] ."',
-                                                " . $_POST['Access'] . ",
-                                                '" . $_POST['DefaultLocation'] ."',
-                                                '" . $ModulesAllowed . "',
-                                                " . $_SESSION['DefaultDisplayRecordsMax'] . ",
-                                                '" . $_POST['Theme'] . "',
-                                                '". $_POST['Language'] ."',
-                                                " . $_POST['rh_updatecost'] . ",
-                                                ".$_POST['or_costo_afil'].",
-                                                ".$_POST['or_cancelar_factura'].",
-                                                ".$_POST['or_cambio_membresia'].",
-                                                " . $_POST['rh_adminafil'] . ",
-                                                " . $_POST['simulacion_aum_prec'] . ",
-                        '".implode(',',$_POST['PermitionLocation'])."')";
-                $msg = _('A new user record has been inserted');
-        }
+            $sql = "INSERT INTO www_users (userid,
+                    realname,
+                    customerid,
+                    branchcode,
+                    password,
+                    phone,
+                    email,
+                    pagesize,
+                    fullaccess,
+                    defaultlocation,
+                    modulesallowed,
+                    displayrecordsmax,
+                    theme,
+                    language,
+                    rh_updatecost,
+                    or_costo_afil,
+                    or_cancelar_factura,
+                    or_cambio_membresia,
+                    or_compras,
+                    or_pos_admin,
+                    rh_adminafil,
+                    simulacion_aum_prec,
+                rh_permitionlocation)
+                VALUES ('" . $_POST['UserID'] . "',
+                        '" . DB_escape_string($_POST['RealName']) ."',
+                        '" . DB_escape_string($_POST['Cust']) ."',
+                        '" . DB_escape_string($_POST['BranchCode']) ."',
+                        '" . CryptPass($_POST['Password']) ."',
+                        '" . DB_escape_string($_POST['Phone']) . "',
+                        '" . DB_escape_string($_POST['Email']) ."',
+                        '" . $_POST['PageSize'] ."',
+                        " . $_POST['Access'] . ",
+                        '" . $_POST['DefaultLocation'] ."',
+                        '" . $ModulesAllowed . "',
+                        " . $_SESSION['DefaultDisplayRecordsMax'] . ",
+                        '" . $_POST['Theme'] . "',
+                        '". $_POST['Language'] ."',
+                        " . $_POST['rh_updatecost'] . ",
+                        ".$_POST['or_costo_afil'].",
+                        ".$_POST['or_cancelar_factura'].",
+                        ".$_POST['or_cambio_membresia'].",
+                        ".$_POST['or_compras'].",
+                        ".$_POST['or_pos_admin'].",
+                        " . $_POST['rh_adminafil'] . ",
+                        " . $_POST['simulacion_aum_prec'] . ",
+'".implode(',',$_POST['PermitionLocation'])."')";
+        $msg = _('A new user record has been inserted');
+    }
 
         if ($InputError!=1){
                 //run the SQL from either of the above possibilites
@@ -328,26 +349,28 @@ if (isset($SelectedUser)) {
 
         // bowikaxu realhost - 25 june 2008 - update cost
         $sql = "SELECT userid,
-                        realname,
-                        phone,
-                        email,
-                        customerid,
-                        password,
-                        branchcode,
-                        pagesize,
-                        fullaccess,
-                        defaultlocation,
-                        modulesallowed,
-                        blocked,
-                        theme,
-                        language,
-                        rh_updatecost,
-                        rh_adminafil,
-                        or_costo_afil,
-                        or_cancelar_factura,
-                        or_cambio_membresia,
-                        simulacion_aum_prec,
-           rh_permitionlocation
+                    realname,
+                    phone,
+                    email,
+                    customerid,
+                    password,
+                    branchcode,
+                    pagesize,
+                    fullaccess,
+                    defaultlocation,
+                    modulesallowed,
+                    blocked,
+                    theme,
+                    language,
+                    rh_updatecost,
+                    rh_adminafil,
+                    or_costo_afil,
+                    or_cancelar_factura,
+                    or_cambio_membresia,
+                    or_compras,
+                    or_pos_admin,
+                    simulacion_aum_prec,
+                    rh_permitionlocation
                 FROM www_users
                 WHERE userid='" . $SelectedUser . "'";
 
@@ -375,6 +398,10 @@ if (isset($SelectedUser)) {
         $_POST['or_cancelar_factura'] = $myrow['or_cancelar_factura'];
         $_POST['or_cambio_membresia'] = $myrow['or_cambio_membresia'];
         // Termina
+        // agregado para el modulo de requisiciones el 16 de enero del 2017
+        $_POST['or_compras'] = $myrow['or_compras'];
+        $_POST['or_pos_admin'] = $myrow['or_pos_admin'];
+        // termina
         $_POST['rh_adminafil'] = $myrow['rh_adminafil'];
         $_POST['simulacion_aum_prec'] = $myrow['simulacion_aum_prec'];
         $_POST['PermitionLocation'] = $myrow['rh_permitionlocation'];
@@ -638,7 +665,46 @@ POR DANIEL VILLARREAL EL 27 DE JULIO DEL 2016
         </select>
     </td>
 </tr>
-<!-- termina-->
+<!-- termina
+AGREGADO PARA EL MODULO DE REQUISICIONES POR DANIEL VILLARREAL EL 16 DE ENERO DEL 2017
+-->
+<tr>
+    <td>Compras de Requisiciones: </td>
+    <td>
+        <select name="or_compras">
+            <?php
+            if ($_POST['or_compras']==0){
+                echo '<OPTION SELECTED VALUE=0>' . _('No');
+                echo '<OPTION VALUE=1>' . _('Yes');
+            } else {
+                echo '<OPTION SELECTED VALUE=1>' . _('Yes');
+                echo '<OPTION VALUE=0>' . _('No');
+            }
+            ?>
+        </select>
+    </td>
+</tr>
+<!-- TERMINA -->
+<!-- termina
+AGREGADO PARA EL MODULO DE POS POR DANIEL VILLARREAL EL 16 DE ENERO DEL 2017
+-->
+<tr>
+    <td>POS Administracion: </td>
+    <td>
+        <select name="or_pos_admin">
+            <?php
+            if ($_POST['or_pos_admin']==0){
+                echo '<OPTION SELECTED VALUE=0>' . _('No');
+                echo '<OPTION VALUE=1>' . _('Yes');
+            } else {
+                echo '<OPTION SELECTED VALUE=1>' . _('Yes');
+                echo '<OPTION VALUE=0>' . _('No');
+            }
+            ?>
+        </select>
+    </td>
+</tr>
+<!-- TERMINA -->
 <tr>
         <td>Cancelar Factura: </td>
         <td>
