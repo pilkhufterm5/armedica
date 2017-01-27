@@ -88,7 +88,7 @@ $Version = '3.08';
 // $host = 'localhost';
 // $host = '10.183.7.232';
 //$host = '10.208.128.149'; //nuevo server DB Aug 22, 2015
-$host = '192.168.10.11'; //nuevo server DB Aug 22, 2015
+$host = '192.168.10.12'; //nuevo server DB Aug 22, 2015
 
 
 //The type of db server being used - currently only postgres or mysql

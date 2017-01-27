@@ -17,14 +17,36 @@ $afil=unserialize(GetConfig('Afiliaciones'));
 //if(!isset($afil['Prefijo'])) UpdateConfig('Afiliaciones',serialize(array('Prefijo'=>'T-')));
 
 /*The module link codes are hard coded in a switch statement below to determine the options to show for each tab */
-$ModuleLink = array('orders', 'AR', 'FE', 'AF', 'CRM',
-//'EXP',
-'AP', 'PO', 'stock', 'manuf', 'GL', 'system');
+$ModuleLink = array(
+	'orders',
+	'AR',
+	'FE',
+	'AF',
+	'POS',
+	'CRM',
+	'AP',
+	'REQ',
+	'PO',
+	'stock',
+	'manuf',
+	'GL',
+	'system');
 /*The headings showing on the tabs accross the main index used also in WWW_Users for defining what should be visible to the user */
-$ModuleList = array(_('Sales'), _('Receivables'), _('Factura Electronica'), _('Afiliaciones'),
-_('CRM'),
-// _('Exp. Clinico'),
- _('Payables'), _('Purchases'), _('Inventory'), _('Manufacturing'), _('General Ledger'), _('Setup'));
+$ModuleList = array(
+		_('Sales'),
+		_('Receivables'),
+		_('Factura Electronica'),
+		_('Afiliaciones'),
+		_('Punto de Venta'),
+		_('CRM'), 
+		_('Payables'),
+		_('Requisiciones'),
+		_('Purchases'),
+		_('Inventory'),
+		_('Manufacturing'),
+		_('General Ledger'),
+		_('Setup')
+	);
 
 if (isset($_GET['Application'])){ /*This is sent by this page (to itself) when the user clicks on a tab */
 	$_SESSION['Module'] = $_GET['Application'];
@@ -1409,6 +1431,55 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==0){
 	<?php
 		break;
 
+	/* AGREGADO PARA EL MODULO REQUISICIONES */
+
+	Case 'REQ': /* REQUISITIONS*/ ?>
+		<table width="100%">
+			<tr>
+			<td valign="top" class="menu_group_area">
+				<table width="100%">
+
+					<?php OptionHeadings(); ?>
+
+					<tr>
+					<td class="menu_group_items"> <!-- AP transaction options -->
+						<table width="100%" class="table_index">
+							<tr>
+								<td class="menu_group_item">
+									<?php echo "<A HREF='" . $rootpath . '/captura_requisicion.php?' . SID . "'><LI>" . _('Captura de Requisiciones') . "</LI></A>"; ?>
+								</td>
+							</tr>
+							<tr>
+								<td class="menu_group_item">
+									<?php echo "<A HREF='" . $rootpath . '/REQ_AuthoriseMyOrders.php?' . SID . "'><LI>" . _('Autorizacion de las Requisiciones') . "</LI></A>"; ?>
+								</td>
+							</tr>
+							<tr>
+								<td class="menu_group_item">
+									<?php echo "<A HREF='" . $rootpath . '/REQ_List.php?' . SID . "'><LI>" . _('Lista de Requisiciones') . "</LI></A>"; ?>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="menu_group_items">  <!-- AP Inquiries -->
+						<table width="100%" class="table_index">
+							
+						</table>
+					</td>
+					<td class="menu_group_items">   <!-- AP Maintenance Options -->
+						<table width="100%" class="table_index">
+						</table>
+					</td>
+					</tr>
+				</table>
+			</td>
+			</tr>
+		</table>
+	<?php
+
+		break;
+	/* TERMINA AGREGADO PARA EL MODULO REQUISICIONES*/
+
 	Case 'PO': /* Purchase Ordering */
 
 	?>
@@ -1455,6 +1526,11 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==0){
 							<tr>
 							<td class="menu_group_item">
 								<?php echo "<A HREF='" . $rootpath . '/Shipt_Select.php?' . SID . "'><LI>" . _('Select A Shipment') . "</LI></A>"; ?>
+							</td>
+							</tr>
+							<tr>
+							<td class="menu_group_item">
+								<?php echo "<A HREF='" . $rootpath . '/REQ_supprice.php?' . SID . "'><LI>" . _('Lista de Precios-Proveedores') . "</LI></A>"; ?>
 							</td>
 							</tr>
 						</table>
@@ -1533,6 +1609,41 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==0){
                             <tr>
                                 <td class="menu_group_item">
                                     <?php echo "<A HREF='" . $rootpath . '/rh_Cerrar_PO.php' . SID . "'><LI>" . _('Cerrar Ordenes de Compra') . '</LI></A>'; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menu_group_item">
+                                    <?php echo "<A HREF='" . $rootpath . '/catalogo_centrodecosto.php' . SID . "'><LI>" . _('Catalogo de Centros de Costo') . '</LI></A>'; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menu_group_item">
+                                    <?php echo "<A HREF='" . $rootpath . '/catalogo_subcentrodecosto.php' . SID . "'><LI>" . _('Catalogo de Sub Centros de Costo') . '</LI></A>'; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menu_group_item">
+                                    <?php echo "<A HREF='" . $rootpath . '/catalogo_categorias.php' . SID . "'><LI>" . _('Catalogo de Categorias') . '</LI></A>'; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menu_group_item">
+                                    <?php echo "<A HREF='" . $rootpath . '/catalogo_enlacecontable.php' . SID . "'><LI>" . _('Catalogo de Enlaces Contables') . '</LI></A>'; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menu_group_item">
+                                    <?php echo "<A HREF='" . $rootpath . '/catalogo_autorizadores.php' . SID . "'><LI>" . _('Catalogo de Autorizadores') . '</LI></A>'; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menu_group_item">
+                                    <?php echo "<A HREF='" . $rootpath . '/catalogo_solicitantes.php' . SID . "'><LI>" . _('Catalogo de Solicitantes') . '</LI></A>'; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="menu_group_item">
+                                    <?php echo "<A HREF='" . $rootpath . '/catalogo_motivosderechazo.php' . SID . "'><LI>" . _('Catalogo de Motivos de Rechazo') . '</LI></A>'; ?>
                                 </td>
                             </tr>
 						</table>

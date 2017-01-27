@@ -74,7 +74,7 @@ class WS_CECOM {
     public function GetCatalog($Model){
 
         //$URL = "http://localhost/ar_cecom_ws/index.php?r=api/Getcatalog";
-        $URL = "http://192.168.10.11/ar_cecom_ws/index.php?r=api/Getcatalog";
+        $URL = "http://192.168.10.12/ar_cecom_ws/index.php?r=api/Getcatalog";
 
         $CREATE_POST_FIELDS = "";
         $CREATE_POST_FIELDS .= "TYPE=CATALOG&";

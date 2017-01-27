@@ -198,6 +198,42 @@ if (isset($_POST['Commit'])&& !isset($_POST['Forzed'])){ /*User wishes to commit
 			$DbgMsg = _('The SQL statement used to insert the purchase order header record and failed was');
 			$result = DB_query($sql,$db,$ErrMsg,$DbgMsg,true);
 
+/*
+Aqui aplica cambio elio2724 
+*/
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+// proceso para actualizar la requisicion en caso de haber seleccionado
+			if($_SESSION['PO'.$identifier]->RequisitionNo!='')
+			{
+				// datos de la requisicion
+				$sql = "SELECT * FROM wrk_requisicion wrkr WHERE reqid='".$_SESSION['PO'.$identifier]->RequisitionNo."'";
+				$resultsql = DB_query($sql,$db);
+				$rowreq = DB_fetch_array($resultsql);
+				if(!empty($rowreq))
+				{
+					/*
+						actualizamos
+						fecha_compras
+						autoriza_compras
+					*/
+					if($rowreq['fecha_compras']=='')
+					{
+						$sql="UPDATE wrk_requisicion
+						SET 
+						fecha_compras='".date('Y-m-d H:i:s')."',
+						autoriza_compras='".$_SESSION['UserID']."'
+						WHERE reqid='".$rowreq['reqid']."'";
+						$result=DB_query($sql, $db);	
+					}
+				}
+			}
+			// termina
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
 		     /*Insert the purchase order detail records */
 			foreach ($_SESSION['PO'.$identifier]->LineItems as $POLine) {
 				if ($POLine->Deleted==False) {
@@ -258,6 +294,41 @@ if (isset($_POST['Commit'])&& !isset($_POST['Forzed'])){ /*User wishes to commit
 					$ErrMsg =_('One of the purchase order detail records could not be inserted into the database because');
 					$DbgMsg =_('The SQL statement used to insert the purchase order detail record and failed was');
 					$result =DB_query($sql,$db,$ErrMsg,$DbgMsg,true);
+
+/*
+Aqui aplica cambio elio2724
+*/
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+// si tiene requisicion actualizamos los productos en base a reqid y stockid
+					if(!empty($rowreq))
+					{
+						/*
+							actualizamos el detalle de cada producto
+							completed
+							quantityord
+						*/
+							$sql_det = "SELECT * FROM wrk_requisiciondetalle WHERE reqno='".$_SESSION['PO'.$identifier]->RequisitionNo."' and itemcode='".$POLine->StockID."'";
+							$resultsql_det = DB_query($sql_det,$db);
+							$rowreq_det = DB_fetch_array($resultsql_det);
+							if(!empty($rowreq_det))
+							{
+								$cantidadpendiente = $rowreq_det['quantityreq']-$rowreq_det['quantityord']-$POLine->Quantity;
+								$cantidad = $rowreq_det['quantityord']+$POLine->Quantity;
+								$completed = 0;
+								if($cantidadpendiente<0 || $cantidadpendiente==0){$completed = 1;}
+								$sql="UPDATE wrk_requisiciondetalle
+									SET 
+									quantityord='".$cantidad."',
+									fec_autorizapart='".date('Y-m-d')."',
+									completed='".$completed."'
+									WHERE reqno='".$rowreq['reqid']."' and itemcode='".$POLine->StockID."'";
+								$result=DB_query($sql, $db);
+							}
+					}
+					// termina actualizacion de requisiciones
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////					
 				}
 			} /* end of the loop round the detail line items on the order */
 			echo '<p>';
