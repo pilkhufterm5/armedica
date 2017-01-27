@@ -115,6 +115,7 @@ foreach($Grupos as $id=>$val){
 	echo "</tr>";
 }
 
+
 if(!$Grupo){
 	echo '<tr>';
 	foreach($d as $id=>$val){

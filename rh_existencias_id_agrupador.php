@@ -54,6 +54,7 @@ $(function(){
 		$AlmacenesFarmacias[]=$almacen;
 		$AlmacenesFarmaciasX[]=$almacen['loccode'];
 	}
+	
 	/*
 	 * Script generado por rleal para actualizar la tabla de rh_locstock_max_min_agr
 	 */
